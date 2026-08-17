@@ -23,6 +23,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write # label creation for sync PRs (sync, sync-branding-violations)
 
 jobs:
   sync-omp:

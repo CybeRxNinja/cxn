@@ -149,6 +149,12 @@ const body = [
 	.filter(Boolean)
 	.join("\n");
 
+// `gh pr create --label` fails when a label does not exist; ensure both sync
+// labels exist (no-op if they do, graceful no-op if the token cannot create
+// labels — the PR is still created, just unlabeled).
+await $`gh label create sync --force --color 5319e7 --description "Automated upstream sync"`.quiet().nothrow();
+await $`gh label create sync-branding-violations --force --color b60205 --description "Sync introduced un-rebranded upstream code; review before merge"`.quiet().nothrow();
+
 const existing = (await $`gh pr list --head ${branch} --state open --json number`.quiet().nothrow().text()).trim();
 const labels = brandingClean ? ["sync"] : ["sync", "sync-branding-violations"];
 
