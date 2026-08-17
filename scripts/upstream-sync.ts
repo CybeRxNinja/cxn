@@ -62,7 +62,7 @@ try {
 	await $`git remote add ${UPSTREAM} ${UPSTREAM_URL}`.quiet();
 } catch {
 	// already present
-}// Full fetch (no shallow): the pushed merge result must carry complete
+} // Full fetch (no shallow): the pushed merge result must carry complete
 // ancestry or GitHub rejects the push (index-pack "did not receive expected
 // object"). The full upstream repo is only ~500 MB; CI runners handle it fast.
 console.log(`Fetching ${UPSTREAM} (full)...`);
