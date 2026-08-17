@@ -62,7 +62,15 @@ try {
 	await $`git remote add ${UPSTREAM} ${UPSTREAM_URL}`.quiet();
 } catch {
 	// already present
-} // Full fetch (no shallow): the pushed merge result must carry complete
+}
+
+// GitHub-hosted runners have no git identity; git refuses to create the merge
+// commit (and the sync-point commit below) without one. Set a local identity
+// scoped to this repo so the sync can commit on any machine.
+await $`git config user.name "cxn-sync[bot]"`.quiet();
+await $`git config user.email "cxn-sync[bot]@users.noreply.github.com"`.quiet();
+
+// Full fetch (no shallow): the pushed merge result must carry complete
 // ancestry or GitHub rejects the push (index-pack "did not receive expected
 // object"). The full upstream repo is only ~500 MB; CI runners handle it fast.
 console.log(`Fetching ${UPSTREAM} (full)...`);
