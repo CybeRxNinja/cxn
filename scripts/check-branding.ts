@@ -27,8 +27,12 @@ import { join, relative } from "node:path";
 const ROOT = join(import.meta.dir, "..");
 const SELF = "scripts/check-branding.ts";
 
+// docs/ legitimately reference the upstreams we port from (porting guides,
+// spike reports); the strict brand rules target product code.
+const REFERENCE_ALLOWED = (rel: string): boolean => rel.startsWith("docs/") || rel === SELF;
+
 const LEGACY_ALLOWED = (rel: string): boolean =>
-	rel.startsWith("docs/") ||
+	REFERENCE_ALLOWED(rel) ||
 	rel.includes("/extensibility/") ||
 	rel.includes("legacy") ||
 	rel.includes("scope-alias") ||
@@ -36,8 +40,7 @@ const LEGACY_ALLOWED = (rel: string): boolean =>
 	rel.includes("metaharness/") ||
 	rel.endsWith("model-registry.ts") ||
 	rel.endsWith("session-tools.ts") ||
-	rel === "packages/tui/src/keys.ts" ||
-	rel === SELF;
+	rel === "packages/tui/src/keys.ts";
 
 interface Rule {
 	pattern: RegExp;
@@ -46,15 +49,15 @@ interface Rule {
 }
 
 const RULES: Rule[] = [
-	{ pattern: /\bomp\b/, label: "omp", allowed: rel => rel === SELF },
+	{ pattern: /\bomp\b/, label: "omp", allowed: REFERENCE_ALLOWED },
 	// `can1357/oh-my-pi` URLs are upstream references, not branding.
-	{ pattern: /(?<!can1357\/)oh-my-pi/, label: "oh-my-pi", allowed: rel => rel === SELF },
-	{ pattern: /Oh My Pi/, label: "Oh My Pi", allowed: rel => rel === SELF },
-	{ pattern: /prime-agent/, label: "prime-agent", allowed: rel => rel === SELF },
-	{ pattern: /Prime Agent/, label: "Prime Agent", allowed: rel => rel === SELF },
-	{ pattern: /primeintellect/i, label: "primeintellect", allowed: rel => rel === SELF },
-	{ pattern: /Prime Intellect/, label: "Prime Intellect", allowed: rel => rel === SELF },
-	{ pattern: /app\.primeintellect\.ai/, label: "app.primeintellect.ai", allowed: rel => rel === SELF },
+	{ pattern: /(?<!can1357\/)oh-my-pi/, label: "oh-my-pi", allowed: REFERENCE_ALLOWED },
+	{ pattern: /Oh My Pi/, label: "Oh My Pi", allowed: REFERENCE_ALLOWED },
+	{ pattern: /prime-agent/, label: "prime-agent", allowed: REFERENCE_ALLOWED },
+	{ pattern: /Prime Agent/, label: "Prime Agent", allowed: REFERENCE_ALLOWED },
+	{ pattern: /primeintellect/i, label: "primeintellect", allowed: REFERENCE_ALLOWED },
+	{ pattern: /Prime Intellect/, label: "Prime Intellect", allowed: REFERENCE_ALLOWED },
+	{ pattern: /app\.primeintellect\.ai/, label: "app.primeintellect.ai", allowed: REFERENCE_ALLOWED },
 	{ pattern: /@mariozechner/, label: "@mariozechner", allowed: LEGACY_ALLOWED },
 	{ pattern: /@earendil-works/, label: "@earendil-works", allowed: LEGACY_ALLOWED },
 ];
