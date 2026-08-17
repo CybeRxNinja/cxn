@@ -679,3 +679,111 @@ if "__cxn_prelude_loaded__" not in globals():
                 return "<budget unavailable>"
 
     budget = _Budget()
+
+    # ------------------------------------------------------------------
+    # RLM: recursive subagents (admitted children run detached)
+    # ------------------------------------------------------------------
+
+    class _Rlm:
+        """Recursive subagent admission and family management.
+
+        ``rlm.run(prompt, name=..., model=...)`` admits a child immediately and
+        returns a spawn handle; the child runs detached as a full structured
+        subagent session. Track it with ``rlm.list_subagents()`` and remove it
+        with ``rlm.delete_subagent(target)``.
+        """
+
+        def run(self, prompt, *, name=None, model=None):
+            """Admit one recursive child and return its spawn handle."""
+            kwargs = {}
+            if name is not None:
+                kwargs["name"] = name
+            if model is not None:
+                kwargs["model"] = model
+            return _bridge_call("__rlm__", {"op": "run", "prompt": prompt, "kwargs": kwargs})
+
+        def list_subagents(self):
+            """List children retained by this parent session."""
+            res = _bridge_call("__rlm__", {"op": "list_subagents"})
+            return res.get("subagents", []) if isinstance(res, dict) else []
+
+        def delete_subagent(self, target):
+            """Delete one running or retained child by id or subagent dict."""
+            selector = target.get("rlm_child_id") if isinstance(target, dict) else target
+            return _bridge_call(
+                "__rlm__", {"op": "delete_subagent", "target": selector}
+            )
+
+        def find_models(self, query="", limit=8):
+            """Search a bounded model catalog (empty until a later phase)."""
+            res = _bridge_call(
+                "__rlm__", {"op": "find_models", "query": query, "limit": limit}
+            )
+            return res.get("models", []) if isinstance(res, dict) else []
+
+        def __repr__(self):
+            return "<rlm>"
+
+    rlm = _Rlm()
+
+    # ------------------------------------------------------------------
+    # agent_message: family messaging (parent <-> direct children)
+    # ------------------------------------------------------------------
+
+    class _AgentMessage:
+        """Message passing within the agent family.
+
+        ``send`` addresses a role ("parent" or "child"; siblings arrive in a
+        later phase) and returns a receipt. ``recv`` drains this agent's
+        mailbox; pass ``peek=True`` to inspect without draining.
+        """
+
+        _ROLES = ("parent", "sibling", "child")
+
+        def list_agents(self):
+            """List this agent's family roster (parent plus children)."""
+            res = _bridge_call("__agent_message__", {"op": "list_agents"})
+            return res.get("agents", []) if isinstance(res, dict) else []
+
+        def send(
+            self,
+            message,
+            *,
+            receiver_role="parent",
+            receiver_name=None,
+            mode="auto",
+        ):
+            """Send one role-addressed family message; returns the receipt."""
+            if receiver_role not in self._ROLES:
+                raise ValueError(
+                    'receiver_role must be "parent", "sibling", or "child"'
+                )
+            if receiver_role in ("sibling", "child") and not (
+                receiver_name and receiver_name.strip()
+            ):
+                raise ValueError(
+                    "receiver_name is required for sibling and child messages"
+                )
+            if mode not in ("auto", "steer", "follow_up"):
+                raise ValueError('mode must be "auto", "steer", or "follow_up"')
+            payload = {
+                "op": "send",
+                "message": message,
+                "receiver_role": receiver_role,
+                "mode": mode,
+            }
+            if receiver_name is not None:
+                payload["receiver_name"] = receiver_name
+            return _bridge_call("__agent_message__", payload)
+
+        def recv(self, *, peek=False):
+            """Receive (and drain) this agent's pending messages."""
+            res = _bridge_call(
+                "__agent_message__", {"op": "recv", "peek": bool(peek)}
+            )
+            return res.get("messages", []) if isinstance(res, dict) else []
+
+        def __repr__(self):
+            return "<agent_message>"
+
+    agent_message = _AgentMessage()

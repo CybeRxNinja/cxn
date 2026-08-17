@@ -37,19 +37,19 @@ function makeFakeTool(name: string, cwd: string): AgentTool {
 		parameters: {},
 		async execute(_callId: string, args: Record<string, unknown>) {
 			if (name === "read") {
-				const path = String(args["path"] ?? "");
+				const path = String(args.path ?? "");
 				const full = join(cwd, path);
 				const text = readFileSync(full, "utf-8");
 				return { content: [{ type: "text", text }] };
 			}
 			if (name === "write") {
-				const path = String(args["path"] ?? "");
+				const path = String(args.path ?? "");
 				const full = join(cwd, path);
-				writeFileSync(full, String(args["content"] ?? ""));
+				writeFileSync(full, String(args.content ?? ""));
 				return { content: [{ type: "text", text: `wrote ${path}` }] };
 			}
 			if (name === "bash") {
-				const command = String(args["command"] ?? "");
+				const command = String(args.command ?? "");
 				const proc = Bun.spawn(["bash", "-c", command], { cwd, stdout: "pipe", stderr: "pipe" });
 				const [stdout, stderr] = await Promise.all([
 					new Response(proc.stdout).text(),

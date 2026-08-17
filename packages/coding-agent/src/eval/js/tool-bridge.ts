@@ -6,6 +6,7 @@ import { EVAL_AGENT_BRIDGE_NAME, runEvalAgent } from "../agent-bridge";
 import { EVAL_BUDGET_BRIDGE_NAME, type EvalBudgetResult, runEvalBudget } from "../budget-bridge";
 import { EVAL_COMPLETION_BRIDGE_NAME, runEvalCompletion } from "../completion-bridge";
 import { EVAL_CONCURRENCY_BRIDGE_NAME, type EvalConcurrencyResult, runEvalConcurrency } from "../concurrency-bridge";
+import { EVAL_AGENT_MESSAGE_BRIDGE_NAME, EVAL_RLM_BRIDGE_NAME, runAgentMessageBridge, runRlmBridge } from "../py/rlm";
 import type { JsStatusEvent } from "./shared/types";
 
 export type { JsStatusEvent } from "./shared/types";
@@ -119,6 +120,12 @@ export async function callSessionTool(name: string, args: unknown, options: Tool
 	}
 	if (name === EVAL_CONCURRENCY_BRIDGE_NAME) {
 		return runEvalConcurrency(args, options);
+	}
+	if (name === EVAL_RLM_BRIDGE_NAME) {
+		return (await runRlmBridge(options.session, args)) as Exclude<ToolValue, string>;
+	}
+	if (name === EVAL_AGENT_MESSAGE_BRIDGE_NAME) {
+		return (await runAgentMessageBridge(options.session, args)) as Exclude<ToolValue, string>;
 	}
 	const tool = getTool(options.session, name);
 	const normalizedArgs = normalizeArgs(args);

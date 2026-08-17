@@ -29,6 +29,7 @@ pathIgnorePatterns = [
   "docs/**",
   "runs/**",
   "python/robomp/data/**",
+  "research/**",
   ".wt/**",
   ".worktrees/**",
   "bazel-*/**",

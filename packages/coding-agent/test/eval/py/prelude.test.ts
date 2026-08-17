@@ -159,4 +159,93 @@ describe("python prelude", () => {
 			proxy.stop(true);
 		}
 	});
+
+	it("builds the rlm() bridge payloads the host expects", async () => {
+		const requests: unknown[] = [];
+		const server = Bun.serve({
+			hostname: "127.0.0.1",
+			port: 0,
+			fetch: async request => {
+				requests.push(await request.json());
+				return Response.json({ ok: true, value: { rlm_child_id: "rlm-1" } });
+			},
+		});
+
+		try {
+			const result = await runPrelude(
+				[
+					'rlm.run("scout the codebase", name="scout", model="fast/model")',
+					"rlm.list_subagents()",
+					'rlm.delete_subagent("rlm-1")',
+					'rlm.find_models("gpt", limit=4)',
+				].join("\n"),
+				{
+					PI_TOOL_BRIDGE_URL: server.url.toString(),
+					PI_TOOL_BRIDGE_TOKEN: "test-token",
+					PI_TOOL_BRIDGE_SESSION: "test-session",
+				},
+			);
+
+			expect(result.exitCode).toBe(0);
+			expect(requests).toEqual([
+				{
+					session: "test-session",
+					run: null,
+					name: "__rlm__",
+					args: { op: "run", prompt: "scout the codebase", kwargs: { name: "scout", model: "fast/model" } },
+				},
+				{ session: "test-session", run: null, name: "__rlm__", args: { op: "list_subagents" } },
+				{ session: "test-session", run: null, name: "__rlm__", args: { op: "delete_subagent", target: "rlm-1" } },
+				{
+					session: "test-session",
+					run: null,
+					name: "__rlm__",
+					args: { op: "find_models", query: "gpt", limit: 4 },
+				},
+			]);
+		} finally {
+			server.stop(true);
+		}
+	});
+
+	it("builds the agent_message() bridge payloads the host expects", async () => {
+		const requests: unknown[] = [];
+		const server = Bun.serve({
+			hostname: "127.0.0.1",
+			port: 0,
+			fetch: async request => {
+				requests.push(await request.json());
+				return Response.json({ ok: true, value: { deliveryStatus: "delivered" } });
+			},
+		});
+
+		try {
+			const result = await runPrelude(
+				[
+					"agent_message.list_agents()",
+					'agent_message.send("hi", receiver_role="child", receiver_name="scout", mode="steer")',
+					"agent_message.recv(peek=True)",
+				].join("\n"),
+				{
+					PI_TOOL_BRIDGE_URL: server.url.toString(),
+					PI_TOOL_BRIDGE_TOKEN: "test-token",
+					PI_TOOL_BRIDGE_SESSION: "test-session",
+				},
+			);
+
+			expect(result.exitCode).toBe(0);
+			expect(requests).toEqual([
+				{ session: "test-session", run: null, name: "__agent_message__", args: { op: "list_agents" } },
+				{
+					session: "test-session",
+					run: null,
+					name: "__agent_message__",
+					args: { op: "send", message: "hi", receiver_role: "child", receiver_name: "scout", mode: "steer" },
+				},
+				{ session: "test-session", run: null, name: "__agent_message__", args: { op: "recv", peek: true } },
+			]);
+		} finally {
+			server.stop(true);
+		}
+	});
 });
