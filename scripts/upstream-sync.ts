@@ -62,12 +62,11 @@ try {
 	await $`git remote add ${UPSTREAM} ${UPSTREAM_URL}`.quiet();
 } catch {
 	// already present
-}
-
-const since = process.env.SYNC_SINCE;
-const sinceArg = since ? new Date(since).toISOString() : new Date(Date.now() - 90 * 86_400_000).toISOString();
-console.log(`Fetching ${UPSTREAM} (shallow-since ${sinceArg})...`);
-await $`git fetch --shallow-since=${sinceArg} ${UPSTREAM} main`;
+}// Full fetch (no shallow): the pushed merge result must carry complete
+// ancestry or GitHub rejects the push (index-pack "did not receive expected
+// object"). The full upstream repo is only ~500 MB; CI runners handle it fast.
+console.log(`Fetching ${UPSTREAM} (full)...`);
+await $`git fetch ${UPSTREAM} main`;
 
 const upstreamSha = (await $`git rev-parse ${UPSTREAM}/main`.text()).trim();
 const shortSha = upstreamSha.slice(0, 7);
