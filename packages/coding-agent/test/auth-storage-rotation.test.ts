@@ -2,13 +2,13 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type OAuthCredential, type UsageProvider, withAuth } from "@oh-my-pi/pi-ai";
-import * as oauth from "@oh-my-pi/pi-ai/oauth";
-import type { OAuthCredentials, OAuthProviderId } from "@oh-my-pi/pi-ai/oauth/types";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { removeSyncWithRetries, Snowflake } from "@oh-my-pi/pi-utils";
+import { type OAuthCredential, type UsageProvider, withAuth } from "@cxn/pi-ai";
+import * as oauth from "@cxn/pi-ai/oauth";
+import type { OAuthCredentials, OAuthProviderId } from "@cxn/pi-ai/oauth/types";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
 import { createApiKeyResolver } from "../src/config/api-key-resolver";
 
 describe("AuthStorage account rotation", () => {

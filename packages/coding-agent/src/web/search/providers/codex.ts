@@ -4,24 +4,17 @@
  * Uses the configured Codex Responses transport for proxy/API-key setups and
  * the official ChatGPT backend for OAuth logins.
  */
-import {
-	type AuthStorage,
-	type FetchImpl,
-	type Model,
-	type OAuthAccess,
-	withAuth,
-	withOAuthAccess,
-} from "@oh-my-pi/pi-ai";
-import { resolveCodexResponsesUrl } from "@oh-my-pi/pi-ai/providers/openai-codex-responses";
-import { getBundledModels } from "@oh-my-pi/pi-catalog/models";
+import { type AuthStorage, type FetchImpl, type Model, type OAuthAccess, withAuth, withOAuthAccess } from "@cxn/pi-ai";
+import { resolveCodexResponsesUrl } from "@cxn/pi-ai/providers/openai-codex-responses";
+import { getBundledModels } from "@cxn/pi-catalog/models";
 import {
 	CODEX_BASE_URL,
 	CODEX_CLIENT_VERSION,
 	getCodexAccountId,
 	OPENAI_HEADER_VALUES,
 	OPENAI_HEADERS,
-} from "@oh-my-pi/pi-catalog/wire/codex";
-import { $env, readSseJson, USER_AGENT } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-catalog/wire/codex";
+import { $env, readSseJson, USER_AGENT } from "@cxn/pi-utils";
 import type { ModelRegistry } from "../../../config/model-registry";
 import type { SearchResponse, SearchSource } from "../../../web/search/types";
 import { SearchProviderError } from "../../../web/search/types";
@@ -792,7 +785,7 @@ export async function searchCodex(params: SearchParams): Promise<SearchResponse>
 		const seed = await findCodexAuth(params.authStorage, params.sessionId, params.signal);
 		if (!seed) {
 			throw new Error(
-				"No Codex OAuth credentials found. Login with 'omp /login openai-codex' to enable Codex web search.",
+				"No Codex OAuth credentials found. Login with 'cxn /login openai-codex' to enable Codex web search.",
 			);
 		}
 

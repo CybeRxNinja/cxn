@@ -2,8 +2,8 @@ import * as fs from "node:fs/promises";
 import * as net from "node:net";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Process, type PtyRunResult, PtySession } from "@oh-my-pi/pi-natives";
-import { isEexist, isEnoent, logger, postmortem, procmgr, sanitizeText, setProcessName } from "@oh-my-pi/pi-utils";
+import { Process, type PtyRunResult, PtySession } from "@cxn/pi-natives";
+import { isEexist, isEnoent, logger, postmortem, procmgr, sanitizeText, setProcessName } from "@cxn/pi-utils";
 import { hostHasInheritableConsole } from "../eval/py/spawn-options";
 import { truncateHead, truncateHeadBytes, truncateTail, truncateTailBytes } from "../session/streaming-output";
 import { workerEnvFromParent } from "../subprocess/worker-client";
@@ -1383,7 +1383,7 @@ export async function startDaemonBrokerFromEnvironment(options: DaemonBrokerStar
 	await fs.mkdir(runtimeDir, { recursive: true, mode: 0o700 });
 	const lease = await acquireBrokerLease(runtimeDir);
 	if (!lease) return;
-	setProcessName("omp daemon broker");
+	setProcessName("cxn daemon broker");
 	// Reclaim sibling daemon scopes left behind by dead brokers (issue #8674).
 	// Detached and non-throwing so it never delays clients connecting to us.
 	void pruneDeadDaemonRuntimeDirs(runtimeDir).catch(error => {

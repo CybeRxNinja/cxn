@@ -1,7 +1,7 @@
 """Contract test for the robomp server API response vs status-contract.json.
 
 Regenerate the committed fixture with:
-    ROBOMP_UPDATE_STATUS_CONTRACT=1 pytest tests/test_status_contract.py
+    ROBCXN_UPDATE_STATUS_CONTRACT=1 pytest tests/test_status_contract.py
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ from robomp.server import create_app
 # can be compared against (or regenerated into) a byte-stable committed fixture.
 _VOLATILE_TS_KEYS = {"received_at", "started_at", "last_tool_ts", "updated_at"}
 _FIXED_TS = "2024-01-01T00:00:00+00:00"
-_UPDATE_ENV = "ROBOMP_UPDATE_STATUS_CONTRACT"
+_UPDATE_ENV = "ROBCXN_UPDATE_STATUS_CONTRACT"
 
 
 def _normalize_for_fixture(value: Any) -> Any:
@@ -225,7 +225,7 @@ def test_status_contract(settings: Settings) -> None:
         assert data["runtime"]["repo_allowlist"] == ["octo/widget"]
 
         # Compare the normalized payload against the committed fixture. Normal
-        # pytest runs assert equality; regenerate only when ROBOMP_UPDATE_STATUS_CONTRACT=1.
+        # pytest runs assert equality; regenerate only when ROBCXN_UPDATE_STATUS_CONTRACT=1.
         fixture_path = Path(__file__).parent.parent / "web/test/fixtures/status-contract.json"
         actual = _normalize_for_fixture(data)
         if os.environ.get(_UPDATE_ENV) == "1":
@@ -238,7 +238,7 @@ def test_status_contract(settings: Settings) -> None:
 
 def _enable_replay(monkeypatch: pytest.MonkeyPatch) -> str:
     token = "trigger-secret"
-    monkeypatch.setenv("ROBOMP_REPLAY_TOKEN", token)
+    monkeypatch.setenv("ROBCXN_REPLAY_TOKEN", token)
     reset_settings_cache()
     return token
 
@@ -327,7 +327,7 @@ def test_cancel_errors_and_gating(env, monkeypatch: pytest.MonkeyPatch) -> None:
         assert resp.status_code == 401
 
     # with replay disabled (token not set) -> 404
-    monkeypatch.setenv("ROBOMP_REPLAY_TOKEN", "")
+    monkeypatch.setenv("ROBCXN_REPLAY_TOKEN", "")
     reset_settings_cache()
     cfg_disabled = Settings()
     cfg_disabled.ensure_paths()

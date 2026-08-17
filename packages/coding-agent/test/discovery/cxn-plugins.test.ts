@@ -1,11 +1,11 @@
 /**
  * Regression tests for #1496.
  *
- * The native `omp` discovery provider only walks `.omp/` and `~/.omp/agent/`.
+ * The native `cxn` discovery provider only walks `.cxn/` and `~/.cxn/agent/`.
  * Extension packages registered via `extensions:` in settings or
  * `--extension` on the CLI ship their own `skills/`, `hooks/`, `tools/`,
- * `commands/`, `rules/`, `prompts/`, and `.mcp.json`. The `omp-plugins`
- * provider (`src/discovery/omp-plugins.ts`) is what wires those sub-trees
+ * `commands/`, `rules/`, `prompts/`, and `.mcp.json`. The `cxn-plugins`
+ * provider (`src/discovery/cxn-plugins.ts`) is what wires those sub-trees
  * into the standard capability surfaces.
  *
  * The provider is invoked directly so the `LoadContext` uses a tempdir as
@@ -16,28 +16,28 @@ import { afterEach, beforeEach, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getCapability } from "@oh-my-pi/pi-coding-agent/capability";
-import { clearCache } from "@oh-my-pi/pi-coding-agent/capability/fs";
-import { hookCapability } from "@oh-my-pi/pi-coding-agent/capability/hook";
-import { mcpCapability } from "@oh-my-pi/pi-coding-agent/capability/mcp";
-import { promptCapability } from "@oh-my-pi/pi-coding-agent/capability/prompt";
-import { ruleCapability } from "@oh-my-pi/pi-coding-agent/capability/rule";
-import { skillCapability } from "@oh-my-pi/pi-coding-agent/capability/skill";
-import { slashCommandCapability } from "@oh-my-pi/pi-coding-agent/capability/slash-command";
-import { toolCapability } from "@oh-my-pi/pi-coding-agent/capability/tool";
-import type { LoadContext, Provider } from "@oh-my-pi/pi-coding-agent/capability/types";
+import { getCapability } from "@cxn/pi-coding-agent/capability";
+import { clearCache } from "@cxn/pi-coding-agent/capability/fs";
+import { hookCapability } from "@cxn/pi-coding-agent/capability/hook";
+import { mcpCapability } from "@cxn/pi-coding-agent/capability/mcp";
+import { promptCapability } from "@cxn/pi-coding-agent/capability/prompt";
+import { ruleCapability } from "@cxn/pi-coding-agent/capability/rule";
+import { skillCapability } from "@cxn/pi-coding-agent/capability/skill";
+import { slashCommandCapability } from "@cxn/pi-coding-agent/capability/slash-command";
+import { toolCapability } from "@cxn/pi-coding-agent/capability/tool";
+import type { LoadContext, Provider } from "@cxn/pi-coding-agent/capability/types";
 // Register all discovery providers as a side effect.
-import "@oh-my-pi/pi-coding-agent/discovery";
+import "@cxn/pi-coding-agent/discovery";
 import {
 	clearOmpExtensionCliRoots,
 	injectOmpExtensionCliRoots,
 	listOmpExtensionRoots,
 	withOmpExtensionRootScope,
-} from "@oh-my-pi/pi-coding-agent/discovery/omp-extension-roots";
-import { discoverExtensionPaths } from "@oh-my-pi/pi-coding-agent/extensibility/extensions/loader";
-import { getConfigRootDir, removeSyncWithRetries, setAgentDir } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/discovery/cxn-extension-roots";
+import { discoverExtensionPaths } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
+import { getConfigRootDir, removeSyncWithRetries, setAgentDir } from "@cxn/pi-utils";
 
-const PROVIDER_ID = "omp-plugins";
+const PROVIDER_ID = "cxn-plugins";
 
 let tempDir: string;
 let home: string;
@@ -68,7 +68,7 @@ async function loadFromPlugin<T>(capabilityId: string, ctx: LoadContext): Promis
 function buildExtensionPackage(packageDir: string, skillName = "my-skill"): void {
 	writeFile(
 		path.join(packageDir, "package.json"),
-		JSON.stringify({ name: path.basename(packageDir), omp: { extensions: ["./src/main.ts"] } }),
+		JSON.stringify({ name: path.basename(packageDir), cxn: { extensions: ["./src/main.ts"] } }),
 	);
 	writeFile(path.join(packageDir, "src", "main.ts"), "export default function (_pi) {}\n");
 	writeFile(
@@ -92,7 +92,7 @@ function buildExtensionPackage(packageDir: string, skillName = "my-skill"): void
 beforeEach(() => {
 	clearCache();
 	clearOmpExtensionCliRoots();
-	tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "omp-plugins-"));
+	tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-plugins-"));
 	home = path.join(tempDir, "home");
 	project = path.join(tempDir, "project");
 	ext = path.join(tempDir, "my-extension");
@@ -100,7 +100,7 @@ beforeEach(() => {
 	fs.mkdirSync(project, { recursive: true });
 	fs.mkdirSync(path.join(project, ".git"), { recursive: true });
 	buildExtensionPackage(ext);
-	setAgentDir(path.join(home, ".omp", "agent"));
+	setAgentDir(path.join(home, ".cxn", "agent"));
 });
 
 afterEach(() => {
@@ -120,7 +120,7 @@ function ctx(): LoadContext {
 }
 
 test("project settings.json#extensions surfaces every sub-directory", async () => {
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [ext] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [ext] }));
 
 	const [skills, commands, rules, prompts, hooks, tools, mcps] = await Promise.all([
 		loadFromPlugin<{ name: string }>(skillCapability.id, ctx()),
@@ -143,7 +143,7 @@ test("project settings.json#extensions surfaces every sub-directory", async () =
 });
 
 test("user settings.json#extensions also feeds sub-discovery", async () => {
-	writeFile(path.join(home, ".omp", "agent", "settings.json"), JSON.stringify({ extensions: [ext] }));
+	writeFile(path.join(home, ".cxn", "agent", "settings.json"), JSON.stringify({ extensions: [ext] }));
 
 	const skills = await loadFromPlugin<{ name: string }>(skillCapability.id, ctx());
 	expect(skills.map(s => s.name)).toContain("my-skill");
@@ -181,16 +181,16 @@ test("explicit-only CLI roots replace stale state and exclude every ambient pack
 	const stale = path.join(tempDir, "stale-extension");
 	const projectExt = path.join(tempDir, "project-extension");
 	const userExt = path.join(tempDir, "user-extension");
-	const installed = path.join(home, ".omp", "plugins", "node_modules", "installed-extension");
+	const installed = path.join(home, ".cxn", "plugins", "node_modules", "installed-extension");
 	buildExtensionPackage(stale, "stale-skill");
 	buildExtensionPackage(projectExt, "project-skill");
 	buildExtensionPackage(userExt, "user-skill");
 	buildExtensionPackage(installed, "installed-skill");
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [projectExt] }));
-	writeFile(path.join(home, ".omp", "agent", "settings.json"), JSON.stringify({ extensions: [userExt] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [projectExt] }));
+	writeFile(path.join(home, ".cxn", "agent", "settings.json"), JSON.stringify({ extensions: [userExt] }));
 	writeFile(
-		path.join(home, ".omp", "plugins", "package.json"),
-		JSON.stringify({ name: "omp-plugins", dependencies: { "installed-extension": "1.0.0" } }),
+		path.join(home, ".cxn", "plugins", "package.json"),
+		JSON.stringify({ name: "cxn-plugins", dependencies: { "installed-extension": "1.0.0" } }),
 	);
 
 	injectOmpExtensionCliRoots([stale], home, project);
@@ -217,16 +217,16 @@ test("explicit-only CLI roots replace stale state and exclude every ambient pack
 test("invocation scopes isolate concurrent SDK roots and merge ambient roots only when requested", async () => {
 	const otherExplicit = path.join(tempDir, "other-explicit-extension");
 	const projectExt = path.join(tempDir, "project-extension");
-	const installed = path.join(home, ".omp", "plugins", "node_modules", "installed-extension");
+	const installed = path.join(home, ".cxn", "plugins", "node_modules", "installed-extension");
 	const staleCli = path.join(tempDir, "stale-cli-extension");
 	buildExtensionPackage(otherExplicit, "other-explicit-skill");
 	buildExtensionPackage(projectExt, "project-skill");
 	buildExtensionPackage(installed, "installed-skill");
 	buildExtensionPackage(staleCli, "stale-cli-skill");
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [projectExt] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [projectExt] }));
 	writeFile(
-		path.join(home, ".omp", "plugins", "package.json"),
-		JSON.stringify({ name: "omp-plugins", dependencies: { "installed-extension": "1.0.0" } }),
+		path.join(home, ".cxn", "plugins", "package.json"),
+		JSON.stringify({ name: "cxn-plugins", dependencies: { "installed-extension": "1.0.0" } }),
 	);
 	injectOmpExtensionCliRoots([staleCli], home, project);
 
@@ -256,7 +256,7 @@ test("invocation scopes isolate concurrent SDK roots and merge ambient roots onl
 test("file-extension entrypoints contribute zero sub-surface (the file has no siblings to scan)", async () => {
 	const standaloneFile = path.join(tempDir, "standalone.ts");
 	fs.writeFileSync(standaloneFile, "export default function (_pi) {}\n");
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [standaloneFile] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [standaloneFile] }));
 
 	const skills = await loadFromPlugin<{ name: string }>(skillCapability.id, ctx());
 	expect(skills).toHaveLength(0);
@@ -268,7 +268,7 @@ test("relative paths in settings resolve against the project cwd", async () => {
 	const target = path.join(project, relative);
 	fs.mkdirSync(path.dirname(target), { recursive: true });
 	fs.cpSync(ext, target, { recursive: true });
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [`./${relative}`] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [`./${relative}`] }));
 
 	const skills = await loadFromPlugin<{ name: string }>(skillCapability.id, ctx());
 	expect(skills.map(s => s.name)).toContain("my-skill");
@@ -279,7 +279,7 @@ test(".mcp.json with bare entries (no command/url) records a warning and is skip
 		path.join(ext, ".mcp.json"),
 		JSON.stringify({ mcpServers: { broken: {}, ok: { command: "x", args: [] } } }),
 	);
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [ext] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [ext] }));
 
 	const result = await pluginProvider(mcpCapability.id).load(ctx());
 	expect(result.items.map(s => (s as { name: string }).name)).toEqual(["ok"]);
@@ -296,7 +296,7 @@ test("relative path-like command and cwd resolve against the plugin config direc
 			},
 		}),
 	);
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [ext] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [ext] }));
 
 	const servers = await loadFromPlugin<{ name: string; command?: string; cwd?: string }>(mcpCapability.id, ctx());
 	const local = servers.find(s => s.name === "local");
@@ -321,7 +321,7 @@ test("path-like command stays rooted at the plugin package root even with a subd
 			},
 		}),
 	);
-	writeFile(path.join(project, ".omp", "settings.json"), JSON.stringify({ extensions: [ext] }));
+	writeFile(path.join(project, ".cxn", "settings.json"), JSON.stringify({ extensions: [ext] }));
 
 	const servers = await loadFromPlugin<{ name: string; command?: string; cwd?: string }>(mcpCapability.id, ctx());
 	const local = servers.find(s => s.name === "local");
@@ -329,21 +329,21 @@ test("path-like command stays rooted at the plugin package root even with a subd
 	expect(local?.cwd).toBe(path.join(ext, "work"));
 });
 
-test("installed plugins under `<plugins>/node_modules/` are surfaced (e.g. via `omp plugin link`/`install`)", async () => {
+test("installed plugins under `<plugins>/node_modules/` are surfaced (e.g. via `cxn plugin link`/`install`)", async () => {
 	// Simulate what `plugin install` / `plugin link` produces: a plugins root
 	// with `package.json#dependencies` and a populated `node_modules/<pkg>/`.
-	const pluginsDir = path.join(home, ".omp", "plugins");
+	const pluginsDir = path.join(home, ".cxn", "plugins");
 	const nodeModules = path.join(pluginsDir, "node_modules");
 	const installed = path.join(nodeModules, "my-installed-ext");
 	fs.mkdirSync(installed, { recursive: true });
 	fs.cpSync(ext, installed, { recursive: true });
 	writeFile(
 		path.join(pluginsDir, "package.json"),
-		JSON.stringify({ name: "omp-plugins", dependencies: { "my-installed-ext": "1.0.0" } }),
+		JSON.stringify({ name: "cxn-plugins", dependencies: { "my-installed-ext": "1.0.0" } }),
 	);
-	// Plugin's own package.json must carry an `omp`/`pi` manifest for the
+	// Plugin's own package.json must carry an `cxn`/`pi` manifest for the
 	// loader to recognise it; the buildExtensionPackage fixture already wrote
-	// one with `omp.extensions`, which is sufficient.
+	// one with `cxn.extensions`, which is sufficient.
 
 	const skills = await loadFromPlugin<{ name: string; path: string }>(skillCapability.id, ctx());
 	const found = skills.find(s => s.name === "my-skill" && s.path.includes("my-installed-ext"));
@@ -351,12 +351,12 @@ test("installed plugins under `<plugins>/node_modules/` are surfaced (e.g. via `
 });
 
 test("project-scoped installed plugins surface project-level sub-discovery", async () => {
-	const pluginsDir = path.join(project, ".omp", "plugins");
+	const pluginsDir = path.join(project, ".cxn", "plugins");
 	const installed = path.join(pluginsDir, "node_modules", "my-project-ext");
 	fs.mkdirSync(installed, { recursive: true });
 	fs.cpSync(ext, installed, { recursive: true });
 	writeFile(
-		path.join(pluginsDir, "omp-plugins.lock.json"),
+		path.join(pluginsDir, "cxn-plugins.lock.json"),
 		JSON.stringify({
 			plugins: { "my-project-ext": { version: "1.0.0", enabled: true, enabledFeatures: null } },
 			settings: {},
@@ -372,16 +372,16 @@ test("project-scoped installed plugins surface project-level sub-discovery", asy
 });
 
 test("disabled installed plugins do not contribute sub-discovery", async () => {
-	const pluginsDir = path.join(home, ".omp", "plugins");
+	const pluginsDir = path.join(home, ".cxn", "plugins");
 	const installed = path.join(pluginsDir, "node_modules", "my-disabled-ext");
 	fs.mkdirSync(installed, { recursive: true });
 	fs.cpSync(ext, installed, { recursive: true });
 	writeFile(
 		path.join(pluginsDir, "package.json"),
-		JSON.stringify({ name: "omp-plugins", dependencies: { "my-disabled-ext": "1.0.0" } }),
+		JSON.stringify({ name: "cxn-plugins", dependencies: { "my-disabled-ext": "1.0.0" } }),
 	);
 	writeFile(
-		path.join(pluginsDir, "omp-plugins.lock.json"),
+		path.join(pluginsDir, "cxn-plugins.lock.json"),
 		JSON.stringify({ plugins: { "my-disabled-ext": { enabled: false } }, settings: {} }),
 	);
 
@@ -390,13 +390,13 @@ test("disabled installed plugins do not contribute sub-discovery", async () => {
 });
 
 test("linked plugins (only in lockfile, not in package.json#dependencies) are surfaced", async () => {
-	// `omp plugin link ./local-ext` creates a symlink under
+	// `cxn plugin link ./local-ext` creates a symlink under
 	// `<plugins>/node_modules/<pkg>` plus a lockfile entry, but it never
 	// touches `<plugins>/package.json#dependencies`. The discovery path must
-	// still find the package — otherwise the documented `omp install
+	// still find the package — otherwise the documented `cxn install
 	// ./local-extension` workflow leaves the sibling skills/hooks/tools
 	// invisible (see PR #1498 review).
-	const pluginsDir = path.join(home, ".omp", "plugins");
+	const pluginsDir = path.join(home, ".cxn", "plugins");
 	const nodeModules = path.join(pluginsDir, "node_modules");
 	fs.mkdirSync(nodeModules, { recursive: true });
 	const linkTarget = path.join(nodeModules, "my-linked-ext");
@@ -404,7 +404,7 @@ test("linked plugins (only in lockfile, not in package.json#dependencies) are su
 	// Intentionally NO `<plugins>/package.json` — matches a fresh `plugin link`
 	// against a setup that has never run `plugin install`.
 	writeFile(
-		path.join(pluginsDir, "omp-plugins.lock.json"),
+		path.join(pluginsDir, "cxn-plugins.lock.json"),
 		JSON.stringify({
 			plugins: { "my-linked-ext": { version: "1.0.0", enabled: true, enabledFeatures: null } },
 			settings: {},

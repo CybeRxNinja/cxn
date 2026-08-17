@@ -25,7 +25,7 @@
  * (packages/natives/scripts/build-bindings.ts) against the installed VS Build
  * Tools; every other target on a win32 host fails fast with guidance.
  *
- * Set `OMP_NATIVE_BUILD_BACKEND=cargo` to route the host target through the
+ * Set `CXN_NATIVE_BUILD_BACKEND=cargo` to route the host target through the
  * same local N-API build on systems where Bazel's prebuilt host tools cannot run.
  * The host target also selects that backend automatically when neither bazelisk
  * nor bazel is available on PATH.
@@ -136,7 +136,7 @@ export interface CliOptions {
 	dest: string | null;
 	source: string | null;
 	bazelArgs: string[];
-	/** Force the local Cargo/N-API host build path, skipping bazel. Same semantics as `OMP_NATIVE_BUILD_BACKEND=cargo`. */
+	/** Force the local Cargo/N-API host build path, skipping bazel. Same semantics as `CXN_NATIVE_BUILD_BACKEND=cargo`. */
 	cargo: boolean;
 }
 
@@ -259,7 +259,7 @@ async function main(): Promise<void> {
 	const host: HostInfo = { platform: process.platform, arch: process.arch, avx2: detectHostAvx2Support() };
 	const destDir = options.dest ? path.resolve(options.dest) : path.join(repoRoot, "packages/natives/native");
 
-	const cargoBackend = options.cargo || Bun.env.OMP_NATIVE_BUILD_BACKEND === "cargo";
+	const cargoBackend = options.cargo || Bun.env.CXN_NATIVE_BUILD_BACKEND === "cargo";
 	if ((host.platform === "win32" || cargoBackend) && !options.source) {
 		if (options.targets.length !== 1 || options.targets[0] !== "host") {
 			if (host.platform === "win32") {
@@ -269,7 +269,7 @@ async function main(): Promise<void> {
 						"(local napi build via VS Build Tools), or run this script from WSL/linux for cross targets.",
 				);
 			}
-			throw new Error("--cargo / OMP_NATIVE_BUILD_BACKEND=cargo supports only the host target");
+			throw new Error("--cargo / CXN_NATIVE_BUILD_BACKEND=cargo supports only the host target");
 		}
 		await buildLocalHostAddon(host, destDir);
 		return;
@@ -297,7 +297,7 @@ async function main(): Promise<void> {
 		}
 		// CI hands cache wiring (remote or disk) through a bazelrc fragment so
 		// endpoint composition stays in .github/actions/bazel-cache.
-		const rcPath = Bun.env.OMP_BAZEL_RC?.trim();
+		const rcPath = Bun.env.CXN_BAZEL_RC?.trim();
 		const startupArgs = rcPath ? [`--bazelrc=${rcPath}`] : [];
 
 		const buildArgs = [...startupArgs, "build", ...options.bazelArgs, "--", ...labels];

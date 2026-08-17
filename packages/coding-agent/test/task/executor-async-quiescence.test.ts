@@ -7,15 +7,15 @@
  * the run rather than surface the stale payload as a clean success.
  */
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import type { AssistantMessage } from "@oh-my-pi/pi-ai";
-import { AsyncJobManager } from "@oh-my-pi/pi-coding-agent/async/job-manager";
-import type { LoadExtensionsResult } from "@oh-my-pi/pi-coding-agent/extensibility/extensions/types";
-import type { CreateAgentSessionResult } from "@oh-my-pi/pi-coding-agent/sdk";
-import * as sdkModule from "@oh-my-pi/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { runSubprocess } from "@oh-my-pi/pi-coding-agent/task/executor";
-import type { AgentDefinition } from "@oh-my-pi/pi-coding-agent/task/types";
-import { EventBus } from "@oh-my-pi/pi-coding-agent/utils/event-bus";
+import type { AssistantMessage } from "@cxn/pi-ai";
+import { AsyncJobManager } from "@cxn/pi-coding-agent/async/job-manager";
+import type { LoadExtensionsResult } from "@cxn/pi-coding-agent/extensibility/extensions/types";
+import type { CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
+import * as sdkModule from "@cxn/pi-coding-agent/sdk";
+import type { AgentSession, AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
+import { runSubprocess } from "@cxn/pi-coding-agent/task/executor";
+import type { AgentDefinition } from "@cxn/pi-coding-agent/task/types";
+import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
 
 const baseAgent: AgentDefinition = { name: "task", description: "test", systemPrompt: "test", source: "bundled" };
 

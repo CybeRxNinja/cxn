@@ -1,16 +1,16 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import type { AssistantMessage, Model } from "@oh-my-pi/pi-ai";
-import type { AsyncJobRegisterOptions } from "@oh-my-pi/pi-coding-agent/async/job-manager";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { resolveLocalRoot } from "@oh-my-pi/pi-coding-agent/internal-urls/local-protocol";
-import { TanCommandController } from "@oh-my-pi/pi-coding-agent/modes/controllers/tan-command-controller";
-import type { InteractiveModeContext } from "@oh-my-pi/pi-coding-agent/modes/types";
-import { AgentRegistry, MAIN_AGENT_ID } from "@oh-my-pi/pi-coding-agent/registry/agent-registry";
-import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@oh-my-pi/pi-coding-agent/sdk";
-import * as sdkModule from "@oh-my-pi/pi-coding-agent/sdk";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import type { AssistantMessage, Model } from "@cxn/pi-ai";
+import type { AsyncJobRegisterOptions } from "@cxn/pi-coding-agent/async/job-manager";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { resolveLocalRoot } from "@cxn/pi-coding-agent/internal-urls/local-protocol";
+import { TanCommandController } from "@cxn/pi-coding-agent/modes/controllers/tan-command-controller";
+import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { AgentRegistry, MAIN_AGENT_ID } from "@cxn/pi-coding-agent/registry/agent-registry";
+import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
+import * as sdkModule from "@cxn/pi-coding-agent/sdk";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cxn/pi-utils";
 
 interface CapturedJobRunContext {
 	jobId: string;
@@ -89,7 +89,7 @@ function createContext(overrides?: {
 	parentPromptCacheKey?: string;
 	register?: (run: CapturedJobRun, options?: AsyncJobRegisterOptions) => string;
 }) {
-	const tempDir = TempDir.createSync("@omp-tan-controller-");
+	const tempDir = TempDir.createSync("@cxn-tan-controller-");
 	const parentFile = path.join(tempDir.path(), "parent.jsonl");
 	// The clone nests inside the parent's artifact directory, like a subagent.
 	const cloneFile = path.join(parentFile.slice(0, -6), "clone.jsonl");

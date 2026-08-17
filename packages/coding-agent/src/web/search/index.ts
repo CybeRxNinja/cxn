@@ -5,10 +5,10 @@
  * providers with provider-specific parameters exposed conditionally.
  */
 
-import { type } from "@oh-my-pi/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@oh-my-pi/pi-agent-core";
-import type { AuthStorage } from "@oh-my-pi/pi-ai";
-import { prompt } from "@oh-my-pi/pi-utils";
+import { type } from "@cxn/omptype";
+import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
+import type { AuthStorage } from "@cxn/pi-ai";
+import { prompt } from "@cxn/pi-utils";
 import { ModelRegistry } from "../../config/model-registry";
 import { settings } from "../../config/settings";
 import type { CustomTool, CustomToolContext, RenderResultOptions } from "../../extensibility/custom-tools/types";
@@ -154,7 +154,7 @@ async function executeSearch(
 	const parsedQuery = parseSearchQuery(params.query);
 
 	// Invariant across providers; read once and tolerate an uninitialized
-	// Settings singleton (e.g. `omp q ...` CLI path, unit tests) so the
+	// Settings singleton (e.g. `cxn q ...` CLI path, unit tests) so the
 	// provider-fallback loop never aborts before any provider runs.
 	let antigravityEndpointMode: "auto" | "production" | "sandbox" | undefined;
 	try {
@@ -285,7 +285,7 @@ async function executeSearch(
  * Execute a web search query for CLI/testing workflows.
  *
  * `authStorage` may be omitted; in that case we discover one via the standard
- * factory (`discoverAuthStorage`), which honours `OMP_AUTH_BROKER_URL` and
+ * factory (`discoverAuthStorage`), which honours `CXN_AUTH_BROKER_URL` and
  * otherwise opens the local SQLite credential store.
  */
 export async function runSearchQuery(

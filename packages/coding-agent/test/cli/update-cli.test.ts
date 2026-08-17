@@ -54,12 +54,12 @@ describe("getLatestRelease rename pointers", () => {
 		return urls;
 	}
 
-	it("follows omp.rename to the new package and resolves version, dist, and names from its manifest", async () => {
+	it("follows cxn.rename to the new package and resolves version, dist, and names from its manifest", async () => {
 		const urls = stubRegistry({
-			"@new/omp": { version: "999.1.0", omp: { dist: "npm" } },
-			"@oh-my-pi/pi-coding-agent": {
+			"@new/cxn": { version: "999.1.0", cxn: { dist: "npm" } },
+			"@cxn/pi-coding-agent": {
 				version: "999.0.0",
-				omp: { dist: "binary", rename: { package: "@new/omp", natives: "@new/natives" } },
+				cxn: { dist: "binary", rename: { package: "@new/cxn", natives: "@new/natives" } },
 			},
 		});
 
@@ -67,18 +67,18 @@ describe("getLatestRelease rename pointers", () => {
 
 		expect(release.version).toBe("999.1.0");
 		expect(release.dist).toBe("npm");
-		expect(release.packages).toEqual({ pkg: "@new/omp", natives: "@new/natives" });
+		expect(release.packages).toEqual({ pkg: "@new/cxn", natives: "@new/natives" });
 		expect(urls).toEqual([
-			"https://registry.npmjs.org/@oh-my-pi/pi-coding-agent/latest",
-			"https://registry.npmjs.org/@new/omp/latest",
+			"https://registry.npmjs.org/@cxn/pi-coding-agent/latest",
+			"https://registry.npmjs.org/@new/cxn/latest",
 		]);
 	});
 
 	it("ignores a rename pointer that cycles back to an already-visited package", async () => {
 		const urls = stubRegistry({
-			"@oh-my-pi/pi-coding-agent": {
+			"@cxn/pi-coding-agent": {
 				version: "999.0.0",
-				omp: { rename: { package: "@oh-my-pi/pi-coding-agent" } },
+				cxn: { rename: { package: "@cxn/pi-coding-agent" } },
 			},
 		});
 
@@ -86,6 +86,6 @@ describe("getLatestRelease rename pointers", () => {
 
 		expect(urls).toHaveLength(1);
 		expect(release.version).toBe("999.0.0");
-		expect(release.packages).toEqual({ pkg: "@oh-my-pi/pi-coding-agent", natives: "@oh-my-pi/pi-natives" });
+		expect(release.packages).toEqual({ pkg: "@cxn/pi-coding-agent", natives: "@cxn/pi-natives" });
 	});
 });

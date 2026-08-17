@@ -7,8 +7,8 @@
 import type { Dirent } from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { WorkProfile } from "@oh-my-pi/pi-natives";
-import { APP_NAME, getLogPath, getLogsDir, getReportsDir, isEnoent } from "@oh-my-pi/pi-utils";
+import type { WorkProfile } from "@cxn/pi-natives";
+import { APP_NAME, getLogPath, getLogsDir, getReportsDir, isEnoent } from "@cxn/pi-utils";
 import { writeArchive } from "../utils/zip";
 import type { CpuProfile, HeapSnapshot } from "./profiler";
 import { collectSystemInfo, sanitizeEnv } from "./system-info";
@@ -87,7 +87,7 @@ export async function createReportBundle(options: ReportBundleOptions): Promise<
 	await fs.mkdir(reportsDir, { recursive: true });
 
 	const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-	const outputPath = path.join(reportsDir, `omp-report-${timestamp}.tar.gz`);
+	const outputPath = path.join(reportsDir, `cxn-report-${timestamp}.tar.gz`);
 
 	const data: Record<string, string> = {};
 	const files: string[] = [];
@@ -210,7 +210,7 @@ export async function getLogText(): Promise<string> {
 
 /**
  * Concatenate the tail of every same-day process log so a report generated
- * after a crash still captures the fatal PID's `omp.<date>.<pid>.log`. Files
+ * after a crash still captures the fatal PID's `cxn.<date>.<pid>.log`. Files
  * are ordered oldest-first by mtime and separated by a filename header.
  */
 async function collectSameDayLogs(linesPerFile: number): Promise<string> {

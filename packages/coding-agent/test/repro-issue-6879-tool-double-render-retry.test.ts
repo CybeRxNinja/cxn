@@ -1,17 +1,17 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import type { AssistantMessage, ToolCall } from "@oh-my-pi/pi-ai";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { InteractiveMode } from "@oh-my-pi/pi-coding-agent/modes/interactive-mode";
-import { initTheme } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
-import type { AgentSessionEvent } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { buildSessionContext } from "@oh-my-pi/pi-coding-agent/session/session-context";
-import type { SessionEntry } from "@oh-my-pi/pi-coding-agent/session/session-entries";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { Agent } from "@cxn/pi-agent-core";
+import type { AssistantMessage, ToolCall } from "@cxn/pi-ai";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
+import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
+import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
+import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { buildSessionContext } from "@cxn/pi-coding-agent/session/session-context";
+import type { SessionEntry } from "@cxn/pi-coding-agent/session/session-entries";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cxn/pi-utils";
 
 /**
  * Regression for issue #6879 — a tool call renders twice (follow-up to #6516).

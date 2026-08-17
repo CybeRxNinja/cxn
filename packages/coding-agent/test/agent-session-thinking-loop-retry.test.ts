@@ -1,6 +1,6 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
 import { scheduler } from "node:timers/promises";
-import { Agent } from "@oh-my-pi/pi-agent-core";
+import { Agent } from "@cxn/pi-agent-core";
 import type {
 	Api,
 	AssistantMessage,
@@ -9,17 +9,17 @@ import type {
 	SimpleStreamOptions,
 	TextContent,
 	ThinkingContent,
-} from "@oh-my-pi/pi-ai";
-import * as AIError from "@oh-my-pi/pi-ai/error";
-import { createMockModel } from "@oh-my-pi/pi-ai/providers/mock";
-import { AssistantMessageEventStream } from "@oh-my-pi/pi-ai/utils/event-stream";
-import { withThinkingLoopGuard } from "@oh-my-pi/pi-ai/utils/thinking-loop";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AgentSession, type AgentSessionEvent } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { type CustomMessage, convertToLlm } from "@oh-my-pi/pi-coding-agent/session/messages";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
+} from "@cxn/pi-ai";
+import * as AIError from "@cxn/pi-ai/error";
+import { createMockModel } from "@cxn/pi-ai/providers/mock";
+import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+import { withThinkingLoopGuard } from "@cxn/pi-ai/utils/thinking-loop";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AgentSession, type AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { type CustomMessage, convertToLlm } from "@cxn/pi-coding-agent/session/messages";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
 
 const LOOP_PARAGRAPHS = [
 	"I am now verifying the test module to guarantee there are no compile errors and the code is completely safe.",

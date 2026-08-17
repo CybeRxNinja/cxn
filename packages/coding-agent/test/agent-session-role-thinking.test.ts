@@ -1,21 +1,17 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import { Effort } from "@oh-my-pi/pi-ai";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import * as autoThinkingClassifier from "@oh-my-pi/pi-coding-agent/auto-thinking/classifier";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { SKILL_PROMPT_MESSAGE_TYPE } from "@oh-my-pi/pi-coding-agent/session/messages";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import {
-	AUTO_THINKING,
-	clampAutoThinkingEffort,
-	resolveProvisionalAutoLevel,
-} from "@oh-my-pi/pi-coding-agent/thinking";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { Agent } from "@cxn/pi-agent-core";
+import { Effort } from "@cxn/pi-ai";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import * as autoThinkingClassifier from "@cxn/pi-coding-agent/auto-thinking/classifier";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { SKILL_PROMPT_MESSAGE_TYPE } from "@cxn/pi-coding-agent/session/messages";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { AUTO_THINKING, clampAutoThinkingEffort, resolveProvisionalAutoLevel } from "@cxn/pi-coding-agent/thinking";
+import { TempDir } from "@cxn/pi-utils";
 import { createAssistantMessage } from "./helpers/agent-session-setup";
 
 describe("AgentSession role model thinking behavior", () => {

@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import pytest
 
-from omp_rpc import RpcClient
+from cxn_rpc import RpcClient
 
 
 class _Sentinel(Exception):
@@ -14,7 +14,7 @@ class _Sentinel(Exception):
 def _start_and_capture(**kwargs):
     client = RpcClient(**kwargs)
     with patch(
-        "omp_rpc.client.subprocess.Popen", side_effect=_Sentinel("aborted")
+        "cxn_rpc.client.subprocess.Popen", side_effect=_Sentinel("aborted")
     ) as mock_popen:
         with pytest.raises(_Sentinel):
             client.start()
@@ -23,7 +23,7 @@ def _start_and_capture(**kwargs):
 
 
 def test_no_user_group_defaults_to_none():
-    call = _start_and_capture(executable="omp")
+    call = _start_and_capture(executable="cxn")
     assert call.kwargs["user"] is None
     assert call.kwargs["group"] is None
     assert call.kwargs["extra_groups"] is None
@@ -31,17 +31,17 @@ def test_no_user_group_defaults_to_none():
 
 def test_user_and_group_kwargs_threaded():
     call = _start_and_capture(
-        executable="omp",
+        executable="cxn",
         user=2001,
-        group="omp",
+        group="cxn",
         extra_groups=[2000, "docker"],
     )
     assert call.kwargs["user"] == 2001
-    assert call.kwargs["group"] == "omp"
+    assert call.kwargs["group"] == "cxn"
     assert call.kwargs["extra_groups"] == [2000, "docker"]
 
 
 def test_extra_groups_none_distinct_from_empty():
-    call = _start_and_capture(executable="omp", extra_groups=[])
+    call = _start_and_capture(executable="cxn", extra_groups=[])
     # [] means an empty supplementary group list and differs from None.
     assert call.kwargs["extra_groups"] == []

@@ -7,8 +7,8 @@
 import * as fsSync from "node:fs";
 import * as os from "node:os";
 import { createInterface } from "node:readline/promises";
-import { EventLoopKeepalive } from "@oh-my-pi/pi-agent-core";
-import type { ImageContent } from "@oh-my-pi/pi-ai";
+import { EventLoopKeepalive } from "@cxn/pi-agent-core";
+import type { ImageContent } from "@cxn/pi-ai";
 import {
 	$env,
 	directoryExists,
@@ -20,8 +20,8 @@ import {
 	setInteractiveHost,
 	setProjectDir,
 	VERSION,
-} from "@oh-my-pi/pi-utils";
-import chalk from "@oh-my-pi/pi-utils/chalk";
+} from "@cxn/pi-utils";
+import chalk from "@cxn/pi-utils/chalk";
 import { reset as resetCapabilities } from "./capability";
 import { type Args, reportUnrecognizedFlags, validateToolNames } from "./cli/args";
 import { applyExtensionFlags, type ExtensionFlagSink } from "./cli/extension-flags";
@@ -45,13 +45,13 @@ import { ModelsConfigFile } from "./config/models-config";
 import { serviceTierSettingToTier } from "./config/service-tier";
 import { getDefault, type SettingPath, Settings, type SettingValue, settings } from "./config/settings";
 import { initializeWithSettings } from "./discovery";
+import { injectOmpExtensionCliRoots } from "./discovery/cxn-extension-roots";
 import {
 	clearPluginRootsAndCaches,
 	injectPluginDirRoots,
 	preloadPluginRoots,
 	resolveActiveProjectRegistryPath,
 } from "./discovery/helpers";
-import { injectOmpExtensionCliRoots } from "./discovery/omp-extension-roots";
 import { formatExtensionLoadNotifications } from "./extensibility/extensions/load-errors";
 import { loadExtensions } from "./extensibility/extensions/loader";
 import { ExtensionRunner } from "./extensibility/extensions/runner";
@@ -158,7 +158,7 @@ const RPC_BACKGROUND_DEFAULTED_SETTING_PATHS: SettingPath[] = [
 ];
 
 // Protocol-mode hosts opt into a small set of paths whose host-default we
-// re-apply at startup so embedders inherit OMP's neutral defaults instead of
+// re-apply at startup so embedders inherit CXN's neutral defaults instead of
 // the local user's globally-persisted preferences for interactive use. The
 // guard preserves any explicit configuration — caller `Settings.isolated`
 // overrides, project `.claude/settings.yml`, `--config` overlays, or global
@@ -543,7 +543,7 @@ async function runInteractiveMode(
 		}
 	}
 
-	// `omp join <link>`: dispatch through the same builtin path as a typed
+	// `cxn join <link>`: dispatch through the same builtin path as a typed
 	// `/join` so collab guards and error rendering stay in one place.
 	if (joinLink !== undefined) {
 		await executeBuiltinSlashCommand(`/join ${joinLink}`, { ctx: mode });
@@ -775,7 +775,7 @@ export async function createSessionManager(
 		if (!match) {
 			throw new SessionResolutionError(
 				`Session "${forkSource}" not found.`,
-				"Run `omp --resume` without an argument to pick from recent sessions, or `omp` to start a new one.",
+				"Run `cxn --resume` without an argument to pick from recent sessions, or `cxn` to start a new one.",
 			);
 		}
 		return await SessionManager.forkFrom(match.session.path, cwd, parsed.sessionDir);
@@ -795,7 +795,7 @@ export async function createSessionManager(
 		if (!match) {
 			throw new SessionResolutionError(
 				`Session "${sessionArg}" not found.`,
-				"Run `omp --resume` without an argument to pick from recent sessions, or `omp` to start a new one.",
+				"Run `cxn --resume` without an argument to pick from recent sessions, or `cxn` to start a new one.",
 			);
 		}
 		if (match.scope === "local") {
@@ -855,7 +855,7 @@ export async function createSessionManager(
 
 /** Discover SYSTEM.md file if no CLI system prompt was provided */
 function discoverSystemPromptFile(): string | undefined {
-	// Check project-local first (.omp/SYSTEM.md, .pi/SYSTEM.md legacy)
+	// Check project-local first (.cxn/SYSTEM.md, .pi/SYSTEM.md legacy)
 	const projectPath = findConfigFile("SYSTEM.md", { user: false });
 	if (projectPath) {
 		return projectPath;
@@ -1263,7 +1263,7 @@ export async function runRootCommand(
 	// sibling hooks/tools/commands/MCP content could be discovered implicitly.
 	if (!parsedArgs.trustedExtensions?.length) {
 		// Register CLI-provided extension package paths (`--extension`, `--hook`) so
-		// the `omp-plugins` discovery provider can surface their `skills/`, `hooks/`,
+		// the `cxn-plugins` discovery provider can surface their `skills/`, `hooks/`,
 		// `tools/`, `commands/`, `rules/`, `prompts/`, and `.mcp.json` sub-trees.
 		// Explicit roots remain authorized under `--no-extensions`; only ambient
 		// extension discovery is disabled.
@@ -1383,7 +1383,7 @@ export async function runRootCommand(
 	normalizeContinueSessionArgs(parsedArgs, rawArgs);
 
 	// Resolve native resume/fork flags or import one foreign transcript into a
-	// fresh persisted OMP session before constructing the AgentSession.
+	// fresh persisted CXN session before constructing the AgentSession.
 	let sessionManager: SessionManager | undefined;
 	let foreignSource: ForeignSessionSource | undefined;
 	try {
@@ -1653,7 +1653,7 @@ export async function runRootCommand(
 				process.stderr.write(`${chalk.yellow(`${message}\n`)}`);
 			}
 		}
-		// Fail fast on stale/typo flags (e.g. `omp --list-models`) now that we
+		// Fail fast on stale/typo flags (e.g. `cxn --list-models`) now that we
 		// know the real extension flag set. Without this check the unrecognized
 		// token gets silently consumed and any following positional leaks as the
 		// initial prompt — kicking off a real LLM session, MCP connection, and

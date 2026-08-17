@@ -5,12 +5,12 @@
  * Tool selection persists across session reloads and respects branch navigation.
  *
  * Usage:
- * 1. Copy this file to ~/.omp/agent/extensions/ (legacy: ~/.pi/agent/extensions/) or your project's .omp/extensions/
+ * 1. Copy this file to ~/.cxn/agent/extensions/ (legacy: ~/.pi/agent/extensions/) or your project's .cxn/extensions/
  * 2. Use /tools to open the tool selector
  */
-import type { ExtensionAPI, ExtensionContext } from "@oh-my-pi/pi-coding-agent";
-import { getSettingsListTheme } from "@oh-my-pi/pi-coding-agent";
-import { Container, type SettingItem, SettingsList } from "@oh-my-pi/pi-tui";
+import type { ExtensionAPI, ExtensionContext } from "@cxn/pi-coding-agent";
+import { getSettingsListTheme } from "@cxn/pi-coding-agent";
+import { Container, type SettingItem, SettingsList } from "@cxn/pi-tui";
 
 // State persisted to session
 interface ToolsState {

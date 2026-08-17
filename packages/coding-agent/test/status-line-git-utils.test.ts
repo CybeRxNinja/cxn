@@ -5,7 +5,7 @@ import {
 	isSamePrCacheContext,
 	parseDefaultBranch,
 	parseGitHubRepo,
-} from "@oh-my-pi/pi-coding-agent/modes/components/status-line/git-utils";
+} from "@cxn/pi-coding-agent/modes/components/status-line/git-utils";
 
 describe("parseGitHubRepo", () => {
 	test("parses HTTPS URL", () => {
@@ -17,11 +17,11 @@ describe("parseGitHubRepo", () => {
 	});
 
 	test("parses SSH scp-style URL", () => {
-		expect(parseGitHubRepo("git@github.com:loftiskg/oh-my-pi.git")).toBe("loftiskg/oh-my-pi");
+		expect(parseGitHubRepo("git@github.com:loftiskg/cxn.git")).toBe("loftiskg/cxn");
 	});
 
 	test("parses SSH scp-style URL without .git suffix", () => {
-		expect(parseGitHubRepo("git@github.com:loftiskg/oh-my-pi")).toBe("loftiskg/oh-my-pi");
+		expect(parseGitHubRepo("git@github.com:loftiskg/cxn")).toBe("loftiskg/cxn");
 	});
 
 	test("parses ssh:// protocol URL", () => {

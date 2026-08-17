@@ -1,14 +1,14 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, spyOn } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import { type Api, Effort, type Model } from "@oh-my-pi/pi-ai";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { Agent } from "@cxn/pi-agent-core";
+import { type Api, Effort, type Model } from "@cxn/pi-ai";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cxn/pi-utils";
 
 // Switching the active model (Ctrl+P role cycling, /models selection) must be a
 // cheap, synchronous operation. It used to call the async `getApiKey`, which can

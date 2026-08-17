@@ -41,8 +41,8 @@
  * (`complete`, `completeSimple`) re-sample at most three guarded attempts and
  * then fail closed. Disable detection with `PI_NO_THINKING_LOOP_GUARD=1`.
  */
-import { modelFamilyToken } from "@oh-my-pi/pi-catalog/identity";
-import { logger } from "@oh-my-pi/pi-utils";
+import { modelFamilyToken } from "@cxn/pi-catalog/identity";
+import { logger } from "@cxn/pi-utils";
 import * as AIError from "../error";
 import type { Api, AssistantMessage, Model, StreamOptions } from "../types";
 import { AssistantMessageEventStream } from "./event-stream";

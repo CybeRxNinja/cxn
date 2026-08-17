@@ -2,12 +2,7 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import {
-	forkClipboard,
-	formatHashlineHeader,
-	InMemorySnapshotStore,
-	missingSnapshotTagMessage,
-} from "@oh-my-pi/hashline";
+import { forkClipboard, formatHashlineHeader, InMemorySnapshotStore, missingSnapshotTagMessage } from "@cxn/hashline";
 import {
 	adjustIndentation,
 	computeEditDiff,
@@ -15,8 +10,8 @@ import {
 	DEFAULT_FUZZY_THRESHOLD,
 	findMatch,
 	replaceText,
-} from "@oh-my-pi/pi-coding-agent/edit";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/edit";
+import { removeWithRetries } from "@cxn/pi-utils";
 
 describe("findMatch", () => {
 	describe("exact matching", () => {

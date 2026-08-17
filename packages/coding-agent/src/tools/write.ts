@@ -2,17 +2,17 @@ import { Database } from "bun:sqlite";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 
-import { formatHashlineHeader, stripHashlinePrefixes } from "@oh-my-pi/hashline";
-import { type } from "@oh-my-pi/omptype";
+import { formatHashlineHeader, stripHashlinePrefixes } from "@cxn/hashline";
+import { type } from "@cxn/omptype";
 import type {
 	AgentTool,
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
 	ToolApprovalDecision,
-} from "@oh-my-pi/pi-agent-core";
-import { type Component, Text } from "@oh-my-pi/pi-tui";
-import { isEnoent, isRecord, prompt, untilAborted } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-agent-core";
+import { type Component, Text } from "@cxn/pi-tui";
+import { isEnoent, isRecord, prompt, untilAborted } from "@cxn/pi-utils";
 
 import { canonicalSnapshotKey, getFileSnapshotStore } from "../edit/file-snapshot-store";
 import { normalizeToLF } from "../edit/normalize";
@@ -1270,7 +1270,7 @@ export class WriteTool implements AgentTool<typeof writeSchema, WriteToolDetails
 			emitWriteProgress(onUpdate, cleanContent, displayPath, absolutePath);
 
 			// Try ACP bridge first for editor-visible filesystem paths. Internal
-			// artifacts such as local:// plans are owned by OMP, not the editor.
+			// artifacts such as local:// plans are owned by CXN, not the editor.
 			const bridgeWrite = await routeWriteThroughBridge(this.session, path, absolutePath, cleanContent, signal);
 			if (bridgeWrite) {
 				// `write` always replaces the whole file, so (unlike hashline's

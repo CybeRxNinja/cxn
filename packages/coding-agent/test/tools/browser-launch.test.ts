@@ -7,10 +7,10 @@ import {
 	resolveSharedBrowserLaunchSpec,
 	stealthIgnoreDefaultArgsForTest,
 	systemChromiumCandidatesForTest,
-} from "@oh-my-pi/pi-coding-agent/tools/browser/launch";
-import { TempDir } from "@oh-my-pi/pi-utils";
-import { Browser, computeExecutablePath, detectBrowserPlatform, resolveBuildId } from "@oh-my-pi/pi-utils/browsers";
-import { APP_NAME } from "@oh-my-pi/pi-utils/dirs";
+} from "@cxn/pi-coding-agent/tools/browser/launch";
+import { TempDir } from "@cxn/pi-utils";
+import { Browser, computeExecutablePath, detectBrowserPlatform, resolveBuildId } from "@cxn/pi-utils/browsers";
+import { APP_NAME } from "@cxn/pi-utils/dirs";
 import { PUPPETEER_REVISIONS } from "puppeteer-core/internal/revisions.js";
 
 const EXECUTABLE_PROBE = path.resolve(import.meta.dir, "../fixtures/browser-executable-probe.ts");
@@ -197,7 +197,7 @@ describe("browser executable selection", () => {
 			const result = Bun.spawnSync([process.execPath, EXECUTABLE_PROBE], {
 				env: {
 					...process.env,
-					OMP_BROWSER_PROBE_PLATFORM: "win32",
+					CXN_BROWSER_PROBE_PLATFORM: "win32",
 					ProgramFiles: tempDir.path(),
 					"ProgramFiles(x86)": path.join(tempDir.path(), "missing-x86"),
 					LOCALAPPDATA: path.join(tempDir.path(), "missing-local"),
@@ -221,7 +221,7 @@ describe("browser executable selection", () => {
 			const home = path.join(tempDir.path(), "home");
 			const xdgCache = path.join(tempDir.path(), "cache");
 			// resolveIf() (packages/utils/src/dirs.ts) only redirects to an XDG
-			// root when its `<XDG>/omp` dir already exists, so create them to pin
+			// root when its `<XDG>/cxn` dir already exists, so create them to pin
 			// the child's puppeteer cache to this isolated location.
 			for (const xdg of [xdgCache, path.join(tempDir.path(), "data"), path.join(tempDir.path(), "state")]) {
 				fs.mkdirSync(path.join(xdg, APP_NAME), { recursive: true });
@@ -232,7 +232,7 @@ describe("browser executable selection", () => {
 				XDG_CACHE_HOME: xdgCache,
 				XDG_DATA_HOME: path.join(tempDir.path(), "data"),
 				XDG_STATE_HOME: path.join(tempDir.path(), "state"),
-				OMP_BROWSER_PROBE_PLATFORM: "darwin",
+				CXN_BROWSER_PROBE_PLATFORM: "darwin",
 				PUPPETEER_EXECUTABLE_PATH: "",
 			};
 
@@ -244,7 +244,7 @@ describe("browser executable selection", () => {
 
 			// Seed the isolated Chrome for Testing binary in the child's cache so the
 			// probe resolves it without a network download. getPuppeteerDir() resolves
-			// to `<XDG_CACHE_HOME>/omp/puppeteer` given the dirs created above.
+			// to `<XDG_CACHE_HOME>/cxn/puppeteer` given the dirs created above.
 			const cacheDir = path.join(xdgCache, APP_NAME, "puppeteer");
 			const platform = detectBrowserPlatform();
 			if (!platform) throw new Error("unsupported host platform for Chrome-for-Testing selection test");

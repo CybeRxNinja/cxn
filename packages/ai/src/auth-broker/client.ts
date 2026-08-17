@@ -1,13 +1,13 @@
 /**
- * HTTP client for the omp auth-broker server.
+ * HTTP client for the cxn auth-broker server.
  *
  * Used by {@link RemoteAuthCredentialStore} (snapshot pulls) and by
- * `omp auth-broker status` (liveness checks). All endpoints except
+ * `cxn auth-broker status` (liveness checks). All endpoints except
  * `/v1/healthz` require a bearer token.
  */
 
-import { type } from "@oh-my-pi/omptype";
-import { readSseEvents } from "@oh-my-pi/pi-utils";
+import { type } from "@cxn/omptype";
+import { readSseEvents } from "@cxn/pi-utils";
 import type { AuthCredential, DisabledCredentialSummary } from "../auth-storage";
 import type {
 	ClientUsageReportRequest,

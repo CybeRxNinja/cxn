@@ -15,9 +15,9 @@ import {
 	truncateMiddle,
 	truncateTail,
 	truncateTailBytes,
-} from "@oh-my-pi/pi-coding-agent/session/streaming-output";
-import { formatOutputNotice, outputMeta } from "@oh-my-pi/pi-coding-agent/tools/output-meta";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/session/streaming-output";
+import { formatOutputNotice, outputMeta } from "@cxn/pi-coding-agent/tools/output-meta";
+import { removeWithRetries } from "@cxn/pi-utils";
 
 const createdTempDirs: string[] = [];
 const originalForceProtocol = Bun.env.PI_FORCE_IMAGE_PROTOCOL;

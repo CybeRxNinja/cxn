@@ -1,6 +1,6 @@
-import { THINKING_EFFORTS } from "@oh-my-pi/pi-ai";
-import { DEFAULT_SHARE_URL } from "@oh-my-pi/pi-wire";
-import { SHAPE_VARIANT_NAMES } from "@oh-my-pi/snapcompact";
+import { THINKING_EFFORTS } from "@cxn/pi-ai";
+import { DEFAULT_SHARE_URL } from "@cxn/pi-wire";
+import { SHAPE_VARIANT_NAMES } from "@cxn/snapcompact";
 import { DEFAULT_RELAY_URL } from "../collab/protocol";
 import { DEFAULT_LIVE_VOICE, LIVE_VOICE_OPTIONS, LIVE_VOICE_VALUES } from "../live/voices";
 import { DEFAULT_STT_MODEL_KEY, STT_MODEL_OPTIONS, STT_MODEL_VALUES } from "../stt/models";
@@ -376,7 +376,7 @@ export const DEFAULT_BASH_INTERCEPTOR_RULES: BashInterceptorRule[] = [
 			"^\\s*(?:(?:bun|npm|pnpm|yarn)\\s+(?:run\\s+)?(?:dev|start)(?:\\s|$)|(?:vite|next\\s+dev|nuxt\\s+dev|nodemon|lldb|gdb|tail\\s+-f)(?:\\s|$)|docker\\s+compose\\s+up(?!.*(?:\\s-d(?:\\s|$)|--detach))(?:\\s|$))",
 		tool: "hub",
 		message:
-			'Use the `hub` tool (`op:"start"`) for services, watchers, and debuggers so other omp instances can observe and control them.',
+			'Use the `hub` tool (`op:"start"`) for services, watchers, and debuggers so other cxn instances can observe and control them.',
 	},
 	{
 		pattern:
@@ -394,9 +394,9 @@ export const SETTINGS_SCHEMA = {
 	// ────────────────────────────────────────────────────────────────────────
 	setupVersion: { type: "number", default: 0 },
 
-	// Auth broker — credentials proxied through a remote `omp auth-broker serve`
+	// Auth broker — credentials proxied through a remote `cxn auth-broker serve`
 	// host. Hidden from the UI; populate via env vars or hand-edited config.yml.
-	// Env (`OMP_AUTH_BROKER_URL` / `OMP_AUTH_BROKER_TOKEN`) takes precedence so
+	// Env (`CXN_AUTH_BROKER_URL` / `CXN_AUTH_BROKER_TOKEN`) takes precedence so
 	// per-machine overrides remain trivial.
 	"auth.broker.url": { type: "string", default: undefined },
 	"auth.broker.token": { type: "string", default: undefined, credential: true },
@@ -528,7 +528,7 @@ export const SETTINGS_SCHEMA = {
 			group: "Services",
 			label: "Max In-Flight Requests",
 			description:
-				'Maximum concurrent LLM requests per provider id (for example "openai" or "anthropic"), shared across local OMP processes with this config root. Omitted providers are unlimited.',
+				'Maximum concurrent LLM requests per provider id (for example "openai" or "anthropic"), shared across local CXN processes with this config root. Omitted providers are unlimited.',
 		},
 	},
 
@@ -552,7 +552,7 @@ export const SETTINGS_SCHEMA = {
 				{
 					value: "project",
 					label: "Per-project",
-					description: "Save project role models in .omp/config.yml; missing project roles use global defaults",
+					description: "Save project role models in .cxn/config.yml; missing project roles use global defaults",
 				},
 			],
 		},
@@ -1821,7 +1821,7 @@ export const SETTINGS_SCHEMA = {
 			tab: "interaction",
 			group: "Startup & Updates",
 			label: "Check for Updates",
-			description: "Check for omp updates on startup",
+			description: "Check for cxn updates on startup",
 		},
 	},
 
@@ -2640,7 +2640,7 @@ export const SETTINGS_SCHEMA = {
 	},
 
 	// Auto-Learn (experimental): post-stop nudge to capture lessons to memory
-	// and mint/enhance isolated managed skills under ~/.omp/agent/managed-skills.
+	// and mint/enhance isolated managed skills under ~/.cxn/agent/managed-skills.
 	// Master flag is default-off → zero footprint; sub-flags gate behaviour.
 	"autolearn.enabled": {
 		type: "boolean",
@@ -3029,7 +3029,7 @@ export const SETTINGS_SCHEMA = {
 	},
 	"hindsight.retainEveryNTurns": { type: "number", default: 3 },
 	"hindsight.retainOverlapTurns": { type: "number", default: 2 },
-	"hindsight.retainContext": { type: "string", default: "omp" },
+	"hindsight.retainContext": { type: "string", default: "cxn" },
 
 	"hindsight.recallBudget": {
 		type: "enum",
@@ -3409,7 +3409,7 @@ export const SETTINGS_SCHEMA = {
 			group: "LSP",
 			label: "Shared Language Servers",
 			description:
-				"Share one language server per project across omp instances via the daemon broker (falls back to private servers when unavailable)",
+				"Share one language server per project across cxn instances via the daemon broker (falls back to private servers when unavailable)",
 		},
 	},
 
@@ -4038,7 +4038,7 @@ export const SETTINGS_SCHEMA = {
 			tab: "tools",
 			group: "GitHub",
 			label: "GitHub View Cache",
-			description: "Cache rendered issue/PR view output in ~/.omp/cache/github-cache.db so repeated reads are free",
+			description: "Cache rendered issue/PR view output in ~/.cxn/cache/github-cache.db so repeated reads are free",
 		},
 	},
 
@@ -4085,7 +4085,7 @@ export const SETTINGS_SCHEMA = {
 			group: "Available Tools",
 			label: "Security",
 			description:
-				"Enable OMP-native security scan planning, execution, and the read-only security:// resource namespace",
+				"Enable CXN-native security scan planning, execution, and the read-only security:// resource namespace",
 		},
 	},
 
@@ -4131,7 +4131,7 @@ export const SETTINGS_SCHEMA = {
 			group: "Grep & Browser",
 			label: "Browser Relay",
 			description:
-				"Drive your own Chrome tabs through the omp browser relay. Install the extension once (`omp browser-relay install`); the relay server auto-starts when the browser tool needs it. Takes precedence over Browser CDP URL; set PI_BROWSER_RELAY=0 or PI_BROWSER_RELAY=1 to override.",
+				"Drive your own Chrome tabs through the cxn browser relay. Install the extension once (`cxn browser-relay install`); the relay server auto-starts when the browser tool needs it. Takes precedence over Browser CDP URL; set PI_BROWSER_RELAY=0 or PI_BROWSER_RELAY=1 to override.",
 		},
 	},
 
@@ -4142,7 +4142,7 @@ export const SETTINGS_SCHEMA = {
 			tab: "tools",
 			group: "Grep & Browser",
 			label: "Browser Relay URL",
-			description: "omp browser relay endpoint (default http://127.0.0.1:9224).",
+			description: "cxn browser relay endpoint (default http://127.0.0.1:9224).",
 		},
 	},
 
@@ -4549,7 +4549,7 @@ export const SETTINGS_SCHEMA = {
 			group: "Isolation",
 			label: "Worktree Base Directory",
 			description:
-				"Base directory for agent-managed worktrees — task-isolation copies, `github` PR checkouts, and `omp worktree` cleanup all live here. Unset uses ~/.omp/wt. Must be an absolute or ~-relative path; relative paths are ignored. The OMP_WORKTREE_DIR env var overrides this.",
+				"Base directory for agent-managed worktrees — task-isolation copies, `github` PR checkouts, and `cxn worktree` cleanup all live here. Unset uses ~/.cxn/wt. Must be an absolute or ~-relative path; relative paths are ignored. The CXN_WORKTREE_DIR env var overrides this.",
 		},
 	},
 
@@ -5503,7 +5503,7 @@ export const SETTINGS_SCHEMA = {
 			group: "Extensions",
 			label: "Tool Call Handler Timeout (ms)",
 			description:
-				"Positive finite active-work timeout for extension tool_call handlers; invalid values use 30000ms, and time awaiting OMP-owned dialogs does not count",
+				"Positive finite active-work timeout for extension tool_call handlers; invalid values use 30000ms, and time awaiting CXN-owned dialogs does not count",
 		},
 	},
 
@@ -5521,12 +5521,12 @@ export const SETTINGS_SCHEMA = {
 
 	"dev.autoqaPush.endpoint": {
 		type: "string",
-		default: "https://qa.omp.sh/v1/grievances" as const,
+		default: "https://qa.cxn.sh/v1/grievances" as const,
 		ui: {
 			tab: "tools",
 			group: "Developer",
 			label: "Auto QA Push Endpoint",
-			description: "Full URL receiving Auto QA JSON reports (default https://qa.omp.sh/v1/grievances)",
+			description: "Full URL receiving Auto QA JSON reports (default https://qa.cxn.sh/v1/grievances)",
 		},
 	},
 

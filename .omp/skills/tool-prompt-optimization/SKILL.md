@@ -9,10 +9,10 @@ Prompt/schema overlap: content reconstructible from `(name, JSON schema, blank o
 
 ## Run probe
 
-`scripts/probe.ts`: `@oh-my-pi/pi-ai` `completeSimple`; production-matching model/auth/provider behavior.
+`scripts/probe.ts`: `@cxn/pi-ai` `completeSimple`; production-matching model/auth/provider behavior.
 
 ```bash
-bun .omp/skills/tool-prompt-optimization/scripts/probe.ts \
+bun .cxn/skills/tool-prompt-optimization/scripts/probe.ts \
   --schema <file|json> --template <file|text> --name <tool_name>
 ```
 
@@ -26,7 +26,7 @@ bun .omp/skills/tool-prompt-optimization/scripts/probe.ts \
 `scripts/probe-builtin.ts` instantiates the live tool; gets exact `toolWireSchema`, `tool.description`, and derived outline:
 
 ```bash
-bun .omp/skills/tool-prompt-optimization/scripts/probe-builtin.ts --tool <name> [--no-summary] [--show]
+bun .cxn/skills/tool-prompt-optimization/scripts/probe-builtin.ts --tool <name> [--no-summary] [--show]
 ```
 
 - `--show`: resolved schema, derived outline, real prompt; exits without API calls. Inspect before spending tokens.
@@ -39,7 +39,7 @@ bun .omp/skills/tool-prompt-optimization/scripts/probe-builtin.ts --tool <name> 
 **Schema:** wire schema the model sees, never hand-sketch. Arktype:
 
 ```ts
-import { arkToWireSchema } from "@oh-my-pi/pi-ai"; // or toolWireSchema(tool)
+import { arkToWireSchema } from "@cxn/pi-ai"; // or toolWireSchema(tool)
 JSON.stringify(arkToWireSchema(toolSchema), null, 2);
 ```
 

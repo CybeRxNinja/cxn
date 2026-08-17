@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@oh-my-pi/pi-ai",
+  "name": "@cxn/pi-ai",
   "version": "17.3.5",
   "description": "Unified LLM API with automatic model discovery and provider configuration",
-  "homepage": "https://omp.sh",
+  "homepage": "https://cxn.sh",
   "author": "Can Boluk",
   "contributors": [
     "Mario Zechner"
@@ -38,10 +38,10 @@
   },
   "dependencies": {
     "@bufbuild/protobuf": "catalog:",
-    "@oh-my-pi/omptype": "catalog:",
-    "@oh-my-pi/pi-catalog": "catalog:",
-    "@oh-my-pi/pi-utils": "catalog:",
-    "@oh-my-pi/pi-wire": "catalog:"
+    "@cxn/omptype": "catalog:",
+    "@cxn/pi-catalog": "catalog:",
+    "@cxn/pi-utils": "catalog:",
+    "@cxn/pi-wire": "catalog:"
   },
   "devDependencies": {
     "@bufbuild/protoc-gen-es": "catalog:",

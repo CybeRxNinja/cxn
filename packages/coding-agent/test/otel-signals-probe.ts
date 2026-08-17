@@ -6,20 +6,20 @@
  *
  * Stands up a loopback OTLP/proto receiver, points the standard env vars at it,
  * registers the providers, drives a log record through the bridged
- * `@oh-my-pi/pi-utils` logger and metric instruments through the agent
+ * `@cxn/pi-utils` logger and metric instruments through the agent
  * telemetry hooks, flushes, and exits 0 only if the receiver got a non-empty
  * protobuf POST at both /v1/logs and /v1/metrics.
  */
 
-import type { AgentRunCoverage, AgentRunSummary, ChatUsageEvent } from "@oh-my-pi/pi-agent-core";
-import { emptyAgentRunCoverage, emptyAgentRunSummary } from "@oh-my-pi/pi-agent-core";
+import type { AgentRunCoverage, AgentRunSummary, ChatUsageEvent } from "@cxn/pi-agent-core";
+import { emptyAgentRunCoverage, emptyAgentRunSummary } from "@cxn/pi-agent-core";
 import {
 	createTelemetryExportConfig,
 	flushTelemetryExport,
 	initTelemetryExport,
 	isTelemetryExportEnabled,
-} from "@oh-my-pi/pi-coding-agent/telemetry-export";
-import { logger } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/telemetry-export";
+import { logger } from "@cxn/pi-utils";
 
 const seen = new Set<string>();
 const metricPayloads: Uint8Array[] = [];
@@ -122,7 +122,7 @@ const server = Bun.serve({
 const base = `http://localhost:${server.port}`;
 process.env.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT = `${base}/v1/logs`;
 process.env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT = `${base}/v1/metrics`;
-process.env.OTEL_SERVICE_NAME = "oh-my-pi-signals-probe";
+process.env.OTEL_SERVICE_NAME = "cxn-signals-probe";
 // Force a short metric export interval so the periodic reader flushes fast.
 process.env.OTEL_METRIC_EXPORT_INTERVAL = "500";
 
@@ -198,9 +198,9 @@ await flushTelemetryExport();
 // The metric reader exports on its own interval; wait one cycle then flush.
 await Bun.sleep(700);
 await flushTelemetryExport();
-assertSingleMetricPoint("pi.omp.agent.chat.calls");
-assertSingleMetricPoint("pi.omp.agent.tool.calls");
-assertSingleMetricPoint("pi.omp.agent.tool.duration");
+assertSingleMetricPoint("pi.cxn.agent.chat.calls");
+assertSingleMetricPoint("pi.cxn.agent.tool.calls");
+assertSingleMetricPoint("pi.cxn.agent.tool.duration");
 await server.stop(true);
 
 const ok = seen.has("logs") && seen.has("metrics");

@@ -8,7 +8,7 @@ import {
 	setTerminalScreenToScrollback,
 	TERMINAL,
 	TUI,
-} from "@oh-my-pi/pi-tui";
+} from "@cxn/pi-tui";
 import { VirtualTerminal } from "./virtual-terminal";
 
 class MutableLinesComponent implements Component {
@@ -1336,14 +1336,14 @@ describe("TUI terminal-state regressions", () => {
 			for (let r = 0; r < 6; r++) term.write(`STALE-ROW-${r} leftover content\r\n`);
 			await term.flush();
 			const tui = new TUI(term);
-			tui.addChild(new MutableLinesComponent(["omp line 1", "omp line 2"]));
+			tui.addChild(new MutableLinesComponent(["cxn line 1", "cxn line 2"]));
 
 			try {
 				tui.start();
 				await settle(term);
 				const viewport = term.getViewport().join("\n");
 				expect(viewport).not.toContain("STALE-ROW");
-				expect(viewport).toContain("omp line 1");
+				expect(viewport).toContain("cxn line 1");
 			} finally {
 				tui.stop();
 				setTerminalScreenToScrollback(saved);

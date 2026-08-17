@@ -51,7 +51,7 @@ export function Trigger(props: TriggerProps): JSX.Element {
         fallback={
           <div class="rmp-trigger-bar">
             <span class="rmp-readonly-chip">trigger disabled · read-only</span>
-            <span class="rmp-trigger-bar-status">set ROBOMP_REPLAY_TOKEN to enable</span>
+            <span class="rmp-trigger-bar-status">set ROBCXN_REPLAY_TOKEN to enable</span>
           </div>
         }
       >
@@ -104,7 +104,7 @@ function PanelBody(p: PanelBodyProps): JSX.Element {
         when={CONFIG.replayEnabled}
         fallback={
           <div class="px-5 py-7 text-ink-300 text-[13px] leading-relaxed">
-            trigger disabled. set <code>ROBOMP_REPLAY_TOKEN</code> in the server env to enable
+            trigger disabled. set <code>ROBCXN_REPLAY_TOKEN</code> in the server env to enable
             manual triage and retry actions.
           </div>
         }

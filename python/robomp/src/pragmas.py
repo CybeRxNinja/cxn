@@ -29,10 +29,10 @@ as a directive (reviewer-bot or maintainer-mention).
 
 Supported keys (today):
 
-- `/model <alias>` — pick the first id in `ROBOMP_MODEL` whose model id
+- `/model <alias>` — pick the first id in `ROBCXN_MODEL` whose model id
   contains `<alias>` (case-insensitive). Falls back to the normal random
   pool selection if no member matches.
-- `/thinking <level>` — override `ROBOMP_THINKING` for this run. Accepts
+- `/thinking <level>` — override `ROBCXN_THINKING` for this run. Accepts
   `off|none|no`, `lo|low`, `med|medium`, `hi|high`, `xhi|xhigh`, `max`
   (case-insensitive); anything else is ignored.
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 import { parseArgs } from "node:util";
-import { formatDuration, formatNumber, formatPercent } from "@oh-my-pi/pi-utils";
+import { formatDuration, formatNumber, formatPercent } from "@cxn/pi-utils";
 import { getDashboardStats, getTotalMessageCount, syncAllSessions } from "./aggregator";
 import { closeDb } from "./db";
 import { formatStatsDashboardUrl, startServer } from "./server";
@@ -96,7 +96,7 @@ async function printStats(): Promise<void> {
 	console.log("");
 }
 
-/** Parsed arguments for the standalone `omp-stats` entry point. */
+/** Parsed arguments for the standalone `cxn-stats` entry point. */
 export interface StandaloneStatsArgs {
 	port: number;
 	host: string;
@@ -105,7 +105,7 @@ export interface StandaloneStatsArgs {
 	help: boolean;
 }
 
-/** Parse the standalone `omp-stats` arguments used by the production entry point. */
+/** Parse the standalone `cxn-stats` arguments used by the production entry point. */
 export function parseStandaloneStatsArgs(args: string[]): StandaloneStatsArgs {
 	const { values } = parseArgs({
 		args,
@@ -135,10 +135,10 @@ async function main(): Promise<void> {
 
 	if (values.help) {
 		console.log(`
-omp-stats - AI Usage Statistics Dashboard
+cxn-stats - AI Usage Statistics Dashboard
 
 Usage:
-  omp-stats [options]
+  cxn-stats [options]
 
 Options:
   -p, --port <port>  Port for the dashboard server (default: 3847)
@@ -148,10 +148,10 @@ Options:
   -h, --help         Show this help message
 
 Examples:
-  omp-stats              # Start dashboard server
-  omp-stats --json       # Print stats as JSON
-  omp-stats --host 0.0.0.0 # Explicitly expose on all IPv4 interfaces
-  omp-stats --sync       # Sync and show summary
+  cxn-stats              # Start dashboard server
+  cxn-stats --json       # Print stats as JSON
+  cxn-stats --host 0.0.0.0 # Explicitly expose on all IPv4 interfaces
+  cxn-stats --sync       # Sync and show summary
 `);
 		return;
 	}

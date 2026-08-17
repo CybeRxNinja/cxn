@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import type { ToolSession } from "@oh-my-pi/pi-coding-agent/tools";
-import { resolveExplicitSearchPaths } from "@oh-my-pi/pi-coding-agent/tools/path-utils";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { resolveExplicitSearchPaths } from "@cxn/pi-coding-agent/tools/path-utils";
+import { removeWithRetries } from "@cxn/pi-utils";
 import { GrepTool } from "../../src/tools/grep";
 
 const testSettings = Settings.isolated();

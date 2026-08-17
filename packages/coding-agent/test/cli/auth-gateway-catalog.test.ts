@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import type { AuthStorage } from "@oh-my-pi/pi-ai";
-import { getBundledModels } from "@oh-my-pi/pi-catalog/models";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import type { AuthStorage } from "@cxn/pi-ai";
+import { getBundledModels } from "@cxn/pi-catalog/models";
+import { TempDir } from "@cxn/pi-utils";
 import { indexModelsByRequestId } from "../../src/cli/auth-gateway-cli";
 import { ModelRegistry } from "../../src/config/model-registry";
 
@@ -50,7 +50,7 @@ describe("indexModelsByRequestId (auth-gateway catalog)", () => {
 	});
 
 	test("gateway registry ignores local models.yml credential and routing overrides", async () => {
-		using tempDir = TempDir.createSync("@omp-auth-gateway-catalog-");
+		using tempDir = TempDir.createSync("@cxn-auth-gateway-catalog-");
 		const modelsPath = tempDir.join("models.yml");
 		// anthropic: a plain credential/baseUrl override (no transport) — the
 		// reviewer's leak. openai: a pi-native gateway route — the self-routing loop.

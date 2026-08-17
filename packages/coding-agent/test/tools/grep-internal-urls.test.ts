@@ -2,22 +2,22 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import * as capability from "@oh-my-pi/pi-coding-agent/capability";
-import type { CapabilityResult } from "@oh-my-pi/pi-coding-agent/capability/types";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { resetActiveSkillsForTests, setActiveSkills } from "@oh-my-pi/pi-coding-agent/extensibility/skills";
+import * as capability from "@cxn/pi-coding-agent/capability";
+import type { CapabilityResult } from "@cxn/pi-coding-agent/capability/types";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { resetActiveSkillsForTests, setActiveSkills } from "@cxn/pi-coding-agent/extensibility/skills";
 import {
 	type InternalResource,
 	type InternalUrl,
 	InternalUrlRouter,
 	LocalProtocolHandler,
 	type ProtocolHandler,
-} from "@oh-my-pi/pi-coding-agent/internal-urls";
-import { AgentRegistry } from "@oh-my-pi/pi-coding-agent/registry/agent-registry";
-import * as sshFileTransfer from "@oh-my-pi/pi-coding-agent/ssh/file-transfer";
-import type { ToolSession } from "@oh-my-pi/pi-coding-agent/tools";
-import { ReadTool } from "@oh-my-pi/pi-coding-agent/tools/read";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/internal-urls";
+import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
+import * as sshFileTransfer from "@cxn/pi-coding-agent/ssh/file-transfer";
+import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
+import { removeWithRetries } from "@cxn/pi-utils";
 import { GlobTool } from "../../src/tools/glob";
 import { GrepTool } from "../../src/tools/grep";
 
@@ -322,31 +322,31 @@ describe("GrepTool internal URL resolution", () => {
 		);
 	});
 
-	it("expands omp:// root to grep embedded documentation files", async () => {
+	it("expands cxn:// root to grep embedded documentation files", async () => {
 		const session = createSession();
 		const tool = new GrepTool(session);
 
 		const result = await tool.execute("test-call", {
 			pattern: "Grep file contents with a regex across files",
-			path: "omp://",
+			path: "cxn://",
 		});
 
 		const text = getResultText(result);
-		expect(text).toContain("# omp://tools/grep.md");
+		expect(text).toContain("# cxn://tools/grep.md");
 		expect(text).toContain("Grep file contents with a regex across files");
 	});
 
-	it("expands omp://docs to grep embedded documentation files", async () => {
+	it("expands cxn://docs to grep embedded documentation files", async () => {
 		const session = createSession();
 		const tool = new GrepTool(session);
 
 		const result = await tool.execute("test-call", {
 			pattern: "Read files, directories, archives",
-			path: "omp://docs",
+			path: "cxn://docs",
 		});
 
 		const text = getResultText(result);
-		expect(text).toContain("# omp://tools/read.md");
+		expect(text).toContain("# cxn://tools/read.md");
 		expect(text).toContain("Read files, directories, archives");
 	});
 

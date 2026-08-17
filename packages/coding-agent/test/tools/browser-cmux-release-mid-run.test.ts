@@ -32,22 +32,17 @@ import { afterEach, describe, expect, it, spyOn, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { CmuxKind } from "@oh-my-pi/pi-coding-agent/tools/browser/cmux/rpc";
-import { CmuxSocketClient } from "@oh-my-pi/pi-coding-agent/tools/browser/cmux/socket-client";
-import { acquireBrowser } from "@oh-my-pi/pi-coding-agent/tools/browser/registry";
-import {
-	acquireTab,
-	getTabsMapForTest,
-	releaseTab,
-	runInTab,
-} from "@oh-my-pi/pi-coding-agent/tools/browser/tab-supervisor";
-import type { ToolSession } from "@oh-my-pi/pi-coding-agent/tools/index";
-import * as logger from "@oh-my-pi/pi-utils/logger";
+import type { CmuxKind } from "@cxn/pi-coding-agent/tools/browser/cmux/rpc";
+import { CmuxSocketClient } from "@cxn/pi-coding-agent/tools/browser/cmux/socket-client";
+import { acquireBrowser } from "@cxn/pi-coding-agent/tools/browser/registry";
+import { acquireTab, getTabsMapForTest, releaseTab, runInTab } from "@cxn/pi-coding-agent/tools/browser/tab-supervisor";
+import type { ToolSession } from "@cxn/pi-coding-agent/tools/index";
+import * as logger from "@cxn/pi-utils/logger";
 
 function makeKind(socketSuffix: string): CmuxKind {
 	return {
 		kind: "cmux",
-		socketPath: `/tmp/omp-test-${socketSuffix}.sock`,
+		socketPath: `/tmp/cxn-test-${socketSuffix}.sock`,
 		surface: `surface-${socketSuffix}`,
 	};
 }
@@ -524,7 +519,7 @@ describe("browser tab-supervisor — cmux tab close mid-run (#4499)", () => {
 			},
 		);
 
-		const screenshotDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-cmux-screenshot-"));
+		const screenshotDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-cmux-screenshot-"));
 		try {
 			const browser = await acquireBrowser(makeKind("screenshot-configured"), { cwd: "/tmp" });
 			await acquireTab("screenshot-configured", browser, {

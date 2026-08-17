@@ -2,16 +2,16 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import type { Model } from "@oh-my-pi/pi-ai";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { buildSystemPrompt } from "@oh-my-pi/pi-coding-agent/system-prompt";
-import { usesCodexTaskPrompt } from "@oh-my-pi/pi-coding-agent/task/prompt-policy";
-import { removeSyncWithRetries } from "@oh-my-pi/pi-utils";
+import { Agent } from "@cxn/pi-agent-core";
+import type { Model } from "@cxn/pi-ai";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { buildSystemPrompt } from "@cxn/pi-coding-agent/system-prompt";
+import { usesCodexTaskPrompt } from "@cxn/pi-coding-agent/task/prompt-policy";
+import { removeSyncWithRetries } from "@cxn/pi-utils";
 import { cleanupTempHome } from "./helpers/temp-home-cleanup";
 
 const EMPTY_TREE = {
@@ -39,15 +39,15 @@ import { renderDateCwdReminder } from ${JSON.stringify(
 		)};
 import { formatLocalCalendarDate } from ${JSON.stringify(path.resolve(import.meta.dir, "../src/utils/local-date.ts"))};
 
-setSystemTime(new Date(process.env.OMP_TEST_NOW!));
+setSystemTime(new Date(process.env.CXN_TEST_NOW!));
 try {
 	// The date/cwd reminder is built per request in the startup local timezone;
 	// the system prompt no longer embeds the date (#7404).
 	const reminder = renderDateCwdReminder(formatLocalCalendarDate(), "/cwd");
-	if (!reminder.includes(\`Today: \${process.env.OMP_EXPECTED_DATE}\`)) {
+	if (!reminder.includes(\`Today: \${process.env.CXN_EXPECTED_DATE}\`)) {
 		throw new Error(\`Reminder did not contain expected local date:\\n\${reminder}\`);
 	}
-	if (reminder.includes(\`Today: \${process.env.OMP_REJECTED_DATE}\`)) {
+	if (reminder.includes(\`Today: \${process.env.CXN_REJECTED_DATE}\`)) {
 		throw new Error(\`Reminder contained rejected UTC date:\\n\${reminder}\`);
 	}
 } finally {
@@ -61,9 +61,9 @@ try {
 			...process.env,
 			HOME: options.tempHomeDir,
 			TZ: options.timeZone,
-			OMP_TEST_NOW: options.now,
-			OMP_EXPECTED_DATE: options.expectedDate,
-			OMP_REJECTED_DATE: options.rejectedDate,
+			CXN_TEST_NOW: options.now,
+			CXN_EXPECTED_DATE: options.expectedDate,
+			CXN_REJECTED_DATE: options.rejectedDate,
 		},
 		stdout: "pipe",
 		stderr: "pipe",

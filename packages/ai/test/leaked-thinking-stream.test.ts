@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { stream } from "@oh-my-pi/pi-ai/stream";
+import { stream } from "@cxn/pi-ai/stream";
 import type {
 	AnthropicServerToolContent,
 	AssistantMessage,
@@ -10,11 +10,11 @@ import type {
 	TextContent,
 	ThinkingContent,
 	ToolCall,
-} from "@oh-my-pi/pi-ai/types";
-import { getStreamingPartialJson, setStreamingPartialJson } from "@oh-my-pi/pi-ai/utils/block-symbols";
-import { AssistantMessageEventStream } from "@oh-my-pi/pi-ai/utils/event-stream";
-import { wrapLeakedThinkingStream } from "@oh-my-pi/pi-ai/utils/leaked-thinking-stream";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
+} from "@cxn/pi-ai/types";
+import { getStreamingPartialJson, setStreamingPartialJson } from "@cxn/pi-ai/utils/block-symbols";
+import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+import { wrapLeakedThinkingStream } from "@cxn/pi-ai/utils/leaked-thinking-stream";
+import { buildModel } from "@cxn/pi-catalog/build";
 
 /** Minimal assistant message; `content`/`stopReason` overridden per event. */
 function msg(overrides: Partial<AssistantMessage> = {}): AssistantMessage {

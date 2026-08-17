@@ -791,7 +791,7 @@ static SHOPT_OPTIONS: LazyLock<HashMap<&'static str, ShellOptionDef>> = LazyLock
 			),
 		),
 		(
-			"progcomp_alias",
+			"progccxn_alias",
 			ShellOptionDef::new(
 				|options| options.programmable_completion_alias,
 				|options, value| options.programmable_completion_alias = value,

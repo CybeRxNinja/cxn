@@ -7,10 +7,10 @@ import {
 	resetEmbeddingProviderForTests,
 	setEmbeddingProviderForTests,
 	setLocalModelInitializerForTests,
-} from "@oh-my-pi/pi-mnemopi/core/embeddings";
-import { Mnemopi } from "@oh-my-pi/pi-mnemopi/core/memory";
-import { withMnemopiRuntimeOptions } from "@oh-my-pi/pi-mnemopi/core/runtime-options";
-import { getFastembedCacheDir } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-mnemopi/core/embeddings";
+import { Mnemopi } from "@cxn/pi-mnemopi/core/memory";
+import { withMnemopiRuntimeOptions } from "@cxn/pi-mnemopi/core/runtime-options";
+import { getFastembedCacheDir } from "@cxn/pi-utils";
 import packageJson from "../package.json" with { type: "json" };
 
 const ENV_KEYS = [
@@ -132,9 +132,9 @@ describe("optional embeddings", () => {
 			fetch: async request => {
 				requests += 1;
 				expect(request.headers.get("content-type")).toBe("application/json");
-				expect(request.headers.get("user-agent")).toBe(`omp/${packageJson.version}`);
-				expect(request.headers.get("http-referer")).toBe("https://omp.sh/");
-				expect(request.headers.get("x-openrouter-title")).toBe("omp");
+				expect(request.headers.get("user-agent")).toBe(`cxn/${packageJson.version}`);
+				expect(request.headers.get("http-referer")).toBe("https://cxn.sh/");
+				expect(request.headers.get("x-openrouter-title")).toBe("cxn");
 				expect(request.headers.get("x-openrouter-categories")).toBe("cli-agent");
 				expect(request.headers.get("x-title")).toBeNull();
 				expect(request.headers.get("authorization")).toBeNull();

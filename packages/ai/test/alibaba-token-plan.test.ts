@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { resolveOpenAIRequestSetup } from "@oh-my-pi/pi-ai/providers/openai-shared";
-import { loginAlibabaTokenPlan } from "@oh-my-pi/pi-ai/registry/alibaba-token-plan";
-import { getOAuthProviders } from "@oh-my-pi/pi-ai/registry/oauth";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
+import { resolveOpenAIRequestSetup } from "@cxn/pi-ai/providers/openai-shared";
+import { loginAlibabaTokenPlan } from "@cxn/pi-ai/registry/alibaba-token-plan";
+import { getOAuthProviders } from "@cxn/pi-ai/registry/oauth";
+import { getBundledModel } from "@cxn/pi-catalog/models";
 
 describe("QwenCloud Token Plan login", () => {
 	test("International (default) region opens Individual page and validates without inference", async () => {

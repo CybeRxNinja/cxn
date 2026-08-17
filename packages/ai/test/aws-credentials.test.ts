@@ -6,8 +6,8 @@ import {
 	clearAwsCredentialCache,
 	resolveAwsCredentials,
 	tokenizeCredentialProcessCommand,
-} from "@oh-my-pi/pi-ai/providers/aws-credentials";
-import type { FetchImpl } from "@oh-my-pi/pi-ai/types";
+} from "@cxn/pi-ai/providers/aws-credentials";
+import type { FetchImpl } from "@cxn/pi-ai/types";
 import { removeWithRetries } from "../../utils/src/temp";
 import { waitForDelayOrAbort } from "./helpers";
 

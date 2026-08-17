@@ -1,6 +1,6 @@
 import * as path from "node:path";
-import { type } from "@oh-my-pi/omptype";
-import type { AgentTool, AgentToolResult } from "@oh-my-pi/pi-agent-core";
+import { type } from "@cxn/omptype";
+import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core";
 import {
 	deleteManagedSkill,
 	getManagedSkillsDir,

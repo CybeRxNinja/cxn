@@ -15,9 +15,9 @@
  *   - Questions may time out and auto-select the recommended option (configurable, disabled in plan mode)
  */
 
-import { type as arkType } from "@oh-my-pi/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@oh-my-pi/pi-agent-core";
-import type { ToolExample } from "@oh-my-pi/pi-ai";
+import { type as arkType } from "@cxn/omptype";
+import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
+import type { ToolExample } from "@cxn/pi-ai";
 import {
 	type Component,
 	Ellipsis,
@@ -29,8 +29,8 @@ import {
 	Text,
 	truncateToWidth,
 	visibleWidth,
-} from "@oh-my-pi/pi-tui";
-import { prompt, untilAborted } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-tui";
+import { prompt, untilAborted } from "@cxn/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import type { ExtensionUISelectItem } from "../extensibility/extensions";
 import { getMarkdownTheme, type Theme, theme } from "../modes/theme/theme";
@@ -838,7 +838,7 @@ export class AskTool implements AgentTool<typeof askSchema, AskToolDetails> {
 		const method = this.session.settings.get("ask.notify");
 		if (method === "off") return;
 		TERMINAL.sendNotification({
-			title: "Oh My Pi",
+			title: "cxn",
 			body: "Waiting for input",
 			type: "ask",
 			urgency: "normal",

@@ -2,16 +2,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as fsPromises from "node:fs/promises";
 import * as path from "node:path";
-import { type ExtensionModule, extensionModuleCapability } from "@oh-my-pi/pi-coding-agent/capability/extension-module";
-import { resetSettingsForTest, Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { getCapability, initializeWithSettings } from "@oh-my-pi/pi-coding-agent/discovery";
+import { type ExtensionModule, extensionModuleCapability } from "@cxn/pi-coding-agent/capability/extension-module";
+import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
+import { getCapability, initializeWithSettings } from "@cxn/pi-coding-agent/discovery";
 import {
 	discoverAndLoadExtensions,
 	discoverExtensionPaths,
 	loadExtensions,
-} from "@oh-my-pi/pi-coding-agent/extensibility/extensions/loader";
-import { discoverSessionExtensionPaths } from "@oh-my-pi/pi-coding-agent/sdk";
-import { getProjectAgentDir, TempDir } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/extensibility/extensions/loader";
+import { discoverSessionExtensionPaths } from "@cxn/pi-coding-agent/sdk";
+import { getProjectAgentDir, TempDir } from "@cxn/pi-utils";
 import { filterUserScoped } from "./utils/filter-user-extensions";
 
 describe("extensions discovery", () => {
@@ -161,7 +161,7 @@ describe("extensions discovery", () => {
 			path.join(packageDir, "package.json"),
 			JSON.stringify({
 				name: "explicit-package",
-				omp: {
+				cxn: {
 					extensions: ["./src/main.ts"],
 				},
 			}),
@@ -199,7 +199,7 @@ describe("extensions discovery", () => {
 			path.join(packageDir, "package.json"),
 			JSON.stringify({
 				name: "explicit-package",
-				omp: {
+				cxn: {
 					extensions: ["./src/main.ts"],
 				},
 			}),
@@ -402,7 +402,7 @@ describe("extensions discovery", () => {
 		fs.writeFileSync(path.join(realDir, "index.ts"), extensionCodeWithTool("ctk-tool"));
 		fs.writeFileSync(
 			path.join(realDir, "package.json"),
-			JSON.stringify({ name: "ctk", omp: { extensions: ["./index.ts"] } }),
+			JSON.stringify({ name: "ctk", cxn: { extensions: ["./index.ts"] } }),
 		);
 		fs.symlinkSync(realDir, path.join(extensionsDir, "ctk"), "dir");
 
@@ -547,7 +547,7 @@ describe("extensions discovery", () => {
 				name: "pi-extension-with-deps",
 				version: "1.0.0",
 				type: "module",
-				omp: { extensions: ["./index.ts"] },
+				cxn: { extensions: ["./index.ts"] },
 			}),
 		);
 

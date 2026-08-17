@@ -2,10 +2,10 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import * as mcpClient from "@oh-my-pi/pi-coding-agent/mcp/client";
-import { MCPCommandController } from "@oh-my-pi/pi-coding-agent/modes/controllers/mcp-command-controller";
-import { initTheme } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
-import { getConfigRootDir, getProjectDir, removeWithRetries, setAgentDir, setProjectDir } from "@oh-my-pi/pi-utils";
+import * as mcpClient from "@cxn/pi-coding-agent/mcp/client";
+import { MCPCommandController } from "@cxn/pi-coding-agent/modes/controllers/mcp-command-controller";
+import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import { getConfigRootDir, getProjectDir, removeWithRetries, setAgentDir, setProjectDir } from "@cxn/pi-utils";
 
 const originalProjectDir = getProjectDir();
 const originalAgentDir = process.env.PI_CODING_AGENT_DIR;
@@ -20,8 +20,8 @@ describe("issue #956: interactive /mcp test", () => {
 	});
 
 	beforeEach(async () => {
-		projectDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-issue-956-project-"));
-		agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-issue-956-agent-"));
+		projectDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-issue-956-project-"));
+		agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-issue-956-agent-"));
 		setProjectDir(projectDir);
 		setAgentDir(agentDir);
 

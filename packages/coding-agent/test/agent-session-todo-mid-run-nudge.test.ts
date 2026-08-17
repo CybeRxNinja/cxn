@@ -1,14 +1,14 @@
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Agent, type AgentTool, type AsideMessage } from "@oh-my-pi/pi-agent-core";
-import type { AssistantMessage, TextContent, ToolCall } from "@oh-my-pi/pi-ai";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AgentSession, type AgentSessionEvent } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import type { CustomMessage } from "@oh-my-pi/pi-coding-agent/session/messages";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { TodoTool, type ToolSession } from "@oh-my-pi/pi-coding-agent/tools";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { Agent, type AgentTool, type AsideMessage } from "@cxn/pi-agent-core";
+import type { AssistantMessage, TextContent, ToolCall } from "@cxn/pi-ai";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AgentSession, type AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
+import type { CustomMessage } from "@cxn/pi-coding-agent/session/messages";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { TodoTool, type ToolSession } from "@cxn/pi-coding-agent/tools";
+import { TempDir } from "@cxn/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 /**

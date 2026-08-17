@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { TempDir } from "@cxn/pi-utils";
 import { checkPythonSetup } from "../src/cli/setup-cli";
 
 const cliEntry = path.join(import.meta.dir, "..", "src", "cli.ts");
@@ -33,7 +33,7 @@ async function runSetupPython(cwd: string): Promise<CliProcessResult> {
 	return { exitCode, output: stdout, error: stderr };
 }
 
-describe("omp setup python", () => {
+describe("cxn setup python", () => {
 	let projectDir: TempDir | undefined;
 
 	afterEach(async () => {
@@ -44,12 +44,12 @@ describe("omp setup python", () => {
 	it.skipIf(process.platform === "win32")(
 		"probes the project-configured interpreter instead of the PATH interpreter",
 		async () => {
-			projectDir = TempDir.createSync("@omp-setup-python-");
+			projectDir = TempDir.createSync("@cxn-setup-python-");
 			const cwd = projectDir.path();
 			const interpreter = path.join(cwd, "configured-python");
 			await Bun.write(interpreter, "#!/bin/sh\nexit 0\n");
 			await fs.chmod(interpreter, 0o755);
-			await Bun.write(path.join(cwd, ".omp", "config.yml"), `python:\n  interpreter: ${interpreter}\n`);
+			await Bun.write(path.join(cwd, ".cxn", "config.yml"), `python:\n  interpreter: ${interpreter}\n`);
 
 			const result = await runSetupPython(cwd);
 
@@ -63,7 +63,7 @@ describe("omp setup python", () => {
 		},
 	);
 	it.skipIf(process.platform === "win32")("prefers the project venv over the PATH interpreter", async () => {
-		projectDir = TempDir.createSync("@omp-setup-python-");
+		projectDir = TempDir.createSync("@cxn-setup-python-");
 		const cwd = projectDir.path();
 		const interpreter = path.join(cwd, ".venv", "bin", "python");
 		await Bun.write(interpreter, "#!/bin/sh\nexit 0\n");
@@ -78,7 +78,7 @@ describe("omp setup python", () => {
 		});
 	});
 	it.skipIf(process.platform === "win32")("does not let the global probe bypass skip setup validation", async () => {
-		projectDir = TempDir.createSync("@omp-setup-python-");
+		projectDir = TempDir.createSync("@cxn-setup-python-");
 		const cwd = projectDir.path();
 		const interpreter = path.join(cwd, "configured-python");
 		await Bun.write(interpreter, "#!/bin/sh\nexit 23\n");

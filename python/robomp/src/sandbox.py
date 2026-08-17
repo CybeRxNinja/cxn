@@ -14,8 +14,8 @@ Permission model
 There are four ownership zones on disk; do not let them blur:
 
 1. **Workspace tree** (`/data/workspaces/<key>/`, including `repo/`,
-   `.omp-session/`, `context/`, `artifacts/`, `.omp-tmp/`, `.omp-xdg`):
-   single-owner. Owned by the active slot UID/GID (`omp-N`) when slot
+   `.cxn-session/`, `context/`, `artifacts/`, `.cxn-tmp/`, `.cxn-xdg`):
+   single-owner. Owned by the active slot UID/GID (`cxn-N`) when slot
    isolation is enabled, otherwise by the orchestrator's own UID/GID. Modes
    stay `u=rwX,g=rwX,o=` (effectively `0770` dirs / `0660` files). The
    orchestrator (root) reads/writes via uid-0 bypass when it must, and drops
@@ -23,10 +23,10 @@ There are four ownership zones on disk; do not let them blur:
    `ensure_workspace` + `_chown_workspace` are the single point of truth for
    this zone — no other helper sets ownership inside `ws_root`.
 2. **Clone pool** (`/data/workspaces/_pool/<owner>__<repo>/`): genuinely
-   multi-slot. Owned by `root:omp` (gid 2000) with setgid `02770`; cross-slot
+   multi-slot. Owned by `root:cxn` (gid 2000) with setgid `02770`; cross-slot
    writes are bridged by `_share_git_metadata_with_slots`.
 3. **Language tool caches** (`/data/cache/{cargo,cargo-target,rustup,bun-cache}`):
-   multi-slot. Owned by `root:omp` with setgid `02770`; provisioned by
+   multi-slot. Owned by `root:cxn` with setgid `02770`; provisioned by
    `entrypoint.sh`.
 4. **Agent HOME template** (`/srv/agent-home`): read-only, `root:root`
    `0755/0644`.
@@ -379,7 +379,7 @@ def _worktree_add(add_cmd: list[str], *, pool: Path, repo_dir: Path) -> None:
         raise
 
 
-_SHARED_OMP_GID = 2000
+_SHARED_CXN_GID = 2000
 
 
 def _slot_permissions_active(slot_uid: int | None) -> bool:
@@ -452,14 +452,14 @@ def _prepare_slot_tmpdir(workspace: Workspace, slot_uid: int | None) -> Path:
     Ownership/mode is set by ``_chown_workspace`` as part of the workspace's
     single-ownership invariant; this helper only:
 
-    - replaces any non-directory at ``.omp-tmp`` (symlink-protection: a user
+    - replaces any non-directory at ``.cxn-tmp`` (symlink-protection: a user
       who plants a symlink there could redirect later writes outside the
       workspace regardless of who owns the destination), and
     - ``mkdir(mode=0o700, exist_ok=True)`` as a safety net for callers that
       run before ``ensure_workspace`` (e.g. unit tests with ``slot_uid=None``).
     """
     del slot_uid  # ownership is _chown_workspace's job; kept for call-site parity
-    tmpdir = workspace.root / ".omp-tmp"
+    tmpdir = workspace.root / ".cxn-tmp"
     try:
         st = tmpdir.lstat()
     except FileNotFoundError:
@@ -482,7 +482,7 @@ def _slot_subprocess_kwargs(slot_uid: int | None) -> dict[str, Any]:
     if not _slot_permissions_active(slot_uid):
         return {}
     assert slot_uid is not None
-    return {"user": slot_uid, "group": slot_uid, "extra_groups": [_SHARED_OMP_GID], "umask": 0o002}
+    return {"user": slot_uid, "group": slot_uid, "extra_groups": [_SHARED_CXN_GID], "umask": 0o002}
 
 
 def _prepare_slot_runtime_env(workspace: Workspace, slot_uid: int | None) -> dict[str, str]:
@@ -495,12 +495,12 @@ def _prepare_slot_runtime_env(workspace: Workspace, slot_uid: int | None) -> dic
     tests) or for the case where a runtime dir was deleted mid-process.
 
     Cargo/rustup/target caches live under ``/data/cache/*`` (container ENV)
-    and are group-shared via ``omp``. Bun's install cache is explicitly
+    and are group-shared via ``cxn``. Bun's install cache is explicitly
     workspace-private because bun chmod/chowns its cache root, which makes a
     cross-slot shared cache a permanent source of permission failures.
     """
     tmpdir = _prepare_slot_tmpdir(workspace, slot_uid)
-    xdg_root = workspace.root / ".omp-xdg"
+    xdg_root = workspace.root / ".cxn-xdg"
     xdg_data = xdg_root / "data"
     xdg_state = xdg_root / "state"
     xdg_cache = xdg_root / "cache"
@@ -508,7 +508,7 @@ def _prepare_slot_runtime_env(workspace: Workspace, slot_uid: int | None) -> dic
 
     for base in (xdg_data, xdg_state, xdg_cache):
         base.mkdir(parents=True, exist_ok=True)
-        (base / "omp").mkdir(parents=True, exist_ok=True)
+        (base / "cxn").mkdir(parents=True, exist_ok=True)
     bun_cache.mkdir(parents=True, exist_ok=True)
 
     return {
@@ -526,14 +526,14 @@ def _provision_runtime_dirs(ws_root: Path) -> None:
     """Create the runtime dirs that ``_chown_workspace`` will hand to the slot.
 
     Runs immediately before ``_chown_workspace`` so the recursive chown sweep
-    picks up ``.omp-tmp`` and the per-workspace XDG tree. Without this,
+    picks up ``.cxn-tmp`` and the per-workspace XDG tree. Without this,
     ``_prepare_slot_runtime_env`` would create them later from the orchestrator
     process — leaving root-owned cache roots that bun/biome/cargo cannot
     chmod/utime, the original source of the recurring permission failures.
 
-    Symlink-safe on ``.omp-tmp`` (replaces a planted non-directory in place).
+    Symlink-safe on ``.cxn-tmp`` (replaces a planted non-directory in place).
     """
-    tmpdir = ws_root / ".omp-tmp"
+    tmpdir = ws_root / ".cxn-tmp"
     try:
         st = tmpdir.lstat()
     except FileNotFoundError:
@@ -543,11 +543,11 @@ def _provision_runtime_dirs(ws_root: Path) -> None:
             tmpdir.unlink()
     tmpdir.mkdir(mode=0o700, parents=True, exist_ok=True)
 
-    xdg_root = ws_root / ".omp-xdg"
+    xdg_root = ws_root / ".cxn-xdg"
     for sub in ("data", "state", "cache"):
         base = xdg_root / sub
         base.mkdir(parents=True, exist_ok=True)
-        (base / "omp").mkdir(parents=True, exist_ok=True)
+        (base / "cxn").mkdir(parents=True, exist_ok=True)
     (xdg_root / "cache" / "bun-install").mkdir(parents=True, exist_ok=True)
 
 
@@ -609,8 +609,8 @@ def _share_git_metadata_with_slots(repo_dir: Path, slot_uid: int | None) -> None
 
     The worktree checkout itself is slot-private, but `.git` in a Git worktree
     points back into the shared clone pool. A retry may run as a different
-    `omp-N` user, so the pool-side worktree gitdir, refs, reflogs, and object
-    directories must stay writable through the shared `omp` group.
+    `cxn-N` user, so the pool-side worktree gitdir, refs, reflogs, and object
+    directories must stay writable through the shared `cxn` group.
     """
     if not _slot_permissions_active(slot_uid):
         return
@@ -618,7 +618,7 @@ def _share_git_metadata_with_slots(repo_dir: Path, slot_uid: int | None) -> None
     if dirs is None:
         return
     git_dir, common_dir = dirs
-    gid = _SHARED_OMP_GID
+    gid = _SHARED_CXN_GID
     _grant_tree(git_dir, gid=gid, files_group_writable=True)
     _grant_group_bits(common_dir, gid=gid, bits=stat.S_IRWXG | stat.S_ISGID)
     for rel, files_group_writable in (
@@ -718,8 +718,8 @@ def _stage_workspace_trash(ws_root: Path) -> tuple[Path, ...]:
         return ()
     staged = [p for p in ws_root.iterdir() if p.name.startswith(_TRASH_PREFIX)]
     candidates = [
-        ws_root / ".omp-xdg" / "cache",
-        ws_root / ".omp-tmp",
+        ws_root / ".cxn-xdg" / "cache",
+        ws_root / ".cxn-tmp",
         *_find_node_modules(ws_root / "repo"),
     ]
     trash_root: Path | None = None
@@ -854,7 +854,7 @@ class SandboxManager:
             pool = self.ensure_clone(repo=repo, clone_url=clone_url, default_branch=default_branch)
             ws_root = self.workspace_root(repo, number)
             repo_dir = ws_root / "repo"
-            session_dir = ws_root / ".omp-session"
+            session_dir = ws_root / ".cxn-session"
             context_dir = ws_root / "context"
             artifacts_dir = ws_root / "artifacts"
             for path in (ws_root, session_dir, context_dir, context_dir / "repro", artifacts_dir):
@@ -974,7 +974,7 @@ class SandboxManager:
             )
             # Best-effort: hardlink pre-built natives in if we've cached this
             # source state before. Runs AFTER the slot chown so the cache inode
-            # keeps its `root:omp` ownership (the slot reads through group `omp`);
+            # keeps its `root:cxn` ownership (the slot reads through group `cxn`);
             # write-temp + rename in the napi build replaces with a new inode if
             # the agent rebuilds, so the cached file is never mutated.
             self._populate_natives_cache(workspace, slot_uid=slot_uid)
@@ -991,9 +991,9 @@ class SandboxManager:
         Post-populate, the populated `packages/natives/native/` directory
         and the COPIED companion files are chowned to the slot so the slot
         can rebuild via temp + rename in that directory. The hardlinked
-        `.node` files are LEFT at `root:omp` ownership — chowning them
+        `.node` files are LEFT at `root:cxn` ownership — chowning them
         would chown the cache file too (shared inode), breaking the
-        cross-slot sharing model. The slot reads them via group `omp`.
+        cross-slot sharing model. The slot reads them via group `cxn`.
         """
         cache = self.natives_cache
         if cache is None:
@@ -1040,8 +1040,8 @@ class SandboxManager:
         hardlinked `.node` inodes (those are shared with the cache).
 
         Files whose names match a cached `.node` are skipped — they are
-        hardlinks back into the root:omp cache and the slot reads them via
-        group `omp`. Everything else (the directory itself, copied
+        hardlinks back into the root:cxn cache and the slot reads them via
+        group `cxn`. Everything else (the directory itself, copied
         companions) is chowned to the slot so the slot can rebuild via
         temp + rename.
         """

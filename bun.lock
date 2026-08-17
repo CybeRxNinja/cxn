@@ -20,33 +20,33 @@
       },
     },
     "packages/agent": {
-      "name": "@oh-my-pi/pi-agent-core",
+      "name": "@cxn/pi-agent-core",
       "version": "17.3.5",
       "dependencies": {
-        "@oh-my-pi/pi-ai": "catalog:",
-        "@oh-my-pi/pi-catalog": "catalog:",
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
-        "@oh-my-pi/pi-wire": "catalog:",
-        "@oh-my-pi/snapcompact": "catalog:",
+        "@cxn/pi-ai": "catalog:",
+        "@cxn/pi-catalog": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-utils": "catalog:",
+        "@cxn/pi-wire": "catalog:",
+        "@cxn/snapcompact": "catalog:",
         "@opentelemetry/api": "catalog:",
       },
       "devDependencies": {
-        "@oh-my-pi/omptype": "catalog:",
+        "@cxn/omptype": "catalog:",
         "@opentelemetry/context-async-hooks": "catalog:",
         "@opentelemetry/sdk-trace-base": "catalog:",
         "@types/bun": "catalog:",
       },
     },
     "packages/ai": {
-      "name": "@oh-my-pi/pi-ai",
+      "name": "@cxn/pi-ai",
       "version": "17.3.5",
       "dependencies": {
         "@bufbuild/protobuf": "catalog:",
-        "@oh-my-pi/omptype": "catalog:",
-        "@oh-my-pi/pi-catalog": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
-        "@oh-my-pi/pi-wire": "catalog:",
+        "@cxn/omptype": "catalog:",
+        "@cxn/pi-catalog": "catalog:",
+        "@cxn/pi-utils": "catalog:",
+        "@cxn/pi-wire": "catalog:",
       },
       "devDependencies": {
         "@bufbuild/protoc-gen-es": "catalog:",
@@ -54,7 +54,7 @@
       },
     },
     "packages/browser-relay": {
-      "name": "@oh-my-pi/browser-relay",
+      "name": "@cxn/browser-relay",
       "version": "0.1.0",
       "devDependencies": {
         "@types/bun": "catalog:",
@@ -62,38 +62,38 @@
       },
     },
     "packages/catalog": {
-      "name": "@oh-my-pi/pi-catalog",
+      "name": "@cxn/pi-catalog",
       "version": "17.3.5",
       "dependencies": {
         "@bufbuild/protobuf": "catalog:",
-        "@oh-my-pi/omptype": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
+        "@cxn/omptype": "catalog:",
+        "@cxn/pi-utils": "catalog:",
       },
       "devDependencies": {
-        "@oh-my-pi/pi-ai": "catalog:",
+        "@cxn/pi-ai": "catalog:",
         "@types/bun": "catalog:",
       },
     },
     "packages/coding-agent": {
-      "name": "@oh-my-pi/pi-coding-agent",
+      "name": "@cxn/pi-coding-agent",
       "version": "17.3.5",
       "bin": {
-        "omp": "src/cli.ts",
+        "cxn": "src/cli.ts",
       },
       "dependencies": {
         "@babel/parser": "catalog:",
-        "@oh-my-pi/hashline": "catalog:",
-        "@oh-my-pi/omp-stats": "catalog:",
-        "@oh-my-pi/omptype": "catalog:",
-        "@oh-my-pi/pi-agent-core": "catalog:",
-        "@oh-my-pi/pi-ai": "catalog:",
-        "@oh-my-pi/pi-catalog": "catalog:",
-        "@oh-my-pi/pi-mnemopi": "catalog:",
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-tui": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
-        "@oh-my-pi/pi-wire": "catalog:",
-        "@oh-my-pi/snapcompact": "catalog:",
+        "@cxn/cxn-stats": "catalog:",
+        "@cxn/hashline": "catalog:",
+        "@cxn/omptype": "catalog:",
+        "@cxn/pi-agent-core": "catalog:",
+        "@cxn/pi-ai": "catalog:",
+        "@cxn/pi-catalog": "catalog:",
+        "@cxn/pi-mnemopi": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-tui": "catalog:",
+        "@cxn/pi-utils": "catalog:",
+        "@cxn/pi-wire": "catalog:",
+        "@cxn/snapcompact": "catalog:",
         "@opentelemetry/api": "catalog:",
         "@opentelemetry/api-logs": "catalog:",
         "@opentelemetry/context-async-hooks": "catalog:",
@@ -116,11 +116,11 @@
       },
     },
     "packages/collab-web": {
-      "name": "@oh-my-pi/collab-web",
+      "name": "@cxn/collab-web",
       "version": "16.3.6",
       "dependencies": {
-        "@oh-my-pi/pi-utils": "catalog:",
-        "@oh-my-pi/pi-wire": "catalog:",
+        "@cxn/pi-utils": "catalog:",
+        "@cxn/pi-wire": "catalog:",
         "lucide-react": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
@@ -132,31 +132,31 @@
       },
     },
     "packages/hashline": {
-      "name": "@oh-my-pi/hashline",
+      "name": "@cxn/hashline",
       "version": "17.3.5",
       "dependencies": {
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-utils": "catalog:",
       },
       "devDependencies": {
         "@types/bun": "catalog:",
       },
     },
     "packages/metaharness": {
-      "name": "@oh-my-pi/pi-metaharness",
+      "name": "@cxn/pi-metaharness",
       "version": "0.0.1",
       "bin": {
         "metaharness": "src/server.ts",
       },
       "dependencies": {
-        "@oh-my-pi/hashline": "catalog:",
-        "@oh-my-pi/pi-agent-core": "catalog:",
-        "@oh-my-pi/pi-ai": "catalog:",
-        "@oh-my-pi/pi-catalog": "catalog:",
-        "@oh-my-pi/pi-coding-agent": "catalog:",
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
-        "@oh-my-pi/typescript-edit-benchmark": "workspace:*",
+        "@cxn/hashline": "catalog:",
+        "@cxn/pi-agent-core": "catalog:",
+        "@cxn/pi-ai": "catalog:",
+        "@cxn/pi-catalog": "catalog:",
+        "@cxn/pi-coding-agent": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-utils": "catalog:",
+        "@cxn/typescript-edit-benchmark": "workspace:*",
         "clsx": "^2.1.1",
         "d3-scale": "^4.0.2",
         "d3-shape": "^3.2.0",
@@ -176,16 +176,16 @@
       },
     },
     "packages/mnemopi": {
-      "name": "@oh-my-pi/pi-mnemopi",
+      "name": "@cxn/pi-mnemopi",
       "version": "17.3.5",
       "bin": {
         "mnemopi": "src/cli.ts",
       },
       "dependencies": {
-        "@oh-my-pi/pi-ai": "catalog:",
-        "@oh-my-pi/pi-catalog": "catalog:",
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
+        "@cxn/pi-ai": "catalog:",
+        "@cxn/pi-catalog": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-utils": "catalog:",
       },
       "devDependencies": {
         "@types/bun": "catalog:",
@@ -202,7 +202,7 @@
       ],
     },
     "packages/natives": {
-      "name": "@oh-my-pi/pi-natives",
+      "name": "@cxn/pi-natives",
       "version": "17.3.5",
       "devDependencies": {
         "@napi-rs/cli": "catalog:",
@@ -210,7 +210,7 @@
       },
     },
     "packages/omptype": {
-      "name": "@oh-my-pi/omptype",
+      "name": "@cxn/omptype",
       "version": "17.3.5",
       "devDependencies": {
         "@ark/attest": "0.56.3",
@@ -223,29 +223,29 @@
       },
     },
     "packages/snapcompact": {
-      "name": "@oh-my-pi/snapcompact",
+      "name": "@cxn/snapcompact",
       "version": "17.3.5",
       "dependencies": {
-        "@oh-my-pi/pi-ai": "catalog:",
-        "@oh-my-pi/pi-catalog": "catalog:",
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
-        "@oh-my-pi/pi-wire": "catalog:",
+        "@cxn/pi-ai": "catalog:",
+        "@cxn/pi-catalog": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-utils": "catalog:",
+        "@cxn/pi-wire": "catalog:",
       },
       "devDependencies": {
         "@types/bun": "catalog:",
       },
     },
     "packages/stats": {
-      "name": "@oh-my-pi/omp-stats",
+      "name": "@cxn/cxn-stats",
       "version": "17.3.5",
       "bin": {
-        "omp-stats": "./src/index.ts",
+        "cxn-stats": "./src/index.ts",
       },
       "dependencies": {
-        "@oh-my-pi/pi-ai": "catalog:",
-        "@oh-my-pi/pi-catalog": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
+        "@cxn/pi-ai": "catalog:",
+        "@cxn/pi-catalog": "catalog:",
+        "@cxn/pi-utils": "catalog:",
         "@tailwindcss/node": "catalog:",
         "chart.js": "catalog:",
         "lucide-react": "catalog:",
@@ -262,31 +262,31 @@
       },
     },
     "packages/tui": {
-      "name": "@oh-my-pi/pi-tui",
+      "name": "@cxn/pi-tui",
       "version": "17.3.5",
       "dependencies": {
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-utils": "catalog:",
       },
       "devDependencies": {
         "ghostty-web": "catalog:",
       },
     },
     "packages/typescript-edit-benchmark": {
-      "name": "@oh-my-pi/typescript-edit-benchmark",
+      "name": "@cxn/typescript-edit-benchmark",
       "version": "0.0.1",
       "dependencies": {
         "@babel/generator": "catalog:",
         "@babel/parser": "catalog:",
         "@babel/traverse": "catalog:",
         "@babel/types": "catalog:",
-        "@oh-my-pi/hashline": "catalog:",
-        "@oh-my-pi/pi-agent-core": "catalog:",
-        "@oh-my-pi/pi-ai": "catalog:",
-        "@oh-my-pi/pi-coding-agent": "catalog:",
-        "@oh-my-pi/pi-natives": "catalog:",
-        "@oh-my-pi/pi-tui": "catalog:",
-        "@oh-my-pi/pi-utils": "catalog:",
+        "@cxn/hashline": "catalog:",
+        "@cxn/pi-agent-core": "catalog:",
+        "@cxn/pi-ai": "catalog:",
+        "@cxn/pi-coding-agent": "catalog:",
+        "@cxn/pi-natives": "catalog:",
+        "@cxn/pi-tui": "catalog:",
+        "@cxn/pi-utils": "catalog:",
         "diff": "catalog:",
         "prettier": "catalog:",
         "regexp-tree": "catalog:",
@@ -298,17 +298,17 @@
       },
     },
     "packages/utils": {
-      "name": "@oh-my-pi/pi-utils",
+      "name": "@cxn/pi-utils",
       "version": "17.3.5",
       "dependencies": {
-        "@oh-my-pi/pi-natives": "catalog:",
+        "@cxn/pi-natives": "catalog:",
       },
       "devDependencies": {
         "@types/bun": "catalog:",
       },
     },
     "packages/wire": {
-      "name": "@oh-my-pi/pi-wire",
+      "name": "@cxn/pi-wire",
       "version": "17.3.5",
       "devDependencies": {
         "@types/bun": "catalog:",
@@ -345,21 +345,21 @@
     "@biomejs/biome": "^2.5.3",
     "@bufbuild/protobuf": "^2.12.1",
     "@bufbuild/protoc-gen-es": "^2.12.1",
+    "@cxn/cxn-stats": "17.3.5",
+    "@cxn/hashline": "17.3.5",
+    "@cxn/omptype": "17.3.5",
+    "@cxn/pi-agent-core": "17.3.5",
+    "@cxn/pi-ai": "17.3.5",
+    "@cxn/pi-catalog": "17.3.5",
+    "@cxn/pi-coding-agent": "17.3.5",
+    "@cxn/pi-mnemopi": "17.3.5",
+    "@cxn/pi-natives": "17.3.5",
+    "@cxn/pi-tui": "17.3.5",
+    "@cxn/pi-utils": "17.3.5",
+    "@cxn/pi-wire": "17.3.5",
+    "@cxn/snapcompact": "17.3.5",
     "@huggingface/transformers": "^4.2.0",
     "@napi-rs/cli": "3.7.2",
-    "@oh-my-pi/hashline": "17.3.5",
-    "@oh-my-pi/omp-stats": "17.3.5",
-    "@oh-my-pi/omptype": "17.3.5",
-    "@oh-my-pi/pi-agent-core": "17.3.5",
-    "@oh-my-pi/pi-ai": "17.3.5",
-    "@oh-my-pi/pi-catalog": "17.3.5",
-    "@oh-my-pi/pi-coding-agent": "17.3.5",
-    "@oh-my-pi/pi-mnemopi": "17.3.5",
-    "@oh-my-pi/pi-natives": "17.3.5",
-    "@oh-my-pi/pi-tui": "17.3.5",
-    "@oh-my-pi/pi-utils": "17.3.5",
-    "@oh-my-pi/pi-wire": "17.3.5",
-    "@oh-my-pi/snapcompact": "17.3.5",
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/api-logs": "^0.220.0",
     "@opentelemetry/context-async-hooks": "^2.9.0",
@@ -476,6 +476,40 @@
     "@bufbuild/protoc-gen-es": ["@bufbuild/protoc-gen-es@2.13.0", "", { "dependencies": { "@bufbuild/protobuf": "2.13.0", "@bufbuild/protoplugin": "2.13.0" }, "bin": { "protoc-gen-es": "bin/protoc-gen-es" } }, "sha512-ylI1vrLksdnXrVZRs9xGxmrQxKGhUm6pPszv26kqBvNiO3qPTktk+hgfwbLISBY4M/reShkT2dFLGT9fbydBXg=="],
 
     "@bufbuild/protoplugin": ["@bufbuild/protoplugin@2.13.0", "", { "dependencies": { "@bufbuild/protobuf": "2.13.0", "@typescript/vfs": "^1.6.2", "typescript": "5.4.5" } }, "sha512-32eMChKaL/A8Hh5AfMmXSdnuyznN85uoEjoyWiWeRrvtQOtpqX/v1R9PDe0g9vMIgzznK9inMT3CUaal0kjLUQ=="],
+
+    "@cxn/browser-relay": ["@cxn/browser-relay@workspace:packages/browser-relay"],
+
+    "@cxn/collab-web": ["@cxn/collab-web@workspace:packages/collab-web"],
+
+    "@cxn/cxn-stats": ["@cxn/cxn-stats@workspace:packages/stats"],
+
+    "@cxn/hashline": ["@cxn/hashline@workspace:packages/hashline"],
+
+    "@cxn/omptype": ["@cxn/omptype@workspace:packages/omptype"],
+
+    "@cxn/pi-agent-core": ["@cxn/pi-agent-core@workspace:packages/agent"],
+
+    "@cxn/pi-ai": ["@cxn/pi-ai@workspace:packages/ai"],
+
+    "@cxn/pi-catalog": ["@cxn/pi-catalog@workspace:packages/catalog"],
+
+    "@cxn/pi-coding-agent": ["@cxn/pi-coding-agent@workspace:packages/coding-agent"],
+
+    "@cxn/pi-metaharness": ["@cxn/pi-metaharness@workspace:packages/metaharness"],
+
+    "@cxn/pi-mnemopi": ["@cxn/pi-mnemopi@workspace:packages/mnemopi"],
+
+    "@cxn/pi-natives": ["@cxn/pi-natives@workspace:packages/natives"],
+
+    "@cxn/pi-tui": ["@cxn/pi-tui@workspace:packages/tui"],
+
+    "@cxn/pi-utils": ["@cxn/pi-utils@workspace:packages/utils"],
+
+    "@cxn/pi-wire": ["@cxn/pi-wire@workspace:packages/wire"],
+
+    "@cxn/snapcompact": ["@cxn/snapcompact@workspace:packages/snapcompact"],
+
+    "@cxn/typescript-edit-benchmark": ["@cxn/typescript-edit-benchmark@workspace:packages/typescript-edit-benchmark"],
 
     "@emnapi/core": ["@emnapi/core@1.9.2", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.1", "tslib": "^2.4.0" } }, "sha512-UC+ZhH3XtczQYfOlu3lNEkdW/p4dsJ1r/bP7H8+rhao3TTTMO1ATq/4DdIi23XuGoFY+Cz0JmCbdVl0hz9jZcA=="],
 
@@ -720,40 +754,6 @@
     "@octokit/rest": ["@octokit/rest@22.0.1", "", { "dependencies": { "@octokit/core": "^7.0.6", "@octokit/plugin-paginate-rest": "^14.0.0", "@octokit/plugin-request-log": "^6.0.0", "@octokit/plugin-rest-endpoint-methods": "^17.0.0" } }, "sha512-Jzbhzl3CEexhnivb1iQ0KJ7s5vvjMWcmRtq5aUsKmKDrRW6z3r84ngmiFKFvpZjpiU/9/S6ITPFRpn5s/3uQJw=="],
 
     "@octokit/types": ["@octokit/types@17.0.0", "", { "dependencies": { "@octokit/openapi-types": "^28.0.0" } }, "sha512-ByP1v7YL5SMveFPP7+sj0/ZuWCOOg/Chs4NafOMpq6WNIM/hdGY0S7C0TCGDBWu1aGmOxmUIhMx3cO+IdwYZ1Q=="],
-
-    "@oh-my-pi/browser-relay": ["@oh-my-pi/browser-relay@workspace:packages/browser-relay"],
-
-    "@oh-my-pi/collab-web": ["@oh-my-pi/collab-web@workspace:packages/collab-web"],
-
-    "@oh-my-pi/hashline": ["@oh-my-pi/hashline@workspace:packages/hashline"],
-
-    "@oh-my-pi/omp-stats": ["@oh-my-pi/omp-stats@workspace:packages/stats"],
-
-    "@oh-my-pi/omptype": ["@oh-my-pi/omptype@workspace:packages/omptype"],
-
-    "@oh-my-pi/pi-agent-core": ["@oh-my-pi/pi-agent-core@workspace:packages/agent"],
-
-    "@oh-my-pi/pi-ai": ["@oh-my-pi/pi-ai@workspace:packages/ai"],
-
-    "@oh-my-pi/pi-catalog": ["@oh-my-pi/pi-catalog@workspace:packages/catalog"],
-
-    "@oh-my-pi/pi-coding-agent": ["@oh-my-pi/pi-coding-agent@workspace:packages/coding-agent"],
-
-    "@oh-my-pi/pi-metaharness": ["@oh-my-pi/pi-metaharness@workspace:packages/metaharness"],
-
-    "@oh-my-pi/pi-mnemopi": ["@oh-my-pi/pi-mnemopi@workspace:packages/mnemopi"],
-
-    "@oh-my-pi/pi-natives": ["@oh-my-pi/pi-natives@workspace:packages/natives"],
-
-    "@oh-my-pi/pi-tui": ["@oh-my-pi/pi-tui@workspace:packages/tui"],
-
-    "@oh-my-pi/pi-utils": ["@oh-my-pi/pi-utils@workspace:packages/utils"],
-
-    "@oh-my-pi/pi-wire": ["@oh-my-pi/pi-wire@workspace:packages/wire"],
-
-    "@oh-my-pi/snapcompact": ["@oh-my-pi/snapcompact@workspace:packages/snapcompact"],
-
-    "@oh-my-pi/typescript-edit-benchmark": ["@oh-my-pi/typescript-edit-benchmark@workspace:packages/typescript-edit-benchmark"],
 
     "@opentelemetry/api": ["@opentelemetry/api@1.9.1", "", {}, "sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q=="],
 

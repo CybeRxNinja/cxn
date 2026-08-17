@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@oh-my-pi/pi-coding-agent",
+  "name": "@cxn/pi-coding-agent",
   "version": "17.3.5",
   "description": "Coding agent CLI with read, bash, edit, write tools and session management",
-  "homepage": "https://omp.sh",
+  "homepage": "https://cxn.sh",
   "author": "Can Boluk",
   "contributors": [
     "Mario Zechner"
@@ -28,7 +28,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "bin": {
-    "omp": "src/cli.ts"
+    "cxn": "src/cli.ts"
   },
   "scripts": {
     "build": "bun scripts/build-binary.ts",
@@ -48,18 +48,18 @@
   },
   "dependencies": {
     "@babel/parser": "catalog:",
-    "@oh-my-pi/hashline": "catalog:",
-    "@oh-my-pi/omp-stats": "catalog:",
-    "@oh-my-pi/omptype": "catalog:",
-    "@oh-my-pi/pi-agent-core": "catalog:",
-    "@oh-my-pi/pi-ai": "catalog:",
-    "@oh-my-pi/pi-catalog": "catalog:",
-    "@oh-my-pi/pi-mnemopi": "catalog:",
-    "@oh-my-pi/pi-natives": "catalog:",
-    "@oh-my-pi/pi-tui": "catalog:",
-    "@oh-my-pi/pi-utils": "catalog:",
-    "@oh-my-pi/pi-wire": "catalog:",
-    "@oh-my-pi/snapcompact": "catalog:",
+    "@cxn/hashline": "catalog:",
+    "@cxn/cxn-stats": "catalog:",
+    "@cxn/omptype": "catalog:",
+    "@cxn/pi-agent-core": "catalog:",
+    "@cxn/pi-ai": "catalog:",
+    "@cxn/pi-catalog": "catalog:",
+    "@cxn/pi-mnemopi": "catalog:",
+    "@cxn/pi-natives": "catalog:",
+    "@cxn/pi-tui": "catalog:",
+    "@cxn/pi-utils": "catalog:",
+    "@cxn/pi-wire": "catalog:",
+    "@cxn/snapcompact": "catalog:",
     "@opentelemetry/api": "catalog:",
     "@opentelemetry/api-logs": "catalog:",
     "@opentelemetry/context-async-hooks": "catalog:",

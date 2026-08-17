@@ -1,10 +1,4 @@
-import {
-	routeSelectListMouse,
-	type SelectItem,
-	SelectList,
-	type SgrMouseEvent,
-	truncateToWidth,
-} from "@oh-my-pi/pi-tui";
+import { routeSelectListMouse, type SelectItem, SelectList, type SgrMouseEvent, truncateToWidth } from "@cxn/pi-tui";
 import { getSearchProvider, setSearchProviderOrder } from "../../../web/search/provider";
 import {
 	isSearchProviderId,

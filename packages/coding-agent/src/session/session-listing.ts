@@ -1,8 +1,8 @@
 import * as os from "node:os";
 import * as path from "node:path";
-import type { Message } from "@oh-my-pi/pi-ai";
-import { getAgentDir as getDefaultAgentDir, logger, parseJsonlLenient, toError } from "@oh-my-pi/pi-utils";
-import { LRUCache } from "@oh-my-pi/pi-utils/lru";
+import type { Message } from "@cxn/pi-ai";
+import { getAgentDir as getDefaultAgentDir, logger, parseJsonlLenient, toError } from "@cxn/pi-utils";
+import { LRUCache } from "@cxn/pi-utils/lru";
 import { computeDefaultSessionDir } from "./session-paths";
 import { FileSessionStorage, type SessionStorage, type SessionStorageStat } from "./session-storage";
 

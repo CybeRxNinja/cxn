@@ -1,19 +1,19 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import type { AgentMessage, SyntheticToolResultDetails } from "@oh-my-pi/pi-agent-core";
-import type { AssistantMessage, ToolResultMessage } from "@oh-my-pi/pi-ai";
-import * as AIError from "@oh-my-pi/pi-ai/error";
-import { kCursorExecResolved } from "@oh-my-pi/pi-ai/utils/block-symbols";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import type { Model, Usage } from "@oh-my-pi/pi-catalog/types";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
+import type { AgentMessage, SyntheticToolResultDetails } from "@cxn/pi-agent-core";
+import type { AssistantMessage, ToolResultMessage } from "@cxn/pi-ai";
+import * as AIError from "@cxn/pi-ai/error";
+import { kCursorExecResolved } from "@cxn/pi-ai/utils/block-symbols";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import type { Model, Usage } from "@cxn/pi-catalog/types";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
 import {
 	type RecoveryCompactionResult,
 	TurnRecovery,
 	type TurnRecoveryHost,
-} from "@oh-my-pi/pi-coding-agent/session/turn-recovery";
-import { TempDir } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/session/turn-recovery";
+import { TempDir } from "@cxn/pi-utils";
 import { createProviderErrorMessage } from "../../ai/src/providers/error-message";
 
 const USAGE: Usage = {
@@ -425,7 +425,7 @@ describe("TurnRecovery replay-unsafe output classification", () => {
 	});
 
 	// Anthropic's request classifier can refuse AFTER the model streamed a tool
-	// call. Production shape (omp.2026-08-07 log): `stopDetails.type === "refusal"`,
+	// call. Production shape (cxn.2026-08-07 log): `stopDetails.type === "refusal"`,
 	// `errorId: 0` (no AIError flag, so `AIError.retriable` cannot rescue it), and
 	// the agent loop appends a synthetic `executed: false` result AFTER the refused
 	// assistant message, so state ends with `lastRole: "toolResult"`.

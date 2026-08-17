@@ -1,5 +1,5 @@
-import type { Model } from "@oh-my-pi/pi-ai";
-import type { SgrMouseEvent } from "@oh-my-pi/pi-tui";
+import type { Model } from "@cxn/pi-ai";
+import type { SgrMouseEvent } from "@cxn/pi-tui";
 import {
 	buildBrowserItems,
 	ModelBrowser,

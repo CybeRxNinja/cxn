@@ -25,20 +25,20 @@
  */
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import { scheduler } from "node:timers/promises";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import type { ResetCreditAccountStatus, ResetCreditTarget, UsageReport } from "@oh-my-pi/pi-ai";
-import { createMockModel } from "@oh-my-pi/pi-ai/providers/mock";
-import * as aiStream from "@oh-my-pi/pi-ai/stream";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
+import { Agent } from "@cxn/pi-agent-core";
+import type { ResetCreditAccountStatus, ResetCreditTarget, UsageReport } from "@cxn/pi-ai";
+import { createMockModel } from "@cxn/pi-ai/providers/mock";
+import * as aiStream from "@cxn/pi-ai/stream";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
 import {
 	type CodexAutoRedeemCoordinator,
 	createCodexAutoRedeemCoordinator,
-} from "@oh-my-pi/pi-coding-agent/session/codex-auto-reset";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
+} from "@cxn/pi-coding-agent/session/codex-auto-reset";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
 
 const ACCOUNT_ID = "acct-1";
 const EMAIL = "user@example.com";

@@ -209,15 +209,15 @@ pub(crate) fn init_well_known_vars(
 		)),
 	)?;
 
-	// COMP_WORDBREAKS
-	let mut default_comp_wordbreaks = String::from(" \t\n\"\'><=;|&(:");
+	// CCXN_WORDBREAKS
+	let mut default_ccxn_wordbreaks = String::from(" \t\n\"\'><=;|&(:");
 	if shell.options().enable_hostname_completion {
-		default_comp_wordbreaks.push('@');
+		default_ccxn_wordbreaks.push('@');
 	}
 
 	shell
 		.env_mut()
-		.set_global("COMP_WORDBREAKS", ShellVariable::new(default_comp_wordbreaks))?;
+		.set_global("CCXN_WORDBREAKS", ShellVariable::new(default_ccxn_wordbreaks))?;
 
 	// DIRSTACK
 	shell.env_mut().set_global(

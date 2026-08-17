@@ -2,7 +2,7 @@ import type { Dirent } from "node:fs";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { isEnoent } from "@oh-my-pi/pi-utils";
+import { isEnoent } from "@cxn/pi-utils";
 import { $ } from "bun";
 import {
 	getBehaviorDashboardStats,
@@ -46,7 +46,7 @@ const IS_BUN_COMPILED =
 const IS_PREBUILT = IS_BUN_COMPILED || Boolean(process.env.PI_BUNDLED || Bun.env.PI_BUNDLED);
 const USE_EMBEDDED_CLIENT = EMBEDDED_CLIENT_ARCHIVE !== null || IS_PREBUILT;
 
-const EMBEDDED_CLIENT_DIR_ROOT = path.join(os.tmpdir(), "omp-stats-client");
+const EMBEDDED_CLIENT_DIR_ROOT = path.join(os.tmpdir(), "cxn-stats-client");
 let embeddedClientDirPromise: Promise<string> | null = null;
 
 function sanitizeArchivePath(archivePath: string): string | null {
@@ -78,7 +78,7 @@ async function getEmbeddedClientDir(): Promise<string> {
 
 	if (!EMBEDDED_CLIENT_ARCHIVE) {
 		throw new Error(
-			"Embedded stats client bundle missing. Rebuild the omp binary or npm bundle with embedded stats assets.",
+			"Embedded stats client bundle missing. Rebuild the cxn binary or npm bundle with embedded stats assets.",
 		);
 	}
 
@@ -321,7 +321,7 @@ function createDashboardServer(port: number, hostname: string) {
 			const url = new URL(req.url);
 			const path = url.pathname;
 
-			// The identity header lets another omp session's reuse probe positively
+			// The identity header lets another cxn session's reuse probe positively
 			// recognize this dashboard without allowing cross-origin API reads.
 			const dashboardHeaders: Record<string, string> = {
 				[STATS_DASHBOARD_HEADER]: STATS_DASHBOARD_SECURITY_VERSION,
@@ -364,7 +364,7 @@ function createDashboardServer(port: number, hostname: string) {
 }
 
 /**
- * Start the HTTP server, reusing a live dashboard or reclaiming a stale omp listener.
+ * Start the HTTP server, reusing a live dashboard or reclaiming a stale cxn listener.
  */
 export async function startServer(
 	port = 3847,

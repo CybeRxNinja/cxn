@@ -1,6 +1,6 @@
 # safety-hook
 
-An `oh-my-pi` extension that demonstrates `tool_call` blocking. It intercepts `bash` tool calls and returns `{ block: true, reason: "..." }` when the command contains `rm -rf /` with normal whitespace, preventing the tool from executing.
+An `cxn` extension that demonstrates `tool_call` blocking. It intercepts `bash` tool calls and returns `{ block: true, reason: "..." }` when the command contains `rm -rf /` with normal whitespace, preventing the tool from executing.
 
 ## What it demonstrates
 
@@ -11,15 +11,15 @@ An `oh-my-pi` extension that demonstrates `tool_call` blocking. It intercepts `b
 ## Install
 
 ```
-cp -r . ~/.omp/agent/extensions/safety-hook
+cp -r . ~/.cxn/agent/extensions/safety-hook
 ```
 
-Restart `omp`. The hook is active for all sessions.
+Restart `cxn`. The hook is active for all sessions.
 
 Or load once:
 
 ```
-omp --extension ./safety-hook
+cxn --extension ./safety-hook
 ```
 
 ## How it works

@@ -1,23 +1,23 @@
 /**
- * OMP extension-package sub-discovery provider.
+ * CXN extension-package sub-discovery provider.
  *
  * When a user configures an extension via `extensions:` (in settings) or
  * `--extension`/`-e` (on the CLI), the docs promise that the package's
  * sibling directories — `skills/`, `hooks/pre|post/`, `tools/`, `commands/`,
- * `rules/`, `prompts/`, and `.mcp.json` — are picked up by omp's standard
- * discovery surfaces. The native `omp` provider in `builtin.ts` only walks
- * `.omp/` and `~/.omp/agent/`, so without this provider those sub-trees are
+ * `rules/`, `prompts/`, and `.mcp.json` — are picked up by cxn's standard
+ * discovery surfaces. The native `cxn` provider in `builtin.ts` only walks
+ * `.cxn/` and `~/.cxn/agent/`, so without this provider those sub-trees are
  * silently ignored.
  *
- * Provider priority is set below the native `omp` provider (100) so an
- * extension package never shadows the user's own `.omp/` configuration on
+ * Provider priority is set below the native `cxn` provider (100) so an
+ * extension package never shadows the user's own `.cxn/` configuration on
  * dedup.
  *
- * @see ./omp-extension-roots.ts
+ * @see ./cxn-extension-roots.ts
  * @see ../../docs/extension-loading.md
  */
 import * as path from "node:path";
-import { logger, parseFrontmatter, tryParseJson } from "@oh-my-pi/pi-utils";
+import { logger, parseFrontmatter, tryParseJson } from "@cxn/pi-utils";
 import { registerProvider } from "../capability";
 import { readDirEntries, readFile } from "../capability/fs";
 import { type Hook, hookCapability } from "../capability/hook";
@@ -29,6 +29,7 @@ import { type SlashCommand, slashCommandCapability } from "../capability/slash-c
 import { type CustomTool, toolCapability } from "../capability/tool";
 import type { LoadContext, LoadResult } from "../capability/types";
 import { legacyProviderAllowed } from "./agent-plugin-format";
+import { listOmpExtensionRoots, type OmpExtensionRoot } from "./cxn-extension-roots";
 import {
 	buildRuleFromMarkdown,
 	createSourceMeta,
@@ -36,11 +37,10 @@ import {
 	parseRequestIdFormat,
 	scanSkillsFromDir,
 } from "./helpers";
-import { listOmpExtensionRoots, type OmpExtensionRoot } from "./omp-extension-roots";
 import { resolvePluginStdioPaths } from "./substitute-plugin-root";
 
-const PROVIDER_ID = "omp-plugins";
-const DISPLAY_NAME = "OMP Extension Packages";
+const PROVIDER_ID = "cxn-plugins";
+const DISPLAY_NAME = "CXN Extension Packages";
 const DESCRIPTION =
 	"Sub-discovery (skills, hooks, tools, commands, rules, prompts, .mcp.json) inside extension packages";
 const PRIORITY = 90;
@@ -308,8 +308,8 @@ async function loadMCPServers(ctx: LoadContext): Promise<LoadResult<MCPServer>> 
 
 		const parsed = tryParseJson<{ mcpServers?: Record<string, unknown> }>(raw);
 		if (!parsed) {
-			warnings.push(`[omp-plugins] Invalid JSON in ${mcpPath}`);
-			logger.warn(`[omp-plugins] Invalid JSON in ${mcpPath}`);
+			warnings.push(`[cxn-plugins] Invalid JSON in ${mcpPath}`);
+			logger.warn(`[cxn-plugins] Invalid JSON in ${mcpPath}`);
 			continue;
 		}
 		const servers = parsed.mcpServers;
@@ -319,7 +319,7 @@ async function loadMCPServers(ctx: LoadContext): Promise<LoadResult<MCPServer>> 
 			if (!serverCfg || typeof serverCfg !== "object" || Array.isArray(serverCfg)) continue;
 			const cfg = serverCfg as RawMcpServer;
 			if (typeof cfg.command !== "string" && typeof cfg.url !== "string") {
-				warnings.push(`[omp-plugins] Skipping MCP server "${serverName}" in ${mcpPath}: missing command or url`);
+				warnings.push(`[cxn-plugins] Skipping MCP server "${serverName}" in ${mcpPath}: missing command or url`);
 				continue;
 			}
 			// Root relative command/cwd at the plugin's config directory, not the

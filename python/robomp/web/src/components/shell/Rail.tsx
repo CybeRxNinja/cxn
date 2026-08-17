@@ -80,7 +80,7 @@ export function Rail(): JSX.Element {
             data-active={activeView() === item.id ? "true" : "false"}
             data-locked={item.locked ? "true" : "false"}
             aria-current={activeView() === item.id ? "page" : undefined}
-            title={item.locked ? "Triage — locked (set ROBOMP_REPLAY_TOKEN to enable)" : item.label}
+            title={item.locked ? "Triage — locked (set ROBCXN_REPLAY_TOKEN to enable)" : item.label}
             onClick={() => setActiveView(item.id)}
           >
             <span class="rmp-nav-item-icon">{item.icon()}</span>

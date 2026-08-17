@@ -2,17 +2,13 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentToolResult } from "@oh-my-pi/pi-agent-core";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import type { ToolSession } from "@oh-my-pi/pi-coding-agent/tools";
-import type { ReadToolDetails } from "@oh-my-pi/pi-coding-agent/tools/read";
-import { ReadTool } from "@oh-my-pi/pi-coding-agent/tools/read";
-import {
-	demangleSymbol,
-	parseSampleProfile,
-	renderSampleProfile,
-} from "@oh-my-pi/pi-coding-agent/utils/sample-profile";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+import type { AgentToolResult } from "@cxn/pi-agent-core";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import type { ReadToolDetails } from "@cxn/pi-coding-agent/tools/read";
+import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
+import { demangleSymbol, parseSampleProfile, renderSampleProfile } from "@cxn/pi-coding-agent/utils/sample-profile";
+import { removeWithRetries } from "@cxn/pi-utils";
 
 const BOX_MEASURE = "_RNvNtCsfMEenOU8j5j_11slab_kernel6layout11box_measure";
 

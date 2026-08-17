@@ -1,7 +1,7 @@
-import { type } from "@oh-my-pi/omptype";
-import type { AgentTool, AgentToolResult } from "@oh-my-pi/pi-agent-core";
-import type { Model } from "@oh-my-pi/pi-ai";
-import { type Component, Markdown } from "@oh-my-pi/pi-tui";
+import { type } from "@cxn/omptype";
+import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core";
+import type { Model } from "@cxn/pi-ai";
+import { type Component, Markdown } from "@cxn/pi-tui";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import { getMarkdownTheme, type Theme } from "../modes/theme/theme";
 

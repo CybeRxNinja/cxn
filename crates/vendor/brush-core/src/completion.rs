@@ -245,16 +245,16 @@ pub enum CompletionTrigger {
 }
 
 impl CompletionTrigger {
-	/// Returns the `COMP_TYPE` value for this trigger.
-	pub const fn comp_type(self) -> i32 {
+	/// Returns the `CCXN_TYPE` value for this trigger.
+	pub const fn ccxn_type(self) -> i32 {
 		match self {
 			Self::InteractiveComplete => 9, // TAB = normal completion
 			Self::Programmatic => 0,
 		}
 	}
 
-	/// Returns the `COMP_KEY` value for this trigger.
-	pub const fn comp_key(self) -> i32 {
+	/// Returns the `CCXN_KEY` value for this trigger.
+	pub const fn ccxn_key(self) -> i32 {
 		match self {
 			Self::InteractiveComplete => 9, // TAB key
 			Self::Programmatic => 0,
@@ -660,10 +660,10 @@ impl Spec {
 		let mut shell = shell.clone();
 
 		let vars_and_values: Vec<(&str, ShellValueLiteral)> = vec![
-			("COMP_LINE", context.input_line.into()),
-			("COMP_POINT", context.cursor_index.to_string().into()),
-			("COMP_KEY", context.trigger.comp_key().to_string().into()),
-			("COMP_TYPE", context.trigger.comp_type().to_string().into()),
+			("CCXN_LINE", context.input_line.into()),
+			("CCXN_POINT", context.cursor_index.to_string().into()),
+			("CCXN_KEY", context.trigger.ccxn_key().to_string().into()),
+			("CCXN_TYPE", context.trigger.ccxn_type().to_string().into()),
 		];
 
 		// Fill out variables.
@@ -718,12 +718,12 @@ impl Spec {
 	) -> Result<Answer, error::Error> {
 		// TODO(completions): Don't pollute the persistent environment with these?
 		let vars_and_values: Vec<(&str, ShellValueLiteral)> = vec![
-			("COMP_LINE", context.input_line.into()),
-			("COMP_POINT", context.cursor_index.to_string().into()),
-			("COMP_KEY", context.trigger.comp_key().to_string().into()),
-			("COMP_TYPE", context.trigger.comp_type().to_string().into()),
+			("CCXN_LINE", context.input_line.into()),
+			("CCXN_POINT", context.cursor_index.to_string().into()),
+			("CCXN_KEY", context.trigger.ccxn_key().to_string().into()),
+			("CCXN_TYPE", context.trigger.ccxn_type().to_string().into()),
 			(
-				"COMP_WORDS",
+				"CCXN_WORDS",
 				context
 					.tokens
 					.iter()
@@ -731,7 +731,7 @@ impl Spec {
 					.collect::<Vec<_>>()
 					.into(),
 			),
-			("COMP_CWORD", context.token_index.to_string().into()),
+			("CCXN_CWORD", context.token_index.to_string().into()),
 		];
 
 		tracing::debug!(target: trace_categories::COMPLETION, "[calling completion func '{function_name}']: {}",
@@ -1124,7 +1124,7 @@ impl Config {
 		const FALLBACK: &str = " \t\n\"\'@><=;|&(:";
 
 		let delimiter_str = shell
-			.env_str("COMP_WORDBREAKS")
+			.env_str("CCXN_WORDBREAKS")
 			.unwrap_or_else(|| FALLBACK.into());
 
 		let delimiters: Vec<_> = delimiter_str.chars().collect();

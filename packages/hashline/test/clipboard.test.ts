@@ -11,7 +11,7 @@ import {
 	parsePatch,
 	parsePatchStreaming,
 	resolveBlockEdits,
-} from "@oh-my-pi/hashline";
+} from "@cxn/hashline";
 
 const PATH = "x.ts";
 

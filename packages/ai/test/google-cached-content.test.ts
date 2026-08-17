@@ -1,13 +1,13 @@
 import { describe, expect, it } from "bun:test";
-import * as AIError from "@oh-my-pi/pi-ai/error";
-import { streamGoogle } from "@oh-my-pi/pi-ai/providers/google";
-import type { GoogleGeminiCliOptions } from "@oh-my-pi/pi-ai/providers/google-gemini-cli";
-import { buildGoogleGenerateContentParams } from "@oh-my-pi/pi-ai/providers/google-shared";
-import { streamGoogleVertex } from "@oh-my-pi/pi-ai/providers/google-vertex";
-import { parseRequest as parsePiNativeRequest } from "@oh-my-pi/pi-ai/providers/pi-native-server";
-import { streamSimple } from "@oh-my-pi/pi-ai/stream";
-import type { ApiOptionsMap, AssistantMessageEvent, Context, FetchImpl, Model, Tool } from "@oh-my-pi/pi-ai/types";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
+import * as AIError from "@cxn/pi-ai/error";
+import { streamGoogle } from "@cxn/pi-ai/providers/google";
+import type { GoogleGeminiCliOptions } from "@cxn/pi-ai/providers/google-gemini-cli";
+import { buildGoogleGenerateContentParams } from "@cxn/pi-ai/providers/google-shared";
+import { streamGoogleVertex } from "@cxn/pi-ai/providers/google-vertex";
+import { parseRequest as parsePiNativeRequest } from "@cxn/pi-ai/providers/pi-native-server";
+import { streamSimple } from "@cxn/pi-ai/stream";
+import type { ApiOptionsMap, AssistantMessageEvent, Context, FetchImpl, Model, Tool } from "@cxn/pi-ai/types";
+import { buildModel } from "@cxn/pi-catalog/build";
 
 const CACHE_NAME = "cachedContents/caller-owned-corpus-abc";
 const VERTEX_CACHE_NAME = "projects/demo-project/locations/us-central1/cachedContents/caller-owned-corpus-abc";

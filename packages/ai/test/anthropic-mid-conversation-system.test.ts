@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { convertAnthropicMessages } from "@oh-my-pi/pi-ai/providers/anthropic";
-import type { AssistantMessage, DeveloperMessage, Message, Model, ModelSpec, UserMessage } from "@oh-my-pi/pi-ai/types";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
+import { convertAnthropicMessages } from "@cxn/pi-ai/providers/anthropic";
+import type { AssistantMessage, DeveloperMessage, Message, Model, ModelSpec, UserMessage } from "@cxn/pi-ai/types";
+import { buildModel } from "@cxn/pi-catalog/build";
 
 /**
  * Claude Opus 4.8 and the Fable/Mythos 5 generation support mid-conversation

@@ -20,7 +20,7 @@ version = "17.3.5"
 edition = "2024"
 license = "MIT"
 authors = ["Can Boluk"]
-homepage = "https://omp.sh/"
+homepage = "https://cxn.sh/"
 repository = "https://github.com/can1357/oh-my-pi"
 
 [patch.crates-io]

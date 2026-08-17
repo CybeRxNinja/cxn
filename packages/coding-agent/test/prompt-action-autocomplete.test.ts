@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import {
 	KeybindingsManager as AppKeybindingsManager,
 	setKeyHintPlatform,
-} from "@oh-my-pi/pi-coding-agent/config/keybindings";
-import { createPromptActionAutocompleteProvider } from "@oh-my-pi/pi-coding-agent/modes/prompt-action-autocomplete";
-import { KeybindingsManager, setKeybindings, TUI_KEYBINDINGS } from "@oh-my-pi/pi-tui";
+} from "@cxn/pi-coding-agent/config/keybindings";
+import { createPromptActionAutocompleteProvider } from "@cxn/pi-coding-agent/modes/prompt-action-autocomplete";
+import { KeybindingsManager, setKeybindings, TUI_KEYBINDINGS } from "@cxn/pi-tui";
 
 describe("prompt action autocomplete", () => {
 	beforeEach(() => {
@@ -204,11 +204,11 @@ describe("prompt action autocomplete", () => {
 			moveCursorToLineEnd: () => {},
 		});
 
-		const line = "/btw omp://";
+		const line = "/btw cxn://";
 		const suggestions = await provider.getSuggestions([line], 0, line.length);
 
 		expect(suggestions).not.toBeNull();
-		expect(suggestions?.prefix).toBe("omp://");
+		expect(suggestions?.prefix).toBe("cxn://");
 		expect(suggestions?.items.length).toBeGreaterThan(0);
 	});
 
@@ -233,11 +233,11 @@ describe("prompt action autocomplete", () => {
 			moveCursorToLineEnd: () => {},
 		});
 
-		const line = "/mcp omp://";
+		const line = "/mcp cxn://";
 		const suggestions = await provider.getSuggestions([line], 0, line.length);
 
 		expect(suggestions).not.toBeNull();
-		expect(suggestions?.prefix).toBe("omp://");
+		expect(suggestions?.prefix).toBe("cxn://");
 		expect(suggestions?.items.length).toBeGreaterThan(0);
 	});
 

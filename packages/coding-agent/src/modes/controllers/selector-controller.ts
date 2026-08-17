@@ -1,11 +1,11 @@
-import { type AgentToolResult, ThinkingLevel } from "@oh-my-pi/pi-agent-core";
-import type { CompactionOutcome } from "@oh-my-pi/pi-agent-core/compaction";
-import { PASTE_CODE_LOGIN_PROVIDERS } from "@oh-my-pi/pi-ai";
-import { getOAuthProviders } from "@oh-my-pi/pi-ai/oauth";
-import type { OAuthProvider } from "@oh-my-pi/pi-ai/oauth/types";
-import type { Component, OverlayHandle } from "@oh-my-pi/pi-tui";
-import { Loader, Spacer, setTuiTight, Text } from "@oh-my-pi/pi-tui";
-import { getAgentDbPath, getAgentDir, getProjectDir, normalizePathForComparison } from "@oh-my-pi/pi-utils";
+import { type AgentToolResult, ThinkingLevel } from "@cxn/pi-agent-core";
+import type { CompactionOutcome } from "@cxn/pi-agent-core/compaction";
+import { PASTE_CODE_LOGIN_PROVIDERS } from "@cxn/pi-ai";
+import { getOAuthProviders } from "@cxn/pi-ai/oauth";
+import type { OAuthProvider } from "@cxn/pi-ai/oauth/types";
+import type { Component, OverlayHandle } from "@cxn/pi-tui";
+import { Loader, Spacer, setTuiTight, Text } from "@cxn/pi-tui";
+import { getAgentDbPath, getAgentDir, getProjectDir, normalizePathForComparison } from "@cxn/pi-utils";
 import {
 	type AdvisorConfigScope,
 	discoverAdvisorConfigs,

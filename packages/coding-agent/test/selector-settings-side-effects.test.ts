@@ -3,20 +3,20 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { stripVTControlCharacters } from "node:util";
-import { ThinkingLevel } from "@oh-my-pi/pi-agent-core";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
-import { getSupportedEfforts } from "@oh-my-pi/pi-catalog/model-thinking";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AssistantMessageComponent } from "@oh-my-pi/pi-coding-agent/modes/components/assistant-message";
-import { ReadToolGroupComponent } from "@oh-my-pi/pi-coding-agent/modes/components/read-tool-group";
-import { ToolExecutionComponent } from "@oh-my-pi/pi-coding-agent/modes/components/tool-execution";
-import { SelectorController } from "@oh-my-pi/pi-coding-agent/modes/controllers/selector-controller";
-import { getThemeByName, setThemeInstance } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@oh-my-pi/pi-coding-agent/modes/types";
-import type { ResolvedRoleModel } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AUTO_THINKING } from "@oh-my-pi/pi-coding-agent/thinking";
-import { removeSyncWithRetries, Snowflake } from "@oh-my-pi/pi-utils";
+import { ThinkingLevel } from "@cxn/pi-agent-core";
+import { buildModel } from "@cxn/pi-catalog/build";
+import { getSupportedEfforts } from "@cxn/pi-catalog/model-thinking";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AssistantMessageComponent } from "@cxn/pi-coding-agent/modes/components/assistant-message";
+import { ReadToolGroupComponent } from "@cxn/pi-coding-agent/modes/components/read-tool-group";
+import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
+import { SelectorController } from "@cxn/pi-coding-agent/modes/controllers/selector-controller";
+import { getThemeByName, setThemeInstance } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import type { ResolvedRoleModel } from "@cxn/pi-coding-agent/session/agent-session";
+import { AUTO_THINKING } from "@cxn/pi-coding-agent/thinking";
+import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
 import { beginSettingsTest, restoreSettingsTestState, type SettingsTestState } from "./helpers/settings-test-state";
 
 let settingsState: SettingsTestState | undefined;
@@ -551,8 +551,8 @@ describe("selector setting side effects", () => {
 		const globalSelector = `${globalModel.provider}/${globalModel.id}`;
 		const testDir = path.join(os.tmpdir(), `selector-runtime-identical-${Snowflake.next()}`);
 		const projectDir = path.join(testDir, "project");
-		fs.mkdirSync(path.join(projectDir, ".omp"), { recursive: true });
-		fs.writeFileSync(path.join(projectDir, ".omp", "config.yml"), `modelRoles:\n  default: ${projectSelector}\n`);
+		fs.mkdirSync(path.join(projectDir, ".cxn"), { recursive: true });
+		fs.writeFileSync(path.join(projectDir, ".cxn", "config.yml"), `modelRoles:\n  default: ${projectSelector}\n`);
 
 		try {
 			const settings = await Settings.loadIsolated({
@@ -747,7 +747,7 @@ describe("selector setting side effects", () => {
 				expect(settings.getGlobalModelRole("default")).toBeUndefined();
 				expect(settings.getModelRole("default")).toBe(overlaySelector);
 				expect(settings.getModelRoleProvenance("default")).toBe("overlay");
-				expect(await Bun.file(path.join(projectDir, ".omp", "config.yml")).text()).toContain(
+				expect(await Bun.file(path.join(projectDir, ".cxn", "config.yml")).text()).toContain(
 					`default: ${projectSelector}`,
 				);
 				expect(setModel).not.toHaveBeenCalled();

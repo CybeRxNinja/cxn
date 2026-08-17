@@ -47,13 +47,13 @@ let
         rustFlags = "-C target-cpu=x86-64-v2";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported OMP platform: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system} or (throw "Unsupported CXN platform: ${stdenv.hostPlatform.system}");
   patchedDependencies = lib.mapAttrs (
     _: patch: source + "/${patch}"
   ) rootPackageJson.patchedDependencies;
   patchOverrides = bun2nix.patchedDependenciesToOverrides { inherit patchedDependencies; };
   bunRuntimeTemplate = stdenvNoCC.mkDerivation {
-    pname = "omp-bun-runtime-template";
+    pname = "cxn-bun-runtime-template";
     inherit (bun) version;
     src = bun.src;
 
@@ -70,7 +70,7 @@ let
   };
 in
 stdenv.mkDerivation {
-  pname = "omp";
+  pname = "cxn";
   inherit (packageJson) version;
   src = source;
 
@@ -157,7 +157,7 @@ stdenv.mkDerivation {
       signIfRequired "packages/natives/native/${platform.addon}"
     ''}
 
-    echo "Compiling OMP"
+    echo "Compiling CXN"
     BUN_COMPILE_EXECUTABLE_PATH="${bunRuntimeTemplate}/libexec/bun" \
       bun --cwd="$PWD/packages/coding-agent" run build
 
@@ -167,7 +167,7 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 packages/coding-agent/dist/omp "$out/bin/omp"
+    install -Dm755 packages/coding-agent/dist/cxn "$out/bin/cxn"
 
     # The addon is gzip-compressed inside the compiled binary, so the store
     # paths it links against are invisible to the output reference scanner.
@@ -192,7 +192,7 @@ stdenv.mkDerivation {
   # inert shebang. Remove its hash before Nix scans output references; this
   # runs before Darwin's binary-signing fixup hook.
   preFixup = ''
-    remove-references-to -t ${bun} "$out/bin/omp"
+    remove-references-to -t ${bun} "$out/bin/cxn"
   '';
 
   disallowedReferences = [ bun ];
@@ -200,18 +200,18 @@ stdenv.mkDerivation {
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
-    HOME="$TMPDIR" "$out/bin/omp" --smoke-test | grep -q "smoke-test: ok"
-    BUN_BE_BUN=1 "$out/bin/omp" -e \
+    HOME="$TMPDIR" "$out/bin/cxn" --smoke-test | grep -q "smoke-test: ok"
+    BUN_BE_BUN=1 "$out/bin/cxn" -e \
       'if (Bun.version !== "${bun.version}" || typeof Bun.Image !== "function") process.exit(1)'
     runHook postInstallCheck
   '';
 
   meta = {
     description = "Terminal-based coding agent with multi-model support";
-    homepage = "https://omp.sh";
+    homepage = "https://cxn.sh";
     changelog = "https://github.com/can1357/oh-my-pi/releases/tag/v${packageJson.version}";
     license = lib.licenses.mit;
-    mainProgram = "omp";
+    mainProgram = "cxn";
     platforms = [
       "aarch64-darwin"
       "aarch64-linux"

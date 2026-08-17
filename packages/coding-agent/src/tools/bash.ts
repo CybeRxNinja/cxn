@@ -1,15 +1,15 @@
 import * as fs from "node:fs";
-import { type } from "@oh-my-pi/omptype";
+import { type } from "@cxn/omptype";
 import type {
 	AgentTool,
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
 	ToolApprovalDecision,
-} from "@oh-my-pi/pi-agent-core";
-import type { Component } from "@oh-my-pi/pi-tui";
-import { ImageProtocol, TERMINAL } from "@oh-my-pi/pi-tui";
-import { getProjectDir, isEnoent, logger, prompt } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-agent-core";
+import type { Component } from "@cxn/pi-tui";
+import { ImageProtocol, TERMINAL } from "@cxn/pi-tui";
+import { getProjectDir, isEnoent, logger, prompt } from "@cxn/pi-utils";
 import type { Settings } from "../config/settings";
 import { applyDirenvPreflight, type BashResult, executeBash } from "../exec/bash-executor";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
@@ -137,7 +137,7 @@ const BASH_PATTERN_APPROVAL_VALUES = new Set(["allow", "deny", "prompt"]);
  * preserves `bash` tool semantics (`$VAR`, `$(...)`, `source`, POSIX quoting,
  * `-l`) wherever a POSIX shell is available. The agent host's shell path is
  * used as a proxy for the client's, matching the near-universal ACP
- * deployment shape of an editor spawning omp as a co-hosted subprocess.
+ * deployment shape of an editor spawning cxn as a co-hosted subprocess.
  */
 export function wrapShellLineForClientTerminal(
 	line: string,
@@ -1041,7 +1041,7 @@ export class BashTool implements AgentTool<typeof bashSchemaBase | typeof bashSc
 		}
 
 		// A timeout of 0 is an explicit long-running-command contract: the user
-		// must still cancel the call or job, but OMP does not impose a deadline.
+		// must still cancel the call or job, but CXN does not impose a deadline.
 		const requestedTimeoutSec = rawTimeout;
 		const timeoutDisabled = requestedTimeoutSec === 0;
 		const maxTimeout = this.session.settings.get("tools.maxTimeout");

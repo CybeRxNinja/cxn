@@ -146,7 +146,7 @@ const codingAgentRuntimePathPatterns = [
 ];
 
 const codingAgentNativeContentMarkers = [
-	"@oh-my-pi/pi-natives",
+	"@cxn/pi-natives",
 	"pi-natives",
 	"native",
 	"readImageMetadata",
@@ -182,7 +182,7 @@ const codingAgentSingletonContentPatterns = [
 ];
 
 const codingAgentUiContentMarkers = [
-	"@oh-my-pi/pi-tui",
+	"@cxn/pi-tui",
 	"InteractiveMode",
 	"InputController",
 	"StatusLine",
@@ -371,7 +371,7 @@ async function commandsForMode(mode: Mode): Promise<TestCommand[]> {
 	}
 }
 
-// The omp-kata runner pods may inject cloud credentials (`AWS_*`) pod-wide via
+// The cxn-kata runner pods may inject cloud credentials (`AWS_*`) pod-wide via
 // `envFrom`, GitHub Actions injects `GITHUB_TOKEN`,
 // and a host may carry provider API keys. Any of these make env-sensitive code
 // non-deterministic in tests — e.g. leaked AWS creds make `amazon-bedrock` look
@@ -482,9 +482,9 @@ function buildChildEnv(): Record<string, string | undefined> {
 // parallel path awaits the child's stdout/stderr pipes, which stay open as
 // long as the wedged process — or any grandchild that inherited them — lives.
 // After this many seconds the child is SIGKILLed and reported as a failure.
-// Override with OMP_TEST_CHUNK_TIMEOUT (seconds).
+// Override with CXN_TEST_CHUNK_TIMEOUT (seconds).
 function chunkTimeoutMs(): number {
-	const raw = Number(Bun.env.OMP_TEST_CHUNK_TIMEOUT?.trim());
+	const raw = Number(Bun.env.CXN_TEST_CHUNK_TIMEOUT?.trim());
 	if (Number.isFinite(raw) && raw >= 1) return raw * 1000;
 	return 600_000;
 }
@@ -515,10 +515,10 @@ const MAX_CHUNK_ATTEMPTS = 3;
 // two very different ways -- the per-chunk watchdog firing, or the kernel OOM
 // killer reaping a chunk that outgrew the runner -- and the bare exit code
 // cannot tell them apart. Which one it was is the difference between "raise
-// OMP_TEST_CHUNK_TIMEOUT" and "lower this bucket's chunkSize", so say it.
+// CXN_TEST_CHUNK_TIMEOUT" and "lower this bucket's chunkSize", so say it.
 export function describeChunkFailure(exitCode: number, timedOut: boolean): string {
 	if (timedOut) {
-		return `exceeded the ${Math.round(chunkTimeoutMs() / 1000)}s chunk watchdog and was killed (exit ${exitCode}; OMP_TEST_CHUNK_TIMEOUT to change)`;
+		return `exceeded the ${Math.round(chunkTimeoutMs() / 1000)}s chunk watchdog and was killed (exit ${exitCode}; CXN_TEST_CHUNK_TIMEOUT to change)`;
 	}
 	if (exitCode === 137) {
 		return "was SIGKILLed (exit 137) without reaching the chunk watchdog, which on a CI runner means the OOM killer; lower this bucket's chunkSize";
@@ -538,11 +538,11 @@ function isCI(): boolean {
 }
 
 // Fan-out width for the local parallel path, clamped to the command count.
-// Defaults to the machine's available parallelism; `OMP_TEST_CONCURRENCY`
+// Defaults to the machine's available parallelism; `CXN_TEST_CONCURRENCY`
 // overrides it — a positive integer to pick an exact width (dial down on a
 // memory-constrained laptop), or `all`/`max` to launch every chunk at once.
 function testConcurrency(total: number): number {
-	const raw = Bun.env.OMP_TEST_CONCURRENCY?.trim().toLowerCase();
+	const raw = Bun.env.CXN_TEST_CONCURRENCY?.trim().toLowerCase();
 	if (!raw) return Math.min(Math.max(1, os.availableParallelism()), total);
 	if (raw === "all" || raw === "max") {
 		return total;
@@ -551,7 +551,7 @@ function testConcurrency(total: number): number {
 	if (Number.isFinite(override) && override >= 1) {
 		return Math.min(Math.floor(override), total);
 	}
-	throw new Error(`Invalid OMP_TEST_CONCURRENCY=${JSON.stringify(raw)}; expected a positive integer, all, or max`);
+	throw new Error(`Invalid CXN_TEST_CONCURRENCY=${JSON.stringify(raw)}; expected a positive integer, all, or max`);
 }
 
 // Test files interleave real IO — sqlite writes, temp dirs, spawned CLIs — with
@@ -581,9 +581,9 @@ function budgetedParallel(requested: number, poolWidth: number): number {
 // timeout that says nothing about the code. Timing out is still worth catching,
 // so keep a ceiling — just one loose enough to only fire on a real hang. The
 // per-chunk watchdog (chunkTimeoutMs) remains the backstop for a wedged process.
-// Override with OMP_TEST_TIMEOUT (seconds); per-test `it(name, fn, ms)` still wins.
+// Override with CXN_TEST_TIMEOUT (seconds); per-test `it(name, fn, ms)` still wins.
 function testTimeoutMs(): number {
-	const raw = Number(Bun.env.OMP_TEST_TIMEOUT?.trim());
+	const raw = Number(Bun.env.CXN_TEST_TIMEOUT?.trim());
 	if (Number.isFinite(raw) && raw >= 1) return raw * 1000;
 	return 30_000;
 }
@@ -775,7 +775,7 @@ export async function runTestCommandsInParallel(commands: TestCommand[], concurr
 	const fileWidths = [...new Set(commands.map(c => c.parallel).filter(p => p !== undefined))].sort((a, b) => a - b);
 	console.log(
 		`Running ${commands.length} test command(s), up to ${concurrency} in parallel ` +
-			`(OMP_TEST_CONCURRENCY=<n>|all to change); ${os.availableParallelism()} cores, ` +
+			`(CXN_TEST_CONCURRENCY=<n>|all to change); ${os.availableParallelism()} cores, ` +
 			`--parallel=${fileWidths.join("/") || "n/a"} per chunk.`,
 	);
 
@@ -852,7 +852,7 @@ export async function runTestCommandsInParallel(commands: TestCommand[], concurr
 		return {
 			exitCode,
 			timedOut,
-			output: `${stdout.text}${stderr.text}${timedOut ? `\n[watchdog] chunk exceeded ${Math.round(chunkTimeoutMs() / 1000)}s; killed with SIGKILL (OMP_TEST_CHUNK_TIMEOUT to change)\n` : ""}`,
+			output: `${stdout.text}${stderr.text}${timedOut ? `\n[watchdog] chunk exceeded ${Math.round(chunkTimeoutMs() / 1000)}s; killed with SIGKILL (CXN_TEST_CHUNK_TIMEOUT to change)\n` : ""}`,
 		};
 	}
 
@@ -928,7 +928,7 @@ if (import.meta.main) {
 	}
 
 	const requestedCommands = await commandsForMode(requestedMode as Mode);
-	const explicitConcurrency = Boolean(Bun.env.OMP_TEST_CONCURRENCY?.trim());
+	const explicitConcurrency = Boolean(Bun.env.CXN_TEST_CONCURRENCY?.trim());
 	// CI defaults to one process at a time, but memory-sized workflow buckets
 	// explicitly opt into bounded process concurrency. Local runs fan out by
 	// default and may use the same override. Resolved before the dry-run check so

@@ -1,4 +1,4 @@
-import type { AgentToolResult } from "@oh-my-pi/pi-agent-core";
+import type { AgentToolResult } from "@cxn/pi-agent-core";
 import type { Settings } from "../config/settings";
 import * as git from "../utils/git";
 import type { ToolSession } from ".";

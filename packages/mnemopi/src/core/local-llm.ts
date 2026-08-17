@@ -7,9 +7,9 @@ import {
 	type Model,
 	retryTransientCompletion,
 	withAuth,
-} from "@oh-my-pi/pi-ai";
-import { ProviderHttpError } from "@oh-my-pi/pi-ai/error";
-import { fetchWithRetry } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-ai";
+import { ProviderHttpError } from "@cxn/pi-ai/error";
+import { fetchWithRetry } from "@cxn/pi-utils";
 import { type CompleteOptions, callHostLlm, getHostLlmBackend } from "./llm-backends";
 import {
 	getMnemopiRuntimeOptions,

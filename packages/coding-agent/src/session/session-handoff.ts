@@ -1,16 +1,10 @@
 /** Handoff generation and session transition orchestration. */
 
 import * as path from "node:path";
-import {
-	type Agent,
-	type AgentMessage,
-	resolveTelemetry,
-	type StreamFn,
-	type ThinkingLevel,
-} from "@oh-my-pi/pi-agent-core";
-import { generateHandoffFromContext, renderHandoffPrompt } from "@oh-my-pi/pi-agent-core/compaction";
-import type { Message, Model, ServiceTier, SimpleStreamOptions } from "@oh-my-pi/pi-ai";
-import { logger, Snowflake } from "@oh-my-pi/pi-utils";
+import { type Agent, type AgentMessage, resolveTelemetry, type StreamFn, type ThinkingLevel } from "@cxn/pi-agent-core";
+import { generateHandoffFromContext, renderHandoffPrompt } from "@cxn/pi-agent-core/compaction";
+import type { Message, Model, ServiceTier, SimpleStreamOptions } from "@cxn/pi-ai";
+import { logger, Snowflake } from "@cxn/pi-utils";
 import type { ModelRegistry } from "../config/model-registry";
 import type { Settings } from "../config/settings";
 import type { ExtensionRunner, SessionBeforeSwitchResult } from "../extensibility/extensions";

@@ -174,7 +174,7 @@ def test_read_remote_urls_uses_safe_directory_and_slot_identity(
     captured: dict[str, object] = {}
     repo_dir = tmp_path / "repo"
     monkeypatch.setenv("GITHUB_TOKEN", "parent-token")
-    monkeypatch.setenv("ROBOMP_GIT_HTTP_AUTH", "parent-auth")
+    monkeypatch.setenv("ROBCXN_GIT_HTTP_AUTH", "parent-auth")
 
     def fake_run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
         captured["cmd"] = cmd
@@ -196,7 +196,7 @@ def test_read_remote_urls_uses_safe_directory_and_slot_identity(
     assert env["GIT_CONFIG_KEY_0"] == "safe.directory"
     assert env["GIT_CONFIG_VALUE_0"] == str(repo_dir)
     assert "GITHUB_TOKEN" not in env
-    assert "ROBOMP_GIT_HTTP_AUTH" not in env
+    assert "ROBCXN_GIT_HTTP_AUTH" not in env
     assert captured["user"] == 2001
     assert captured["group"] == 2001
     assert captured["extra_groups"] == [2000]

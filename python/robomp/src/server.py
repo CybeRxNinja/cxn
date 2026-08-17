@@ -223,8 +223,8 @@ def _require_proxy_mode(cfg: Settings) -> tuple[str, bytes]:
         )
     if cfg.gh_proxy_url is None or cfg.gh_proxy_hmac_key is None:
         raise SystemExit(
-            "robomp orchestrator requires ROBOMP_GH_PROXY_URL and "
-            "ROBOMP_GH_PROXY_HMAC_KEY (run gh-proxy in a sibling container)."
+            "robomp orchestrator requires ROBCXN_GH_PROXY_URL and "
+            "ROBCXN_GH_PROXY_HMAC_KEY (run gh-proxy in a sibling container)."
         )
     return cfg.gh_proxy_url, cfg.gh_proxy_hmac_key.get_secret_value().encode("utf-8")
 
@@ -390,7 +390,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         # queue (and any replay) carries the maintainer signal forward.
         if decision.directive:
             payload = dict(payload)
-            payload["_robomp_directive"] = {
+            payload["_robcxn_directive"] = {
                 "body": decision.directive_body,
                 "author": decision.directive_author,
                 "pragmas": [list(item) for item in decision.directive_pragmas],
@@ -479,14 +479,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.post("/replay")
     async def replay(
         request: Request,
-        x_robomp_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
+        x_robcxn_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
         delivery_id: str = "",
     ) -> JSONResponse:
         bag = request.app.state.bag
         cfg: Settings = bag["settings"]
         if cfg.replay_token is None:
             raise HTTPException(404, "replay disabled")
-        if x_robomp_token != cfg.replay_token.get_secret_value():
+        if x_robcxn_token != cfg.replay_token.get_secret_value():
             raise HTTPException(401, "invalid replay token")
         db: Database = bag["db"]
         row = db.get_event(delivery_id)
@@ -499,7 +499,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     def _require_trigger_token(cfg: Settings, token: str | None) -> None:
         if cfg.replay_token is None:
-            raise HTTPException(404, "trigger disabled (set ROBOMP_REPLAY_TOKEN to enable)")
+            raise HTTPException(404, "trigger disabled (set ROBCXN_REPLAY_TOKEN to enable)")
         if token != cfg.replay_token.get_secret_value():
             raise HTTPException(401, "invalid replay token")
 
@@ -509,9 +509,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         state: str = "open",
         limit: int = 30,
         refresh: bool = False,
-        x_robomp_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
+        x_robcxn_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
     ) -> dict[str, Any]:
-        """Browse issues across `ROBOMP_REPO_ALLOWLIST` for the trigger picker.
+        """Browse issues across `ROBCXN_REPO_ALLOWLIST` for the trigger picker.
 
         Token-gated identically to `/api/trigger`: this can expose titles from
         private repos. Normal dashboard loads use the server cache; only cache
@@ -519,7 +519,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         """
         bag = request.app.state.bag
         cfg: Settings = bag["settings"]
-        _require_trigger_token(cfg, x_robomp_token)
+        _require_trigger_token(cfg, x_robcxn_token)
 
         if state not in ("open", "closed", "all"):
             raise HTTPException(400, "state must be open|closed|all")
@@ -566,7 +566,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def api_trigger(
         request: Request,
         payload: dict[str, Any] = Body(...),
-        x_robomp_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
+        x_robcxn_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
     ) -> JSONResponse:
         """Manually queue an issue. Modes:
 
@@ -575,7 +575,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         """
         bag = request.app.state.bag
         cfg: Settings = bag["settings"]
-        _require_trigger_token(cfg, x_robomp_token)
+        _require_trigger_token(cfg, x_robcxn_token)
 
         db: Database = bag["db"]
         github: GitHubBackend = bag["github"]
@@ -596,7 +596,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             except InvalidIssueRef as exc:
                 raise HTTPException(400, str(exc)) from exc
             if not cfg.allows(repo_full):
-                raise HTTPException(403, f"{repo_full} not in ROBOMP_REPO_ALLOWLIST")
+                raise HTTPException(403, f"{repo_full} not in ROBCXN_REPO_ALLOWLIST")
             try:
                 delivery = await enqueue_manual_triage(
                     db=db,
@@ -626,7 +626,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             except InvalidIssueRef as exc:
                 raise HTTPException(400, str(exc)) from exc
             if not cfg.allows(repo_full):
-                raise HTTPException(403, f"{repo_full} not in ROBOMP_REPO_ALLOWLIST")
+                raise HTTPException(403, f"{repo_full} not in ROBCXN_REPO_ALLOWLIST")
             row = db.latest_event_for_issue(make_issue_key(repo_full, number))
             if row is None:
                 raise HTTPException(404, f"no retryable stored event for {repo_full}#{number}")
@@ -650,14 +650,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def api_cancel(
         request: Request,
         payload: dict[str, Any] = Body(...),
-        x_robomp_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
+        x_robcxn_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
     ) -> JSONResponse:
-        """Stop a running event. The omp subprocess is killed; the row lands in
+        """Stop a running event. The cxn subprocess is killed; the row lands in
         `failed` with `cancelled by operator` as the error.
         """
         bag = request.app.state.bag
         cfg: Settings = bag["settings"]
-        _require_trigger_token(cfg, x_robomp_token)
+        _require_trigger_token(cfg, x_robcxn_token)
 
         delivery_id = payload.get("delivery_id")
         if not isinstance(delivery_id, str) or not delivery_id:

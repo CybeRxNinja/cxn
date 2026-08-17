@@ -1,9 +1,9 @@
 {
   "name": "hello-extension",
   "version": "1.0.0",
-  "description": "Minimal oh-my-pi extension example",
-  "homepage": "https://omp.sh",
-  "omp": {
+  "description": "Minimal cxn extension example",
+  "homepage": "https://cxn.sh",
+  "cxn": {
     "extensions": ["./index.ts"]
   }
 }

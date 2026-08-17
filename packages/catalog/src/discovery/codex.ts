@@ -1,4 +1,4 @@
-import { type } from "@oh-my-pi/omptype";
+import { type } from "@cxn/omptype";
 import { parseKnownModel, semverEqual } from "../identity/classify";
 import { resolveOpenAIDaybreakStandardCost } from "../openai-pricing";
 import type { FetchImpl, ModelSpec } from "../types";

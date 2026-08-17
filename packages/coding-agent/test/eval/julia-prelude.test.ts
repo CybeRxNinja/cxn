@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { $which, TempDir } from "@oh-my-pi/pi-utils";
+import { $which, TempDir } from "@cxn/pi-utils";
 import { disposeJuliaKernelSessionsByOwner, executeJulia } from "../../src/eval/jl/executor";
 
 const HAS_JULIA = Boolean($which("julia"));
@@ -12,7 +12,7 @@ describe.skipIf(!HAS_JULIA)("eval Julia prelude helpers", () => {
 	}, 30_000);
 
 	it("supports prelude helpers and renders exception details in one kernel session", async () => {
-		using tempDir = TempDir.createSync("@omp-eval-julia-prelude-");
+		using tempDir = TempDir.createSync("@cxn-eval-julia-prelude-");
 		const artifactsDir = path.join(tempDir.path(), "session-artifacts");
 		await Bun.write(path.join(artifactsDir, "alpha.md"), "one\ntwo\nthree\nfour");
 		await Bun.write(path.join(artifactsDir, "json.md"), JSON.stringify({ items: [{ name: "a" }, { name: "b" }] }));

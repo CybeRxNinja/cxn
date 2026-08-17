@@ -2,13 +2,7 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import {
-	$envExact,
-	filterProcessEnv,
-	getDbBusyTimeoutMs,
-	parseEnvFile,
-	setInteractiveHost,
-} from "@oh-my-pi/pi-utils/env";
+import { $envExact, filterProcessEnv, getDbBusyTimeoutMs, parseEnvFile, setInteractiveHost } from "@cxn/pi-utils/env";
 
 const tempDirs: string[] = [];
 const runtimeProbePath = path.join(import.meta.dir, "fixtures", "test-runtime-probe.ts");
@@ -87,11 +81,11 @@ describe("parseEnvFile", () => {
 		});
 	});
 
-	it("mirrors valid OMP_ variables to PI_ variables", () => {
-		const filePath = writeTempEnv("OMP_FEATURE=enabled\nOMP_BAD=before\0after\n");
+	it("mirrors valid CXN_ variables to PI_ variables", () => {
+		const filePath = writeTempEnv("CXN_FEATURE=enabled\nCXN_BAD=before\0after\n");
 
 		expect(parseEnvFile(filePath)).toEqual({
-			OMP_FEATURE: "enabled",
+			CXN_FEATURE: "enabled",
 			PI_FEATURE: "enabled",
 		});
 	});

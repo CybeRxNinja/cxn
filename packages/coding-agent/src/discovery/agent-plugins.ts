@@ -17,7 +17,7 @@
 import type { Dirent, Stats } from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { getPluginsDir, isEnoent, normalizeFrontmatterKeys, parseFrontmatter } from "@oh-my-pi/pi-utils";
+import { getPluginsDir, isEnoent, normalizeFrontmatterKeys, parseFrontmatter } from "@cxn/pi-utils";
 import { registerProvider } from "../capability";
 import { readFile } from "../capability/fs";
 import { type MCPServer, mcpCapability } from "../capability/mcp";
@@ -30,8 +30,8 @@ import {
 	validateAgentSkillFrontmatter,
 } from "./agent-plugin-format";
 import { resolveContainedPath } from "./contained-path";
+import { listOmpExtensionRoots } from "./cxn-extension-roots";
 import { compareSkillOrder, createSourceMeta, listClaudePluginRoots } from "./helpers";
-import { listOmpExtensionRoots } from "./omp-extension-roots";
 
 const PROVIDER_ID = "agent-plugins";
 const DISPLAY_NAME = "Agent Plugins";

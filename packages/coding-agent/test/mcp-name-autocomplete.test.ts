@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { SourceMeta } from "@oh-my-pi/pi-coding-agent/capability/types";
-import type { MCPServerConfig } from "@oh-my-pi/pi-coding-agent/mcp/types";
-import { collectMcpServerNames } from "@oh-my-pi/pi-coding-agent/modes/controllers/mcp-command-controller";
-import type { InteractiveModeContext } from "@oh-my-pi/pi-coding-agent/modes/types";
-import { buildTuiBuiltinSlashCommands } from "@oh-my-pi/pi-coding-agent/slash-commands/builtin-registry";
-import type { TuiSlashCommandRuntime } from "@oh-my-pi/pi-coding-agent/slash-commands/types";
+import type { SourceMeta } from "@cxn/pi-coding-agent/capability/types";
+import type { MCPServerConfig } from "@cxn/pi-coding-agent/mcp/types";
+import { collectMcpServerNames } from "@cxn/pi-coding-agent/modes/controllers/mcp-command-controller";
+import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { buildTuiBuiltinSlashCommands } from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
+import type { TuiSlashCommandRuntime } from "@cxn/pi-coding-agent/slash-commands/types";
 import {
 	getConfigRootDir,
 	getMCPConfigPath,
@@ -15,7 +15,7 @@ import {
 	removeWithRetries,
 	setAgentDir,
 	setProjectDir,
-} from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-utils";
 
 const originalProjectDir = getProjectDir();
 const originalAgentDir = process.env.PI_CODING_AGENT_DIR;
@@ -57,8 +57,8 @@ describe("MCP server-name autocomplete", () => {
 	let agentDir = "";
 
 	beforeEach(async () => {
-		projectDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-mcp-autocomplete-project-"));
-		agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-mcp-autocomplete-agent-"));
+		projectDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-mcp-autocomplete-project-"));
+		agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-mcp-autocomplete-agent-"));
 		setProjectDir(projectDir);
 		setAgentDir(agentDir);
 	});

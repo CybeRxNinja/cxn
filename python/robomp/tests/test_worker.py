@@ -2,7 +2,7 @@
 
 These tests swap `robomp.worker.RpcClient` for a recording fake so we can
 observe the `extra_args` and `set_todos` decisions the driver takes based on
-whether the workspace's omp session directory already holds a JSONL transcript.
+whether the workspace's cxn session directory already holds a JSONL transcript.
 """
 
 from __future__ import annotations
@@ -260,8 +260,8 @@ async def test_run_rpc_omits_continue_when_session_empty(
     assert client_kwargs["env"]["HOME"] == str(agent_home)
     assert client_kwargs["env"]["GITHUB_TOKEN"] == ""
     assert client_kwargs["env"]["GITHUB_WEBHOOK_SECRET"] == ""
-    assert client_kwargs["env"]["ROBOMP_REPLAY_TOKEN"] == ""
-    assert client_kwargs["env"]["ROBOMP_GH_PROXY_HMAC_KEY"] == ""
+    assert client_kwargs["env"]["ROBCXN_REPLAY_TOKEN"] == ""
+    assert client_kwargs["env"]["ROBCXN_GH_PROXY_HMAC_KEY"] == ""
     assert client_kwargs["user"] is None
     assert client_kwargs["group"] is None
     assert client_kwargs["extra_groups"] is None
@@ -275,25 +275,25 @@ def test_build_extra_env_stages_agent_home(tmp_path: Path, settings: Settings, m
 
     agent_dir = stage_home / ".agent"
     agent_rules_dir = agent_dir / "rules"
-    omp_agent_dir = stage_home / ".omp" / "agent"
+    cxn_agent_dir = stage_home / ".cxn" / "agent"
     agent_rules_dir.mkdir(parents=True)
-    omp_agent_dir.mkdir(parents=True)
+    cxn_agent_dir.mkdir(parents=True)
     (agent_dir / "AGENTS.md").write_text("agent instructions\n", encoding="utf-8")
     (agent_rules_dir / "rule.md").write_text("rule\n", encoding="utf-8")
-    (omp_agent_dir / "models.yml").write_text("models: []\n", encoding="utf-8")
+    (cxn_agent_dir / "models.yml").write_text("models: []\n", encoding="utf-8")
 
     env = worker._build_extra_env(settings)
 
     assert env["HOME"] == str(agent_home)
     assert (agent_home / ".agent" / "AGENTS.md").is_file()
     assert (agent_home / ".agent" / "rules" / "rule.md").is_file()
-    assert (agent_home / ".omp" / "agent" / "models.yml").is_file()
+    assert (agent_home / ".cxn" / "agent" / "models.yml").is_file()
     assert (agent_home / ".agent").stat().st_mode & 0o777 == 0o755
     assert (agent_home / ".agent" / "AGENTS.md").stat().st_mode & 0o777 == 0o644
     assert (agent_home / ".agent" / "rules").stat().st_mode & 0o777 == 0o755
     assert (agent_home / ".agent" / "rules" / "rule.md").stat().st_mode & 0o777 == 0o644
-    assert (agent_home / ".omp" / "agent").stat().st_mode & 0o777 == 0o755
-    assert (agent_home / ".omp" / "agent" / "models.yml").stat().st_mode & 0o777 == 0o644
+    assert (agent_home / ".cxn" / "agent").stat().st_mode & 0o777 == 0o755
+    assert (agent_home / ".cxn" / "agent" / "models.yml").stat().st_mode & 0o777 == 0o644
 
 
 @pytest.mark.asyncio
@@ -318,8 +318,8 @@ async def test_run_rpc_omits_home_when_agent_home_absent(
     assert "HOME" not in client_kwargs["env"]
     assert client_kwargs["env"]["GITHUB_TOKEN"] == ""
     assert client_kwargs["env"]["GITHUB_WEBHOOK_SECRET"] == ""
-    assert client_kwargs["env"]["ROBOMP_REPLAY_TOKEN"] == ""
-    assert client_kwargs["env"]["ROBOMP_GH_PROXY_HMAC_KEY"] == ""
+    assert client_kwargs["env"]["ROBCXN_REPLAY_TOKEN"] == ""
+    assert client_kwargs["env"]["ROBCXN_GH_PROXY_HMAC_KEY"] == ""
 
 
 @pytest.mark.asyncio
@@ -338,12 +338,12 @@ async def test_run_rpc_uses_workspace_xdg_dirs_without_slot(tmp_path: Path, sett
         loop.close()
 
     env = _FakeRpcClient.instances[0].kwargs["env"]
-    xdg_root = inputs.workspace.root / ".omp-xdg"
+    xdg_root = inputs.workspace.root / ".cxn-xdg"
     for key in ("XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
         path = Path(env[key])
         assert path.is_relative_to(xdg_root)
-        assert (path / "omp").is_dir()
-    tmpdir = inputs.workspace.root / ".omp-tmp"
+        assert (path / "cxn").is_dir()
+    tmpdir = inputs.workspace.root / ".cxn-tmp"
     assert env["TMPDIR"] == str(tmpdir)
     assert env["TMP"] == str(tmpdir)
     assert env["TEMP"] == str(tmpdir)
@@ -384,7 +384,7 @@ async def test_run_rpc_uses_workspace_xdg_dirs_for_slot_without_chown(
     for key in ("XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
         base = Path(env[key])
         assert base.is_dir()
-        assert (base / "omp").is_dir()
+        assert (base / "cxn").is_dir()
     assert Path(env["BUN_INSTALL_CACHE_DIR"]).is_dir()
     assert chown_calls == []
 
@@ -446,7 +446,7 @@ async def test_run_rpc_merges_todos_on_followup_with_resume(tmp_path: Path, sett
 
 
 @pytest.mark.asyncio
-async def test_run_rpc_passes_slot_uid_user_slot_group_and_omp_extra_group(tmp_path: Path, settings: Settings) -> None:
+async def test_run_rpc_passes_slot_uid_user_slot_group_and_cxn_extra_group(tmp_path: Path, settings: Settings) -> None:
     inputs, bindings = _make_inputs(tmp_path, settings, session_has_jsonl=False, slot_uid=2001)
     loop = asyncio.new_event_loop()
     try:
@@ -462,7 +462,7 @@ async def test_run_rpc_passes_slot_uid_user_slot_group_and_omp_extra_group(tmp_p
     client_kwargs = _FakeRpcClient.instances[0].kwargs
     assert client_kwargs["user"] == 2001
     assert client_kwargs["group"] == 2001
-    assert client_kwargs["extra_groups"] == ["omp"]
+    assert client_kwargs["extra_groups"] == ["cxn"]
 
 
 @pytest.mark.asyncio
@@ -546,9 +546,9 @@ async def test_run_rpc_hard_timeout_stops_client_and_fails(
     assert fake.stop_calls == 1
     # `_cancel_hook` (used by both manual cancel and hard timeout) MUST also call
     # `_mark_closed` to unblock `_wait_for_agent_end` — `stop()` alone leaves
-    # `_closed_error` unset (omp_rpc bug), so the worker would hang otherwise.
+    # `_closed_error` unset (cxn_rpc bug), so the worker would hang otherwise.
     assert len(fake.mark_closed_calls) == 1
-    from omp_rpc import RpcProcessExitError
+    from cxn_rpc import RpcProcessExitError
 
     assert isinstance(fake.mark_closed_calls[0], RpcProcessExitError)
 
@@ -559,7 +559,7 @@ async def test_run_rpc_cancel_hook_stops_and_marks_closed(
 ) -> None:
     """The cancel hook registered with `register_cancel_hook` must call both
     `client.stop()` AND `client._mark_closed()`. The latter is the workaround for
-    an upstream omp_rpc bug where `stop()` does not set `_closed_error`, leaving
+    an upstream cxn_rpc bug where `stop()` does not set `_closed_error`, leaving
     `_wait_for_agent_end` blocked until timeout."""
     captured: list = []
     monkeypatch.setattr("robomp.worker.register_cancel_hook", lambda hook: captured.append(hook))
@@ -585,7 +585,7 @@ async def test_run_rpc_cancel_hook_stops_and_marks_closed(
     hook()  # Simulate the API/worker firing the cancel
     assert fake.stop_calls == pre_stop + 1
     assert len(fake.mark_closed_calls) == 1
-    from omp_rpc import RpcProcessExitError
+    from cxn_rpc import RpcProcessExitError
 
     assert isinstance(fake.mark_closed_calls[0], RpcProcessExitError)
     assert "cancelled by operator" in str(fake.mark_closed_calls[0])
@@ -627,7 +627,7 @@ async def test_run_rpc_sends_reminder_when_pr_class_quits_early(tmp_path: Path, 
     finally:
         loop.close()
     fake = _FakeRpcClient.instances[0]
-    # kickoff + 2 reminders (default ROBOMP_TASK_COMPLETION_MAX_REMINDERS=2)
+    # kickoff + 2 reminders (default ROBCXN_TASK_COMPLETION_MAX_REMINDERS=2)
     assert len(fake.prompts) == 1 + settings.task_completion_max_reminders
     assert fake.prompts[0] == "kickoff"
     assert all("terminal action" in p.lower() or "open the pr" in p.lower() for p in fake.prompts[1:])
@@ -787,7 +787,7 @@ async def test_run_rpc_review_pr_stops_after_submit_without_dirty_probe(
 async def test_run_rpc_review_pr_still_reminds_when_submit_fails(tmp_path: Path, settings: Settings) -> None:
     """An errored terminal-tool end event does not count as the terminal action.
 
-    omp_rpc normalizes xd:// device dispatches to the host-tool name, so a
+    cxn_rpc normalizes xd:// device dispatches to the host-tool name, so a
     rejected `submit_pr_review` surfaces as an end event with `is_error=True`
     under its real name. Counting it would end the review task silently with
     no review submitted — the completion reminder must still fire.

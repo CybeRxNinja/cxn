@@ -1,16 +1,16 @@
 import { describe, expect, it } from "bun:test";
-import type { ResponseCreateParamsStreaming } from "@oh-my-pi/pi-ai/providers/openai-responses-wire";
+import type { ResponseCreateParamsStreaming } from "@cxn/pi-ai/providers/openai-responses-wire";
 import {
 	applyChatCompletionsCompatPolicy,
 	applyOpenAIExtraBody,
 	applyResponsesCompatPolicy,
 	type OpenAICompletionsParams,
 	resolveOpenAICompatPolicy,
-} from "@oh-my-pi/pi-ai/providers/openai-shared";
-import type { Model, ModelSpec, OpenAICompat } from "@oh-my-pi/pi-ai/types";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
-import { Effort } from "@oh-my-pi/pi-catalog/effort";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
+} from "@cxn/pi-ai/providers/openai-shared";
+import type { Model, ModelSpec, OpenAICompat } from "@cxn/pi-ai/types";
+import { buildModel } from "@cxn/pi-catalog/build";
+import { Effort } from "@cxn/pi-catalog/effort";
+import { getBundledModel } from "@cxn/pi-catalog/models";
 
 function chatModel(compat: OpenAICompat): Model<"openai-completions"> {
 	return buildModel({

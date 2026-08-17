@@ -1,4 +1,4 @@
-import type { ResolvedThinkingLevel } from "@oh-my-pi/pi-agent-core";
+import type { ResolvedThinkingLevel } from "@cxn/pi-agent-core";
 import type {
 	Api,
 	ApiKeyResolver,
@@ -12,12 +12,12 @@ import type {
 	ServiceTier,
 	ServiceTierByFamily,
 	SimpleStreamOptions,
-} from "@oh-my-pi/pi-ai";
-import { resolveModelServiceTier, streamSimple } from "@oh-my-pi/pi-ai";
-import { buildModelProviderPriorityRank } from "@oh-my-pi/pi-catalog/identity";
-import { replaceTabs, truncateToWidth } from "@oh-my-pi/pi-tui";
-import { formatDuration, getProjectDir, prompt } from "@oh-my-pi/pi-utils";
-import chalk from "@oh-my-pi/pi-utils/chalk";
+} from "@cxn/pi-ai";
+import { resolveModelServiceTier, streamSimple } from "@cxn/pi-ai";
+import { buildModelProviderPriorityRank } from "@cxn/pi-catalog/identity";
+import { replaceTabs, truncateToWidth } from "@cxn/pi-tui";
+import { formatDuration, getProjectDir, prompt } from "@cxn/pi-utils";
+import chalk from "@cxn/pi-utils/chalk";
 import type { ApiKeyResolverModel } from "../config/api-key-resolver";
 import { ModelRegistry } from "../config/model-registry";
 import {
@@ -52,7 +52,7 @@ const BENCH_PROMPT = benchPrompt.trim();
 const UTF8_ENCODER = new TextEncoder();
 const UTF8_DECODER = new TextDecoder();
 const CACHE_PREFIX_CHUNK = cachePrefixChunk;
-const CACHE_PREFIX_PLACEHOLDER = "__OMP_CACHE_BENCH_RAW_PREFIX__";
+const CACHE_PREFIX_PLACEHOLDER = "__CXN_CACHE_BENCH_RAW_PREFIX__";
 const CACHE_PREFIX_CHUNK_BYTES = UTF8_ENCODER.encode(CACHE_PREFIX_CHUNK).byteLength;
 const RESPONSE_CACHE_STATUS_HEADERS = ["cf-aig-cache-status"] as const;
 
@@ -415,7 +415,7 @@ interface BenchRequestOptions {
 	apiKey: ApiKeyResolver;
 	sessionId: string;
 	prompt: string;
-	/** Native OMP messages; cache mode splits the stable prefix from the suffix. */
+	/** Native CXN messages; cache mode splits the stable prefix from the suffix. */
 	contextMessages?: Context["messages"];
 	maxTokens: number;
 	/** Explicit effort from a `:level` selector suffix; absent = provider default. */
@@ -794,7 +794,7 @@ export async function runBenchCommand(command: BenchCommandArgs, deps: BenchDepe
 	const now = deps.now ?? (() => performance.now());
 	const interactive = deps.stdoutIsTTY ?? process.stdout.isTTY === true;
 	if (command.models.length === 0) {
-		throw new Error("Pass at least one model selector, e.g. `omp bench opus gpt-5.2`");
+		throw new Error("Pass at least one model selector, e.g. `cxn bench opus gpt-5.2`");
 	}
 
 	const runtime = await (deps.createRuntime ?? createDefaultRuntime)();
@@ -830,7 +830,7 @@ export async function runBenchCommand(command: BenchCommandArgs, deps: BenchDepe
 			if (!preflightKey) {
 				const failure: BenchRunFailure = {
 					ok: false,
-					error: `No credentials for provider "${model.provider}". Run \`omp\` and use /login, or set the provider API key.`,
+					error: `No credentials for provider "${model.provider}". Run \`cxn\` and use /login, or set the provider API key.`,
 				};
 				results.push(failure);
 				if (!json) writeStdout(`${formatRunLine(failure, 0, runs)}\n`);

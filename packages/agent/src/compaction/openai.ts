@@ -15,15 +15,15 @@
  *   with `{ summary, shortSummary? }`.
  */
 
-import { ProviderHttpError } from "@oh-my-pi/pi-ai/error";
-import { applyCodexResponsesLiteShape } from "@oh-my-pi/pi-ai/providers/openai-codex/request-transformer";
+import { ProviderHttpError } from "@cxn/pi-ai/error";
+import { applyCodexResponsesLiteShape } from "@cxn/pi-ai/providers/openai-codex/request-transformer";
 import {
 	createOpenAICodexCompactionRequestContext,
 	createOpenAICodexCompatibilityMetadata,
 	getCodexAttestationHeader,
-} from "@oh-my-pi/pi-ai/providers/openai-codex-responses";
-import { parseAzureDeploymentNameMap, parseTextSignature } from "@oh-my-pi/pi-ai/providers/openai-shared";
-import { transformMessages } from "@oh-my-pi/pi-ai/providers/transform-messages";
+} from "@cxn/pi-ai/providers/openai-codex-responses";
+import { parseAzureDeploymentNameMap, parseTextSignature } from "@cxn/pi-ai/providers/openai-shared";
+import { transformMessages } from "@cxn/pi-ai/providers/transform-messages";
 import type {
 	Api,
 	AssistantMessage,
@@ -32,21 +32,16 @@ import type {
 	Message,
 	Model,
 	ProviderSessionState,
-} from "@oh-my-pi/pi-ai/types";
+} from "@cxn/pi-ai/types";
 import {
 	getOpenAIResponsesHistoryItems,
 	getOpenAIResponsesHistoryPayload,
 	normalizeResponsesToolCallId,
 	stripOpenAIResponsesOutputOnlyStatusesForReplay,
-} from "@oh-my-pi/pi-ai/utils";
-import { captureOpenAIHttpError } from "@oh-my-pi/pi-ai/utils/openai-http";
-import {
-	CODEX_BASE_URL,
-	getCodexAccountId,
-	OPENAI_HEADER_VALUES,
-	OPENAI_HEADERS,
-} from "@oh-my-pi/pi-catalog/wire/codex";
-import { $env, isRecord, logger, prompt, stringifyJson, structuredCloneJSON } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-ai/utils";
+import { captureOpenAIHttpError } from "@cxn/pi-ai/utils/openai-http";
+import { CODEX_BASE_URL, getCodexAccountId, OPENAI_HEADER_VALUES, OPENAI_HEADERS } from "@cxn/pi-catalog/wire/codex";
+import { $env, isRecord, logger, prompt, stringifyJson, structuredCloneJSON } from "@cxn/pi-utils";
 import { countTokensConservatively } from "../tokenizer";
 import contextWindowTruncatedOutputPrompt from "./prompts/context-window-truncated-output.md" with { type: "text" };
 
@@ -891,10 +886,10 @@ export async function requestOpenAiRemoteCompaction(
 /**
  * Generic remote-compaction POST. Two wire shapes are auto-selected by
  * endpoint suffix so a single `compaction.remoteEndpoint` setting can point at
- * either a purpose-built omp summarizer (`{systemPrompt, prompt}` → `{summary}`)
+ * either a purpose-built cxn summarizer (`{systemPrompt, prompt}` → `{summary}`)
  * or any OpenAI-compatible chat-completions server (`/chat/completions`,
  * `/v1/chat/completions`, …) as reported for llama.cpp / vLLM / etc. in
- * issue #4630: without this, the omp payload was rejected with
+ * issue #4630: without this, the cxn payload was rejected with
  * HTTP 400 `"'messages' is required"`, compaction silently fell back to
  * local summarization, and context grew unbounded.
  *

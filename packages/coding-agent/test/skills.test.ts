@@ -2,17 +2,17 @@ import { beforeAll, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type Skill as CapabilitySkill, skillCapability } from "@oh-my-pi/pi-coding-agent/capability/skill";
-import { getCapability } from "@oh-my-pi/pi-coding-agent/discovery";
-import { getWslWindowsHomeCandidate, runHostProbe } from "@oh-my-pi/pi-coding-agent/discovery/agents";
+import { type Skill as CapabilitySkill, skillCapability } from "@cxn/pi-coding-agent/capability/skill";
+import { getCapability } from "@cxn/pi-coding-agent/discovery";
+import { getWslWindowsHomeCandidate, runHostProbe } from "@cxn/pi-coding-agent/discovery/agents";
 import {
 	type LoadSkillsResult,
 	loadSkills,
 	loadSkillsFromDir,
 	parseSkillInvocation,
 	type Skill,
-} from "@oh-my-pi/pi-coding-agent/extensibility/skills";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-coding-agent/extensibility/skills";
+import { removeWithRetries } from "@cxn/pi-utils";
 
 const fixturesDir = path.resolve(import.meta.dirname, "fixtures/skills");
 const collisionFixturesDir = path.resolve(import.meta.dirname, "fixtures/skills-collision");
@@ -218,7 +218,7 @@ describe("skills", () => {
 
 		// Regression for issue #2401: a user who disables the named third-party
 		// CLI toggles (codex/claude/native) MUST still see skills from the
-		// canonical OMP-native `~/.agent[s]/skills` (the `agents` provider).
+		// canonical CXN-native `~/.agent[s]/skills` (the `agents` provider).
 		// Pre-fix `loadSkills` gated `agents` on `anyBuiltInSkillSourceEnabled`,
 		// so flipping the five third-party toggles off silently disabled it.
 		it("should still load ~/.agents/skills when codex/claude/native toggles are off (#2401)", async () => {
@@ -356,7 +356,7 @@ describe("skills", () => {
 
 		// Regression for PR #2405 review: the fall-through gate used by
 		// unknown third-party providers (opencode/github/claude-plugins/...)
-		// MUST NOT consider the OMP-native `enableAgentsUser`/`...Project`
+		// MUST NOT consider the CXN-native `enableAgentsUser`/`...Project`
 		// toggles. Otherwise a user who disables Codex/Claude/Pi to silence
 		// third-party CLI noise but keeps the default agents toggles on still
 		// sees opencode skills resurface via the fallback branch.
@@ -407,7 +407,7 @@ describe("skills", () => {
 		});
 
 		it("should skip skills disabled via frontmatter", async () => {
-			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-disabled-skill-"));
+			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-disabled-skill-"));
 			const skillDir = path.join(tempDir, "disabled-skill");
 			await fs.mkdir(skillDir, { recursive: true });
 			await fs.writeFile(
@@ -431,7 +431,7 @@ enabled: false
 		});
 
 		it("should hide skills with disable-model-invocation frontmatter (Agent Skills spec)", async () => {
-			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-dmi-skill-"));
+			const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-dmi-skill-"));
 			const skillDir = path.join(tempDir, "hidden-by-spec");
 			await fs.mkdir(skillDir, { recursive: true });
 			await fs.writeFile(

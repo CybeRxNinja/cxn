@@ -1,4 +1,4 @@
-import { toNumber } from "@oh-my-pi/pi-catalog/utils";
+import { toNumber } from "@cxn/pi-catalog/utils";
 import { ProviderHttpError } from "../../error";
 
 export type CodexRateLimit = {

@@ -8,7 +8,7 @@
  * `launch` — see #1496 for the original "args silently leak to the LLM"
  * regression that motivated the split.
  */
-import type { CommandEntry } from "@oh-my-pi/pi-utils/cli";
+import type { CommandEntry } from "@cxn/pi-utils/cli";
 import * as commandHelp from "./cli/command-help";
 import { flagConsumesValue } from "./cli/flag-tables";
 import { launchHelp } from "./commands/launch-help";
@@ -195,35 +195,35 @@ export const commands: CommandEntry[] = [
 ];
 
 // Documented-looking plugin/marketplace verbs that are NOT registered top-level
-// commands. Without a guard `resolveCliArgv` rewrites e.g. `omp marketplace add
-// xyz` to `omp launch marketplace add xyz`, silently forwarding the argv to the
+// commands. Without a guard `resolveCliArgv` rewrites e.g. `cxn marketplace add
+// xyz` to `cxn launch marketplace add xyz`, silently forwarding the argv to the
 // model as a prompt instead of managing plugins (#4845; same class as the
 // `list`/`remove` leak fixed in #2935 and the `install` leak in #1496/#1498).
-// The real commands live under `omp plugin <action>`; each entry maps a verb to
+// The real commands live under `cxn plugin <action>`; each entry maps a verb to
 // a hint pointing there. See {@link reservedTopLevelWordMessage} for when a hint
 // fires vs. when the argv still falls through to `launch`.
 const RESERVED_TOP_LEVEL_WORDS: Record<string, string> = {
 	extensions:
-		'`omp extensions` is not a management command. Use `omp plugin list` / `omp plugin install`, or run `omp launch extensions` if you meant to send "extensions" as a prompt.',
-	list: '`omp list` is not a top-level command. Use `omp plugin list` to list installed plugins, or run `omp launch list` if you meant to send "list" as a prompt.',
+		'`cxn extensions` is not a management command. Use `cxn plugin list` / `cxn plugin install`, or run `cxn launch extensions` if you meant to send "extensions" as a prompt.',
+	list: '`cxn list` is not a top-level command. Use `cxn plugin list` to list installed plugins, or run `cxn launch list` if you meant to send "list" as a prompt.',
 	remove:
-		'`omp remove` is not a top-level command. Use `omp plugin uninstall <name>` to remove a plugin, or run `omp launch remove` if you meant to send "remove" as a prompt.',
+		'`cxn remove` is not a top-level command. Use `cxn plugin uninstall <name>` to remove a plugin, or run `cxn launch remove` if you meant to send "remove" as a prompt.',
 	uninstall:
-		'`omp uninstall` is not a top-level command. Use `omp plugin uninstall <name@marketplace>` to remove a plugin, or run `omp launch uninstall` if you meant to send "uninstall" as a prompt.',
+		'`cxn uninstall` is not a top-level command. Use `cxn plugin uninstall <name@marketplace>` to remove a plugin, or run `cxn launch uninstall` if you meant to send "uninstall" as a prompt.',
 	marketplace:
-		'`omp marketplace` is not a top-level command. Use `omp plugin marketplace <add|remove|update|list>` to manage marketplaces, or run `omp launch marketplace` if you meant to send "marketplace" as a prompt.',
+		'`cxn marketplace` is not a top-level command. Use `cxn plugin marketplace <add|remove|update|list>` to manage marketplaces, or run `cxn launch marketplace` if you meant to send "marketplace" as a prompt.',
 	discover:
-		'`omp discover` is not a top-level command. Use `omp plugin discover [marketplace]` to browse available plugins, or run `omp launch discover` if you meant to send "discover" as a prompt.',
+		'`cxn discover` is not a top-level command. Use `cxn plugin discover [marketplace]` to browse available plugins, or run `cxn launch discover` if you meant to send "discover" as a prompt.',
 	upgrade:
-		'`omp upgrade` is not a top-level command. Use `omp plugin upgrade [name@marketplace]` to upgrade plugins, or run `omp launch upgrade` if you meant to send "upgrade" as a prompt.',
+		'`cxn upgrade` is not a top-level command. Use `cxn plugin upgrade [name@marketplace]` to upgrade plugins, or run `cxn launch upgrade` if you meant to send "upgrade" as a prompt.',
 	enable:
-		'`omp enable` is not a top-level command. Use `omp plugin enable <name@marketplace>` to enable a plugin, or run `omp launch enable` if you meant to send "enable" as a prompt.',
+		'`cxn enable` is not a top-level command. Use `cxn plugin enable <name@marketplace>` to enable a plugin, or run `cxn launch enable` if you meant to send "enable" as a prompt.',
 	disable:
-		'`omp disable` is not a top-level command. Use `omp plugin disable <name@marketplace>` to disable a plugin, or run `omp launch disable` if you meant to send "disable" as a prompt.',
+		'`cxn disable` is not a top-level command. Use `cxn plugin disable <name@marketplace>` to disable a plugin, or run `cxn launch disable` if you meant to send "disable" as a prompt.',
 };
 
-// Sub-actions that make `omp marketplace <sub>` unambiguously a management
-// command even when multi-word (the reporter's `omp marketplace add xyz`,
+// Sub-actions that make `cxn marketplace <sub>` unambiguously a management
+// command even when multi-word (the reporter's `cxn marketplace add xyz`,
 // #4845). Mirrors the switch in `handleMarketplace` (cli/plugin-cli.ts).
 const MARKETPLACE_SUBCOMMANDS: Record<string, true> = { add: true, remove: true, rm: true, update: true, list: true };
 
@@ -231,11 +231,11 @@ const MARKETPLACE_SUBCOMMANDS: Record<string, true> = { add: true, remove: true,
  * Hint for a reserved plugin/marketplace verb used as a top-level command, or
  * `undefined` when the argv should fall through to `launch`.
  *
- * A bare verb (`omp marketplace`) always hints. A multi-word invocation only
+ * A bare verb (`cxn marketplace`) always hints. A multi-word invocation only
  * hints when the arguments follow the documented plugin grammar — a marketplace
- * sub-action (`omp marketplace add …`) or a `name@marketplace` plugin id
- * (`omp uninstall foo@bar`) — so genuine prompts that merely begin with one of
- * these words (`omp list all my files`, `omp upgrade the deps`) still launch.
+ * sub-action (`cxn marketplace add …`) or a `name@marketplace` plugin id
+ * (`cxn uninstall foo@bar`) — so genuine prompts that merely begin with one of
+ * these words (`cxn list all my files`, `cxn upgrade the deps`) still launch.
  *
  * Flags (`-…`) and `@file` arguments in the verb slot are never management
  * commands; those fall through to the default `launch` command.
@@ -301,7 +301,7 @@ export function resolveCliArgv(argv: string[]): ResolvedCliArgv {
 	}
 	if (isSubcommand(first)) return { argv };
 	// A subcommand can hide behind leading global option flags
-	// (`omp --approval-mode=yolo acp`). `run` dispatches strictly on argv[0], so
+	// (`cxn --approval-mode=yolo acp`). `run` dispatches strictly on argv[0], so
 	// hoist the subcommand to the front and keep the leading flags as its own
 	// argv; the command's parser then applies them. Genuine launch prompts (no
 	// trailing subcommand) are untouched.

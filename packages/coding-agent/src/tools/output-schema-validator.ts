@@ -13,8 +13,8 @@ import {
 	type JsonSchemaValidationIssue,
 	type JsonSchemaValidationResult,
 	validateJsonSchemaValue,
-} from "@oh-my-pi/pi-ai/utils/schema";
-import { isRecord } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-ai/utils/schema";
+import { isRecord } from "@cxn/pi-utils";
 import { jtdToJsonSchema, normalizeSchema } from "./jtd-to-json-schema";
 
 /** A validator bound to a specific output schema. */

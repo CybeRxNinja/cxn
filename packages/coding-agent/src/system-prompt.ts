@@ -4,10 +4,10 @@
 
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentTool } from "@oh-my-pi/pi-agent-core";
-import type { ToolExample, TSchema } from "@oh-my-pi/pi-ai";
-import { renderToolInventory } from "@oh-my-pi/pi-ai/dialect";
-import { $env, getGpuCachePath, getProjectDir, hasFsCode, isEnoent, logger, prompt } from "@oh-my-pi/pi-utils";
+import type { AgentTool } from "@cxn/pi-agent-core";
+import type { ToolExample, TSchema } from "@cxn/pi-ai";
+import { renderToolInventory } from "@cxn/pi-ai/dialect";
+import { $env, getGpuCachePath, getProjectDir, hasFsCode, isEnoent, logger, prompt } from "@cxn/pi-utils";
 import { contextFileCapability } from "./capability/context-file";
 import { systemPromptCapability } from "./capability/system-prompt";
 import { findConfigFile } from "./config";

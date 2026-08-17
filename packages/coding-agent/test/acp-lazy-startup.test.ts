@@ -1,13 +1,13 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import type { Model } from "@oh-my-pi/pi-ai";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { createAcpConnection } from "@oh-my-pi/pi-coding-agent/modes/acp/acp-mode";
-import type { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import type { Model } from "@cxn/pi-ai";
+import { buildModel } from "@cxn/pi-catalog/build";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { createAcpConnection } from "@cxn/pi-coding-agent/modes/acp/acp-mode";
+import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cxn/pi-utils";
 import {
 	type Client,
 	ClientSideConnection,
@@ -17,7 +17,7 @@ import {
 	type RequestPermissionRequest,
 	type RequestPermissionResponse,
 	type SessionNotification,
-} from "@oh-my-pi/pi-utils/acp";
+} from "@cxn/pi-utils/acp";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 const TEST_MODEL: Model = buildModel({
@@ -37,7 +37,7 @@ let startupDir: TempDir;
 let startupAuthStorage: AuthStorage;
 
 beforeAll(() => {
-	startupDir = TempDir.createSync("@omp-acp-startup-shared-");
+	startupDir = TempDir.createSync("@cxn-acp-startup-shared-");
 	startupAuthStorage = createInMemoryAuthStorage();
 });
 
@@ -170,7 +170,7 @@ async function closeTransport(writable: WritableStream<unknown>): Promise<void> 
 
 describe("ACP lazy startup", () => {
 	it("applies schema defaults for ACP background jobs", async () => {
-		const { runRootCommand } = await import("@oh-my-pi/pi-coding-agent/main");
+		const { runRootCommand } = await import("@cxn/pi-coding-agent/main");
 
 		type ObservedBackgroundSettings = {
 			asyncEnabled: boolean;
@@ -239,7 +239,7 @@ describe("ACP lazy startup", () => {
 		// configured value (caller, project, --config overlay, or global) with the
 		// schema default. The fix (re-)added an `isConfigured` guard so explicit
 		// configuration survives, and the schema default only fills holes.
-		const { runRootCommand } = await import("@oh-my-pi/pi-coding-agent/main");
+		const { runRootCommand } = await import("@cxn/pi-coding-agent/main");
 
 		const explicit = {
 			"task.isolation.mode": "rcopy",
@@ -356,7 +356,7 @@ describe("ACP lazy startup", () => {
 			expect(initializeResponse).toEqual(
 				expect.objectContaining({
 					protocolVersion: 1,
-					agentInfo: expect.objectContaining({ name: "oh-my-pi" }),
+					agentInfo: expect.objectContaining({ name: "cxn" }),
 				}),
 			);
 			expect(createCalls).toBe(0);
@@ -376,7 +376,7 @@ describe("ACP lazy startup", () => {
 	});
 
 	it("applies CLI runtime API keys after ACP lazy session creation resolves extension models", async () => {
-		using tempDir = TempDir.createSync("@omp-acp-lazy-api-key-");
+		using tempDir = TempDir.createSync("@cxn-acp-lazy-api-key-");
 		const cwd = tempDir.path();
 
 		await Bun.write(
@@ -403,8 +403,8 @@ describe("ACP lazy startup", () => {
 		const authStorage = createInMemoryAuthStorage();
 		try {
 			const settings = Settings.isolated({ "marketplace.autoUpdate": "off" });
-			const { runRootCommand } = await import("@oh-my-pi/pi-coding-agent/main");
-			const { createAgentSession } = await import("@oh-my-pi/pi-coding-agent/sdk");
+			const { runRootCommand } = await import("@cxn/pi-coding-agent/main");
+			const { createAgentSession } = await import("@cxn/pi-coding-agent/sdk");
 			let session: AgentSession | undefined;
 			let sessionHasUI: boolean | undefined;
 			let deferredUsageReserveConfirmation: boolean | undefined;

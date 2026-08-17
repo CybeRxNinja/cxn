@@ -1,6 +1,6 @@
 import { afterEach, beforeAll, describe, expect, it } from "bun:test";
-import type { AgentTool } from "@oh-my-pi/pi-agent-core";
-import { type Component, Text } from "@oh-my-pi/pi-tui";
+import type { AgentTool } from "@cxn/pi-agent-core";
+import { type Component, Text } from "@cxn/pi-tui";
 import { Settings, settings } from "../../../src/config/settings";
 import { renderMCPResult } from "../../../src/mcp/render";
 import type { MCPToolDetails } from "../../../src/mcp/tool-bridge";

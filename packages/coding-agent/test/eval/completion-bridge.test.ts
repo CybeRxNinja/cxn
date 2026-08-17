@@ -1,9 +1,9 @@
 import { afterAll, afterEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import type { Api, AssistantMessage, Model } from "@oh-my-pi/pi-ai";
-import * as ai from "@oh-my-pi/pi-ai";
-import { Effort } from "@oh-my-pi/pi-ai";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import type { Api, AssistantMessage, Model } from "@cxn/pi-ai";
+import * as ai from "@cxn/pi-ai";
+import { Effort } from "@cxn/pi-ai";
+import { TempDir } from "@cxn/pi-utils";
 import { $ } from "bun";
 import type { ModelRegistry } from "../../src/config/model-registry";
 import { Settings } from "../../src/config/settings";
@@ -371,7 +371,7 @@ describe("completion() through eval runtimes", () => {
 	});
 
 	it("exposes plain and structured completion() in the JavaScript runtime", async () => {
-		using tempDir = TempDir.createSync("@omp-eval-completion-js-");
+		using tempDir = TempDir.createSync("@cxn-eval-completion-js-");
 		const sessionFile = path.join(tempDir.path(), "session.jsonl");
 		const sessionId = `js-completion:${crypto.randomUUID()}`;
 		vi.spyOn(ai, "completeSimple")
@@ -395,7 +395,7 @@ describe("completion() through eval runtimes", () => {
 	});
 
 	it("exposes plain and structured completion() in the Python runtime", async () => {
-		const tempDir = TempDir.createSync("@omp-eval-completion-py-");
+		const tempDir = TempDir.createSync("@cxn-eval-completion-py-");
 		try {
 			const result = await runPythonCompletionsInSubprocess(tempDir);
 			expect(result.exitCode).toBe(0);

@@ -1,16 +1,16 @@
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@oh-my-pi/omptype";
-import { type ApiKey, type FetchImpl, getEnvApiKey, getOpenRouterHeaders, type Model, withAuth } from "@oh-my-pi/pi-ai";
-import { ProviderHttpError } from "@oh-my-pi/pi-ai/error";
+import { type } from "@cxn/omptype";
+import { type ApiKey, type FetchImpl, getEnvApiKey, getOpenRouterHeaders, type Model, withAuth } from "@cxn/pi-ai";
+import { ProviderHttpError } from "@cxn/pi-ai/error";
 import {
 	CODEX_BASE_URL,
 	getCodexAccountId,
 	OPENAI_HEADER_VALUES,
 	OPENAI_HEADERS,
 	URL_PATHS,
-} from "@oh-my-pi/pi-catalog/wire/codex";
-import { getAntigravityUserAgent } from "@oh-my-pi/pi-catalog/wire/gemini-headers";
+} from "@cxn/pi-catalog/wire/codex";
+import { getAntigravityUserAgent } from "@cxn/pi-catalog/wire/gemini-headers";
 import {
 	$env,
 	isEnoent,
@@ -21,7 +21,7 @@ import {
 	Snowflake,
 	USER_AGENT,
 	untilAborted,
-} from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-utils";
 import { isAuthenticated, type ModelRegistry } from "../config/model-registry";
 import { settings } from "../config/settings";
 import type { CustomTool } from "../extensibility/custom-tools/types";
@@ -709,7 +709,7 @@ function getExtensionForMime(mimeType: string): string {
 
 async function saveImageToTemp(image: InlineImageData): Promise<string> {
 	const ext = getExtensionForMime(image.mimeType);
-	const filename = `omp-image-${Snowflake.next()}.${ext}`;
+	const filename = `cxn-image-${Snowflake.next()}.${ext}`;
 	const filepath = path.join(os.tmpdir(), filename);
 	await Bun.write(filepath, Buffer.from(image.data, "base64"));
 	return filepath;

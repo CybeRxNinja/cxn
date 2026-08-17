@@ -35,7 +35,7 @@ function FirstRunPanel(): JSX.Element {
         </p>
         <ul class="rmp-firstrun-steps">
           <li>
-            set <code>ROBOMP_REPLAY_TOKEN</code> in the robomp server environment
+            set <code>ROBCXN_REPLAY_TOKEN</code> in the robomp server environment
           </li>
           <li>restart the server so the token is loaded</li>
           <li>reload — the Operations trigger bar and this Triage view unlock</li>

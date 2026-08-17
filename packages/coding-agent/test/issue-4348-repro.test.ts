@@ -18,14 +18,14 @@
  */
 
 import { beforeAll, describe, expect, it, vi } from "bun:test";
-import type { AgentMessage } from "@oh-my-pi/pi-agent-core";
-import type { AssistantMessage, Usage } from "@oh-my-pi/pi-ai";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { initTheme } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext, RenderSessionContextOptions } from "@oh-my-pi/pi-coding-agent/modes/types";
-import { UiHelpers } from "@oh-my-pi/pi-coding-agent/modes/utils/ui-helpers";
-import type { SessionContext } from "@oh-my-pi/pi-coding-agent/session/session-context";
-import { Container } from "@oh-my-pi/pi-tui";
+import type { AgentMessage } from "@cxn/pi-agent-core";
+import type { AssistantMessage, Usage } from "@cxn/pi-ai";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext, RenderSessionContextOptions } from "@cxn/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
+import type { SessionContext } from "@cxn/pi-coding-agent/session/session-context";
+import { Container } from "@cxn/pi-tui";
 
 beforeAll(() => {
 	initTheme();

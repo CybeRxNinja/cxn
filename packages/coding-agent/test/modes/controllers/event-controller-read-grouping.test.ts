@@ -13,15 +13,15 @@
  * one-entry block).
  */
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { AssistantMessage, ImageContent } from "@oh-my-pi/pi-ai";
-import { resetSettingsForTest, Settings, settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AssistantMessageComponent } from "@oh-my-pi/pi-coding-agent/modes/components/assistant-message";
-import { ReadToolGroupComponent } from "@oh-my-pi/pi-coding-agent/modes/components/read-tool-group";
-import { EventController } from "@oh-my-pi/pi-coding-agent/modes/controllers/event-controller";
-import { initTheme } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@oh-my-pi/pi-coding-agent/modes/types";
-import type { AgentSessionEvent } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { type Component, Container, Image, ImageProtocol, setTerminalImageProtocol, TERMINAL } from "@oh-my-pi/pi-tui";
+import type { AssistantMessage, ImageContent } from "@cxn/pi-ai";
+import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
+import { AssistantMessageComponent } from "@cxn/pi-coding-agent/modes/components/assistant-message";
+import { ReadToolGroupComponent } from "@cxn/pi-coding-agent/modes/components/read-tool-group";
+import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
+import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import type { AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
+import { type Component, Container, Image, ImageProtocol, setTerminalImageProtocol, TERMINAL } from "@cxn/pi-tui";
 
 beforeAll(async () => {
 	await initTheme(false, undefined, undefined, "dark", "light");

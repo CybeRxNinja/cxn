@@ -1,6 +1,6 @@
-import type { AgentEvent, ThinkingLevel } from "@oh-my-pi/pi-agent-core";
-import type { CompactionResult } from "@oh-my-pi/pi-agent-core/compaction";
-import type { Effort } from "@oh-my-pi/pi-ai";
+import type { AgentEvent, ThinkingLevel } from "@cxn/pi-agent-core";
+import type { CompactionResult } from "@cxn/pi-agent-core/compaction";
+import type { Effort } from "@cxn/pi-ai";
 import type { Rule } from "../capability/rule";
 import type { RetryErrorUpdate } from "../extensibility/shared-events";
 import type { Goal, GoalModeState } from "../goals/state";

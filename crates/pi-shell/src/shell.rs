@@ -1536,7 +1536,7 @@ fn should_skip_env_var(key: &str) -> bool {
 			| "SHELLOPTS"
 			| "SHLVL"
 			| "SHELL"
-			| "COMP_WORDBREAKS"
+			| "CCXN_WORDBREAKS"
 			| "DIRSTACK"
 			| "EPOCHREALTIME"
 			| "EPOCHSECONDS"
@@ -5105,7 +5105,7 @@ replace = [{ pattern = "^.+$", replacement = "PWD" }]
 	/// Regression for the `suspended (tty input)` bug: an **interactive child
 	/// inside a pipeline** (`zsh -i ... | awk`) used to stay in the host
 	/// session, open `/dev/tty`, `tcsetpgrp` itself to the foreground, and
-	/// leave the embedded host (OMP) stopped on its next tty read. The earlier
+	/// leave the embedded host (CXN) stopped on its next tty read. The earlier
 	/// embedded-host fix carved pipelines out of `detach_session` because a
 	/// later stage that `setpgid`-joined a detached leader failed with EPERM.
 	///

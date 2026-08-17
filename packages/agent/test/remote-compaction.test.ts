@@ -7,7 +7,7 @@ import {
 	NativeCompactionError,
 	prepareCompaction,
 	type SessionEntry,
-} from "@oh-my-pi/pi-agent-core/compaction";
+} from "@cxn/pi-agent-core/compaction";
 import {
 	buildCompactionV2Request,
 	buildOpenAiNativeHistory,
@@ -19,10 +19,10 @@ import {
 	shouldUseCompactionV2Streaming,
 	shouldUseOpenAiRemoteCompaction,
 	trimRemoteCompactionInputToContextWindow,
-} from "@oh-my-pi/pi-agent-core/compaction/openai";
-import * as ai from "@oh-my-pi/pi-ai";
-import * as AIError from "@oh-my-pi/pi-ai/error";
-import { getOpenAICodexTransportDetails } from "@oh-my-pi/pi-ai/providers/openai-codex-responses";
+} from "@cxn/pi-agent-core/compaction/openai";
+import * as ai from "@cxn/pi-ai";
+import * as AIError from "@cxn/pi-ai/error";
+import { getOpenAICodexTransportDetails } from "@cxn/pi-ai/providers/openai-codex-responses";
 import type {
 	AssistantMessage,
 	CodexCompactionContext,
@@ -30,10 +30,10 @@ import type {
 	Model,
 	ProviderSessionState,
 	ToolResultMessage,
-} from "@oh-my-pi/pi-ai/types";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
-import type { ModelSpec } from "@oh-my-pi/pi-catalog/types";
-import * as piUtils from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-ai/types";
+import { buildModel } from "@cxn/pi-catalog/build";
+import type { ModelSpec } from "@cxn/pi-catalog/types";
+import * as piUtils from "@cxn/pi-utils";
 
 const { isRecord } = piUtils;
 const TEST_INSTALLATION_ID = "00000000-0000-4000-8000-000000000001";
@@ -1714,7 +1714,7 @@ describe("requestRemoteCompaction wire formats", () => {
 		});
 	});
 
-	test("keeps the generic omp summarizer format for other endpoints", async () => {
+	test("keeps the generic cxn summarizer format for other endpoints", async () => {
 		let sentBody: unknown;
 		const fetchMock: FetchImpl = async (_input, init) => {
 			if (typeof init?.body !== "string") throw new Error("missing remote compaction request body");

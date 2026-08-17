@@ -3,21 +3,21 @@ import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 import { stripVTControlCharacters } from "node:util";
-import { ThinkingLevel } from "@oh-my-pi/pi-agent-core";
-import type { Model } from "@oh-my-pi/pi-ai";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import type { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
+import { ThinkingLevel } from "@cxn/pi-agent-core";
+import type { Model } from "@cxn/pi-ai";
+import { buildModel } from "@cxn/pi-catalog/build";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
 import {
 	type ModelHubCallbacks,
 	ModelHubComponent,
 	type ModelHubOptions,
 	resetProviderAutoRefreshGuard,
-} from "@oh-my-pi/pi-coding-agent/modes/components/model-hub";
-import { getThemeByName, setThemeInstance } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
-import { AUTO_THINKING } from "@oh-my-pi/pi-coding-agent/thinking";
-import type { TUI } from "@oh-my-pi/pi-tui";
+} from "@cxn/pi-coding-agent/modes/components/model-hub";
+import { getThemeByName, setThemeInstance } from "@cxn/pi-coding-agent/modes/theme/theme";
+import { AUTO_THINKING } from "@cxn/pi-coding-agent/thinking";
+import type { TUI } from "@cxn/pi-tui";
 
 function normalize(lines: readonly string[]): string {
 	return stripVTControlCharacters(lines.join("\n")).replace(/\s+/g, " ").trim();
@@ -425,7 +425,7 @@ describe("ModelHub", () => {
 		test("overlay tombstones do not hide stored scoped default assignments", async () => {
 			const model = makeModel("test", "claude-haiku-4.5");
 			const selector = `${model.provider}/${model.id}`;
-			const root = await fs.mkdtemp(path.join(os.tmpdir(), "omp-model-hub-"));
+			const root = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-model-hub-"));
 			const cwd = path.join(root, "project");
 			const agentDir = path.join(root, "agent");
 			const overlayPath = path.join(root, "overlay.yml");
@@ -436,7 +436,7 @@ describe("ModelHub", () => {
 					`modelRoleStorage: project\nmodelRoles:\n  default: ${selector}\n  smol: ${selector}\n`,
 				);
 				await Bun.write(
-					path.join(cwd, ".omp", "config.yml"),
+					path.join(cwd, ".cxn", "config.yml"),
 					`modelRoles:\n  default: ${selector}\n  smol: ${selector}\n`,
 				);
 				await Bun.write(overlayPath, "modelRoles:\n  default: null\n  smol: null\n");

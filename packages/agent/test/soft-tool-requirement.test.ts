@@ -1,15 +1,15 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@oh-my-pi/omptype";
-import { agentLoop } from "@oh-my-pi/pi-agent-core/agent-loop";
+import { type } from "@cxn/omptype";
+import { agentLoop } from "@cxn/pi-agent-core/agent-loop";
 import type {
 	AgentContext,
 	AgentLoopConfig,
 	AgentMessage,
 	AgentTool,
 	SoftToolRequirement,
-} from "@oh-my-pi/pi-agent-core/types";
-import type { Message, ToolChoice } from "@oh-my-pi/pi-ai";
-import { createMockModel } from "@oh-my-pi/pi-ai/providers/mock";
+} from "@cxn/pi-agent-core/types";
+import type { Message, ToolChoice } from "@cxn/pi-ai";
+import { createMockModel } from "@cxn/pi-ai/providers/mock";
 import { createUserMessage } from "./helpers";
 
 function identityConverter(messages: AgentMessage[]): Message[] {

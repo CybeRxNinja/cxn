@@ -1,14 +1,14 @@
 import { afterAll, afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import type { AssistantMessage } from "@oh-my-pi/pi-ai";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { AsyncJobManager } from "@oh-my-pi/pi-coding-agent/async";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import type { ExtensionRunner } from "@oh-my-pi/pi-coding-agent/extensibility/extensions";
-import { AgentSession, type AgentSessionEvent } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { Agent } from "@cxn/pi-agent-core";
+import type { AssistantMessage } from "@cxn/pi-ai";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { AsyncJobManager } from "@cxn/pi-coding-agent/async";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions";
+import { AgentSession, type AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cxn/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 /**

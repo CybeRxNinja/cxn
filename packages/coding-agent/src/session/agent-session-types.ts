@@ -1,11 +1,4 @@
-import type {
-	Agent,
-	AgentMessage,
-	AgentTool,
-	AgentToolContext,
-	StreamFn,
-	ThinkingLevel,
-} from "@oh-my-pi/pi-agent-core";
+import type { Agent, AgentMessage, AgentTool, AgentToolContext, StreamFn, ThinkingLevel } from "@cxn/pi-agent-core";
 import type {
 	Context,
 	Effort,
@@ -17,8 +10,8 @@ import type {
 	ServiceTierByFamily,
 	SimpleStreamOptions,
 	ToolChoice,
-} from "@oh-my-pi/pi-ai";
-import type { postmortem } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-ai";
+import type { postmortem } from "@cxn/pi-utils";
 import type { AdvisorConfig } from "../advisor";
 import type { AsyncJob, AsyncJobDeliveryState, AsyncJobManager } from "../async";
 import type { ModelRegistry } from "../config/model-registry";

@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@oh-my-pi/pi-agent-core";
-import type { AssistantMessage, ImageContent } from "@oh-my-pi/pi-ai";
+import type { AgentMessage } from "@cxn/pi-agent-core";
+import type { AssistantMessage, ImageContent } from "@cxn/pi-ai";
 import type { RestoredQueuedMessage } from "./agent-session-types";
 import { type CustomMessage, readQueueChipText } from "./messages";
 

@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@oh-my-pi/hashline",
+  "name": "@cxn/hashline",
   "version": "17.3.5",
   "description": "Hashline: a compact, line-anchored patch language and applier. Pluggable FS/IO so it works over disk, in-memory, or any custom backend.",
-  "homepage": "https://omp.sh",
+  "homepage": "https://cxn.sh",
   "author": "Can Boluk",
   "license": "MIT",
   "repository": {
@@ -33,8 +33,8 @@
     "fmt": "biome format --write ."
   },
   "dependencies": {
-    "@oh-my-pi/pi-natives": "catalog:",
-    "@oh-my-pi/pi-utils": "catalog:"
+    "@cxn/pi-natives": "catalog:",
+    "@cxn/pi-utils": "catalog:"
   },
   "devDependencies": {
     "@types/bun": "catalog:"

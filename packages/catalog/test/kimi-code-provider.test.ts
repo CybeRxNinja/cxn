@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { buildModel } from "@oh-my-pi/pi-catalog/build";
-import { Effort } from "@oh-my-pi/pi-catalog/effort";
-import { kimiCodeModelManagerOptions } from "@oh-my-pi/pi-catalog/provider-models/openai-compat";
-import type { FetchImpl } from "@oh-my-pi/pi-catalog/types";
+import { buildModel } from "@cxn/pi-catalog/build";
+import { Effort } from "@cxn/pi-catalog/effort";
+import { kimiCodeModelManagerOptions } from "@cxn/pi-catalog/provider-models/openai-compat";
+import type { FetchImpl } from "@cxn/pi-catalog/types";
 
 const LIVE_K3 = {
 	id: "k3",

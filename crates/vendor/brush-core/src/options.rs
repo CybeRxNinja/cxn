@@ -171,7 +171,7 @@ pub struct RuntimeOptions {
 	pub patsub_replacement: bool,
 	/// 'progcomp'
 	pub programmable_completion: bool,
-	/// `progcomp_alias`
+	/// `progccxn_alias`
 	pub programmable_completion_alias: bool,
 	/// 'promptvars'
 	pub expand_prompt_strings: bool,

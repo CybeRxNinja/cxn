@@ -28,8 +28,8 @@ import {
 	ScrollView,
 	truncateToWidth,
 	visibleWidth,
-} from "@oh-my-pi/pi-tui";
-import { sanitizeText } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-tui";
+import { sanitizeText } from "@cxn/pi-utils";
 import { sanitizeStatusText } from "../shared";
 import { getMarkdownTheme, theme } from "../theme/theme";
 import {

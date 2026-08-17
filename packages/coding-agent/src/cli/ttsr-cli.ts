@@ -1,20 +1,20 @@
 /**
  * TTSR CLI command handlers.
  *
- * `omp ttsr test` — feed a snippet (inline text, `--file`, or stdin) through the
+ * `cxn ttsr test` — feed a snippet (inline text, `--file`, or stdin) through the
  * real TTSR matching pipeline (`TtsrManager.checkSnapshot` for regex conditions,
  * `checkAstSnapshot` for ast-grep conditions) and report which rules would
  * trigger. The match context (`--source`, `--tool`, `--path`) is honored so
  * glob/AST/scope-scoped rules evaluate the same way they do in a live session.
  *
- * `omp ttsr list` — show every TTSR-registered rule the current project/user
+ * `cxn ttsr list` — show every TTSR-registered rule the current project/user
  * config would load, with its conditions, scope, and source.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { AstMatchStrictness, astMatch, FileType, type GlobMatch, glob } from "@oh-my-pi/pi-natives";
-import chalk from "@oh-my-pi/pi-utils/chalk";
-import { getProjectDir } from "@oh-my-pi/pi-utils/dirs";
+import { AstMatchStrictness, astMatch, FileType, type GlobMatch, glob } from "@cxn/pi-natives";
+import chalk from "@cxn/pi-utils/chalk";
+import { getProjectDir } from "@cxn/pi-utils/dirs";
 import { BUILTIN_DEFAULTS_PROVIDER_ID, compileRuleCondition, type Rule, ruleCapability } from "../capability/rule";
 import { bucketRules } from "../capability/rule-buckets";
 import { Settings } from "../config/settings";

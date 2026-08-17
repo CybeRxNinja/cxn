@@ -30,7 +30,7 @@ log = logging.getLogger(__name__)
 
 # Per-call env var name. `git --config-env` reads the header value from this
 # env entry inside the spawned process — never persisted into `.git/config`.
-AUTH_ENV_VAR = "ROBOMP_GIT_HTTP_AUTH"
+AUTH_ENV_VAR = "ROBCXN_GIT_HTTP_AUTH"
 _TOKEN_ALLOWED_PROTOCOLS = "https"
 _TOKEN_SAFE_CONFIG = [
     "protocol.allow=never",
@@ -52,8 +52,8 @@ _GIT_SUBPROCESS_SCRUBBED_ENV_KEYS = (
     "GITHUB_TOKEN",
     "GH_TOKEN",
     "GITHUB_WEBHOOK_SECRET",
-    "ROBOMP_REPLAY_TOKEN",
-    "ROBOMP_GH_PROXY_HMAC_KEY",
+    "ROBCXN_REPLAY_TOKEN",
+    "ROBCXN_GH_PROXY_HMAC_KEY",
 )
 
 
@@ -115,7 +115,7 @@ _BAD_OBJECT_REF_RE = re.compile(
 )
 _FETCH_PRUNE_REPAIR_ATTEMPTS = 8
 
-_SHARED_OMP_GID = 2000
+_SHARED_CXN_GID = 2000
 _AGENT_HOME = Path("/srv/agent-home")
 
 
@@ -127,7 +127,7 @@ def _slot_subprocess_kwargs(slot_uid: int | None) -> dict[str, Any]:
     if not _slot_permissions_active(slot_uid):
         return {}
     assert slot_uid is not None
-    return {"user": slot_uid, "group": slot_uid, "extra_groups": [_SHARED_OMP_GID], "umask": 0o002}
+    return {"user": slot_uid, "group": slot_uid, "extra_groups": [_SHARED_CXN_GID], "umask": 0o002}
 
 
 def _append_safe_directory(env: dict[str, str], repo_dir: Path) -> None:
@@ -580,7 +580,7 @@ def fetch_ref(
         fatal: could not read Username for 'https://github.com'
         fatal: could not fetch <sha> from promisor remote
 
-    (oh-my-pi#1818). ``--refetch`` forces a fresh negotiation that ignores
+    (cxn#1818). ``--refetch`` forces a fresh negotiation that ignores
     "we already have this commit", and ``--no-filter`` overrides the inherited
     filter for this one invocation without touching the on-disk config — so
     ``fetch_prune`` keeps its cheap blob-skipping semantics on the next pool
@@ -620,7 +620,7 @@ def fetch_pr_head(
     review checkouts. See :func:`fetch_ref` for why ``--refetch --no-filter``
     is required: without the blob backfill, the worktree-add triggers a
     promisor lazy fetch that fails under proxy-transport deployments
-    (oh-my-pi#1818).
+    (cxn#1818).
     """
     if pr_number <= 0:
         raise ValueError(f"invalid PR number: {pr_number!r}")

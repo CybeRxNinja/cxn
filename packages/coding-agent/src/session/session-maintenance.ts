@@ -9,7 +9,7 @@ import {
 	resolveTelemetry,
 	type StreamFn,
 	type ThinkingLevel,
-} from "@oh-my-pi/pi-agent-core";
+} from "@cxn/pi-agent-core";
 import {
 	AGGRESSIVE_SHAKE_CONFIG,
 	AUTO_HANDOFF_THRESHOLD_FOCUS,
@@ -38,20 +38,20 @@ import {
 	shouldCompact,
 	shouldUseOpenAiRemoteCompaction,
 	shouldUseProviderNativeCompaction,
-} from "@oh-my-pi/pi-agent-core/compaction";
+} from "@cxn/pi-agent-core/compaction";
 import {
 	DEFAULT_PRUNE_CONFIG,
 	pruneSupersededToolResults,
 	pruneToolOutputs,
 	readToolSupersedeKey,
-} from "@oh-my-pi/pi-agent-core/compaction/pruning";
-import type { ProtectedToolMatcher } from "@oh-my-pi/pi-agent-core/compaction/tool-protection";
-import type { AssistantMessage, CodexCompactionContext, Message, Model, ProviderSessionState } from "@oh-my-pi/pi-ai";
-import * as AIError from "@oh-my-pi/pi-ai/error";
-import { preferredDialect } from "@oh-my-pi/pi-catalog/identity";
-import { modelsAreEqual } from "@oh-my-pi/pi-catalog/models";
-import { logger } from "@oh-my-pi/pi-utils";
-import * as snapcompact from "@oh-my-pi/snapcompact";
+} from "@cxn/pi-agent-core/compaction/pruning";
+import type { ProtectedToolMatcher } from "@cxn/pi-agent-core/compaction/tool-protection";
+import type { AssistantMessage, CodexCompactionContext, Message, Model, ProviderSessionState } from "@cxn/pi-ai";
+import * as AIError from "@cxn/pi-ai/error";
+import { preferredDialect } from "@cxn/pi-catalog/identity";
+import { modelsAreEqual } from "@cxn/pi-catalog/models";
+import { logger } from "@cxn/pi-utils";
+import * as snapcompact from "@cxn/snapcompact";
 import type { ModelRegistry } from "../config/model-registry";
 import { MODEL_ROLE_IDS } from "../config/model-roles";
 import type { Settings } from "../config/settings";

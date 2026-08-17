@@ -2,11 +2,11 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@oh-my-pi/pi-ai/auth-storage";
-import * as oauthUtils from "@oh-my-pi/pi-ai/registry/oauth";
-import * as kimiOauth from "@oh-my-pi/pi-ai/registry/oauth/kimi";
-import type { OAuthCredentials } from "@oh-my-pi/pi-ai/registry/oauth/types";
-import type { UsageLimit, UsageProvider, UsageReport } from "@oh-my-pi/pi-ai/usage";
+import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
+import * as oauthUtils from "@cxn/pi-ai/registry/oauth";
+import * as kimiOauth from "@cxn/pi-ai/registry/oauth/kimi";
+import type { OAuthCredentials } from "@cxn/pi-ai/registry/oauth/types";
+import type { UsageLimit, UsageProvider, UsageReport } from "@cxn/pi-ai/usage";
 import { removeWithRetries } from "../../utils/src/temp";
 
 const HOUR_MS = 60 * 60 * 1000;

@@ -38,7 +38,7 @@ GitHub webhook
                  └─ worker.run_task(task_kind=..., inputs=TaskInputs, …)
                       ├─ ToolBindings(inbound_thread_number=pr_number, inbound_is_pr=…)
                       ├─ _build_prompt(task_kind, …) → persona.<prompt>(...)
-                      ├─ RpcClient(omp --mode rpc, cwd=worktree, custom_tools=host_tools.build(bindings))
+                      ├─ RpcClient(cxn --mode rpc, cwd=worktree, custom_tools=host_tools.build(bindings))
                       └─ _drive_turn(...)  → completion/dirty reminders until terminal tool / clean
 ```
 
@@ -318,7 +318,7 @@ PR's `issue_key`.
 
 ## 11. Config (`src/config.py`) — optional
 
-Add `pr_review_enabled: bool = True` (`ROBOMP_PR_REVIEW_ENABLED`) so the whole flow can be
+Add `pr_review_enabled: bool = True` (`ROBCXN_PR_REVIEW_ENABLED`) so the whole flow can be
 killed without a redeploy; check it in `route()`'s new branch. Reuse the existing
 `repo_allowlist`, `maintainers`, `reviewer_bots`. No new auth.
 
@@ -357,7 +357,7 @@ Mirror existing test style; assert observable contracts, never internals.
   detached worktree at the PR head commit; no push remote configured.
 - **Completion gate**: a `review_pr` turn ending before `submit_pr_review` triggers the reminder.
 
-Do **not** enable the integration smoke (`ROBOMP_INTEGRATION=1`) in the default suite.
+Do **not** enable the integration smoke (`ROBCXN_INTEGRATION=1`) in the default suite.
 
 ---
 

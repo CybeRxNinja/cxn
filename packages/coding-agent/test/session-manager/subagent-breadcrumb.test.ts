@@ -3,10 +3,10 @@ import * as fs from "node:fs";
 import * as fsp from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { readTerminalBreadcrumbEntry } from "@oh-my-pi/pi-coding-agent/session/session-paths";
-import { getTerminalId } from "@oh-my-pi/pi-tui";
-import { getConfigRootDir, getTerminalSessionsDir, setAgentDir } from "@oh-my-pi/pi-utils";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { readTerminalBreadcrumbEntry } from "@cxn/pi-coding-agent/session/session-paths";
+import { getTerminalId } from "@cxn/pi-tui";
+import { getConfigRootDir, getTerminalSessionsDir, setAgentDir } from "@cxn/pi-utils";
 
 import { makeAssistantMessage } from "./helpers";
 
@@ -48,7 +48,7 @@ describe("SessionManager subagent breadcrumb isolation", () => {
 	beforeEach(async () => {
 		// Deterministic, non-TTY terminal id so breadcrumb read/write is stable.
 		process.env.TMUX_PANE = "%subagent-breadcrumb-test";
-		testAgentDir = await fsp.mkdtemp(path.join(os.tmpdir(), "omp-subagent-crumb-"));
+		testAgentDir = await fsp.mkdtemp(path.join(os.tmpdir(), "cxn-subagent-crumb-"));
 		setAgentDir(testAgentDir);
 		cwd = path.join(testAgentDir, "project");
 		fs.mkdirSync(cwd, { recursive: true });

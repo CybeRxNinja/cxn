@@ -1,5 +1,5 @@
 import { expect, it } from "bun:test";
-import { scope, type } from "@oh-my-pi/omptype/ark";
+import { scope, type } from "@cxn/omptype/ark";
 import type { Eq } from "../type-assert";
 
 it("spreads simple arrays", () => {

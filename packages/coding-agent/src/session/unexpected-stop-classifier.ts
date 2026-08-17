@@ -1,5 +1,5 @@
-import { type AssistantMessage, completeSimple, retryTransientCompletion } from "@oh-my-pi/pi-ai";
-import { logger, prompt } from "@oh-my-pi/pi-utils";
+import { type AssistantMessage, completeSimple, retryTransientCompletion } from "@cxn/pi-ai";
+import { logger, prompt } from "@cxn/pi-utils";
 
 import type { ModelRegistry } from "../config/model-registry";
 import { resolveRoleSelection } from "../config/model-resolver";

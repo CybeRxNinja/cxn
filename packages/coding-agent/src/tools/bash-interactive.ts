@@ -1,5 +1,5 @@
-import type { AgentToolContext } from "@oh-my-pi/pi-agent-core";
-import { type PtyRunResult, PtySession } from "@oh-my-pi/pi-natives";
+import type { AgentToolContext } from "@cxn/pi-agent-core";
+import { type PtyRunResult, PtySession } from "@cxn/pi-natives";
 import {
 	type Component,
 	extractPrintableText,
@@ -9,10 +9,10 @@ import {
 	parseKittySequence,
 	truncateToWidth,
 	visibleWidth,
-} from "@oh-my-pi/pi-tui";
-import { sanitizeText } from "@oh-my-pi/pi-utils";
-import type * as XtermModule from "@oh-my-pi/pi-utils/vterm";
-import type { Terminal as XtermTerminalType } from "@oh-my-pi/pi-utils/vterm";
+} from "@cxn/pi-tui";
+import { sanitizeText } from "@cxn/pi-utils";
+import type * as XtermModule from "@cxn/pi-utils/vterm";
+import type { Terminal as XtermTerminalType } from "@cxn/pi-utils/vterm";
 import { Settings } from "../config/settings";
 import type { Theme } from "../modes/theme/theme";
 import { OutputSink, type OutputSummary } from "../session/streaming-output";
@@ -42,7 +42,7 @@ let xtermTerminalCtor: typeof XtermModule.Terminal | undefined;
 
 async function loadXtermTerminal(): Promise<typeof XtermModule.Terminal> {
 	if (!xtermTerminalCtor) {
-		const mod = (await import("@oh-my-pi/pi-utils/vterm")) as typeof XtermModule & { default?: typeof XtermModule };
+		const mod = (await import("@cxn/pi-utils/vterm")) as typeof XtermModule & { default?: typeof XtermModule };
 		xtermTerminalCtor = (mod.default ?? mod).Terminal;
 	}
 	return xtermTerminalCtor;

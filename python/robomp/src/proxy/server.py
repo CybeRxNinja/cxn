@@ -205,7 +205,7 @@ def _resolve_token(cfg: Settings) -> str:
 
 def _resolve_hmac_key(cfg: Settings) -> bytes:
     if cfg.gh_proxy_hmac_key is None:
-        raise HTTPException(500, "gh-proxy: ROBOMP_GH_PROXY_HMAC_KEY not configured")
+        raise HTTPException(500, "gh-proxy: ROBCXN_GH_PROXY_HMAC_KEY not configured")
     return cfg.gh_proxy_hmac_key.get_secret_value().encode("utf-8")
 
 
@@ -216,12 +216,12 @@ _REMOTE_HELPER_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*::")
 _FORBIDDEN_URL_BYTES_RE = re.compile(r"[\x00-\x1f\x7f]|%(?:00|0a|0d)", re.IGNORECASE)
 _GITHUB_REPO_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9._-]+$")
 _GIT_PROBE_SCRUBBED_ENV_KEYS = (
-    "ROBOMP_GIT_HTTP_AUTH",
+    "ROBCXN_GIT_HTTP_AUTH",
     "GITHUB_TOKEN",
     "GH_TOKEN",
     "GITHUB_WEBHOOK_SECRET",
-    "ROBOMP_REPLAY_TOKEN",
-    "ROBOMP_GH_PROXY_HMAC_KEY",
+    "ROBCXN_REPLAY_TOKEN",
+    "ROBCXN_GH_PROXY_HMAC_KEY",
 )
 
 

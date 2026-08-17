@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@oh-my-pi/omptype";
-import { AppendOnlyContextManager, AppendOnlyLog, StablePrefix } from "@oh-my-pi/pi-agent-core/append-only-context";
-import type { AgentContext, AgentTool } from "@oh-my-pi/pi-agent-core/types";
-import type { Message, Tool, ToolExample } from "@oh-my-pi/pi-ai";
-import { INTENT_FIELD } from "@oh-my-pi/pi-wire";
+import { type } from "@cxn/omptype";
+import { AppendOnlyContextManager, AppendOnlyLog, StablePrefix } from "@cxn/pi-agent-core/append-only-context";
+import type { AgentContext, AgentTool } from "@cxn/pi-agent-core/types";
+import type { Message, Tool, ToolExample } from "@cxn/pi-ai";
+import { INTENT_FIELD } from "@cxn/pi-wire";
 
 // ---------------------------------------------------------------------------
 // Helpers

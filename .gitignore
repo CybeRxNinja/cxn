@@ -91,3 +91,7 @@ packages/coding-agent/bench/boot-baseline.json
 /bazel-pi
 /bazel-oh-my-pi
 /.bazelrc.user
+
+# Reference material (upstream clones for porting research)
+/research/
+.directory

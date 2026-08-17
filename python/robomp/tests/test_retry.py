@@ -33,21 +33,21 @@ def _record(db: Database, delivery: str = "d1") -> None:
 
 
 def test_event_retry_delays_parsing_skips_garbage(env: dict[str, str], monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("ROBOMP_EVENT_RETRY_DELAYS_SECONDS", "30, 120 ,600,,abc,-5")
+    monkeypatch.setenv("ROBCXN_EVENT_RETRY_DELAYS_SECONDS", "30, 120 ,600,,abc,-5")
     reset_settings_cache()
     cfg = Settings()  # type: ignore[call-arg]
     assert cfg.event_retry_delays == (30.0, 120.0, 600.0)
 
 
 def test_event_retry_delays_defaults_when_empty(env: dict[str, str], monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("ROBOMP_EVENT_RETRY_DELAYS_SECONDS", "   ")
+    monkeypatch.setenv("ROBCXN_EVENT_RETRY_DELAYS_SECONDS", "   ")
     reset_settings_cache()
     cfg = Settings()  # type: ignore[call-arg]
     assert cfg.event_retry_delays == (30.0,)
 
 
 def test_retry_delay_escalates_and_clamps(env: dict[str, str], monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("ROBOMP_EVENT_RETRY_DELAYS_SECONDS", "1,2,3")
+    monkeypatch.setenv("ROBCXN_EVENT_RETRY_DELAYS_SECONDS", "1,2,3")
     reset_settings_cache()
     cfg = Settings()  # type: ignore[call-arg]
     # Pin jitter to its midpoint (0.8 + 0.5*0.4 = 1.0) so we assert exact bases.
@@ -60,7 +60,7 @@ def test_retry_delay_escalates_and_clamps(env: dict[str, str], monkeypatch: pyte
 
 
 def test_retry_delay_jitter_stays_in_band(env: dict[str, str], monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("ROBOMP_EVENT_RETRY_DELAYS_SECONDS", "100")
+    monkeypatch.setenv("ROBCXN_EVENT_RETRY_DELAYS_SECONDS", "100")
     reset_settings_cache()
     cfg = Settings()  # type: ignore[call-arg]
     for _ in range(200):
@@ -134,8 +134,8 @@ class _StubGitTransport:
 
 
 def _retry_settings(monkeypatch: pytest.MonkeyPatch, *, max_retries: int) -> Settings:
-    monkeypatch.setenv("ROBOMP_EVENT_MAX_RETRIES", str(max_retries))
-    monkeypatch.setenv("ROBOMP_EVENT_RETRY_DELAYS_SECONDS", "0")
+    monkeypatch.setenv("ROBCXN_EVENT_MAX_RETRIES", str(max_retries))
+    monkeypatch.setenv("ROBCXN_EVENT_RETRY_DELAYS_SECONDS", "0")
     reset_settings_cache()
     cfg = Settings()  # type: ignore[call-arg]
     cfg.ensure_paths()

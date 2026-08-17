@@ -6,18 +6,18 @@
  * run quiescence the task executor's barrier is built on.
  */
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import { createMockModel } from "@oh-my-pi/pi-ai/providers/mock";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { AsyncJobManager } from "@oh-my-pi/pi-coding-agent/async";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import type { DaemonCompletionNotification } from "@oh-my-pi/pi-coding-agent/launch/protocol";
-import { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import type { AsyncResultEntry } from "@oh-my-pi/pi-coding-agent/session/async-job-delivery";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { convertToLlm } from "@oh-my-pi/pi-coding-agent/session/messages";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
+import { Agent } from "@cxn/pi-agent-core";
+import { createMockModel } from "@cxn/pi-ai/providers/mock";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { AsyncJobManager } from "@cxn/pi-coding-agent/async";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { DaemonCompletionNotification } from "@cxn/pi-coding-agent/launch/protocol";
+import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import type { AsyncResultEntry } from "@cxn/pi-coding-agent/session/async-job-delivery";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
 
 describe("AgentSession owner-routed async delivery", () => {
 	let session: AgentSession;

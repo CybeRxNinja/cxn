@@ -12,10 +12,10 @@
  * in, text (or, with `schema`, a structured object) out.
  */
 
-import { type } from "@oh-my-pi/omptype";
-import { instrumentedCompleteSimple, resolveTelemetry } from "@oh-my-pi/pi-agent-core";
-import { type Api, Effort, type Model, type Tool } from "@oh-my-pi/pi-ai";
-import { getSupportedEfforts } from "@oh-my-pi/pi-catalog/model-thinking";
+import { type } from "@cxn/omptype";
+import { instrumentedCompleteSimple, resolveTelemetry } from "@cxn/pi-agent-core";
+import { type Api, Effort, type Model, type Tool } from "@cxn/pi-ai";
+import { getSupportedEfforts } from "@cxn/pi-catalog/model-thinking";
 import { extractTextContent, extractToolCall, parseJsonPayload } from "../commit/utils";
 
 import {

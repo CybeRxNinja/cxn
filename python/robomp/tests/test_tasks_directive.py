@@ -15,7 +15,7 @@ from robomp.worker import DirectiveInfo
 def test_directive_from_payload_parses_pragmas() -> None:
     directive = _directive_from_payload(
         {
-            "_robomp_directive": {
+            "_robcxn_directive": {
                 "body": "do the thing",
                 "author": "can1357",
                 "pragmas": [["model", "gpt"], ["thinking", "low"]],
@@ -30,7 +30,7 @@ def test_directive_from_payload_parses_pragmas() -> None:
 
 
 def test_directive_from_payload_missing_pragmas_is_empty_tuple() -> None:
-    directive = _directive_from_payload({"_robomp_directive": {"body": "x", "author": "can1357"}})
+    directive = _directive_from_payload({"_robcxn_directive": {"body": "x", "author": "can1357"}})
     assert directive is not None
     assert directive.pragmas == ()
     assert directive.authorizes_impl is False
@@ -39,7 +39,7 @@ def test_directive_from_payload_missing_pragmas_is_empty_tuple() -> None:
 def test_directive_from_payload_drops_malformed_pragma_entries() -> None:
     directive = _directive_from_payload(
         {
-            "_robomp_directive": {
+            "_robcxn_directive": {
                 "body": "x",
                 "author": "can1357",
                 "pragmas": [
@@ -58,7 +58,7 @@ def test_directive_from_payload_drops_malformed_pragma_entries() -> None:
 def test_directive_from_payload_parses_implementation_authorization() -> None:
     directive = _directive_from_payload(
         {
-            "_robomp_directive": {
+            "_robcxn_directive": {
                 "body": "do the thing",
                 "author": "can1357",
                 "authorizes_impl": True,
@@ -71,7 +71,7 @@ def test_directive_from_payload_parses_implementation_authorization() -> None:
 
 def test_directive_from_payload_returns_none_for_missing_directive() -> None:
     assert _directive_from_payload({}) is None
-    assert _directive_from_payload({"_robomp_directive": "not-a-mapping"}) is None
+    assert _directive_from_payload({"_robcxn_directive": "not-a-mapping"}) is None
 
 
 async def test_attach_thread_preserves_authorizes_impl(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -114,7 +114,7 @@ def _payload_with_directive(*, issue_number: int, body: str = "@robomp-bot ship 
             "created_at": "2026-01-01T00:00:00Z",
             "user": {"login": "owner"},
         },
-        "_robomp_directive": {
+        "_robcxn_directive": {
             "body": body,
             "author": "owner",
             "authorizes_impl": True,

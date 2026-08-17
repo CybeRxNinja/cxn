@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { AgentLifecycleManager } from "@oh-my-pi/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry, MAIN_AGENT_ID } from "@oh-my-pi/pi-coding-agent/registry/agent-registry";
-import { registerPersistedSubagents } from "@oh-my-pi/pi-coding-agent/registry/persisted-agents";
-import type { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry, MAIN_AGENT_ID } from "@cxn/pi-coding-agent/registry/agent-registry";
+import { registerPersistedSubagents } from "@cxn/pi-coding-agent/registry/persisted-agents";
+import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { TempDir } from "@cxn/pi-utils";
 
 interface SessionStub {
 	session: AgentSession;
@@ -654,7 +654,7 @@ describe("AgentLifecycleManager", () => {
 	});
 
 	it("tombstone release keeps a killed ref as terminal `aborted` so a persisted-subagent rescan cannot resurrect it as parked", async () => {
-		using tempDir = TempDir.createSync("@omp-lifecycle-tombstone-");
+		using tempDir = TempDir.createSync("@cxn-lifecycle-tombstone-");
 		const rootSessionFile = path.join(tempDir.path(), "main.jsonl");
 		const workerId = "Killed-Sub";
 		const workerSessionFile = path.join(tempDir.path(), "main", `${workerId}.jsonl`);

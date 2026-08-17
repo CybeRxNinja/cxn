@@ -1,5 +1,5 @@
-import type { Component } from "@oh-my-pi/pi-tui";
-import { isRecord } from "@oh-my-pi/pi-utils";
+import type { Component } from "@cxn/pi-tui";
+import { isRecord } from "@cxn/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import type { Theme } from "../modes/theme/theme";
 import { renderStatusLine, WidthAwareText } from "../tui";

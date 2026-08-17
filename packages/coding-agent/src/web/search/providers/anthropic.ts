@@ -18,9 +18,9 @@ import {
 	stripClaudeToolPrefix,
 	withAuth,
 	wrapFetchForCch,
-} from "@oh-my-pi/pi-ai";
-import { hasOpus47ApiRestrictions } from "@oh-my-pi/pi-catalog/identity/family";
-import { $env } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-ai";
+import { hasOpus47ApiRestrictions } from "@cxn/pi-catalog/identity/family";
+import { $env } from "@cxn/pi-utils";
 import type {
 	AnthropicApiResponse,
 	AnthropicCitation,

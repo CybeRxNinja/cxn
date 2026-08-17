@@ -2,10 +2,10 @@ import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "bu
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { SourceMeta } from "@oh-my-pi/pi-coding-agent/capability/types";
-import type { MCPServerConfig } from "@oh-my-pi/pi-coding-agent/mcp/types";
-import { MCPCommandController } from "@oh-my-pi/pi-coding-agent/modes/controllers/mcp-command-controller";
-import { initTheme } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
+import type { SourceMeta } from "@cxn/pi-coding-agent/capability/types";
+import type { MCPServerConfig } from "@cxn/pi-coding-agent/mcp/types";
+import { MCPCommandController } from "@cxn/pi-coding-agent/modes/controllers/mcp-command-controller";
+import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
 import {
 	getConfigRootDir,
 	getMCPConfigPath,
@@ -13,7 +13,7 @@ import {
 	removeWithRetries,
 	setAgentDir,
 	setProjectDir,
-} from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-utils";
 
 const originalProjectDir = getProjectDir();
 const originalAgentDir = process.env.PI_CODING_AGENT_DIR;
@@ -95,8 +95,8 @@ describe("/mcp enable and disable", () => {
 	});
 
 	beforeEach(async () => {
-		projectDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-mcp-toggle-project-"));
-		agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-mcp-toggle-agent-"));
+		projectDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-mcp-toggle-project-"));
+		agentDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-mcp-toggle-agent-"));
 		setProjectDir(projectDir);
 		setAgentDir(agentDir);
 	});

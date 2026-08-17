@@ -1,7 +1,7 @@
-export * from "@oh-my-pi/pi-catalog/effort";
-export * from "@oh-my-pi/pi-catalog/types";
+export * from "@cxn/pi-catalog/effort";
+export * from "@cxn/pi-catalog/types";
 
-import type { Type } from "@oh-my-pi/omptype";
+import type { Type } from "@cxn/omptype";
 import type {
 	DeleteArgs,
 	DeleteResult,
@@ -32,10 +32,10 @@ import type {
 	ShellResult,
 	WriteArgs,
 	WriteResult,
-} from "@oh-my-pi/pi-catalog/discovery/cursor-gen/agent_pb";
-import type { Effort } from "@oh-my-pi/pi-catalog/effort";
-import { isOpenAIModelId } from "@oh-my-pi/pi-catalog/identity/family";
-import type { Api, FetchImpl, KnownApi, Model, Provider, ThinkingBudgets, Usage } from "@oh-my-pi/pi-catalog/types";
+} from "@cxn/pi-catalog/discovery/cursor-gen/agent_pb";
+import type { Effort } from "@cxn/pi-catalog/effort";
+import { isOpenAIModelId } from "@cxn/pi-catalog/identity/family";
+import type { Api, FetchImpl, KnownApi, Model, Provider, ThinkingBudgets, Usage } from "@cxn/pi-catalog/types";
 import type { ApiKey } from "./auth-retry";
 import type { BedrockOptions } from "./providers/amazon-bedrock";
 import type { AnthropicOptions } from "./providers/anthropic";
@@ -58,7 +58,7 @@ export type { StopDetails } from "./providers/anthropic-wire";
 export type { AssistantMessageEventStream } from "./utils/event-stream";
 
 /**
- * Ceiling on the output-token count omp requests from any OpenAI-family endpoint
+ * Ceiling on the output-token count cxn requests from any OpenAI-family endpoint
  * (openai-responses, azure/xai responses, and openai-completions). Mirrors
  * Anthropic's {@link CLAUDE_CODE_MAX_OUTPUT_TOKENS}.
  *
@@ -351,7 +351,7 @@ export interface CodexCompactionContext {
 	/** Stable only for one logical compaction, including parallel summary calls. */
 	operationId: string;
 	trigger: "manual" | "auto";
-	reason: "user_requested" | "context_limit" | "model_downshift" | "comp_hash_changed";
+	reason: "user_requested" | "context_limit" | "model_downshift" | "ccxn_hash_changed";
 	phase: "standalone_turn" | "pre_turn" | "mid_turn";
 	strategy: "memento" | "prefix_compaction";
 }
@@ -359,7 +359,7 @@ export interface CodexCompactionContext {
 /** Canonical nested metadata serialized into the Codex turn envelope. */
 export interface CodexCompactionMetadata {
 	trigger: "manual" | "auto";
-	reason: "user_requested" | "context_limit" | "model_downshift" | "comp_hash_changed";
+	reason: "user_requested" | "context_limit" | "model_downshift" | "ccxn_hash_changed";
 	implementation: "responses" | "responses_compaction_v2" | "responses_compact";
 	phase: "standalone_turn" | "pre_turn" | "mid_turn";
 	strategy: "memento" | "prefix_compaction";
@@ -504,7 +504,7 @@ export interface StreamOptions {
 	/**
 	 * Optional per-provider concurrent request cap for LLM stream calls. Keys are
 	 * provider ids (`model.provider`); positive numeric values cap in-flight
-	 * requests across local OMP processes that share the same config root. Omitted
+	 * requests across local CXN processes that share the same config root. Omitted
 	 * providers are unlimited. Non-chat provider APIs that bypass stream helpers
 	 * are not covered.
 	 */

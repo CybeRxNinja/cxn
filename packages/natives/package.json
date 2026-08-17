@@ -1,9 +1,9 @@
 {
-  "name": "@oh-my-pi/pi-natives",
+  "name": "@cxn/pi-natives",
   "version": "17.3.5",
   "description": "Native Rust bindings for PDF conversion, audio, WebRTC, grep, clipboard, image processing, syntax highlighting, PTY, and shell operations via N-API",
   "type": "module",
-  "homepage": "https://omp.sh",
+  "homepage": "https://cxn.sh",
   "author": "Can Boluk",
   "license": "MIT",
   "repository": {

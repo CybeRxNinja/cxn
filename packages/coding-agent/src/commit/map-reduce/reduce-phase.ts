@@ -1,7 +1,7 @@
-import type { ThinkingLevel } from "@oh-my-pi/pi-agent-core";
-import type { Api, ApiKey, Model } from "@oh-my-pi/pi-ai";
-import { completeSimple, retryTransientCompletion } from "@oh-my-pi/pi-ai";
-import { prompt } from "@oh-my-pi/pi-utils";
+import type { ThinkingLevel } from "@cxn/pi-agent-core";
+import type { Api, ApiKey, Model } from "@cxn/pi-ai";
+import { completeSimple, retryTransientCompletion } from "@cxn/pi-ai";
+import { prompt } from "@cxn/pi-utils";
 import reduceSystemPrompt from "../../commit/prompts/reduce-system.md" with { type: "text" };
 import reduceUserPrompt from "../../commit/prompts/reduce-user.md" with { type: "text" };
 import type { ConventionalAnalysis, FileObservation } from "../../commit/types";

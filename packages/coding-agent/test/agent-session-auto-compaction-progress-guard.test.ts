@@ -1,14 +1,14 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Agent } from "@oh-my-pi/pi-agent-core";
-import * as compactionModule from "@oh-my-pi/pi-agent-core/compaction";
-import { type CompactionPreparation, resolveThresholdTokens, shouldCompact } from "@oh-my-pi/pi-agent-core/compaction";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { AgentSession } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import type { CompactionEntry } from "@oh-my-pi/pi-coding-agent/session/session-entries";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
+import { Agent } from "@cxn/pi-agent-core";
+import * as compactionModule from "@cxn/pi-agent-core/compaction";
+import { type CompactionPreparation, resolveThresholdTokens, shouldCompact } from "@cxn/pi-agent-core/compaction";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import type { CompactionEntry } from "@cxn/pi-coding-agent/session/session-entries";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
 
 it("clamps a reserve exceeding the window for small-window threshold recovery bands", () => {
 	const settings = {

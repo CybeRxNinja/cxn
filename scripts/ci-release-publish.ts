@@ -2,7 +2,7 @@
 /**
  * Publish workspace packages.
  *
- * The default mode publishes public JS packages and the `@oh-my-pi/pi-natives`
+ * The default mode publishes public JS packages and the `@cxn/pi-natives`
  * core package. Generated native leaf packages are published separately with
  * `--native-leaf <tag>` from the release_binary matrix after that matrix entry
  * downloads the matching `.node` artifacts.
@@ -114,7 +114,7 @@ export const packages: PublishPackage[] = [
 		extraTypeConfigs: ["tsconfig.publish.client.json"],
 	},
 	{ dir: "packages/agent", kind: "typescript" },
-	{ dir: "packages/coding-agent", kind: "typescript", publishBin: { omp: "dist/cli.js" } },
+	{ dir: "packages/coding-agent", kind: "typescript", publishBin: { cxn: "dist/cli.js" } },
 ];
 
 function rewriteSrcToTypes(value: string): string {
@@ -230,7 +230,7 @@ export async function applyPublishBin(pkgRelDir: string, write: boolean): Promis
 function buildNativeOptionalDependencies(version: string): JsonObject {
 	const optionalDependencies: JsonObject = {};
 	for (const target of LEAF_TARGETS) {
-		optionalDependencies[`@oh-my-pi/pi-natives-${target.tag}`] = version;
+		optionalDependencies[`@cxn/pi-natives-${target.tag}`] = version;
 	}
 	return optionalDependencies;
 }
@@ -298,7 +298,7 @@ async function packAndPublish(dir: string, name: string): Promise<void> {
 		return;
 	}
 	console.log(`Publishing ${name}…`);
-	const packDir = await fs.mkdtemp(path.join(os.tmpdir(), "omp-pack-"));
+	const packDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-pack-"));
 	try {
 		const packed = await $`bun pm pack --quiet --destination ${packDir}`.cwd(dir).quiet().nothrow();
 		const packOutput = `${packed.stdout.toString()}${packed.stderr.toString()}`.trim();

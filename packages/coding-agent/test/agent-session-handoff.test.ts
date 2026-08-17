@@ -1,27 +1,27 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { Agent, type AgentMessage, type StreamFn } from "@oh-my-pi/pi-agent-core";
-import * as compactionModule from "@oh-my-pi/pi-agent-core/compaction";
-import type { AssistantMessage, Model, ToolCall } from "@oh-my-pi/pi-ai";
-import { createMockModel } from "@oh-my-pi/pi-ai/providers/mock";
-import { AssistantMessageEventStream } from "@oh-my-pi/pi-ai/utils/event-stream";
-import { getBundledModel } from "@oh-my-pi/pi-catalog/models";
-import { ModelRegistry } from "@oh-my-pi/pi-coding-agent/config/model-registry";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
+import { Agent, type AgentMessage, type StreamFn } from "@cxn/pi-agent-core";
+import * as compactionModule from "@cxn/pi-agent-core/compaction";
+import type { AssistantMessage, Model, ToolCall } from "@cxn/pi-ai";
+import { createMockModel } from "@cxn/pi-ai/providers/mock";
+import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+import { getBundledModel } from "@cxn/pi-catalog/models";
+import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
+import { Settings } from "@cxn/pi-coding-agent/config/settings";
 import {
 	ExtensionRunner,
 	loadExtensionFromFactory,
 	loadExtensions,
-} from "@oh-my-pi/pi-coding-agent/extensibility/extensions";
-import { resolveLocalUrlToPath } from "@oh-my-pi/pi-coding-agent/internal-urls";
-import { SecretObfuscator } from "@oh-my-pi/pi-coding-agent/secrets";
-import { AgentSession, type AgentSessionEvent } from "@oh-my-pi/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@oh-my-pi/pi-coding-agent/session/session-manager";
-import { EventBus } from "@oh-my-pi/pi-coding-agent/utils/event-bus";
-import { TempDir, withTimeout } from "@oh-my-pi/pi-utils";
-import * as snapcompact from "@oh-my-pi/snapcompact";
+} from "@cxn/pi-coding-agent/extensibility/extensions";
+import { resolveLocalUrlToPath } from "@cxn/pi-coding-agent/internal-urls";
+import { SecretObfuscator } from "@cxn/pi-coding-agent/secrets";
+import { AgentSession, type AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
+import { TempDir, withTimeout } from "@cxn/pi-utils";
+import * as snapcompact from "@cxn/snapcompact";
 
 const HANDOFF_SECRET = "HANDOFF_SECRET_TOKEN_12345";
 const UNRENDERABLE_SNAPCOMPACT_TEXT = "\uE000\uE001\uE002\uE003\uE004\uE005\uE006\uE007\uE008\uE009";

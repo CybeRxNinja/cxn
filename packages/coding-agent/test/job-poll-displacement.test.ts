@@ -11,16 +11,16 @@
  *    poll from the transcript; any other tool seals it in place.
  */
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { AgentMessage } from "@oh-my-pi/pi-agent-core";
-import { resetSettingsForTest, Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { ToolExecutionComponent } from "@oh-my-pi/pi-coding-agent/modes/components/tool-execution";
-import { TranscriptContainer } from "@oh-my-pi/pi-coding-agent/modes/components/transcript-container";
-import { EventController } from "@oh-my-pi/pi-coding-agent/modes/controllers/event-controller";
-import { initTheme } from "@oh-my-pi/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@oh-my-pi/pi-coding-agent/modes/types";
-import { UiHelpers } from "@oh-my-pi/pi-coding-agent/modes/utils/ui-helpers";
-import type { SessionContext } from "@oh-my-pi/pi-coding-agent/session/session-context";
-import type { Component, TUI } from "@oh-my-pi/pi-tui";
+import type { AgentMessage } from "@cxn/pi-agent-core";
+import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
+import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
+import { TranscriptContainer } from "@cxn/pi-coding-agent/modes/components/transcript-container";
+import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
+import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
+import type { SessionContext } from "@cxn/pi-coding-agent/session/session-context";
+import type { Component, TUI } from "@cxn/pi-tui";
 
 const uiStub = { requestRender() {}, requestComponentRender() {} } as unknown as TUI;
 

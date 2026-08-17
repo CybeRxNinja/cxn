@@ -1,0 +1,63 @@
+name: Upstream sync
+
+# Lane A (oh-my-pi) runs weekly on schedule; lane B (prime-agent RLM patches)
+# is available via workflow_dispatch (no-op until the Phase 1-2 port lands).
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      lane:
+        description: "Which upstream to sync"
+        type: choice
+        options:
+          - both
+          - omp
+          - prime-agent
+        default: both
+      auto_merge:
+        description: "Auto-merge sync PRs when CI is green"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-omp:
+    name: Sync oh-my-pi (lane A)
+    if: ${{ github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && (inputs.lane == 'omp' || inputs.lane == 'both')) }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3"
+      - name: Sync from oh-my-pi
+        env:
+          # Fine-grained PAT (contents:write + pull-requests:write on this repo
+          # only). Falls back to GITHUB_TOKEN (cannot auto-merge its own PRs).
+          GH_TOKEN: ${{ secrets.CXN_SYNC_PAT || secrets.GITHUB_TOKEN }}
+          AUTO_MERGE: "1"
+        run: bun scripts/upstream-sync.ts omp
+
+  sync-prime-agent:
+    name: Sync prime-agent (lane B)
+    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.lane == 'prime-agent' || inputs.lane == 'both') }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3"
+      - name: Port RLM patches from prime-agent
+        env:
+          GH_TOKEN: ${{ secrets.CXN_SYNC_PAT || secrets.GITHUB_TOKEN }}
+        run: bun scripts/upstream-sync.ts prime-agent

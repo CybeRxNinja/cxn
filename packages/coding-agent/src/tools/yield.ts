@@ -3,15 +3,15 @@
  *
  * Subagents can call this tool incrementally or terminally depending on `type`.
  */
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@oh-my-pi/pi-agent-core";
-import type { TSchema } from "@oh-my-pi/pi-ai/types";
+import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
+import type { TSchema } from "@cxn/pi-ai/types";
 import {
 	dereferenceJsonSchema,
 	isValidJsonSchema,
 	type JsonSchemaValidationResult,
 	sanitizeSchemaForStrictMode,
 	tryEnforceStrictSchema,
-} from "@oh-my-pi/pi-ai/utils/schema";
+} from "@cxn/pi-ai/utils/schema";
 import { subprocessToolRegistry } from "../task/subprocess-tool-registry";
 import type { ToolSession } from ".";
 import { buildOutputValidator, formatAllValidationIssues } from "./output-schema-validator";

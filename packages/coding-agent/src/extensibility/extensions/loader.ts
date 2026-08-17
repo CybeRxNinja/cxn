@@ -4,9 +4,9 @@
 import type * as fs1 from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { type } from "@oh-my-pi/omptype";
-import * as zod from "@oh-my-pi/omptype/zod";
-import type { ThinkingLevel } from "@oh-my-pi/pi-agent-core";
+import { type } from "@cxn/omptype";
+import * as zod from "@cxn/omptype/zod";
+import type { ThinkingLevel } from "@cxn/pi-agent-core";
 import type {
 	ImageContent,
 	Model,
@@ -15,9 +15,9 @@ import type {
 	ServiceTierFamily,
 	TextContent,
 	TSchema,
-} from "@oh-my-pi/pi-ai";
-import type { KeyId } from "@oh-my-pi/pi-tui";
-import { hasFsCode, isEacces, isEnoent, logger } from "@oh-my-pi/pi-utils";
+} from "@cxn/pi-ai";
+import type { KeyId } from "@cxn/pi-tui";
+import { hasFsCode, isEacces, isEnoent, logger } from "@cxn/pi-utils";
 import { type ExtensionModule, extensionModuleCapability } from "../../capability/extension-module";
 import { type Hook, hookCapability } from "../../capability/hook";
 import { isServiceTierFamily, isServiceTierForFamily } from "../../config/service-tier";
@@ -462,8 +462,8 @@ interface ExtensionManifest {
 
 async function readExtensionManifest(packageJsonPath: string): Promise<ExtensionManifest | null> {
 	try {
-		const pkg = (await Bun.file(packageJsonPath).json()) as { omp?: ExtensionManifest; pi?: ExtensionManifest };
-		const manifest = pkg.omp ?? pkg.pi;
+		const pkg = (await Bun.file(packageJsonPath).json()) as { cxn?: ExtensionManifest; pi?: ExtensionManifest };
+		const manifest = pkg.cxn ?? pkg.pi;
 		if (manifest && typeof manifest === "object") {
 			return manifest;
 		}
@@ -536,7 +536,7 @@ async function resolveExtensionEntries(dir: string): Promise<string[] | null> {
  * Discovery rules:
  * 1. Direct files: `extensions/*.ts` or `*.js` → load
  * 2. Subdirectory with index: `extensions/<ext>/index.ts` or `index.js` → load
- * 3. Subdirectory with package.json: `extensions/<ext>/package.json` with "omp"/"pi" field → load declared paths
+ * 3. Subdirectory with package.json: `extensions/<ext>/package.json` with "cxn"/"pi" field → load declared paths
  *
  * No recursion beyond one level. Complex packages must use package.json manifest.
  */
@@ -600,7 +600,7 @@ async function discoverHooksInPackageRoot(root: string): Promise<string[]> {
 /**
  * Discover absolute paths of extensions to load, without importing or
  * binding factories. Hot path on session startup — the scan walks native
- * `.omp`/`.pi` extension capabilities, JS/TS hook factories, the
+ * `.cxn`/`.pi` extension capabilities, JS/TS hook factories, the
  * installed-plugin tree, and any configured paths.
  *
  * Subagents reuse the parent's collected paths via the SDK's
@@ -647,7 +647,7 @@ export async function discoverExtensionPaths(
 
 	const ambient = options.ambient !== false;
 	if (ambient) {
-		// 1. Discover extension modules via capability API (native .omp/.pi only).
+		// 1. Discover extension modules via capability API (native .cxn/.pi only).
 		// Scope the load to the native provider — the extension-module capability
 		// also has claude/codex/gemini/opencode providers, and their items were
 		// discarded here anyway (see #4198). The provider filter skips the walk

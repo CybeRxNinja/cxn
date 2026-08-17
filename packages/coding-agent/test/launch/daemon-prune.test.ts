@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { TempDir } from "@oh-my-pi/pi-utils";
+import { TempDir } from "@cxn/pi-utils";
 import { pruneDeadDaemonRuntimeDirs } from "../../src/launch/presence";
 
 const STALE = new Date(Date.now() - 30 * 60_000);
@@ -37,7 +37,7 @@ describe("pruneDeadDaemonRuntimeDirs", () => {
 	});
 
 	it("removes only scopes with a dead broker, no live clients, and past the stale grace", async () => {
-		using tempDir = TempDir.createSync("@omp-daemon-prune-");
+		using tempDir = TempDir.createSync("@cxn-daemon-prune-");
 		const daemons = path.join(tempDir.path(), "run", "daemons");
 		await fs.mkdir(daemons, { recursive: true });
 
@@ -62,7 +62,7 @@ describe("pruneDeadDaemonRuntimeDirs", () => {
 	});
 
 	it("does not sweep sibling machine-global service runtimes", async () => {
-		using tempDir = TempDir.createSync("@omp-daemon-prune-global-");
+		using tempDir = TempDir.createSync("@cxn-daemon-prune-global-");
 		const globalRoot = path.join(tempDir.path(), "run", "daemons", "global");
 		const current = await scope(globalRoot, "current-service", { pid: "dead", stale: true });
 		const sibling = await scope(globalRoot, "persistent-service", { pid: "dead", stale: true });
@@ -73,7 +73,7 @@ describe("pruneDeadDaemonRuntimeDirs", () => {
 	});
 
 	it("does nothing when the runtime root does not exist", async () => {
-		using tempDir = TempDir.createSync("@omp-daemon-prune-missing-");
+		using tempDir = TempDir.createSync("@cxn-daemon-prune-missing-");
 		const current = path.join(tempDir.path(), "run", "daemons", "hash0000000000000");
 		await expect(pruneDeadDaemonRuntimeDirs(current)).resolves.toBeUndefined();
 	});

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import type { FetchImpl } from "@oh-my-pi/pi-ai";
-import { AuthStorage } from "@oh-my-pi/pi-coding-agent/session/auth-storage";
+import type { FetchImpl } from "@cxn/pi-ai";
+import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
 
 describe("AuthStorage MiniMax login", () => {
 	let authStorage: AuthStorage;

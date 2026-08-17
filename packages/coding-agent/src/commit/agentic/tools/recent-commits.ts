@@ -1,4 +1,4 @@
-import { type } from "@oh-my-pi/omptype";
+import { type } from "@cxn/omptype";
 import type { CustomTool } from "../../../extensibility/custom-tools/types";
 import * as git from "../../../utils/git";
 
