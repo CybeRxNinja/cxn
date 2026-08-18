@@ -21,6 +21,7 @@
  *   SYNC_SINCE    override the shallow-since window (default 90 days)
  */
 
+import * as path from "node:path";
 import { $ } from "bun";
 
 const LANE = process.argv[2] ?? "omp";
@@ -265,6 +266,139 @@ async function alignWorkspaceVersions(): Promise<void> {
 	}
 }
 
+// `-X ours` keeps our import blocks, so upstream features that add new
+// references arrive with dangling names (TS2304). Heal them deterministically:
+// for each unknown name, restore the import upstream's version of the file
+// carries (rebranded to the @cxn scope).
+function parseImportSpecifiers(text: string): Array<{ spec: string; symbol: string; from: string; typeOnly: boolean }> {
+	const out: Array<{ spec: string; symbol: string; from: string; typeOnly: boolean }> = [];
+	const named = /import\s*(type\s*)?\{([^}]*)\}\s*from\s*"([^"]+)"/g;
+	for (const m of text.matchAll(named)) {
+		const typeOnly = !!m[1];
+		const from = m[3];
+		for (const part of m[2].split(",")) {
+			const p = part.trim();
+			if (!p) continue;
+			const isType = p.startsWith("type ");
+			const bare = p.replace(/^type\s+/, "").trim();
+			const symbol = bare.split(/\s+as\s+/)[0]!.trim();
+			if (symbol) out.push({ spec: p, symbol, from, typeOnly: typeOnly || isType });
+		}
+	}
+	const def = /import\s*(type\s*)?([A-Za-z_$][\w$]*)\s*from\s*"([^"]+)"/g;
+	for (const m of text.matchAll(def)) {
+		out.push({ spec: m[2]!, symbol: m[2]!, from: m[3]!, typeOnly: !!m[1] });
+	}
+	return out;
+}
+
+function escapeRegExp(value: string): string {
+	return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Insert `sym` into the existing `from "…"` import's member braces without
+// touching the statement's layout (rebuilding the statement from a regex match
+// collapses multi-line formatting and can double commas). Returns false when
+// there is no matching import to extend.
+function insertIntoExistingImport(text: string, from: string, sym: string, typeOnly: boolean): string | null {
+	const fromRe = new RegExp(`import\\s*(type\\s*)?\\{([^}]*)\\}\\s*from\\s*"${escapeRegExp(from)}"`);
+	const m = text.match(fromRe);
+	if (!m) return null;
+	const members = m[2]!;
+	const bareRe = new RegExp(`(^|[,\\s])${escapeRegExp(sym)}(\\s+as\\s+\\w+)?([,}]|$)`);
+	if (bareRe.test(members)) return text; // already present
+	const addSpec = typeOnly ? `type ${sym}` : sym;
+	const head = m.index! + m[0].indexOf("{") + 1;
+	if (members.trim().length === 0) {
+		return `${text.slice(0, head)} ${addSpec}${text.slice(head)}`;
+	}
+	const tail = m.index! + m[0].indexOf("}");
+	const beforeClose = text.slice(0, tail);
+	// Closing brace on its own line: add a fresh member line before it.
+	if (beforeClose.endsWith("\n")) {
+		return `${beforeClose}${addSpec},\n${text.slice(tail)}`;
+	}
+	// Same line as the last member: append after it, reusing the trailing
+	// comma when the list already has one.
+	const trimmed = beforeClose.replace(/\s+$/, "");
+	const sep = trimmed.endsWith(",") ? " " : ", ";
+	return `${trimmed}${sep}${addSpec}${text.slice(tail)}`;
+}
+
+async function healMissingImports(): Promise<number> {
+	const check = await $`bun run check:ts`.nothrow();
+	if (check.exitCode === 0) return 0;
+	const output = `${check.stdout.toString()}\n${check.stderr.toString()}`;
+	// Resolve each workspace package name to its directory so the per-package
+	// check paths ("@cxn/<pkg> check: relpath(line,col): error ...") map to
+	// repo paths.
+	const pkgDirs = new Map<string, string>();
+	for (const p of new Bun.Glob("packages/*/package.json").scanSync()) {
+		try {
+			const data = (await Bun.file(p).json()) as { name?: string };
+			if (data.name) pkgDirs.set(data.name, path.dirname(p));
+		} catch {
+			// unreadable; skip
+		}
+	}
+	const lineRe = /^(@cxn\/[^\s]+)\s+check:\s+([^\s(]+)\(\d+,\d+\):\s*error TS2304: Cannot find name '([^']+)'\./gm;
+	const wanted = new Map<string, Set<string>>();
+	for (const m of output.matchAll(lineRe)) {
+		const dir = pkgDirs.get(m[1]!);
+		if (!dir) continue;
+		const repoRel = path.relative(process.cwd(), path.resolve(dir, m[2]!));
+		if (!wanted.has(repoRel)) wanted.set(repoRel, new Set());
+		wanted.get(repoRel)!.add(m[3]!);
+	}
+	if (wanted.size === 0) return 0;
+	let healed = 0;
+	for (const [repoRel, syms] of wanted) {
+		let upstreamText: string;
+		try {
+			upstreamText = (await $`git show ${UPSTREAM}/main:${repoRel}`.nothrow().text()).toString();
+		} catch {
+			continue; // not present upstream; nothing to restore from
+		}
+		if (upstreamText.length === 0) continue;
+		const upstreamImports = parseImportSpecifiers(upstreamText);
+		let text: string;
+		try {
+			text = await Bun.file(repoRel).text();
+		} catch {
+			continue;
+		}
+		let next = text;
+		for (const sym of syms) {
+			const found = upstreamImports.find(imp => imp.symbol === sym);
+			if (!found) continue;
+			const from = found.from.replaceAll("@oh-my-pi/", "@cxn/");
+			const extended = insertIntoExistingImport(next, from, sym, found.typeOnly);
+			if (extended !== null) {
+				if (extended !== next) healed++;
+				next = extended;
+				continue;
+			}
+			// No existing import from this module — append a fresh line at the
+			// end of the import block.
+			const importLines = [...next.matchAll(/^import[^\n]*\n/gm)];
+			const at = importLines.length > 0 ? importLines.at(-1)!.index! + importLines.at(-1)![0].length : 0;
+			const line = found.typeOnly
+				? `import type { ${sym} } from "${from}";\n`
+				: `import { ${sym} } from "${from}";\n`;
+			next = next.slice(0, at) + line + next.slice(at);
+			healed++;
+		}
+		if (next !== text) await Bun.write(repoRel, next);
+	}
+	if (healed > 0) {
+		await $`bunx biome check --write ${[...wanted.keys()]}`.nothrow();
+		await $`git add -A`;
+		await $`git commit -m "chore: heal missing imports dropped by the -X ours merge"`.nothrow();
+		console.log(`Healed ${healed} missing import(s).`);
+	}
+	return healed;
+}
+
 await rebrandSyncedTree();
 await alignWorkspaceVersions();
 
@@ -294,9 +428,16 @@ if (!brandingClean) console.error("Branding guard found violations in the sync (
 
 // Type check: `-X ours` keeps our import blocks, so upstream features that
 // add new references can arrive with dangling names. Run the same check CI
-// gates on; failures label the PR for manual repair instead of auto-merging.
-const typecheck = await $`bun run check:ts`.nothrow();
-const typesClean = typecheck.exitCode === 0;
+// gates on; first attempt a deterministic heal of missing imports (restoring
+// the import upstream's version of the file carries); anything left failing
+// labels the PR for manual repair instead of auto-merging.
+let typesClean = false;
+for (let attempt = 0; attempt < 3; attempt++) {
+	const healed = await healMissingImports();
+	if (healed === 0) break;
+}
+const finalTypecheck = await $`bun run check:ts`.nothrow();
+typesClean = finalTypecheck.exitCode === 0;
 if (!typesClean) console.error("Type check failed on the synced tree (see output above); fix before merging.");
 
 // Push + PR. The sync branch is ephemeral (reset from main each run), so a
@@ -350,7 +491,11 @@ const repoSlug = (await $`git config --get remote.origin.url`.text())
 if (existing && existing !== "[]") {
 	const num = (JSON.parse(existing) as Array<{ number: number }>)[0].number;
 	await $`gh api -X PATCH repos/${repoSlug}/pulls/${num} -f title=${prTitle} -f body=${body}`.nothrow();
-	await $`gh api -X POST repos/${repoSlug}/issues/${num}/labels -f "labels[]=${labels.join(",")}"`.nothrow();
+	// `gh api -f` encodes fields as a JSON body; repeating the key builds a
+	// JSON array, which is what the labels endpoint expects (the earlier
+	// `labels[]=a,b` form sent a string under the wrong key).
+	const labelArgs = labels.map(l => `-f labels=${l}`);
+	await $`gh api -X POST repos/${repoSlug}/issues/${num}/labels ${labelArgs}`.nothrow();
 	if (brandingClean && typesClean && AUTO_MERGE) await $`gh pr merge ${num} --auto --squash`.nothrow();
 	console.log(`Updated PR #${num}`);
 } else {
