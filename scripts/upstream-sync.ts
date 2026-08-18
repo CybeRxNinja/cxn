@@ -186,7 +186,7 @@ async function alignWorkspaceVersions(): Promise<void> {
 	// package.jsons, so a merged tree can hold mixed versions (the pi-natives
 	// sentinel test fails when lib.rs says 17.3.7 but package.json says 17.3.5).
 	// Align the whole workspace to the newest version present in the tree.
-	const pkgPaths = Array.from(Bun.Glob.glob("packages/*/package.json").scanSync());
+	const pkgPaths = Array.from(new Bun.Glob("packages/*/package.json").scanSync());
 	const versions: Array<{ path: string; version: string }> = [];
 	for (const p of pkgPaths) {
 		try {
