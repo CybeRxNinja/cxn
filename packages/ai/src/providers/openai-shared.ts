@@ -21,8 +21,7 @@ import {
 	removeBlankCoreWeaveProjectHeaders,
 } from "@cxn/pi-catalog/wire/coreweave";
 import { parseGitHubCopilotApiKey } from "@cxn/pi-catalog/wire/github-copilot";
-import {
-	$env,
+import { $env,
 	classifyJsonPrefix,
 	extractHttpStatusFromError,
 	logger,
@@ -30,8 +29,7 @@ import {
 	parseStreamingJson,
 	parseStreamingJsonThrottled,
 	stringifyJson,
-	structuredCloneJSON,
-} from "@cxn/pi-utils";
+	structuredCloneJSON,, USER_AGENT } from "@cxn/pi-utils";
 import * as AIError from "../error";
 import {
 	type Api,

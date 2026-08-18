@@ -4,6 +4,7 @@ import * as path from "node:path";
 import { createLspWritethrough } from "@cxn/pi-coding-agent/lsp";
 import * as lspConfig from "@cxn/pi-coding-agent/lsp/config";
 import type { LinterClient, ServerConfig } from "@cxn/pi-coding-agent/lsp/types";
+import { addFileWriteFallback } from "@cxn/pi-coding-agent/tools/file-write-fallback";
 import { TempDir } from "@cxn/pi-utils";
 
 function createFormatter(format: (filePath: string, content: string) => Promise<string>): ServerConfig {

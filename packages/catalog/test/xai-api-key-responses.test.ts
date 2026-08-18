@@ -4,7 +4,7 @@ import * as os from "node:os";
 import * as path from "node:path";
 import { resolveProviderModels } from "@cxn/pi-catalog/model-manager";
 import { getBundledModels } from "@cxn/pi-catalog/models";
-import { CATALOG_PROVIDERS } from "@cxn/pi-catalog/provider-models/descriptors";
+import { CATALOG_PROVIDERS, DEFAULT_MODEL_PER_PROVIDER } from "@cxn/pi-catalog/provider-models/descriptors";
 import { xaiModelManagerOptions } from "@cxn/pi-catalog/provider-models/openai-compat";
 import type { ModelSpec } from "@cxn/pi-catalog/types";
 

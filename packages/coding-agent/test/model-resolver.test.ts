@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { type Api, Effort, type Model } from "@cxn/pi-ai";
 import { buildModel } from "@cxn/pi-catalog/build";
+import { getBundledModel } from "@cxn/pi-catalog/models";
 import { DEFAULT_MODEL_PER_PROVIDER } from "@cxn/pi-catalog/provider-models";
 import {
 	expandRoleAlias,

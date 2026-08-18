@@ -1,7 +1,7 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import * as path from "node:path";
 import { RpcClient } from "@cxn/pi-coding-agent/modes/rpc/rpc-client";
-import { ptree, TempDir } from "@cxn/pi-utils";
+import { type ChildProcess, ptree, TempDir } from "@cxn/pi-utils";
 
 const MOCK_AGENT = path.join(import.meta.dir, "fixtures", "mock-rpc-agent.ts");
 
