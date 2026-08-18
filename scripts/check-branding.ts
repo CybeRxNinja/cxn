@@ -36,6 +36,13 @@ const REFERENCE_ALLOWED = (rel: string): boolean => rel.startsWith("docs/") || r
 // operational plumbing, not branding.
 const CI_REFERENCE_ALLOWED = (rel: string): boolean => REFERENCE_ALLOWED(rel) || rel.startsWith(".github/workflows/");
 
+// Test fixtures legitimately assert upstream-compat behavior (parsing
+// can1357/oh-my-pi URLs, upstream wire strings) — same rationale as the
+// `/test/` exemption already granted to the legacy scopes below. Tests are
+// dev-time assertions, not product code.
+const TEST_FIXTURE_ALLOWED = (rel: string): boolean =>
+	CI_REFERENCE_ALLOWED(rel) || rel.includes("/test/") || rel.endsWith(".test.ts") || rel.startsWith("test/");
+
 const LEGACY_ALLOWED = (rel: string): boolean =>
 	REFERENCE_ALLOWED(rel) ||
 	rel.includes("/extensibility/") ||
@@ -56,8 +63,9 @@ interface Rule {
 const RULES: Rule[] = [
 	{ pattern: /\bomp\b/, label: "omp", allowed: REFERENCE_ALLOWED },
 	// `can1357/oh-my-pi` URLs are upstream references, not branding; CI
-	// workflows may reference the upstream npm leaf for the fork-PR fallback.
-	{ pattern: /(?<!can1357\/)oh-my-pi/, label: "oh-my-pi", allowed: CI_REFERENCE_ALLOWED },
+	// workflows may reference the upstream npm leaf for the fork-PR fallback;
+	// test fixtures may assert upstream URL parsing / wire behavior.
+	{ pattern: /(?<!can1357\/)oh-my-pi/, label: "oh-my-pi", allowed: TEST_FIXTURE_ALLOWED },
 	{ pattern: /Oh My Pi/, label: "Oh My Pi", allowed: REFERENCE_ALLOWED },
 	{ pattern: /prime-agent/, label: "prime-agent", allowed: REFERENCE_ALLOWED },
 	{ pattern: /Prime Agent/, label: "Prime Agent", allowed: REFERENCE_ALLOWED },

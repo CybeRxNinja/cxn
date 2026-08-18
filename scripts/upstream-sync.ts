@@ -105,6 +105,64 @@ if (mergeResult.exitCode !== 0) {
 	);
 }
 
+// ---------------------------------------------------------------------------
+// Post-merge rebrand pass
+// ---------------------------------------------------------------------------
+// A plain merge of upstream into a fully-rebranded fork always reintroduces
+// upstream identity in the hunks that merged without conflict (files we never
+// touched). Mechanically convert those back to cxn so the merged tree builds
+// and passes the branding guard:
+//   - `@oh-my-pi/` package scopes  -> `@cxn/` (workspace imports must resolve)
+//   - bare `oh-my-pi` / `omp`      -> `cxn` (product identity strings)
+// `can1357/oh-my-pi` upstream URLs are preserved (references, not branding).
+// The branding guard below remains the backstop: anything this pass misses is
+// flagged and the PR is labeled for manual review instead of auto-merging.
+const REBRAND_SKIP = (rel: string): boolean => {
+	const base = rel.split("/").pop() ?? "";
+	// Mirror scripts/check-branding.ts: attribution docs, lockfiles, and the
+	// sync tooling itself are exempt by design; docs/ may reference upstreams.
+	if (rel.startsWith("docs/")) return true;
+	if (rel.startsWith(".github/workflows/")) return true;
+	if (base === "LICENSE") return true;
+	if (base === "CHANGELOG.md") return true;
+	if (base === "README.md") return true;
+	if (base === "PLAN.md" || base === "UPSTREAM.md") return true;
+	if (base === "bun.lock" || base === "flake.lock" || base === "Cargo.lock" || base === "MODULE.bazel.lock")
+		return true;
+	if (rel.startsWith("scripts/upstream-sync") || rel.startsWith("scripts/port-rlm")) return true;
+	return false;
+};
+
+async function rebrandSyncedTree(): Promise<void> {
+	const changed = (await $`git diff --name-only main...HEAD`.text()).trim().split("\n").filter(Boolean);
+	let touched = 0;
+	for (const rel of changed) {
+		if (REBRAND_SKIP(rel)) continue;
+		let text: string;
+		try {
+			text = await Bun.file(rel).text();
+		} catch {
+			continue; // binary or unreadable; nothing to rebrand
+		}
+		const next = text
+			.replaceAll("@oh-my-pi/", "@cxn/")
+			.replace(/(?<!can1357\/)oh-my-pi/g, "cxn")
+			.replace(/\bomp\b/g, "cxn")
+			.replace(/Oh My Pi/g, "cxn");
+		if (next !== text) {
+			await Bun.write(rel, next);
+			touched++;
+		}
+	}
+	if (touched > 0) {
+		await $`git add -A`;
+		await $`git commit -m "chore: rebrand synced upstream code (scope + product strings)"`;
+	}
+	console.log(`Rebrand pass: ${touched} file(s) rewritten.`);
+}
+
+await rebrandSyncedTree();
+
 // Record the sync point.
 const upPath = "UPSTREAM.md";
 let upContent = "";
