@@ -2,7 +2,6 @@ import { describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { VERSION } from "@cxn/pi-utils";
 import type { BunPlugin } from "bun";
 import { resolveBundledChangelogPath } from "../../src/utils/changelog";
 

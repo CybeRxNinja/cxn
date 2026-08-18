@@ -1,4 +1,3 @@
-import { VERSION } from "@cxn/pi-utils";
 import { parseChangelog } from "../../src/utils/changelog";
 
 const missingPackageChangelogPath = process.argv[2];
