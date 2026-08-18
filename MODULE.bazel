@@ -37,6 +37,12 @@ rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 rust.toolchain(
     edition = "2024",
     versions = ["nightly/2026-04-29"],
+    # Pin rustfmt to the dev toolchain's nightly (see rust-toolchain.toml) instead
+    # of the rolling DEFAULT_NIGHTLY_VERSION. That rolling default silently
+    # drifted between CI runs (resolved 2026-06-30 while dev formats with
+    # 2026-07-28), which intermittently reddened the rustfmt check on
+    # otherwise-clean trees. Pinning keeps dev `fmt:rs` and CI in lockstep.
+    rustfmt_version = "nightly/2026-07-28",
     # Pinned archive checksums for every toolchain component. Not (only) a
     # supply-chain nicety: rules_rust marks a toolchain-tools repo as
     # reproducible — and therefore eligible for Bazel's repo contents cache —
@@ -75,6 +81,11 @@ rust.toolchain(
         "2026-04-29/rustfmt-nightly-aarch64-unknown-linux-gnu.tar.xz": "b495726b0f311dcb53a8cf5325c61ef321f110a3739247536bc87109d428a3cc",
         "2026-04-29/rustfmt-nightly-x86_64-apple-darwin.tar.xz": "9c64403758b4b631b60057f6ed4a93b02f19286a59a60f8ea235b4f7d4e1ba4c",
         "2026-04-29/rustfmt-nightly-x86_64-unknown-linux-gnu.tar.xz": "397e4ead440f29a1fc10903388a377f5607a1d404c29dc3e3a979d2bc813a801",
+        # rustfmt pinned to 2026-07-28 (matches `rustfmt_version` above / dev toolchain)
+        "2026-07-28/rustfmt-nightly-aarch64-apple-darwin.tar.xz": "d5aa68627128e6d515a3542cbb934620c75cfc3ba2ff4b897b3452767c58ef12",
+        "2026-07-28/rustfmt-nightly-aarch64-unknown-linux-gnu.tar.xz": "0d169f41af88e6f09bf4e6a913a78ea6ecfc26f7093f83d311479719f1798b20",
+        "2026-07-28/rustfmt-nightly-x86_64-apple-darwin.tar.xz": "d7f7075b5cbe7d77ea888725d6e1fd2f36848267b3caa6d76ce43217fd17d801",
+        "2026-07-28/rustfmt-nightly-x86_64-unknown-linux-gnu.tar.xz": "6ec5e48112ac0d974082505cdcaa2c27ffc32d6830ffc75a65a9bbd160d69cae",
     },
     extra_target_triples = [
         "x86_64-unknown-linux-gnu",
