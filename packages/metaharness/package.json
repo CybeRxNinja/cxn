@@ -2,7 +2,7 @@
 	"type": "module",
 	"private": true,
 	"name": "@cxn/pi-metaharness",
-	"version": "0.0.1",
+	"version": "17.3.7",
 	"description": "Unified benchmark runners plus Harbor run storage, REST/SSE APIs, and a live web dashboard",
 	"homepage": "https://cxn.sh",
 	"author": "Can Boluk",

@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cxn/collab-web",
-  "version": "16.3.6",
+  "version": "17.3.7",
   "private": true,
   "description": "Browser guest client and local relay tools for cxn collab live sessions",
   "homepage": "https://cxn.sh",
