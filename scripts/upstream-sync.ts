@@ -196,6 +196,15 @@ async function alignWorkspaceVersions(): Promise<void> {
 			// unreadable; skip
 		}
 	}
+	// The pi-natives Rust sentinel is upstream's release marker (its
+	// package.json loses the bump to `-X ours`), so it must be a candidate.
+	try {
+		const libRs = await Bun.file("crates/pi-natives/src/lib.rs").text();
+		const m = libRs.match(/__piNativesV(\d+_\d+_\d+)/);
+		if (m) versions.push({ path: "crates/pi-natives/src/lib.rs", version: m[1].replace(/_/g, ".") });
+	} catch {
+		// missing; skip
+	}
 	if (versions.length === 0) return;
 	const compare = (a: string, b: string): number => {
 		const [am, ab, ap] = a.split(".").map(Number);
