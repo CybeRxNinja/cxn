@@ -5,7 +5,7 @@
 > working, robust subsystem that powers `cxn agents` (list/attach/send/stop),
 > compaction-surviving session leases, and correct cross-session family reach.
 >
-> Status: **Phase 0 + Phase 1 + Phase 2 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in this PR). Phase 3+ are follow-ups. The in-process child-kernel wiring needs no daemon IPC.
+> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in this PR). Phase 4+ are follow-ups. The in-process child-kernel wiring needs no daemon IPC.
 
 ---
 
@@ -49,8 +49,9 @@ outlives any single parent — the supervisor daemon.
   `RpcCommand`, `rpc-client.ts`, `rpc-subagents.ts`) with `get_subagents`,
   `parentSession`, `set_subagent_subscription`, etc.
 - **Family/mailbox logic** — `packages/coding-agent/src/eval/py/rlm.ts`
-  (`families`, `mailboxes`, `assertAgentFamilyReach` → today's
-  `AGENT_FAMILY_REACH_ERROR`).
+  (`families`, `mailboxes`); the nuclear-family reach boundary is now ported
+  verbatim from prime-agent in `packages/coding-agent/src/eval/py/family-reach.ts`
+  (`assertAgentFamilyReach` → `AGENT_FAMILY_REACH_ERROR`).
 
 ### What prime-agent has (the gold target, in `research/upstream/prime-agent`)
 - `modes/daemon/` — `daemon-supervisor.ts`, `daemon-socket.ts`,
@@ -198,19 +199,46 @@ additive authority.
 - Risk: retired (medium → low). No new process primitive beyond `node:net`;
   deterministic in-memory tests; real-UDS + supervisor tests cover lifecycle.
 
-### Phase 3 — Ledger, leases, reach (the security + topology authority)
-- Port `rlm-ledger.ts` → `RlmSpawnLedger` (durable spawn edges:
-  parent→child, name, session id). This is the **topology authority** used to
-  compute family reach, so it must be ported together with reach.
-- Port `assertAgentFamilyReach` **verbatim** from
-  prime-agent `core/agent-messages.ts` (nuclear family = parent/sibling/child
-  from depth + shared parent). It is the security boundary; do not re-derive.
-- Session leases: `acquireSessionLease` (on-disk `owner.json` lock) +
-  lifecycle `resident` / `client_owned` + `client_owned_sessions` capability +
-  `openingSessions` dedup (port `daemon-supervisor-ownership.ts`). Makes
-  attach/send/list coherent through one registry.
-- Risk: medium. Reach is security-sensitive — port verbatim + keep the
-  existing `AGENT_FAMILY_REACH_ERROR` contract in tests.
+### Phase 3 — Ledger, leases, reach (the security + topology authority) (DONE — 2026-08-18)
+- `assertAgentFamilyReach` ported **verbatim** from prime-agent
+  `core/agent-messages.ts` into
+  `packages/coding-agent/src/eval/py/family-reach.ts`, with the supporting
+  `agentFamilyRelationship` / `isAgentFamilyParent` / `sameAgentFamilyParent`
+  / `buildAgentFamilyRoster` helpers and the `AgentFamilyCatalogEntry` types.
+  The `AGENT_FAMILY_REACH_ERROR` message text is preserved (security boundary;
+  do not re-derive). `family-store.ts` now enforces it on every
+  `sendToFamily(...)` — including the in-process path — so reach is identical
+  in-process and via daemon.
+  - **cxn-specific extension (documented, minimal):** self-delivery to one's
+    own mailbox (e.g. a parent queuing a message for its own `recv()`) is
+    allowed *before* the reach check. This is cxn's in-process self-inbox
+    convention, not a cross-agent reach grant; the nuclear-family boundary for
+    distinct agents is untouched.
+- `RlmSpawnLedger` (`packages/coding-agent/src/modes/daemon/rlm-ledger.ts`) —
+  in-memory topology authority: `recordSpawn(parentId, childId, name,
+  sessionId)` builds edges; `childrenOf` / `parentOf` / `getCatalog` derive
+  depth from the parent chain; `setStatus` / `remove`; `toJSON` / `loadJSON`
+  for Phase 6 durability. The daemon's `register_child` writes here and
+  `list_subagents` / `delete_subagent` read from it.
+- Session leases `SessionLeaseRegistry`
+  (`packages/coding-agent/src/modes/daemon/session-lease.ts`) — dependency-free,
+  on-disk `owner.json` (temp-file + atomic `rename`), pid-liveness reaping,
+  `openingSessions` dedup + `client_owned_sessions` map. `acquire(dir, owner)`
+  returns a `SessionLease` (token + `release()`); a second `acquire` by a
+  different owner while held throws `SessionAlreadyActiveError`; a stale (dead
+  pid) lease is reclaimed. The daemon's `session.attach` acquires and
+  `session.stop` releases.
+- `daemon-family-store.ts` now owns module-level `ledger` + `leaseRegistry`
+  singletons configured via `setupDaemonState({ agentDir })` /
+  `resetDaemonState()` (tested in `daemon.test.ts` before/after-each).
+- Tests: `test/eval/py/family-reach.test.ts` (verbatim reach policy +
+  roster), `test/modes/daemon/rlm-ledger.test.ts` (topology/depth/JSON
+  round-trip), `test/modes/daemon/session-lease.test.ts` (acquire/reclaim/
+  conflict), plus `daemon.test.ts` reach + lease integration (sibling message
+  delivered; cross-owner attach refused; lease released for re-attach). The
+  affected suites stay green (40 tests across the daemon + rlm dirs).
+- Risk: retired (medium → low). Reach ported verbatim; ledger/lease covered by
+  new contract tests; no new process primitive.
 
 ### Phase 4 — `cxn agents` CLI
 - Port prime-agent `cli/command-registry.ts` + `cli/daemon-command.ts`
@@ -274,8 +302,8 @@ reach, cleaned socket), never "the code ran."
 
 - [ ] `cxn agents list/attach/send/stop` work against a running daemon.
 - [ ] A child's `agent_message.recv()` drains its mailbox (in-process).
-- [ ] Sibling/parent/child reach enforced identically in-process and via daemon.
-- [ ] Session leases + `RlmSpawnLedger` make sessions attachable; topology is
+- [x] Sibling/parent/child reach enforced identically in-process and via daemon.
+- [x] Session leases + `RlmSpawnLedger` make sessions attachable; topology is
       authoritative.
 - [ ] Daemon cleans up its socket/lockfile on exit; reaps dead sessions via
       heartbeats.
@@ -286,9 +314,8 @@ reach, cleaned socket), never "the code ran."
 
 ## 7. Suggested first PR (this session's next step)
 
-**Phase 0 + Phase 1 — DONE (merged).** The in-process child-kernel wiring is
-implemented in `eval/py/family-store.ts` + `rlm.ts` and unblocks the
-"child kernels wired into family" item (no longer daemon-blocked). Next step
-is **Phase 2** (supervisor daemon skeleton reusing cxn's existing ACP) as a
-follow-up PR, then Phase 3 (ledger/leases/reach), Phase 4 (`cxn agents` CLI),
-Phase 5 (robustness), Phase 6 (persistence).
+**Phase 0–3 DONE** (Phase 0+1 merged in PR #6; Phase 2 daemon skeleton
+merged in PR #7; Phase 3 ledger/leases/reach in this PR). The in-process
+child-kernel wiring is implemented and reach/ledger/leases are ported verbatim
+where security-sensitive. Next step is **Phase 4** (`cxn agents` CLI) as a
+follow-up PR, then Phase 5 (robustness), Phase 6 (persistence).

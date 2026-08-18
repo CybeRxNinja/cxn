@@ -1,15 +1,16 @@
-import { afterEach, describe, expect, it } from "bun:test";
+import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { RlmSubagentRegistryEntry } from "@cxn/pi-coding-agent/eval/py/family-store";
-import { resetRlmFamilies } from "@cxn/pi-coding-agent/eval/py/rlm";
+import { type RlmSubagentRegistryEntry, resetRlmFamilies } from "@cxn/pi-coding-agent/eval/py/family-store";
 import {
 	DaemonClient,
 	ensureDaemonRunning,
 	handleDaemonRequest,
 	inMemoryPair,
+	resetDaemonState,
 	serveConnection,
+	setupDaemonState,
 	udsConnect,
 	udsServer,
 } from "@cxn/pi-coding-agent/modes/daemon/index";
@@ -28,7 +29,14 @@ function childEntry(id: string, name: string): RlmSubagentRegistryEntry {
 }
 
 describe("daemon protocol + shared store", () => {
-	afterEach(() => resetRlmFamilies());
+	beforeEach(() => {
+		const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-daemon-"));
+		setupDaemonState({ agentDir: tmp });
+	});
+	afterEach(() => {
+		resetDaemonState();
+		resetRlmFamilies();
+	});
 
 	it("delivers a parent->child message the child drains via the daemon", async () => {
 		const { server, client } = inMemoryPair();
@@ -44,7 +52,6 @@ describe("daemon protocol + shared store", () => {
 		)) as { deliveryStatus: string };
 		expect(sent.deliveryStatus).toBe("delivered");
 
-		// The child speaks for rlm-c1 and reads its own mailbox.
 		const got = (await conn.request("agent_message.recv", {}, { role: "child", childId: "rlm-c1" }, FAMILY)) as {
 			messages: Array<{ message: string; from: string }>;
 		};
@@ -109,23 +116,113 @@ describe("daemon protocol + shared store", () => {
 		expect(Array.isArray(res.models)).toBe(true);
 		await conn.close();
 	});
+
+	it("delivers a sibling message (child -> sibling) through the nuclear-family reach", async () => {
+		const { server, client } = inMemoryPair();
+		void serveConnection(server, handleDaemonRequest);
+		const conn = new DaemonClient(client);
+
+		await conn.request("rlm.register_child", { entry: childEntry("rlm-a", "a") }, { role: "parent" }, FAMILY);
+		await conn.request("rlm.register_child", { entry: childEntry("rlm-b", "b") }, { role: "parent" }, FAMILY);
+
+		const sent = (await conn.request(
+			"agent_message.send",
+			{ message: "hi sibling", receiver_role: "sibling", receiver_name: "rlm-b" },
+			{ role: "child", childId: "rlm-a" },
+			FAMILY,
+		)) as { deliveryStatus: string };
+		expect(sent.deliveryStatus).toBe("delivered");
+
+		const got = (await conn.request("agent_message.recv", {}, { role: "child", childId: "rlm-b" }, FAMILY)) as {
+			messages: Array<{ message: string; from: string }>;
+		};
+		expect(got.messages).toHaveLength(1);
+		expect(got.messages[0]?.message).toBe("hi sibling");
+		expect(got.messages[0]?.from).toBe("child");
+
+		await conn.close();
+	});
+});
+
+describe("daemon session leases (attach/stop)", () => {
+	let tmp: string;
+	beforeEach(() => {
+		tmp = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-daemon-lease-"));
+		setupDaemonState({ agentDir: tmp });
+	});
+	afterEach(() => {
+		resetDaemonState();
+		resetRlmFamilies();
+		fs.rmSync(tmp, { recursive: true, force: true });
+	});
+
+	it("attaches a session (acquires a lease) and stop releases it for re-attach", async () => {
+		const { server, client } = inMemoryPair();
+		void serveConnection(server, handleDaemonRequest);
+		const conn = new DaemonClient(client);
+		const sessionDir = path.join(tmp, "sess-1");
+
+		const attached = (await conn.request(
+			"session.attach",
+			{ session_dir: sessionDir },
+			{ role: "parent" },
+			FAMILY,
+		)) as { attached: boolean; token: string };
+		expect(attached.attached).toBe(true);
+		expect(attached.token).toBeDefined();
+
+		const stopped = (await conn.request("session.stop", { session_dir: sessionDir }, { role: "parent" }, FAMILY)) as {
+			released: boolean;
+		};
+		expect(stopped.released).toBe(true);
+
+		// Re-attach succeeds once the lease is released.
+		const reattached = (await conn.request(
+			"session.attach",
+			{ session_dir: sessionDir },
+			{ role: "parent" },
+			FAMILY,
+		)) as { attached: boolean };
+		expect(reattached.attached).toBe(true);
+
+		await conn.close();
+	});
+
+	it("refuses a second attach by a different owner while the lease is held", async () => {
+		const { server, client } = inMemoryPair();
+		void serveConnection(server, handleDaemonRequest);
+		const conn = new DaemonClient(client);
+		const sessionDir = path.join(tmp, "sess-2");
+
+		const first = (await conn.request("session.attach", { session_dir: sessionDir }, { role: "parent" }, FAMILY)) as {
+			attached: boolean;
+		};
+		expect(first.attached).toBe(true);
+
+		expect(
+			conn.request(
+				"session.attach",
+				{ session_dir: sessionDir },
+				{ role: "child", childId: "rlm-intruder" },
+				FAMILY,
+			),
+		).rejects.toThrow(/already active/i);
+
+		await conn.close();
+	});
 });
 
 describe("daemon over a real Unix-domain socket", () => {
 	let tmp: string;
 	afterEach(() => {
+		resetDaemonState();
 		resetRlmFamilies();
-		if (tmp) {
-			try {
-				fs.rmSync(tmp, { recursive: true, force: true });
-			} catch {
-				/* ignore */
-			}
-		}
+		if (tmp) fs.rmSync(tmp, { recursive: true, force: true });
 	});
 
 	it("delivers a message across two real connections and cleans the socket on stop", async () => {
 		tmp = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-daemon-"));
+		setupDaemonState({ agentDir: tmp });
 		const sock = path.join(tmp, "daemon.sock");
 		const srv = await udsServer(sock, handleDaemonRequest);
 
@@ -157,23 +254,21 @@ describe("daemon over a real Unix-domain socket", () => {
 describe("daemon supervisor", () => {
 	let tmp: string;
 	let handles: Array<{ stop: () => Promise<void> }> = [];
+	beforeEach(() => {
+		tmp = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-sup-"));
+		setupDaemonState({ agentDir: tmp });
+	});
 	afterEach(async () => {
+		resetDaemonState();
 		resetRlmFamilies();
 		for (const h of handles) {
 			await h.stop().catch(() => {});
 		}
 		handles = [];
-		if (tmp) {
-			try {
-				fs.rmSync(tmp, { recursive: true, force: true });
-			} catch {
-				/* ignore */
-			}
-		}
+		fs.rmSync(tmp, { recursive: true, force: true });
 	});
 
 	it("boots an in-process daemon, connects a client, and tears it down cleanly", async () => {
-		tmp = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-sup-"));
 		const sock = path.join(tmp, "daemon.sock");
 		const handle = await ensureDaemonRunning({
 			socketPath: sock,

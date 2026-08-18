@@ -19,7 +19,9 @@ export type DaemonCommand =
 	| "rlm.list_subagents"
 	| "rlm.delete_subagent"
 	| "find_models"
-	| "session.list";
+	| "session.list"
+	| "session.attach"
+	| "session.stop";
 
 export interface DaemonFrom {
 	role: DaemonRole;

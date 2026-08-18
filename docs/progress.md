@@ -1,7 +1,7 @@
 # cxn — Project Progress
 
 **Last updated:** 2026-08-18
-**Current phase:** Phase 3 (daemon skeleton done — `modes/daemon/` transport + supervisor + handlers landed; ledger/leases/reach + `cxn agents` CLI next)
+**Current phase:** Phase 4 (`cxn agents` CLI — ledger/leases/reach landed in Phase 3; supervisor skeleton + child-kernel wiring in earlier phases)
 
 ---
 
@@ -52,7 +52,7 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 | Tests (bridge + prelude) | ✅ | `test/eval/py/rlm.test.ts`, `test/eval/py/prelude.test.ts` |
 | Docs | ✅ | `docs/rlm.md` |
 | Child kernels wired into family | ✅ | Child's own `agent_message.recv()` drains its mailbox (wired into parent family via `getAgentId()` → `eval/py/family-store.ts`) |
-| Siblings reach | ⏳ | Parent↔child only; sibling-to-sibling messaging is a follow-up |
+| Siblings reach | ✅ | Sibling-to-sibling reach implemented in Phase 3 via verbatim `assertAgentFamilyReach`. |
 | `find_models` catalog | ✅ | Ported to `__rlm__` (free-text / provider / capability query over the bundled catalog) |
 | Compaction-surviving persistence | ⏳ | In-memory only; survives process lifetime, not compaction |
 
@@ -130,11 +130,11 @@ CI-blocking.
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
 | Child kernels wired into family | **Done** | — | **DONE (in-process)** — extracted into `eval/py/family-store.ts`; a child's `agent_message.recv()` now drains its real mailbox. Resolution uses `getAgentId()` (== `rlm_child_id`) so no spawn-path injection is needed. The daemon is only needed for *cross-process* `cxn agents` + cross-session sibling reach (see `docs/daemon-lane.md` Phase 1). |
-| Sibling-to-sibling messaging | Medium | Low | Extend family reach beyond parent↔child |
+| Sibling-to-sibling messaging | **Done** | — | **DONE (Phase 3)** — `assertAgentFamilyReach` (ported verbatim from prime-agent) now permits child→sibling within a nuclear family, enforced on every `sendToFamily` (in-process + daemon). See `docs/daemon-lane.md` Phase 3. |
 | `find_models` catalog | **Done** | — | Ported to `__rlm__` (free-text / provider / capability over the bundled catalog); added contract tests. |
 | Compaction-surviving persistence | High | Medium | Family registry + mailboxes must survive compaction/restart |
 | Daemon supervisor skeleton | **Done** | — | `modes/daemon/` transport (UDS JSONL + in-memory) + `ensureDaemonRunning` supervisor + handlers (`agent_message`, `rlm`, `session`, `find_models`) over a shared `FamilyStore`. in-memory + real-UDS + supervisor tests. See `docs/daemon-lane.md` Phase 2. |
-| Daemon ledger/leases/reach (`cxn agents` CLI) | **Critical** | **High** | Port `RlmSpawnLedger`, `assertAgentFamilyReach` (verbatim), session leases; `cxn agents/attach/send/...` (Phase 3–4). |
+| Daemon ledger/leases/reach (`cxn agents` CLI) | **Mostly done** | — | **Phase 3 DONE** — `RlmSpawnLedger` (topology authority), `assertAgentFamilyReach` (verbatim reach boundary in `eval/py/family-reach.ts`), and `SessionLeaseRegistry` (on-disk `owner.json` + pid reaping) landed and wired into the daemon handlers. The `cxn agents` CLI itself is Phase 4. See `docs/daemon-lane.md` Phase 3. |
 | Auto-refine hookup | Medium | Low | Wire `reviewAutoRefine` into turn loop (after daemon lands) |
 
 ### Phase 3 — Python-backed skills
