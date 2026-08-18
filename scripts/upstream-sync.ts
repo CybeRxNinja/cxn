@@ -154,7 +154,15 @@ async function rebrandSyncedTree(): Promise<void> {
 			touched++;
 		}
 	}
-	if (touched > 0) {
+	// Upstream edits occasionally leave auto-fixable lint behind (e.g. an
+	// unused import after a refactor); the merged tree must pass the same
+	// `biome check` gate CI runs, so apply safe fixes to every changed file.
+	if (changed.length > 0) {
+		await $`bunx biome check --write ${changed}`.nothrow();
+	}
+	// Commit whatever the rebrand and the biome safe-fix pass produced.
+	const pending = (await $`git status --porcelain`.text()).trim();
+	if (pending.length > 0) {
 		await $`git add -A`;
 		await $`git commit -m "chore: rebrand synced upstream code (scope + product strings)"`;
 	}
