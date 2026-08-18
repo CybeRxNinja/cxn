@@ -16,6 +16,20 @@
   - `modes/daemon/session-lease.ts` — `SessionLeaseRegistry` + `SessionLease` with a dependency-free on-disk `owner.json` (temp-file + atomic rename), pid-liveness reaping, `openingSessions` dedup, and a `SessionAlreadyActiveError` when a second owner attaches a held session. The daemon's `session.attach` acquires a lease and `session.stop` releases it.
   - `daemon-family-store.ts` now owns module-level `ledger` + `leaseRegistry` singletons configured via `setupDaemonState({ agentDir })` / `resetDaemonState()`. New tests: `test/eval/py/family-reach.test.ts` (verbatim reach), `test/modes/daemon/rlm-ledger.test.ts` (topology/depth/JSON round-trip), `test/modes/daemon/session-lease.test.ts` (acquire/reclaim/conflict), plus daemon reach + lease integration. Affected suites stay green (40 tests across the daemon + rlm dirs).
 
+- Added the `cxn agents` daemon subcommands (`list` / `attach` / `send` / `stop`) in
+  `cli/agents-cli.ts`, wiring the existing `cxn agents unpack` command to the new
+  daemon-backed actions. `list` reads the family roster (`session.list`); `send <id>
+  <msg>` resolves the receiver role from the roster and dispatches
+  `agent_message.send` (enforcing the verbatim nuclear-family reach); `attach <id>` /
+  `stop <id>` acquire/release the agent's session lease via `SessionLeaseRegistry`.
+  The CLI connects through `ensureDaemonRunning` + `DaemonClient`, reusing the Phase 2
+  transport and Phase 3 ledger/lease handlers (no separate store shim). The roster now
+  threads `sessionDir` through `AgentFamilyCatalogEntry` / `AgentFamilyRosterEntry`,
+  `RlmSpawnLedger`, and `rlm.list_subagents` so attach/stop can resolve an agent id to
+  its lease path; `ensureDaemonRunning` only closes the client when it joins an
+  already-running daemon. Covered by `test/cli/agents-cli.test.ts` (list/send/attach+
+  stop through the CLI handlers against a live in-process daemon).
+
 ## [17.3.7] - 2026-08-17
 
 ### Changed

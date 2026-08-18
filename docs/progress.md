@@ -1,7 +1,7 @@
 # cxn — Project Progress
 
 **Last updated:** 2026-08-18
-**Current phase:** Phase 4 (`cxn agents` CLI — ledger/leases/reach landed in Phase 3; supervisor skeleton + child-kernel wiring in earlier phases)
+**Current phase:** Phase 5 (robustness — heartbeats/reconnect/crash isolation; `cxn agents` CLI, ledger/leases/reach, supervisor skeleton all landed)
 
 ---
 
@@ -134,7 +134,7 @@ CI-blocking.
 | `find_models` catalog | **Done** | — | Ported to `__rlm__` (free-text / provider / capability over the bundled catalog); added contract tests. |
 | Compaction-surviving persistence | High | Medium | Family registry + mailboxes must survive compaction/restart |
 | Daemon supervisor skeleton | **Done** | — | `modes/daemon/` transport (UDS JSONL + in-memory) + `ensureDaemonRunning` supervisor + handlers (`agent_message`, `rlm`, `session`, `find_models`) over a shared `FamilyStore`. in-memory + real-UDS + supervisor tests. See `docs/daemon-lane.md` Phase 2. |
-| Daemon ledger/leases/reach (`cxn agents` CLI) | **Mostly done** | — | **Phase 3 DONE** — `RlmSpawnLedger` (topology authority), `assertAgentFamilyReach` (verbatim reach boundary in `eval/py/family-reach.ts`), and `SessionLeaseRegistry` (on-disk `owner.json` + pid reaping) landed and wired into the daemon handlers. The `cxn agents` CLI itself is Phase 4. See `docs/daemon-lane.md` Phase 3. |
+| Daemon ledger/leases/reach (`cxn agents` CLI) | **Done** | — | **Phase 3 + Phase 4 DONE** — `RlmSpawnLedger` (topology authority), `assertAgentFamilyReach` (verbatim reach boundary in `eval/py/family-reach.ts`), and `SessionLeaseRegistry` (on-disk `owner.json` + pid reaping) landed and wired into the daemon handlers; `cxn agents list/attach/send/stop` CLI added in Phase 4 over the shared `FamilyStore`. See `docs/daemon-lane.md` Phases 3–4. |
 | Auto-refine hookup | Medium | Low | Wire `reviewAutoRefine` into turn loop (after daemon lands) |
 
 ### Phase 3 — Python-backed skills

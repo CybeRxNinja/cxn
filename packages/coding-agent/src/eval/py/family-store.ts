@@ -49,6 +49,8 @@ export interface AgentFamilyRosterEntry {
 	name: string;
 	role: AgentFamilyRelationship;
 	status: RlmChildStatus | "idle";
+	/** The agent's working directory, if known (used by the daemon CLI to resolve leases). */
+	sessionDir?: string;
 }
 
 export interface AgentMessage {
@@ -159,6 +161,7 @@ export function buildFamilyCatalog(familyId: string): AgentFamilyCatalogEntry[] 
 					? "inactive"
 					: "running") as AgentFamilyStatus,
 			parentSessionId: family.parentId,
+			sessionDir: child.session_dir,
 		});
 	}
 	return entries;
@@ -280,6 +283,7 @@ export function listAgentsInFamily(familyId: string): AgentFamilyRosterEntry[] {
 			name: child.session_name,
 			role: "child",
 			status: child.status,
+			sessionDir: child.session_dir,
 		});
 	}
 	return roster;

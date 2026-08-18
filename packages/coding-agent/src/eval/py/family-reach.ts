@@ -26,6 +26,8 @@ export interface AgentFamilyCatalogEntry {
 	parentSessionId?: string;
 	parentSessionPath?: string;
 	sessionPath?: string;
+	/** The agent's working directory, if known (used by the daemon CLI to resolve leases). */
+	sessionDir?: string;
 }
 
 export interface AgentFamilyRosterEntry {

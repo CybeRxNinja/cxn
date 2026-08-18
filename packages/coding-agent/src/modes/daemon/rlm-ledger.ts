@@ -23,6 +23,8 @@ export interface RlmSpawnEdge {
 	name: string;
 	sessionId: string | null;
 	status: RlmChildStatus;
+	/** The child's working directory, if known (used by the daemon CLI to resolve leases). */
+	sessionDir?: string;
 }
 
 function toFamilyStatus(status: RlmChildStatus): AgentFamilyStatus {
@@ -34,12 +36,19 @@ export class RlmSpawnLedger {
 	#edges = new Map<string, RlmSpawnEdge>();
 
 	/** Record (or update) a spawn edge. Re-recording the same child overwrites. */
-	recordSpawn(input: { parentId: string; childId: string; name: string; sessionId: string | null }): void {
+	recordSpawn(input: {
+		parentId: string;
+		childId: string;
+		name: string;
+		sessionId: string | null;
+		sessionDir?: string;
+	}): void {
 		this.#edges.set(input.childId, {
 			childId: input.childId,
 			parentId: input.parentId,
 			name: input.name,
 			sessionId: input.sessionId,
+			sessionDir: input.sessionDir,
 			status: "running",
 		});
 	}
@@ -87,6 +96,7 @@ export class RlmSpawnLedger {
 				depth: depthOf(edge.childId),
 				status: toFamilyStatus(edge.status),
 				parentSessionId: edge.parentId,
+				sessionDir: edge.sessionDir,
 			});
 		}
 		// Roots (parents that are not children of anyone) get explicit catalog rows.

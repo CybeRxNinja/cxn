@@ -94,7 +94,7 @@ export async function handleDaemonRequest(req: DaemonRequestEnvelope): Promise<D
 						active_session_id: null,
 						session_id: e.sessionId,
 						session_name: e.name,
-						session_dir: "",
+						session_dir: e.sessionDir ?? "",
 						status: e.status,
 					})),
 				};

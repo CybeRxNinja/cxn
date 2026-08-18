@@ -5,7 +5,7 @@
 > working, robust subsystem that powers `cxn agents` (list/attach/send/stop),
 > compaction-surviving session leases, and correct cross-session family reach.
 >
-> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in this PR). Phase 4+ are follow-ups. The in-process child-kernel wiring needs no daemon IPC.
+> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in PR #8; `cxn agents` CLI in this PR). Phase 5+ are follow-ups. The in-process child-kernel wiring needs no daemon IPC.
 
 ---
 
@@ -240,12 +240,26 @@ additive authority.
 - Risk: retired (medium → low). Reach ported verbatim; ledger/lease covered by
   new contract tests; no new process primitive.
 
-### Phase 4 — `cxn agents` CLI
-- Port prime-agent `cli/command-registry.ts` + `cli/daemon-command.ts`
-  `agents` subcommands: `cxn agents list`, `cxn agents attach <id>`,
-  `cxn agents send <id> <msg>`, `cxn agents stop <id>`.
-- Client uses `DaemonFamilyStore` (ACP/UDS) → `DaemonClient.request(...)`.
-- Risk: low/medium. Thin CLI over the Phase 2–3 handlers.
+### Phase 4 — `cxn agents` CLI (DONE — 2026-08-18)
+- `cxn agents list | attach | send | stop` now talk to the supervisor daemon over
+  its shared `FamilyStore` (no separate `DaemonFamilyStore` shim — the CLI connects
+  directly via `ensureDaemonRunning` + `DaemonClient.request(...)`, reusing the
+  Phase 2 transport and the Phase 3 ledger/lease handlers).
+  - `list` → `session.list` (roster with id/name/role/status/sessionDir).
+  - `send <id> <msg>` → resolves the receiver role from the roster, then
+    `agent_message.send` (enforces the verbatim nuclear-family reach).
+  - `attach <id>` / `stop <id>` → `session.attach` / `session.stop` against the
+    agent's `sessionDir` (leased via `SessionLeaseRegistry`).
+- The roster now carries `sessionDir` (threaded through `AgentFamilyCatalogEntry` /
+  `AgentFamilyRosterEntry`, `RlmSpawnLedger`, and `rlm.list_subagents`) so `attach`/
+  `stop` can resolve an agent id to its lease path. `ensureDaemonRunning` only closes
+  the client when it joins an already-running daemon (it no longer tears down a
+  daemon it didn't spawn).
+- Tests: `test/cli/agents-cli.test.ts` — boots the daemon in-process, registers two
+  children, then exercises `list` / `send` / `attach`+`stop` through the CLI handlers
+  and asserts the JSON output. `bun run check` clean; affected suites stay green
+  (187 tests across the touched dirs).
+- Risk: retired (low/medium). Thin CLI over the Phase 2–3 handlers; contract-tested.
 
 ### Phase 5 — Robustness
 - Heartbeats: port `heartbeat-catalog.ts` + cron heartbeats
@@ -300,7 +314,7 @@ reach, cleaned socket), never "the code ran."
 
 ## 6. Definition of done
 
-- [ ] `cxn agents list/attach/send/stop` work against a running daemon.
+- [x] `cxn agents list/attach/send/stop` work against a running daemon.
 - [ ] A child's `agent_message.recv()` drains its mailbox (in-process).
 - [x] Sibling/parent/child reach enforced identically in-process and via daemon.
 - [x] Session leases + `RlmSpawnLedger` make sessions attachable; topology is
@@ -314,8 +328,8 @@ reach, cleaned socket), never "the code ran."
 
 ## 7. Suggested first PR (this session's next step)
 
-**Phase 0–3 DONE** (Phase 0+1 merged in PR #6; Phase 2 daemon skeleton
-merged in PR #7; Phase 3 ledger/leases/reach in this PR). The in-process
-child-kernel wiring is implemented and reach/ledger/leases are ported verbatim
-where security-sensitive. Next step is **Phase 4** (`cxn agents` CLI) as a
-follow-up PR, then Phase 5 (robustness), Phase 6 (persistence).
+**Phase 0–4 DONE** (Phase 0+1 merged in PR #6; Phase 2 daemon skeleton merged in
+PR #7; Phase 3 ledger/leases/reach merged in PR #8; `cxn agents` CLI in this PR).
+Child-kernel wiring is implemented and reach/ledger/leases/CLI are landed. Next
+step is **Phase 5** (robustness: heartbeats/reconnect/crash isolation) as a
+follow-up PR, then Phase 6 (compaction-surviving persistence).

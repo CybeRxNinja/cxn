@@ -7,7 +7,7 @@ import { type AgentsAction, type AgentsCommandArgs, runAgentsCommand } from "../
 import { agentsHelp as commandHelp } from "../cli/command-help";
 import { initTheme } from "../modes/theme/theme";
 
-const ACTIONS: AgentsAction[] = ["unpack"];
+const ACTIONS: AgentsAction[] = ["unpack", "list", "attach", "send", "stop"];
 
 export default class Agents extends Command {
 	static description = commandHelp.description;
@@ -17,6 +17,8 @@ export default class Agents extends Command {
 			required: false,
 			options: ACTIONS,
 		}),
+		id: Args.string({ description: "Target agent id (attach/send/stop)", required: false }),
+		message: Args.string({ description: "Message text (send)", required: false }),
 	};
 
 	static flags = {
@@ -25,6 +27,7 @@ export default class Agents extends Command {
 		dir: Flags.string({ description: "Output directory (overrides --user/--project)" }),
 		user: Flags.boolean({ description: "Write to ~/.cxn/agent/agents (default)" }),
 		project: Flags.boolean({ description: "Write to ./.cxn/agents" }),
+		family: Flags.string({ description: "Daemon family id (default cxn-agents)" }),
 	};
 
 	static examples = [
@@ -32,6 +35,9 @@ export default class Agents extends Command {
 		"# Export bundled agents into project config\n  cxn agents unpack --project",
 		"# Overwrite existing local agent files\n  cxn agents unpack --project --force",
 		"# Export into a custom directory\n  cxn agents unpack --dir ./tmp/agents --json",
+		"# List running agents via the daemon\n  cxn agents list",
+		"# Send a message to an agent\n  cxn agents send <id> 'status?'",
+		"# Attach to / stop an agent's session (lease)\n  cxn agents attach <id> / cxn agents stop <id>",
 	];
 
 	async run(): Promise<void> {
@@ -43,12 +49,15 @@ export default class Agents extends Command {
 
 		const cmd: AgentsCommandArgs = {
 			action: args.action as AgentsAction,
+			id: args.id,
+			message: args.message,
 			flags: {
 				force: flags.force,
 				json: flags.json,
 				dir: flags.dir,
 				user: flags.user,
 				project: flags.project,
+				family: flags.family,
 			},
 		};
 
