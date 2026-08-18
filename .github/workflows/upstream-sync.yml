@@ -38,6 +38,10 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: "1.3"
+      # The sync script's rebrand pass runs biome and the workspace type check
+      # to gate auto-merge, so workspace deps must be installed.
+      - name: Install workspace deps
+        run: bun install --frozen-lockfile
       - name: Sync from oh-my-pi
         env:
           # Fine-grained PAT (contents:write + pull-requests:write on this repo

@@ -207,6 +207,13 @@ const guard = await $`bun scripts/check-branding.ts`.nothrow();
 const brandingClean = guard.exitCode === 0;
 if (!brandingClean) console.error("Branding guard found violations in the sync (see output above).");
 
+// Type check: `-X ours` keeps our import blocks, so upstream features that
+// add new references can arrive with dangling names. Run the same check CI
+// gates on; failures label the PR for manual repair instead of auto-merging.
+const typecheck = await $`bun run check:ts`.nothrow();
+const typesClean = typecheck.exitCode === 0;
+if (!typesClean) console.error("Type check failed on the synced tree (see output above); fix before merging.");
+
 // Push + PR. The sync branch is ephemeral (reset from main each run), so a
 // re-run force-updates the remote branch with lease safety; a concurrent
 // modification of the branch rejects the push loudly instead of silently
@@ -224,42 +231,54 @@ const body = [
 	`- **Sync branch:** \`${branch}\``,
 	usedOurs ? "- **Conflict policy:** `-X ours` applied (kept cxn lines in conflicting hunks) — review the diff." : "",
 	brandingClean ? "- **Branding guard:** clean" : "- **Branding guard: VIOLATIONS FOUND** — fix before merging.",
+	typesClean ? "- **Type check:** clean" : "- **Type check: FAILED** — fix before merging.",
 	"",
-	"Merge is enabled (auto-merge) only when CI passes and branding is clean.",
+	"Merge is enabled (auto-merge) only when CI passes, branding is clean, and the type check is clean.",
 ]
 	.filter(Boolean)
 	.join("\n");
 
-// `gh pr create --label` fails when a label does not exist; ensure both sync
+// `gh pr create --label` fails when a label does not exist; ensure the sync
 // labels exist (no-op if they do, graceful no-op if the token cannot create
 // labels — the PR is still created, just unlabeled).
 await $`gh label create sync --force --color 5319e7 --description "Automated upstream sync"`.quiet().nothrow();
 await $`gh label create sync-branding-violations --force --color b60205 --description "Sync introduced un-rebranded upstream code; review before merge"`
 	.quiet()
 	.nothrow();
+await $`gh label create sync-failed --force --color b60205 --description "Sync failed a gate (type check, branding, lint); fix before merge"`
+	.quiet()
+	.nothrow();
 
 const existing = (await $`gh pr list --head ${branch} --state open --json number`.quiet().nothrow().text()).trim();
-const labels = brandingClean ? ["sync"] : ["sync", "sync-branding-violations"];
+const labels =
+	brandingClean && typesClean
+		? ["sync"]
+		: ["sync", ...(brandingClean ? [] : ["sync-branding-violations"]), ...(typesClean ? [] : ["sync-failed"])];
 // `gh pr edit` queries the author via GraphQL, which classic PATs without
 // `read:org` cannot run; update through the REST API instead so syncs work
 // with limited tokens (GITHUB_TOKEN, fine-grained PATs, classic PATs).
-const repoSlug = (await $`git config --get remote.origin.url`.text()).trim().replace(/\.git$/, "").replace(/^.*github\.com[\/:]/, "");
+const repoSlug = (await $`git config --get remote.origin.url`.text())
+	.trim()
+	.replace(/\.git$/, "")
+	.replace(/^.*github\.com[/:]/, "");
 
 if (existing && existing !== "[]") {
 	const num = (JSON.parse(existing) as Array<{ number: number }>)[0].number;
 	await $`gh api -X PATCH repos/${repoSlug}/pulls/${num} -f title=${prTitle} -f body=${body}`.nothrow();
 	await $`gh api -X POST repos/${repoSlug}/issues/${num}/labels -f "labels[]=${labels.join(",")}"`.nothrow();
-	if (brandingClean && AUTO_MERGE) await $`gh pr merge ${num} --auto --squash`.nothrow();
+	if (brandingClean && typesClean && AUTO_MERGE) await $`gh pr merge ${num} --auto --squash`.nothrow();
 	console.log(`Updated PR #${num}`);
 } else {
 	const create =
 		await $`gh pr create --title ${prTitle} --body ${body} --label ${labels.join(",")} --base main --head ${branch}`.nothrow();
 	if (create.exitCode !== 0) fail(`could not create PR: ${create.stderr.toString()}`);
-	if (brandingClean && AUTO_MERGE) {
+	if (brandingClean && typesClean && AUTO_MERGE) {
 		const numMatch = create.stdout.toString().match(/#(\d+)/);
 		if (numMatch) await $`gh pr merge ${numMatch[1]} --auto --squash`.nothrow();
 	}
 	console.log(`Opened PR for sync @ ${shortSha}`);
 }
 
-console.log(`Sync complete (${shortSha}, usedOurs=${usedOurs}, brandingClean=${brandingClean}).`);
+console.log(
+	`Sync complete (${shortSha}, usedOurs=${usedOurs}, brandingClean=${brandingClean}, typesClean=${typesClean}).`,
+);
