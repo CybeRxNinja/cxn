@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added `find_models` to the RLM bridge (`__rlm__`): query the bundled model catalog by free-text `query`, exact `provider`, or `capability` (`reasoning` / `vision` / `tools` / `text`). Results are sorted by provider then id and capped at `MAX_RLM_MODEL_SEARCH_LIMIT`.
+
 ## [17.3.7] - 2026-08-17
 
 ### Changed

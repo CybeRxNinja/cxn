@@ -3,6 +3,7 @@ import {
 	AGENT_FAMILY_REACH_ERROR,
 	AGENT_MESSAGE_MAX_CHARS,
 	AGENT_MESSAGE_MAX_PENDING_PER_SESSION,
+	MAX_RLM_MODEL_SEARCH_LIMIT,
 	type RlmSpawnOutcome,
 	resetRlmFamilies,
 	runAgentMessageBridge,
@@ -27,6 +28,21 @@ function createSession(overrides: Partial<ToolSession> = {}): ToolSession {
 		getActiveModelString: () => "provider/model",
 		...overrides,
 	} as unknown as ToolSession;
+}
+
+interface FindModelsRow {
+	id: string;
+	name: string;
+	provider: string;
+	api: string;
+	reasoning: boolean;
+	inputModes: string[];
+}
+
+async function findModels(payload: Record<string, unknown>): Promise<{ models: FindModelsRow[] }> {
+	return (await runRlmBridge(createSession(), { op: "find_models", ...payload })) as {
+		models: FindModelsRow[];
+	};
 }
 
 describe("__rlm__ bridge", () => {
@@ -262,5 +278,50 @@ describe("__agent_message__ bridge", () => {
 				receiver_role: "parent",
 			}),
 		).rejects.toThrow(/already pending/);
+	});
+});
+
+describe("__rlm__ find_models op", () => {
+	it("returns bundled catalog models matching a free-text query", async () => {
+		const { models } = await findModels({ query: "gpt" });
+		expect(models.length).toBeGreaterThan(0);
+		for (const m of models) {
+			const haystack = `${m.id} ${m.name} ${m.provider} ${m.api}`.toLowerCase();
+			expect(haystack).toContain("gpt");
+		}
+	});
+
+	it("returns an empty list when no model matches the query", async () => {
+		const { models } = await findModels({ query: "zzz-no-such-model-xyz" });
+		expect(models).toEqual([]);
+	});
+
+	it("filters by exact provider", async () => {
+		const { models } = await findModels({ provider: "openai" });
+		expect(models.length).toBeGreaterThan(0);
+		for (const m of models) {
+			expect(m.provider.toLowerCase()).toBe("openai");
+		}
+	});
+
+	it("filters by capability=reasoning to reasoning models only", async () => {
+		const { models } = await findModels({ capability: "reasoning" });
+		expect(models.length).toBeGreaterThan(0);
+		for (const m of models) {
+			expect(m.reasoning).toBe(true);
+		}
+	});
+
+	it("filters by capability=vision to image-capable models only", async () => {
+		const { models } = await findModels({ capability: "vision" });
+		expect(models.length).toBeGreaterThan(0);
+		for (const m of models) {
+			expect(m.inputModes).toContain("image");
+		}
+	});
+
+	it("caps results at MAX_RLM_MODEL_SEARCH_LIMIT", async () => {
+		const { models } = await findModels({});
+		expect(models.length).toBeLessThanOrEqual(MAX_RLM_MODEL_SEARCH_LIMIT);
 	});
 });
