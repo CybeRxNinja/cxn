@@ -11,7 +11,7 @@
 
 import { $ } from "bun";
 
-const REPO = process.env.CXN_REPO ?? "can1357/oh-my-pi";
+const REPO = process.env.CXN_REPO ?? "CybeRxNinja/cxn";
 const HOMEPAGE = "https://cxn.sh";
 const DESC = "Coding agent with the IDE wired in";
 
