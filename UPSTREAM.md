@@ -6,7 +6,7 @@ the sync workflow updates it automatically.
 
 ## Lane A — oh-my-pi (base)
 
-- **Sync point:** `d187249` (2026-08-17) — initial import, Phase 0 bootstrap.
+- **Sync point:** `644ad30` (2026-08-18) — lane A (oh-my-pi)
 
 The base tree is a fork of [can1357/oh-my-pi](https://github.com/can1357/oh-my-pi)
 (MIT, © Mario Zechner, © Can Bölük), itself a fork of
