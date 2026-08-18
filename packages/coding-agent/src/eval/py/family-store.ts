@@ -13,8 +13,8 @@
  * that id to the parent family key so a child's `agent_message.recv()`
  * resolves to the *parent's* family instead of a fresh empty one.
  *
- * Family reach is enforced by `assertAgentFamilyReach` (ported verbatim from
- * prime-agent in `./family-reach.ts`) — the nuclear-family security boundary.
+ * Family reach is enforced by `assertAgentFamilyReach` (ported verbatim in
+ * `./family-reach.ts`) — the nuclear-family security boundary.
  */
 
 import type { ToolSession } from "../../tools";

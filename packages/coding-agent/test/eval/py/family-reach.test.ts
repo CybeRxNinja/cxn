@@ -27,7 +27,7 @@ const childB: AgentFamilyCatalogEntry = {
 	parentSessionId: "main",
 };
 
-describe("assertAgentFamilyReach (ported verbatim from prime-agent)", () => {
+describe("assertAgentFamilyReach (ported verbatim from the upstream agent runtime)", () => {
 	it("allows parent -> child", () => {
 		expect(assertAgentFamilyReach(parent, childA)).toBe("child");
 	});

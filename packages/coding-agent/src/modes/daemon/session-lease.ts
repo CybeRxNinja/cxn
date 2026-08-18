@@ -6,7 +6,7 @@
  * The in-memory `openingSessions` set de-dupes concurrent opens and
  * `client_owned_sessions` tracks which sessions a client currently owns.
  *
- * This is a proportionate port of prime-agent's `session-lease.ts`: the same
+ * This is a proportionate port of the upstream `session-lease.ts`: the same
  * on-disk `owner.json` + pid-liveness + no-clobber semantics, without the
  * `proper-lockfile` dependency or Windows-specific process-start-id RPC (those
  * are defense-in-depth for a cross-platform shipped product; cxn's daemon runs

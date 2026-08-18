@@ -7,7 +7,7 @@
  * the Phase 3 authority; Phase 6 adds the durable on-disk JSONL (seeded from
  * `toJSON()`/`loadJSON()` below) so it survives compaction/restart.
  *
- * Design note: prime-agent's `RlmSpawnLedger` is a durable append-only file
+ * Design note: the upstream `RlmSpawnLedger` is a durable append-only file
  * with multi-writer atomicity and torn-line repair. That durability belongs to
  * Phase 6; here we keep the same *data model* and the same last-writer-wins
  * per-child semantics, in memory, so reach/roster logic is identical and the

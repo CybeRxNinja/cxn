@@ -1,5 +1,5 @@
 /**
- * Nuclear-family reach policy — ported verbatim from prime-agent
+ * Nuclear-family reach policy — ported verbatim from the upstream agent runtime's
  * `core/agent-messages.ts` (`assertAgentFamilyReach` and its helpers).
  *
  * This is the RLM agent-message SECURITY BOUNDARY: reach is limited to a
@@ -8,8 +8,8 @@
  * "simplified" — any change to this logic is a change to who can message whom.
  *
  * The only adaptation from upstream is dropping the unrelated imports
- * (`AgentMessage` from `@earendil-works/pi-agent-core`, name-reservation
- * helpers) that the reach functions do not depend on.
+ * (the agent-message core type and name-reservation helpers) that the
+ * reach functions do not depend on.
  */
 
 export type AgentFamilyStatus = "running" | "idle" | "inactive";
