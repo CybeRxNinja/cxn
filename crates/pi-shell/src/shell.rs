@@ -2716,14 +2716,17 @@ mod tests {
 		let (mut session, params) = kill_test_context().await;
 		let source_info = SourceInfo::from("pi-natives:test");
 
+		// Generous budgets: the stopped-process handoff is timing-sensitive on
+		// loaded CI runners (this test flaked twice in one run when a shared
+		// runner stalled for >5s; the handoff itself takes <100ms locally).
 		time::timeout(
-			Duration::from_secs(5),
+			Duration::from_secs(30),
 			session.shell.run_string(command, &source_info, &params),
 		)
 		.await
 		.expect("pipeline did not stop")
 		.expect("stopped pipeline");
-		time::timeout(Duration::from_secs(5), async {
+		time::timeout(Duration::from_secs(30), async {
 			while !first_ready.exists() || !second_ready.exists() {
 				time::sleep(Duration::from_millis(10)).await;
 			}

@@ -30,7 +30,10 @@ export type { KernelDisplayOutput };
 const TRACE_IPC = $flag("PI_JULIA_IPC_TRACE");
 
 const SHUTDOWN_GRACE_MS = 1_000;
-const STARTUP_TIMEOUT_MS = 15_000; // Julia compile/warmup can be slightly slower
+// Julia compile/warmup is slower on cold CI runners: the first boot compiles
+// the runner script + prelude and can exceed 15s under CPU steal (observed:
+// julia-prelude.test.ts flaked on a hosted runner with a cancelled kernel).
+const STARTUP_TIMEOUT_MS = 60_000;
 const INTERRUPT_ESCALATION_MS = 5_000;
 
 export interface KernelExecuteOptions {
