@@ -1,7 +1,7 @@
 # cxn — Project Progress
 
 **Last updated:** 2026-08-18
-**Current phase:** Phase 2 (RLM + /refine landed; daemon lane next)
+**Current phase:** Phase 2 (RLM follow-ups landed — `find_models` + child-kernel wiring done; daemon lane next)
 
 ---
 
@@ -51,9 +51,9 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 | Python prelude helpers | ✅ | `rlm.*` / `agent_message.*` in `eval/py/prelude.py` |
 | Tests (bridge + prelude) | ✅ | `test/eval/py/rlm.test.ts`, `test/eval/py/prelude.test.ts` |
 | Docs | ✅ | `docs/rlm.md` |
-| Child kernels wired into family | ⏳ | Child's own `agent_message.recv()` cannot drain its mailbox yet |
+| Child kernels wired into family | ✅ | Child's own `agent_message.recv()` drains its mailbox (wired into parent family via `getAgentId()` → `eval/py/family-store.ts`) |
 | Siblings reach | ⏳ | Parent↔child only; sibling-to-sibling messaging is a follow-up |
-| `find_models` catalog | ⏳ | Not yet ported |
+| `find_models` catalog | ✅ | Ported to `__rlm__` (free-text / provider / capability query over the bundled catalog) |
 | Compaction-surviving persistence | ⏳ | In-memory only; survives process lifetime, not compaction |
 
 #### /refine continual harness ✅
@@ -129,9 +129,9 @@ CI-blocking.
 
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
-| Child kernels wired into family | High | Medium | **Blocked on the daemon/agent-connection IPC layer** — children run as subprocesses with their own in-memory family state, so a child's `agent_message.recv()` cannot see the parent process's mailboxes. Land the daemon lane first, then route child recv through the parent. |
+| Child kernels wired into family | **Done** | — | **DONE (in-process)** — extracted into `eval/py/family-store.ts`; a child's `agent_message.recv()` now drains its real mailbox. Resolution uses `getAgentId()` (== `rlm_child_id`) so no spawn-path injection is needed. The daemon is only needed for *cross-process* `cxn agents` + cross-session sibling reach (see `docs/daemon-lane.md` Phase 1). |
 | Sibling-to-sibling messaging | Medium | Low | Extend family reach beyond parent↔child |
-| `find_models` catalog | Low | Low | Port from prime-agent's model discovery |
+| `find_models` catalog | **Done** | — | Ported to `__rlm__` (free-text / provider / capability over the bundled catalog); added contract tests. |
 | Compaction-surviving persistence | High | Medium | Family registry + mailboxes must survive compaction/restart |
 | Daemon/attach lane | **Critical** | **High** | Port `modes/daemon/` + `agent-connection/` + session leases; `cxn agents/attach/send/...` |
 | Auto-refine hookup | Medium | Low | Wire `reviewAutoRefine` into turn loop (after daemon lands) |
