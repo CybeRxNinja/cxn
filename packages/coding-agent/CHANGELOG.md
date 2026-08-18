@@ -10,6 +10,12 @@
 
 - Added a supervisor daemon skeleton in `modes/daemon/` (`daemon-protocol`, `daemon-transport`, `daemon-family-store`, `daemon-supervisor`, `daemon-socket`): a self-contained JSONL protocol over a `node:net` Unix-domain socket (with an in-memory duplex for tests) that exposes the shared `FamilyStore` to out-of-process clients. `ensureDaemonRunning` lazily boots a per-user daemon and returns a connected client; `handleDaemonRequest` routes `agent_message send/recv/list`, `rlm register_child/list_subagents/delete`, `session list/attach/send/stop`, and `find_models`. Covered by `test/modes/daemon/daemon.test.ts` (in-memory protocol/store, real-UDS cross-connection delivery + socket cleanup, and supervisor boot/teardown).
 
+- Added the Phase 3 daemon authority primitives (ledger + leases + nuclear-family reach):
+  - `eval/py/family-reach.ts` — `assertAgentFamilyReach` ported **verbatim** from prime-agent `core/agent-messages.ts` (nuclear family = parent/sibling/child by depth + shared parent). It is enforced on every `sendToFamily` (in-process and daemon), so reach is identical across both paths. The `AGENT_FAMILY_REACH_ERROR` message is preserved as the security boundary.
+  - `modes/daemon/rlm-ledger.ts` — `RlmSpawnLedger`, the topology authority: `recordSpawn(parentId, childId, name, sessionId)` builds spawn edges; `childrenOf` / `parentOf` / `getCatalog` derive depth from the parent chain; `setStatus` / `remove`; `toJSON` / `loadJSON` for Phase 6 durability. The daemon's `register_child` / `list_subagents` / `delete_subagent` read and write it.
+  - `modes/daemon/session-lease.ts` — `SessionLeaseRegistry` + `SessionLease` with a dependency-free on-disk `owner.json` (temp-file + atomic rename), pid-liveness reaping, `openingSessions` dedup, and a `SessionAlreadyActiveError` when a second owner attaches a held session. The daemon's `session.attach` acquires a lease and `session.stop` releases it.
+  - `daemon-family-store.ts` now owns module-level `ledger` + `leaseRegistry` singletons configured via `setupDaemonState({ agentDir })` / `resetDaemonState()`. New tests: `test/eval/py/family-reach.test.ts` (verbatim reach), `test/modes/daemon/rlm-ledger.test.ts` (topology/depth/JSON round-trip), `test/modes/daemon/session-lease.test.ts` (acquire/reclaim/conflict), plus daemon reach + lease integration. Affected suites stay green (40 tests across the daemon + rlm dirs).
+
 ## [17.3.7] - 2026-08-17
 
 ### Changed

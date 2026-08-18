@@ -10,23 +10,33 @@
  * `runSubprocess` in `task/executor.ts` — no OS subprocess), so they share
  * this map with the parent. A child is identified by its `getAgentId()`, which
  * the structured-subagent executor sets to the reserved `rlm_child_id`. We map
- * that id to the parent's family key so a child's `agent_message.recv()`
+ * that id to the parent family key so a child's `agent_message.recv()`
  * resolves to the *parent's* family instead of a fresh empty one.
+ *
+ * Family reach is enforced by `assertAgentFamilyReach` (ported verbatim from
+ * prime-agent in `./family-reach.ts`) — the nuclear-family security boundary.
  */
 
 import type { ToolSession } from "../../tools";
+import {
+	AGENT_FAMILY_REACH_ERROR,
+	type AgentFamilyCatalogEntry,
+	type AgentFamilyRelationship,
+	type AgentFamilyStatus,
+	assertAgentFamilyReach,
+} from "./family-reach";
+
+export { AGENT_FAMILY_REACH_ERROR } from "./family-reach";
 
 export const AGENT_MESSAGE_MAX_CHARS = 16_384;
 export const AGENT_MESSAGE_MAX_PENDING_PER_SESSION = 20;
 export const AGENT_MESSAGE_RATE_LIMIT_CAPACITY = 3;
 export const AGENT_MESSAGE_RATE_LIMIT_REFILL_MS = 1000;
-export const AGENT_FAMILY_REACH_ERROR = "Agent reach is limited to parent, siblings, and children";
 
 export type RlmChildStatus = "running" | "completed" | "error";
 
 export type AgentMessageDeliveryMode = "auto" | "steer" | "follow_up";
 export type AgentMessageDeliveryStatus = "delivered" | "queued";
-export type AgentFamilyRelationship = "parent" | "sibling" | "child";
 
 export interface AgentMessageReceipt {
 	deliveryStatus: AgentMessageDeliveryStatus;
@@ -122,10 +132,65 @@ export function deleteSubagentInFamily(
 	return { subagent: entry, outcome: "deleted" };
 }
 
-/** Deliver a message within a family. `from` is the sender's family relationship. */
+/**
+ * Build the per-family catalog used by the nuclear-family reach boundary. The
+ * parent is depth 0; each registered child is depth 1 under it. Cross-family
+ * (different `familyId`) agents are simply absent, so the boundary rejects them.
+ */
+export function buildFamilyCatalog(familyId: string): AgentFamilyCatalogEntry[] {
+	const family = familyStateFor(familyId);
+	const entries: AgentFamilyCatalogEntry[] = [
+		{
+			id: family.parentId,
+			name: "parent",
+			depth: 0,
+			status: "running" as AgentFamilyStatus,
+			parentSessionId: undefined,
+		},
+	];
+	for (const child of family.children.values()) {
+		entries.push({
+			id: child.rlm_child_id,
+			name: child.session_name,
+			depth: 1,
+			status: (child.status === "completed"
+				? "idle"
+				: child.status === "error"
+					? "inactive"
+					: "running") as AgentFamilyStatus,
+			parentSessionId: family.parentId,
+		});
+	}
+	return entries;
+}
+
+/** The sender descriptor for a delivery: the issuing session's role + (for children) its id. */
+export interface FamilyMessageSender {
+	role: AgentFamilyRelationship;
+	childId?: string;
+}
+
+/** Resolve the sender catalog entry, or throw if the sender is not in the family. */
+function resolveSender(catalog: AgentFamilyCatalogEntry[], sender: FamilyMessageSender): AgentFamilyCatalogEntry {
+	if (sender.role === "parent") {
+		const parent = catalog.find(e => e.depth === 0);
+		if (!parent) throw new Error("agent_message.send: family has no parent");
+		return parent;
+	}
+	if (sender.role === "child") {
+		if (!sender.childId) throw new Error("agent_message.send: child sender requires childId");
+		const child = catalog.find(e => e.id === sender.childId);
+		if (!child) throw new Error(`agent_message.send: unknown sender child ${sender.childId}`);
+		return child;
+	}
+	// "sibling" is not a valid sender identity — only parent/child issue messages.
+	throw new Error(AGENT_FAMILY_REACH_ERROR);
+}
+
+/** Deliver a message within a family. `sender` is the issuing session; reach is enforced. */
 export function sendToFamily(
 	familyId: string,
-	from: AgentFamilyRelationship,
+	sender: FamilyMessageSender,
 	payload: Record<string, unknown>,
 ): AgentMessageReceipt {
 	const message = typeof payload.message === "string" ? payload.message : "";
@@ -140,22 +205,34 @@ export function sendToFamily(
 	const mode: AgentMessageDeliveryMode =
 		payload.mode === "steer" || payload.mode === "follow_up" ? payload.mode : "auto";
 
-	const family = familyStateFor(familyId);
+	const catalog = buildFamilyCatalog(familyId);
+	const senderEntry = resolveSender(catalog, sender);
 
-	let targetKey: string | undefined;
+	let targetEntry: AgentFamilyCatalogEntry | undefined;
 	if (receiverRole === "parent") {
-		targetKey = "parent";
-	} else if (receiverRole === "child") {
-		if (!receiverName) throw new Error("agent_message.send receiver_name is required for receiver_role=child");
-		const child = [...family.children.values()].find(
-			c => c.session_name === receiverName || c.rlm_child_id === receiverName,
-		);
-		if (!child) throw new Error(`agent_message.send: unknown child ${receiverName}`);
-		targetKey = child.rlm_child_id;
+		targetEntry = catalog.find(e => e.depth === 0);
 	} else {
-		throw new Error(AGENT_FAMILY_REACH_ERROR);
+		if (!receiverName) {
+			throw new Error(`agent_message.send receiver_name is required for receiver_role=${receiverRole}`);
+		}
+		targetEntry = catalog.find(e => e.id === receiverName || e.name === receiverName);
+		if (!targetEntry) {
+			// A sibling target that is not in this family is simply unreachable.
+			if (receiverRole === "child") throw new Error(`agent_message.send: unknown child ${receiverName}`);
+			throw new Error(AGENT_FAMILY_REACH_ERROR);
+		}
+	}
+	if (!targetEntry) throw new Error(AGENT_FAMILY_REACH_ERROR);
+
+	// Self-delivery to one's own mailbox is allowed (cxn's in-process self-inbox
+	// convention — e.g. a parent queuing a message for its own recv). Cross-agent
+	// reach is enforced by the verbatim nuclear-family boundary below.
+	if (senderEntry.id !== targetEntry.id) {
+		assertAgentFamilyReach(senderEntry, targetEntry);
 	}
 
+	const targetKey = targetEntry.depth === 0 ? "parent" : targetEntry.id;
+	const family = familyStateFor(familyId);
 	let mailbox = family.mailboxes.get(targetKey);
 	if (!mailbox) {
 		mailbox = [];
@@ -168,7 +245,7 @@ export function sendToFamily(
 	}
 	const msg: AgentMessage = {
 		id: `msg-${crypto.randomUUID()}`,
-		from,
+		from: sender.role,
 		message,
 		mode,
 		at: new Date().toISOString(),
@@ -247,7 +324,12 @@ export function agentMessageListAgents(session: ToolSession): { agents: AgentFam
 }
 
 export function agentMessageSend(session: ToolSession, payload: Record<string, unknown>): AgentMessageReceipt {
-	return sendToFamily(familyKeyForSession(session), callerRole(session), payload);
+	const child = rlmChildContext(session);
+	return sendToFamily(
+		familyKeyForSession(session),
+		{ role: child ? "child" : "parent", childId: child?.rlmChildId },
+		payload,
+	);
 }
 
 export function agentMessageRecv(session: ToolSession, payload: Record<string, unknown>): { messages: AgentMessage[] } {
