@@ -204,9 +204,12 @@ const guard = await $`bun scripts/check-branding.ts`.nothrow();
 const brandingClean = guard.exitCode === 0;
 if (!brandingClean) console.error("Branding guard found violations in the sync (see output above).");
 
-// Push + PR.
+// Push + PR. The sync branch is ephemeral (reset from main each run), so a
+// re-run force-updates the remote branch with lease safety; a concurrent
+// modification of the branch rejects the push loudly instead of silently
+// pushing a PR whose head never moved.
 if (!process.env.GH_TOKEN) fail("GH_TOKEN is required to push and open the PR");
-await $`git push -u origin ${branch}`.nothrow();
+await $`git push --force-with-lease -u origin ${branch}`;
 
 const prTitle = usedOurs
 	? `chore: sync upstream omp @ ${shortSha} (conflicts resolved with -X ours)`
@@ -234,11 +237,15 @@ await $`gh label create sync-branding-violations --force --color b60205 --descri
 
 const existing = (await $`gh pr list --head ${branch} --state open --json number`.quiet().nothrow().text()).trim();
 const labels = brandingClean ? ["sync"] : ["sync", "sync-branding-violations"];
+// `gh pr edit` queries the author via GraphQL, which classic PATs without
+// `read:org` cannot run; update through the REST API instead so syncs work
+// with limited tokens (GITHUB_TOKEN, fine-grained PATs, classic PATs).
+const repoSlug = (await $`git config --get remote.origin.url`.text()).trim().replace(/\.git$/, "").replace(/^.*github\.com[\/:]/, "");
 
 if (existing && existing !== "[]") {
 	const num = (JSON.parse(existing) as Array<{ number: number }>)[0].number;
-	await $`gh pr edit ${num} --title ${prTitle} --body ${body}`;
-	await $`gh pr edit ${num} --add-label ${labels.join(",")}`;
+	await $`gh api -X PATCH repos/${repoSlug}/pulls/${num} -f title=${prTitle} -f body=${body}`.nothrow();
+	await $`gh api -X POST repos/${repoSlug}/issues/${num}/labels -f "labels[]=${labels.join(",")}"`.nothrow();
 	if (brandingClean && AUTO_MERGE) await $`gh pr merge ${num} --auto --squash`.nothrow();
 	console.log(`Updated PR #${num}`);
 } else {
