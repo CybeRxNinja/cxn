@@ -156,9 +156,18 @@ async function rebrandSyncedTree(): Promise<void> {
 	}
 	// Upstream edits occasionally leave auto-fixable lint behind (e.g. an
 	// unused import after a refactor); the merged tree must pass the same
-	// `biome check` gate CI runs, so apply safe fixes to every changed file.
+	// `biome check` gate CI runs, so apply safe fixes to every changed file
+	// plus the targeted unused-import fix (biome marks it unsafe), then
+	// verify the changed files are clean before committing.
 	if (changed.length > 0) {
 		await $`bunx biome check --write ${changed}`.nothrow();
+		await $`bunx biome lint --write --unsafe --only=lint/correctness/noUnusedImports ${changed}`.nothrow();
+		const verify = await $`bunx biome check ${changed}`.nothrow();
+		if (verify.exitCode !== 0) {
+			console.error(
+				"biome check found non-fixable issues in synced files (see output above); the sync PR will fail CI — fix before merging.",
+			);
+		}
 	}
 	// Commit whatever the rebrand and the biome safe-fix pass produced.
 	const pending = (await $`git status --porcelain`.text()).trim();
