@@ -59,7 +59,15 @@ export async function ensureDaemonRunning(opts: EnsureDaemonOptions = {}): Promi
 	if (lock) {
 		try {
 			const client = await udsConnect(socketPath);
-			return { socketPath, client, stop: () => stopDaemon(socketPath) };
+			// We joined an already-running daemon: closing our connection is enough;
+			// leave its socket + lockfile + process untouched.
+			return {
+				socketPath,
+				client,
+				stop: async () => {
+					await client.close();
+				},
+			};
 		} catch {
 			// stale lock / dead socket -- clean up and respawn
 			await removeDaemonLock(socketPath);
