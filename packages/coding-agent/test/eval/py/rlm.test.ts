@@ -30,6 +30,14 @@ function createSession(overrides: Partial<ToolSession> = {}): ToolSession {
 	} as unknown as ToolSession;
 }
 
+/** A child session: its `getAgentId()` is the reserved `rlm_child_id`. */
+function createChildSession(childId: string): ToolSession {
+	return createSession({
+		getAgentId: () => childId,
+		getSessionId: () => `child-session-${childId}`,
+	});
+}
+
 interface FindModelsRow {
 	id: string;
 	name: string;
@@ -278,6 +286,91 @@ describe("__agent_message__ bridge", () => {
 				receiver_role: "parent",
 			}),
 		).rejects.toThrow(/already pending/);
+	});
+});
+
+describe("__agent_message__ child-kernel wiring", () => {
+	afterEach(() => {
+		setRlmSpawnOverride(undefined);
+		resetRlmFamilies();
+	});
+
+	it("delivers a parent-sent message to the child's own recv()", async () => {
+		setRlmSpawnOverride(async () => ({ status: "running" }));
+		const parent = createSession();
+		const handle = (await runRlmBridge(parent, {
+			op: "run",
+			prompt: "child task",
+			kwargs: { name: "kid" },
+		})) as { rlm_child_id: string };
+		const childId = handle.rlm_child_id;
+
+		const sent = (await runAgentMessageBridge(parent, {
+			op: "send",
+			message: "hello kid",
+			receiver_role: "child",
+			receiver_name: childId,
+		})) as { deliveryStatus: string };
+		expect(sent.deliveryStatus).toBe("delivered");
+
+		// The child's OWN kernel (agent_message.recv) must drain its real mailbox,
+		// which requires it be wired into the parent family (not a fresh empty one).
+		const childSession = createChildSession(childId);
+		const received = (await runAgentMessageBridge(childSession, { op: "recv" })) as {
+			messages: Array<{ message: string; from: string }>;
+		};
+		expect(received.messages).toHaveLength(1);
+		expect(received.messages[0]?.message).toBe("hello kid");
+		expect(received.messages[0]?.from).toBe("parent");
+	});
+
+	it("keeps a child from reading a sibling's mailbox (reach isolation)", async () => {
+		setRlmSpawnOverride(async () => ({ status: "running" }));
+		const parent = createSession();
+		const a = (await runRlmBridge(parent, {
+			op: "run",
+			prompt: "a",
+			kwargs: { name: "a" },
+		})) as { rlm_child_id: string };
+		const b = (await runRlmBridge(parent, {
+			op: "run",
+			prompt: "b",
+			kwargs: { name: "b" },
+		})) as { rlm_child_id: string };
+		await runAgentMessageBridge(parent, {
+			op: "send",
+			message: "for A",
+			receiver_role: "child",
+			receiver_name: a.rlm_child_id,
+		});
+		// B's recv must not see A's mailbox.
+		const bSession = createChildSession(b.rlm_child_id);
+		const got = (await runAgentMessageBridge(bSession, { op: "recv" })) as { messages: unknown[] };
+		expect(got.messages).toHaveLength(0);
+	});
+
+	it("routes a child's send to the parent mailbox (child -> parent)", async () => {
+		setRlmSpawnOverride(async () => ({ status: "running" }));
+		const parent = createSession();
+		const handle = (await runRlmBridge(parent, {
+			op: "run",
+			prompt: "kid",
+			kwargs: { name: "kid" },
+		})) as { rlm_child_id: string };
+		const childId = handle.rlm_child_id;
+		const childSession = createChildSession(childId);
+		const sent = (await runAgentMessageBridge(childSession, {
+			op: "send",
+			message: "hi parent",
+			receiver_role: "parent",
+		})) as { deliveryStatus: string };
+		expect(sent.deliveryStatus).toBe("delivered");
+		const drained = (await runAgentMessageBridge(parent, { op: "recv" })) as {
+			messages: Array<{ message: string; from: string }>;
+		};
+		expect(drained.messages).toHaveLength(1);
+		expect(drained.messages[0]?.message).toBe("hi parent");
+		expect(drained.messages[0]?.from).toBe("child");
 	});
 });
 

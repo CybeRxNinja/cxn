@@ -6,6 +6,8 @@
 
 - Added `find_models` to the RLM bridge (`__rlm__`): query the bundled model catalog by free-text `query`, exact `provider`, or `capability` (`reasoning` / `vision` / `tools` / `text`). Results are sorted by provider then id and capped at `MAX_RLM_MODEL_SEARCH_LIMIT`.
 
+- Extracted the RLM family registry and mailbox logic into `eval/py/family-store.ts` behind a single `FamilyStore` abstraction, and wired child kernels into their parent's family: a child's `agent_message.recv()` now drains its own mailbox instead of a fresh empty one. No daemon IPC is required — children are spawned as nested in-process sessions that already share the family map, and a child is identified by its `getAgentId()` (`rlm_child_id`).
+
 ## [17.3.7] - 2026-08-17
 
 ### Changed

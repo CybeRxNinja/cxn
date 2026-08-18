@@ -15,10 +15,10 @@
  *     children) through per-family in-process mailboxes with delivered/queued
  *     receipts and rate limits.
  *
- * Scope (first slice): registry and mailboxes are in-memory and family-scoped
- * to the parent session; child sessions' own kernels are wired into the family
- * in a follow-up (the child→parent reply path is covered by the spawn-seam
- * tests). Compaction-surviving persistence is a follow-up.
+ * Scope: registry and mailboxes are in-memory and family-scoped to the parent
+ * session, and a child's own kernel is wired into its parent's family (so a
+ * child's `agent_message.recv()` drains its real mailbox) — see family-store.ts.
+ * Compaction-surviving persistence is a follow-up.
  *
  * Bridge names: `__rlm__`, `__agent_message__` (registered in tool-bridge.ts).
  */
@@ -29,6 +29,15 @@ import { type GeneratedProvider, getBundledModels, getBundledProviders } from "@
 import type { Api, Model } from "@cxn/pi-catalog/types";
 import { runStructuredSubagent, type StructuredSubagentResult } from "../../task/structured-subagent";
 import type { ToolSession } from "../../tools";
+import {
+	agentMessageListAgents,
+	agentMessageRecv,
+	agentMessageSend,
+	familyFor,
+	type RlmChildStatus,
+	type RlmSubagentRegistryEntry,
+	registerRlmChildFamily,
+} from "./family-store";
 
 export const EVAL_RLM_BRIDGE_NAME = "__rlm__";
 export const EVAL_AGENT_MESSAGE_BRIDGE_NAME = "__agent_message__";
@@ -37,28 +46,22 @@ export const RLM_CHILD_SESSION_NAME_MAX_LENGTH = 64;
 export const DEFAULT_RLM_MODEL_SEARCH_LIMIT = 8;
 export const MAX_RLM_MODEL_SEARCH_LIMIT = 20;
 
-export const AGENT_MESSAGE_MAX_CHARS = 16_384;
-export const AGENT_MESSAGE_MAX_PENDING_PER_SESSION = 20;
-export const AGENT_MESSAGE_RATE_LIMIT_CAPACITY = 3;
-export const AGENT_MESSAGE_RATE_LIMIT_REFILL_MS = 1000;
-export const AGENT_FAMILY_REACH_ERROR = "Agent reach is limited to parent, siblings, and children";
-
-export type RlmChildStatus = "running" | "completed" | "error";
+// Family registry, mailbox logic, and reach types now live in family-store.ts
+// so the store can later be served behind an in-process/daemon `FamilyStore`
+// abstraction without touching the spawn plumbing. Re-exported here for
+// backward compatibility with callers/tests that import from `rlm`.
+export {
+	AGENT_FAMILY_REACH_ERROR,
+	AGENT_MESSAGE_MAX_CHARS,
+	AGENT_MESSAGE_MAX_PENDING_PER_SESSION,
+	resetRlmFamilies,
+} from "./family-store";
 
 export interface RlmSpawnHandle {
 	rlm_child_id: string;
 	name: string;
 	session_dir: string;
 	model: string;
-}
-
-export interface RlmSubagentRegistryEntry {
-	rlm_child_id: string;
-	active_session_id: string | null;
-	session_id: string | null;
-	session_name: string;
-	session_dir: string;
-	status: RlmChildStatus;
 }
 
 export interface RlmSpawnRequest {
@@ -73,58 +76,6 @@ export interface RlmSpawnOutcome {
 }
 
 export type RlmSpawnFn = (session: ToolSession, request: RlmSpawnRequest, childId: string) => Promise<RlmSpawnOutcome>;
-
-export type AgentMessageDeliveryMode = "auto" | "steer" | "follow_up";
-export type AgentMessageDeliveryStatus = "delivered" | "queued";
-export type AgentFamilyRelationship = "parent" | "sibling" | "child";
-
-export interface AgentMessageReceipt {
-	deliveryStatus: AgentMessageDeliveryStatus;
-	deliveredAt?: string;
-	queuedAt?: string;
-}
-
-export interface AgentFamilyRosterEntry {
-	id: string;
-	name: string;
-	role: AgentFamilyRelationship;
-	status: RlmChildStatus | "idle";
-}
-
-export interface AgentMessage {
-	id: string;
-	from: string;
-	message: string;
-	mode: AgentMessageDeliveryMode;
-	at: string;
-}
-
-// ---------------------------------------------------------------------------
-// Family state (in-memory, keyed by parent session id)
-// ---------------------------------------------------------------------------
-
-interface FamilyState {
-	parentId: string;
-	children: Map<string, RlmSubagentRegistryEntry>;
-	mailboxes: Map<string, AgentMessage[]>;
-}
-
-const families = new Map<string, FamilyState>();
-
-/** Test-only: drop all family registries so tests start from a clean slate. */
-export function resetRlmFamilies(): void {
-	families.clear();
-}
-
-function familyFor(session: ToolSession): FamilyState {
-	const parentId = session.getSessionId?.() ?? "anon-rlm-family";
-	let family = families.get(parentId);
-	if (!family) {
-		family = { parentId, children: new Map(), mailboxes: new Map() };
-		families.set(parentId, family);
-	}
-	return family;
-}
 
 // ---------------------------------------------------------------------------
 // Spawn machinery
@@ -227,6 +178,7 @@ async function rlmRun(session: ToolSession, payload: Record<string, unknown>): P
 		status: "running",
 	};
 	family.children.set(childId, entry);
+	registerRlmChildFamily(childId, family.parentId);
 
 	const spawn = spawnOverride ?? defaultSpawn;
 	void spawn(session, { prompt, name, model }, childId)
@@ -261,98 +213,6 @@ async function rlmDeleteSubagent(
 	}
 	family.children.delete(target);
 	return { subagent: entry, outcome: "deleted" };
-}
-
-// ---------------------------------------------------------------------------
-// agent_message — family messaging
-// ---------------------------------------------------------------------------
-
-function callerRole(session: ToolSession): AgentFamilyRelationship {
-	const role = (session as ToolSession & { getRlmRole?: () => AgentFamilyRelationship }).getRlmRole?.();
-	return role ?? "parent";
-}
-
-function agentMessageListAgents(session: ToolSession): { agents: AgentFamilyRosterEntry[] } {
-	const family = familyFor(session);
-	const roster: AgentFamilyRosterEntry[] = [
-		{ id: family.parentId, name: "parent", role: "parent", status: "running" },
-	];
-	for (const child of family.children.values()) {
-		roster.push({
-			id: child.rlm_child_id,
-			name: child.session_name,
-			role: "child",
-			status: child.status,
-		});
-	}
-	return { agents: roster };
-}
-
-function agentMessageSend(session: ToolSession, payload: Record<string, unknown>): AgentMessageReceipt {
-	const message = typeof payload.message === "string" ? payload.message : "";
-	if (!message) throw new Error("agent_message.send message must be a non-empty string");
-	if (message.length > AGENT_MESSAGE_MAX_CHARS) {
-		throw new Error(`agent_message.send message exceeds ${AGENT_MESSAGE_MAX_CHARS} characters`);
-	}
-	const receiverRole =
-		payload.receiver_role === "child" || payload.receiver_role === "sibling" ? payload.receiver_role : "parent";
-	const receiverName =
-		typeof payload.receiver_name === "string" && payload.receiver_name ? payload.receiver_name : undefined;
-	const mode: AgentMessageDeliveryMode =
-		payload.mode === "steer" || payload.mode === "follow_up" ? payload.mode : "auto";
-
-	const family = familyFor(session);
-	const from = callerRole(session);
-
-	let targetKey: string | undefined;
-	if (receiverRole === "parent") {
-		targetKey = "parent";
-	} else if (receiverRole === "child") {
-		if (!receiverName) throw new Error("agent_message.send receiver_name is required for receiver_role=child");
-		const child = [...family.children.values()].find(
-			c => c.session_name === receiverName || c.rlm_child_id === receiverName,
-		);
-		if (!child) throw new Error(`agent_message.send: unknown child ${receiverName}`);
-		targetKey = child.rlm_child_id;
-	} else {
-		throw new Error(AGENT_FAMILY_REACH_ERROR);
-	}
-
-	let mailbox = family.mailboxes.get(targetKey);
-	if (!mailbox) {
-		mailbox = [];
-		family.mailboxes.set(targetKey, mailbox);
-	}
-	if (mailbox.length >= AGENT_MESSAGE_MAX_PENDING_PER_SESSION) {
-		throw new Error(
-			`agent_message.send: ${AGENT_MESSAGE_MAX_PENDING_PER_SESSION} messages already pending for ${targetKey}`,
-		);
-	}
-	const msg: AgentMessage = {
-		id: `msg-${crypto.randomUUID()}`,
-		from,
-		message,
-		mode,
-		at: new Date().toISOString(),
-	};
-	mailbox.push(msg);
-
-	// In-process delivery: the target's kernel reads via agent_message.recv().
-	return { deliveryStatus: "delivered", deliveredAt: msg.at };
-}
-
-function agentMessageRecv(session: ToolSession, payload: Record<string, unknown>): { messages: AgentMessage[] } {
-	const family = familyFor(session);
-	const peek = payload.peek === true;
-	const key =
-		callerRole(session) === "parent"
-			? "parent"
-			: (family.children.get((session as ToolSession & { getRlmChildId?: () => string }).getRlmChildId?.() ?? "")
-					?.rlm_child_id ?? "");
-	const mailbox = family.mailboxes.get(key) ?? [];
-	if (peek) return { messages: [...mailbox] };
-	family.mailboxes.delete(key);
-	return { messages: mailbox };
 }
 
 // ---------------------------------------------------------------------------
