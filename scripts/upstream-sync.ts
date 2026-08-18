@@ -181,7 +181,83 @@ async function rebrandSyncedTree(): Promise<void> {
 	console.log(`Rebrand pass: ${touched} file(s) rewritten.`);
 }
 
+async function alignWorkspaceVersions(): Promise<void> {
+	// Upstream releases bump every package lockstep; `-X ours` keeps our stale
+	// package.jsons, so a merged tree can hold mixed versions (the pi-natives
+	// sentinel test fails when lib.rs says 17.3.7 but package.json says 17.3.5).
+	// Align the whole workspace to the newest version present in the tree.
+	const pkgPaths = Array.from(Bun.Glob.glob("packages/*/package.json").scanSync());
+	const versions: Array<{ path: string; version: string }> = [];
+	for (const p of pkgPaths) {
+		try {
+			const data = (await Bun.file(p).json()) as { version?: string };
+			if (data.version) versions.push({ path: p, version: data.version });
+		} catch {
+			// unreadable; skip
+		}
+	}
+	if (versions.length === 0) return;
+	const compare = (a: string, b: string): number => {
+		const [am, ab, ap] = a.split(".").map(Number);
+		const [bm, bb, bp] = b.split(".").map(Number);
+		return (am - bm) * 1_000_000 + (ab - bb) * 1_000 + (ap - bp);
+	};
+	const target = versions
+		.map(v => v.version)
+		.sort(compare)
+		.at(-1)!;
+	let changed = false;
+	for (const { path: p, version } of versions) {
+		if (version === target) continue;
+		const text = await Bun.file(p).text();
+		const next = text.replace(/"version": "[^"]+"/, `"version": "${target}"`);
+		if (next !== text) {
+			await Bun.write(p, next);
+			changed = true;
+		}
+	}
+	// Root catalog pins @cxn/* entries to the workspace version.
+	const rootText = await Bun.file("package.json").text();
+	const rootNext = rootText.replace(/("@cxn\/[^"]+":\s*)"[^"]+"/g, `$1"${target}"`);
+	if (rootNext !== rootText) {
+		await Bun.write("package.json", rootNext);
+		changed = true;
+	}
+	// Rust workspace version; crates follow via version.workspace = true.
+	const cargoText = await Bun.file("Cargo.toml").text();
+	const cargoNext = cargoText.replace(/^version = "[^"]+"/m, `version = "${target}"`);
+	if (cargoNext !== cargoText) {
+		await Bun.write("Cargo.toml", cargoNext);
+		changed = true;
+	}
+	// pi-natives sentinel + compiled artifacts must agree with the version.
+	const sentinel = `__piNativesV${target.replace(/[^A-Za-z0-9]/g, "_")}`;
+	for (const p of [
+		"crates/pi-natives/src/lib.rs",
+		"packages/natives/native/index.js",
+		"packages/natives/native/index.d.ts",
+		"packages/natives/native/loader-state.js",
+	]) {
+		try {
+			const text = await Bun.file(p).text();
+			const next = text.replace(/__piNativesV[A-Za-z0-9_]+/g, sentinel);
+			if (next !== text) {
+				await Bun.write(p, next);
+				changed = true;
+			}
+		} catch {
+			// missing; skip
+		}
+	}
+	if (changed) {
+		await $`git add -A`;
+		await $`git commit -m "chore: align workspace versions to ${target} (upstream release)"`;
+		console.log(`Aligned workspace versions to ${target}.`);
+	}
+}
+
 await rebrandSyncedTree();
+await alignWorkspaceVersions();
 
 // Record the sync point.
 const upPath = "UPSTREAM.md";
