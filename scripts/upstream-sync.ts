@@ -162,6 +162,9 @@ async function rebrandSyncedTree(): Promise<void> {
 	if (changed.length > 0) {
 		await $`bunx biome check --write ${changed}`.nothrow();
 		await $`bunx biome lint --write --unsafe --only=lint/correctness/noUnusedImports ${changed}`.nothrow();
+		// The unsafe import removal can leave formatting drift behind (e.g. a
+		// leading blank line); run the safe write pass again to clean it up.
+		await $`bunx biome check --write ${changed}`.nothrow();
 		const verify = await $`bunx biome check ${changed}`.nothrow();
 		if (verify.exitCode !== 0) {
 			console.error(
