@@ -123,6 +123,7 @@ import { MEMORY_BACKEND_TOOL_NAMES } from "./memory-backend/tool-names";
 import type { MnemopiSessionState } from "./mnemopi/state";
 import mcpXdevGuidanceTemplate from "./prompts/system/mcp-xdev-guidance.md" with { type: "text" };
 import lateDiagnosticTemplate from "./prompts/tools/lsp-late-diagnostic.md" with { type: "text" };
+import { buildHarnessDeveloperInstructions } from "./refinement";
 import { AgentLifecycleManager } from "./registry/agent-lifecycle";
 import { type AgentRef, AgentRegistry, MAIN_AGENT_ID } from "./registry/agent-registry";
 import {
@@ -2848,9 +2849,16 @@ async function createAgentSessionScoped(options: CreateAgentSessionOptions): Pro
 						manageSkill: builtInToolNames.includes("manage_skill"),
 						learn: builtInToolNames.includes("learn"),
 					});
+			// Continual-harness overview (the /refine supplemental state) rides
+			// along with the memory instructions so the model can route against
+			// persisted harness entries during normal turns.
+			const harnessInstructions = restrictToolNames
+				? undefined
+				: buildHarnessDeveloperInstructions(agentDir, session);
 			const appendParts: string[] = [];
 			if (memoryInstructions) appendParts.push(memoryInstructions);
 			if (autoLearnInstructions) appendParts.push(autoLearnInstructions);
+			if (harnessInstructions) appendParts.push(harnessInstructions);
 			const projection = projectMountedMCPXdevGuidance(
 				collectMountedMCPToolRoutes(toolSession.xdev ? listXdevTools(toolSession.xdev) : []),
 			);
