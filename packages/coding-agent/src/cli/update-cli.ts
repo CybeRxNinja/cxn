@@ -17,13 +17,19 @@ import { $ } from "bun";
 import { theme } from "../modes/theme/theme";
 import { isTimeoutError, withTimeoutSignal } from "../utils/fetch-timeout";
 
-const REPO = "can1357/oh-my-pi";
+// Release source, overridable (CXN_REPO) so a fork can point updates at its
+// own repo without a code change; defaults to the cxn repo itself.
+const REPO = process.env.CXN_REPO || "CybeRxNinja/cxn";
 const PACKAGE = "@cxn/pi-coding-agent";
-const HOMEBREW_FORMULA = "can1357/tap/cxn";
-const MISE_TOOL = "github:can1357/oh-my-pi";
+// Homebrew tap for cxn; the tap is published from this repo's release flow
+// (CybeRxNinja/homebrew-tap). Until it exists, `brew upgrade cxn` reports the
+// formula as missing rather than silently upgrading from an unrelated tap.
+const HOMEBREW_FORMULA = "CybeRxNinja/tap/cxn";
+const MISE_TOOL = `github:${REPO}`;
 const NIX_STORE_DIR = "/nix/store";
 /**
- * Official npm registry origin.
+ * Registry the @cxn/* packages are published to (GitHub Packages by default;
+ * override with CXN_NPM_REGISTRY).
  *
  * Pinned across both the version check and the bun install step so the two
  * agree on which catalog they are talking to. A user's bun may be pointed at
@@ -33,7 +39,15 @@ const NIX_STORE_DIR = "/nix/store";
  * `No version matching "X" found for specifier "<pkg>" (but package exists)`.
  * See #1686.
  */
-const NPM_REGISTRY = "https://registry.npmjs.org/";
+const NPM_REGISTRY = process.env.CXN_NPM_REGISTRY || "https://npm.pkg.github.com/";
+
+/**
+ * Credentials for the GitHub Packages registry. GitHub Packages requires
+ * authentication even for public packages, so the version check and any
+ * bun/npm install against it need a token (CXN_INSTALL_TOKEN, GITHUB_TOKEN,
+ * or GH_TOKEN). Binary installs from public GitHub Releases need none.
+ */
+const NPM_TOKEN = process.env.CXN_INSTALL_TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 const GITHUB_API = "https://api.github.com";
 const RELEASE_METADATA_TIMEOUT_MS = 30_000;
 const BINARY_DOWNLOAD_TIMEOUT_MS = 15 * 60_000;
@@ -661,9 +675,14 @@ async function fetchLatestManifest(
 	pkg: string,
 	timeoutMs: number,
 ): Promise<{ version: string; manifest: Record<string, unknown> }> {
+	const headers: Record<string, string> = {};
+	// GitHub Packages (the default registry) requires auth even for public
+	// packages; without a token the manifest fetch 401s.
+	if (NPM_TOKEN) headers.Authorization = `Bearer ${NPM_TOKEN}`;
 	let response: Response;
 	try {
 		response = await fetch(`${NPM_REGISTRY}${pkg}/latest`, {
+			headers,
 			signal: withTimeoutSignal(timeoutMs),
 		});
 	} catch (err) {
@@ -673,6 +692,11 @@ async function fetchLatestManifest(
 			});
 		}
 		throw err;
+	}
+	if (response.status === 401 || response.status === 403) {
+		throw new Error(
+			`Registry auth required to check ${pkg} (${response.status} ${response.statusText}); set CXN_INSTALL_TOKEN, GITHUB_TOKEN, or GH_TOKEN`,
+		);
 	}
 	if (!response.ok) {
 		throw new Error(`Failed to fetch release info for ${pkg}: ${response.statusText}`);
@@ -1293,6 +1317,28 @@ export function buildRenameCleanupPackages(
 	return old.filter(name => name !== packages.pkg && name !== packages.natives && name !== newLeaf);
 }
 
+/**
+ * Env to hand child bun/npm processes so they can authenticate to GitHub
+ * Packages: a temp userconfig pointing the @cxn scope at npm.pkg.github.com
+ * with the token. Writes nothing when no token is set, so public-registry
+ * installs (or public npm overrides) stay unauthenticated.
+ */
+function registryAuthEnv(): Record<string, string> {
+	if (!NPM_TOKEN) return {};
+	const npmrcPath = path.join(os.tmpdir(), `cxn-update-${process.pid}.npmrc`);
+	fs.writeFileSync(
+		npmrcPath,
+		[
+			"registry=https://registry.npmjs.org/",
+			"@cxn:registry=https://npm.pkg.github.com/",
+			`//npm.pkg.github.com/:_authToken=${NPM_TOKEN}`,
+			"",
+		].join("\n"),
+		{ mode: 0o600 },
+	);
+	return { NPM_CONFIG_USERCONFIG: npmrcPath };
+}
+
 /** Injectable shell steps for {@link migrateRenamedInstall}; commands return process exit codes. */
 export interface RenameMigrationSteps {
 	/** Globally install the new package names. MUST be idempotent: re-running re-links the `cxn` bin. */
@@ -1310,10 +1356,10 @@ function packageManagerMigrationSteps(manager: "bun" | "npm", release: ReleaseIn
 		async install() {
 			if (manager === "bun") {
 				const args = buildBunInstallArgs(release.version, nativeTag, release.packages);
-				return (await $`bun ${args}`.nothrow()).exitCode;
+				return (await $`bun ${args}`.env(registryAuthEnv()).nothrow()).exitCode;
 			}
 			const args = buildNpmInstallArgs(release.version, nativeTag, release.packages, { force: true });
-			return (await $`npm ${args}`.nothrow()).exitCode;
+			return (await $`npm ${args}`.env(registryAuthEnv()).nothrow()).exitCode;
 		},
 		async removeOld() {
 			// One invocation per package: a single batched remove fails wholesale

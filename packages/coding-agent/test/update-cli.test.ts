@@ -322,20 +322,20 @@ describe("update-cli install target detection", () => {
 
 describe("update-cli package manager commands", () => {
 	it("targets the Homebrew tap formula and switches to reinstall for forced updates", () => {
-		expect(buildHomebrewUpdateArgs(false)).toEqual(["upgrade", "can1357/tap/cxn"]);
-		expect(buildHomebrewUpdateArgs(true)).toEqual(["reinstall", "can1357/tap/cxn"]);
+		expect(buildHomebrewUpdateArgs(false)).toEqual(["upgrade", "CybeRxNinja/tap/cxn"]);
+		expect(buildHomebrewUpdateArgs(true)).toEqual(["reinstall", "CybeRxNinja/tap/cxn"]);
 	});
 
 	it("targets the mise GitHub backend tool and force-reinstalls the checked version when requested", () => {
-		expect(buildMiseUpgradeArgs()).toEqual(["upgrade", "github:can1357/oh-my-pi", "--bump"]);
-		expect(buildMiseForceInstallArgs("15.10.5")).toEqual(["install", "--force", "github:can1357/oh-my-pi@15.10.5"]);
+		expect(buildMiseUpgradeArgs()).toEqual(["upgrade", "github:CybeRxNinja/cxn", "--bump"]);
+		expect(buildMiseForceInstallArgs("15.10.5")).toEqual(["install", "--force", "github:CybeRxNinja/cxn@15.10.5"]);
 	});
 
 	it("pins npm package installs to the official registry and the checked native package versions", () => {
 		const args = buildNpmInstallArgs("16.3.15", "win32-x64");
 
 		expect(args.slice(0, 2)).toEqual(["install", "-g"]);
-		expect(args).toContain("--registry=https://registry.npmjs.org/");
+		expect(args).toContain("--registry=https://npm.pkg.github.com/");
 		expect(args).toContain("@cxn/pi-coding-agent@16.3.15");
 		expect(args).toContain("@cxn/pi-natives@16.3.15");
 		expect(args).toContain("@cxn/pi-natives-win32-x64@16.3.15");
@@ -474,8 +474,8 @@ describe("migrateRenamedInstall transaction", () => {
 });
 
 describe("update-cli bun install command", () => {
-	it("pins the official npm registry and bypasses the manifest cache so a stale mirror or snapshot cannot mask a freshly published version", () => {
-		// Regression: cxn queries https://registry.npmjs.org/<pkg>/latest directly.
+	it("pins the GitHub Packages registry and bypasses the manifest cache so a stale mirror or snapshot cannot mask a freshly published version", () => {
+		// Regression: cxn queries https://npm.pkg.github.com/<pkg>/latest directly.
 		// The install MUST hit the same registry, otherwise:
 		//   - a lagging mirror (corp proxy, Taobao, …) rejects the version with
 		//     `No version matching "X" (but package exists)`,
@@ -488,7 +488,7 @@ describe("update-cli bun install command", () => {
 			"install",
 			"-g",
 			"--no-cache",
-			"--registry=https://registry.npmjs.org/",
+			"--registry=https://npm.pkg.github.com/",
 			"@cxn/pi-coding-agent@15.7.6",
 		]);
 	});
@@ -652,7 +652,7 @@ describe("update-cli bun cache pruning", () => {
 describe("update-cli release binary integrity", () => {
 	const tag = "v17.1.2";
 	const binaryName = "cxn-linux-x64";
-	const url = `https://github.com/can1357/oh-my-pi/releases/download/${tag}/${binaryName}`;
+	const url = `https://github.com/CybeRxNinja/cxn/releases/download/${tag}/${binaryName}`;
 	const content = "verified binary";
 	const digest = `sha256:${createHash("sha256").update(content).digest("hex")}`;
 
@@ -1038,7 +1038,7 @@ describe("update-cli binary-only release gating", () => {
 describe("update-cli script-shim takeover", () => {
 	const version = "18.0.0";
 	const binaryName = "cxn-windows-x64.exe";
-	const url = `https://github.com/can1357/oh-my-pi/releases/download/v${version}/${binaryName}`;
+	const url = `https://github.com/CybeRxNinja/cxn/releases/download/v${version}/${binaryName}`;
 
 	function makeFetch(content: string): (input: string | URL | Request) => Promise<Response> {
 		const digest = `sha256:${createHash("sha256").update(content).digest("hex")}`;
@@ -1183,7 +1183,7 @@ describe("update-cli script-shim takeover", () => {
 describe("update-cli concurrent binary updates", () => {
 	const version = "999.0.0";
 	const binaryName = "cxn-linux-x64";
-	const url = `https://github.com/can1357/oh-my-pi/releases/download/v${version}/${binaryName}`;
+	const url = `https://github.com/CybeRxNinja/cxn/releases/download/v${version}/${binaryName}`;
 	const payload = Buffer.alloc(2048, 0x41);
 	const digest = `sha256:${createHash("sha256").update(payload).digest("hex")}`;
 

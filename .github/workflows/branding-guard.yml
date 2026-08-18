@@ -1,0 +1,31 @@
+name: Branding Guard
+
+# Fail-fast gate for upstream branding leaks in product code (legacy agent
+# names and affiliated product marks). Runs standalone on every PR — including
+# fork PRs — so a leak is reported in seconds without waiting for the full CI
+# matrix. The same script also runs inside the ci.yml `check` job as the
+# authoritative gate.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  branding-guard:
+    name: Branding guard
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.14"
+      - name: Check branding leaks
+        run: bun scripts/check-branding.ts

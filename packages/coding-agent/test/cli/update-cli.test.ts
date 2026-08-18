@@ -69,8 +69,8 @@ describe("getLatestRelease rename pointers", () => {
 		expect(release.dist).toBe("npm");
 		expect(release.packages).toEqual({ pkg: "@new/cxn", natives: "@new/natives" });
 		expect(urls).toEqual([
-			"https://registry.npmjs.org/@cxn/pi-coding-agent/latest",
-			"https://registry.npmjs.org/@new/cxn/latest",
+			"https://npm.pkg.github.com/@cxn/pi-coding-agent/latest",
+			"https://npm.pkg.github.com/@new/cxn/latest",
 		]);
 	});
 

@@ -31,6 +31,11 @@ const SELF = "scripts/check-branding.ts";
 // spike reports); the strict brand rules target product code.
 const REFERENCE_ALLOWED = (rel: string): boolean => rel.startsWith("docs/") || rel === SELF;
 
+// CI tooling legitimately references the upstream npm leaf as the fork-PR
+// native-addon fallback; like the upstream-sync skip below, this is
+// operational plumbing, not branding.
+const CI_REFERENCE_ALLOWED = (rel: string): boolean => REFERENCE_ALLOWED(rel) || rel.startsWith(".github/workflows/");
+
 const LEGACY_ALLOWED = (rel: string): boolean =>
 	REFERENCE_ALLOWED(rel) ||
 	rel.includes("/extensibility/") ||
@@ -50,8 +55,9 @@ interface Rule {
 
 const RULES: Rule[] = [
 	{ pattern: /\bomp\b/, label: "omp", allowed: REFERENCE_ALLOWED },
-	// `can1357/oh-my-pi` URLs are upstream references, not branding.
-	{ pattern: /(?<!can1357\/)oh-my-pi/, label: "oh-my-pi", allowed: REFERENCE_ALLOWED },
+	// `can1357/oh-my-pi` URLs are upstream references, not branding; CI
+	// workflows may reference the upstream npm leaf for the fork-PR fallback.
+	{ pattern: /(?<!can1357\/)oh-my-pi/, label: "oh-my-pi", allowed: CI_REFERENCE_ALLOWED },
 	{ pattern: /Oh My Pi/, label: "Oh My Pi", allowed: REFERENCE_ALLOWED },
 	{ pattern: /prime-agent/, label: "prime-agent", allowed: REFERENCE_ALLOWED },
 	{ pattern: /Prime Agent/, label: "Prime Agent", allowed: REFERENCE_ALLOWED },

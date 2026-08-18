@@ -16,6 +16,13 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# GitHub Packages / private-source installs: set CXN_INSTALL_TOKEN (PAT with
+# read:packages on the repo) when a registry install needs auth. Binary
+# downloads from public GitHub Releases need no token.
+$CxnToken = $env:CXN_INSTALL_TOKEN
+$ApiHeaders = @{ }
+if ($CxnToken) { $ApiHeaders.Authorization = "Bearer $CxnToken" }
+
 $Repo = "CybeRxNinja/cxn"
 $Package = "@cxn/pi-coding-agent"
 $InstallDir = if ($env:CXN_INSTALL_DIR) { $env:CXN_INSTALL_DIR } else { "$env:LOCALAPPDATA\cxn" }
@@ -224,9 +231,23 @@ function Install-ViaBun {
             Remove-Item -Recurse -Force $tmpRoot -ErrorAction SilentlyContinue
         }
     } else {
-        bun install -g $Package
-        if ($LASTEXITCODE -ne 0) {
-            throw "Failed to install $Package via bun"
+        $npmrc = $null
+        try {
+            if ($CxnToken) {
+                $npmrc = Join-Path ([System.IO.Path]::GetTempPath()) ("cxn-install-" + [System.Guid]::NewGuid().ToString("N") + ".npmrc")
+                @(
+                    "registry=https://registry.npmjs.org/",
+                    "@cxn:registry=https://npm.pkg.github.com/",
+                    "//npm.pkg.github.com/:_authToken=$CxnToken"
+                ) | Set-Content -Path $npmrc -Encoding ascii
+                $env:NPM_CONFIG_USERCONFIG = $npmrc
+            }
+            bun install -g $Package
+            if ($LASTEXITCODE -ne 0) {
+                throw "Failed to install $Package via bun"
+            }
+        } finally {
+            if ($npmrc) { Remove-Item -Force $npmrc -ErrorAction SilentlyContinue }
         }
     }
 
@@ -242,13 +263,13 @@ function Install-Binary {
     if ($Ref) {
         Write-Host "Fetching release $Ref..."
         try {
-            $Release = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/tags/$Ref" -TimeoutSec 60
+            $Release = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/tags/$Ref" -Headers $ApiHeaders -TimeoutSec 60
         } catch {
             throw "Release tag not found: $Ref`nFor branch/commit installs, use -Source with -Ref."
         }
     } else {
         Write-Host "Fetching latest release..."
-        $Release = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/latest" -TimeoutSec 60
+        $Release = Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases/latest" -Headers $ApiHeaders -TimeoutSec 60
     }
 
     $Latest = $Release.tag_name
@@ -263,7 +284,7 @@ function Install-Binary {
     $BinaryUrl = "https://github.com/$Repo/releases/download/$Latest/$BinaryName"
     Write-Host "Downloading $BinaryName..."
     $OutPath = Join-Path $InstallDir "cxn.exe"
-    Invoke-WebRequest -Uri $BinaryUrl -OutFile $OutPath -TimeoutSec 900
+    Invoke-WebRequest -Uri $BinaryUrl -Headers $ApiHeaders -OutFile $OutPath -TimeoutSec 900
 
     Write-Host ""
     Write-Host "[OK] Installed cxn to $OutPath" -ForegroundColor Green

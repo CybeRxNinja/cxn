@@ -10,8 +10,9 @@ set -e
 #   --ref <ref>    Install specific tag/commit/branch
 #   -r <ref>       Shorthand for --ref
 #
-# Private repo: set CXN_INSTALL_TOKEN (PAT with contents: read on the repo)
-# for authenticated binary downloads.
+# GitHub Packages / private-source installs: set CXN_INSTALL_TOKEN (PAT with
+# read:packages on the repo) when a registry install needs auth. Binary
+# downloads from public GitHub Releases need no token.
 
 REPO="${CXN_REPO:-CybeRxNinja/cxn}"
 PACKAGE="@cxn/pi-coding-agent"
@@ -68,6 +69,16 @@ done
 if [ -n "$REF" ] && [ -z "$MODE" ]; then
     MODE="source"
 fi
+
+# curl wrapper that adds the GitHub Authorization header when
+# CXN_INSTALL_TOKEN is set. Public endpoints work without it.
+curl_auth() {
+    if [ -n "${CXN_INSTALL_TOKEN:-}" ]; then
+        curl -fsSL -H "Authorization: Bearer ${CXN_INSTALL_TOKEN}" "$@"
+    else
+        curl -fsSL "$@"
+    fi
+}
 
 # Check if bun is available
 has_bun() {
@@ -208,8 +219,18 @@ install_via_bun() {
             exit 1
         }
     else
+        if [ -n "${CXN_INSTALL_TOKEN:-}" ]; then
+            NPMRC="$(mktemp)"
+            trap 'rm -f "$NPMRC"' EXIT
+            printf 'registry=https://registry.npmjs.org/\n@cxn:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=%s\n' "$CXN_INSTALL_TOKEN" > "$NPMRC"
+            export NPM_CONFIG_USERCONFIG="$NPMRC"
+        fi
         bun install -g "$PACKAGE" || {
             echo "Failed to install $PACKAGE"
+            if [ -z "${CXN_INSTALL_TOKEN:-}" ]; then
+                echo "Hint: the @cxn packages live on GitHub Packages, which requires auth even for public installs."
+                echo "      Set CXN_INSTALL_TOKEN (PAT with read:packages on ${REPO}) and re-run."
+            fi
             exit 1
         }
     fi
@@ -245,7 +266,7 @@ install_binary() {
     # Get release tag
     if [ -n "$REF" ]; then
         echo "Fetching release $REF..."
-        if RELEASE_JSON=$(curl -fsSL --connect-timeout 10 --max-time 60 "https://api.github.com/repos/${REPO}/releases/tags/${REF}"); then
+        if RELEASE_JSON=$(curl_auth --connect-timeout 10 --max-time 60 "https://api.github.com/repos/${REPO}/releases/tags/${REF}"); then
             LATEST=$(echo "$RELEASE_JSON" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
         else
             echo "Release tag not found: $REF"
@@ -254,7 +275,7 @@ install_binary() {
         fi
     else
         echo "Fetching latest release..."
-        RELEASE_JSON=$(curl -fsSL --connect-timeout 10 --max-time 60 "https://api.github.com/repos/${REPO}/releases/latest")
+        RELEASE_JSON=$(curl_auth --connect-timeout 10 --max-time 60 "https://api.github.com/repos/${REPO}/releases/latest")
         LATEST=$(echo "$RELEASE_JSON" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
     fi
 
@@ -268,7 +289,7 @@ install_binary() {
     # Download binary
     BINARY_URL="https://github.com/${REPO}/releases/download/${LATEST}/${BINARY}"
     echo "Downloading ${BINARY}..."
-    curl -fsSL --connect-timeout 10 --speed-limit 1024 --speed-time 30 "$BINARY_URL" -o "${INSTALL_DIR}/cxn"
+    curl_auth --connect-timeout 10 --speed-limit 1024 --speed-time 30 "$BINARY_URL" -o "${INSTALL_DIR}/cxn"
     chmod +x "${INSTALL_DIR}/cxn"
 
     # Verify the freshly installed binary can actually start before reporting

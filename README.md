@@ -4,8 +4,7 @@
 
 **60+** providers · **31** built-in tools · **14** lsp ops · **28** dap ops · **~80k** lines of Rust core.
 
-> **Status:** private repo, Phase 0 (bootstrap) — see [PLAN.md](PLAN.md) for the roadmap.
-> Releases, npm packages, installers, and the upstream-sync/release automation are being wired up.
+> **Status:** public — see [PLAN.md](PLAN.md) for the roadmap and [docs/compliance.md](docs/compliance.md) for the licensing/ToS posture.
 
 ## Install
 
@@ -15,15 +14,15 @@
 curl -fsSL https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.sh | sh
 ```
 
-> **Private repo:** released binaries require auth. Set `CXN_INSTALL_TOKEN` (a PAT with `contents: read` on this repo) before running the installer, or install from source with `--source`.
-
 > **Alpine / musl:** the prebuilt musl binary links `libstdc++`/`libgcc` dynamically, which stock Alpine does not ship. Install them first: `apk add libstdc++ libgcc`.
 
-**Bun (recommended)**
+**Bun (source install)**
 
 ```sh
 bun install -g @cxn/pi-coding-agent
 ```
+
+> The `@cxn/*` packages live on the **GitHub Packages** registry, which requires authentication even for public packages. Set `CXN_INSTALL_TOKEN` (a PAT with `read:packages` on `CybeRxNinja/cxn`) before a registry/source install. Prebuilt binary installs from GitHub Releases need no token.
 
 **Nix**
 
