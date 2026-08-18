@@ -8,6 +8,8 @@
 
 - Extracted the RLM family registry and mailbox logic into `eval/py/family-store.ts` behind a single `FamilyStore` abstraction, and wired child kernels into their parent's family: a child's `agent_message.recv()` now drains its own mailbox instead of a fresh empty one. No daemon IPC is required — children are spawned as nested in-process sessions that already share the family map, and a child is identified by its `getAgentId()` (`rlm_child_id`).
 
+- Added a supervisor daemon skeleton in `modes/daemon/` (`daemon-protocol`, `daemon-transport`, `daemon-family-store`, `daemon-supervisor`, `daemon-socket`): a self-contained JSONL protocol over a `node:net` Unix-domain socket (with an in-memory duplex for tests) that exposes the shared `FamilyStore` to out-of-process clients. `ensureDaemonRunning` lazily boots a per-user daemon and returns a connected client; `handleDaemonRequest` routes `agent_message send/recv/list`, `rlm register_child/list_subagents/delete`, `session list/attach/send/stop`, and `find_models`. Covered by `test/modes/daemon/daemon.test.ts` (in-memory protocol/store, real-UDS cross-connection delivery + socket cleanup, and supervisor boot/teardown).
+
 ## [17.3.7] - 2026-08-17
 
 ### Changed
