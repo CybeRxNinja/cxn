@@ -99,27 +99,27 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 
 ## What's in progress / failing
 
-### Rust validation gate (CI flake) 🔴
+### Rust validation gate — RESOLVED ✅
 
-The `kill_builtin_signals_every_process_in_a_jobspec_pipeline` test in `pi-shell` fails on
-loaded CI runners with `pipeline did not stop: Elapsed(())` — the `run_string` call hangs
-for >30 seconds because the shell's pipeline-wait logic blocks on stopped (SIGSTOP'd)
-process members. The test passes locally in 0.06s and on unloaded runners.
+The `Validate Rust workspace (bazel)` job had **two** independent failures; both are now fixed:
 
-**Root cause:** The shell's `run_string` waits for all pipeline members to finish. When
-both sub-shells stop themselves with `kill -STOP $$`, the pipeline never completes, so
-`run_string` blocks indefinitely. On unloaded CI the timing is fast enough that the
-shell's internal job-tracking returns the stopped job before the timeout; on loaded CI
-the scheduler delays the SIGSTOP delivery past the timeout window.
+1. **Rustfmt drift (the recurring failure).** `MODULE.bazel` pinned `versions` (rustc) to a
+   fixed nightly but left `rustfmt_version` at rules_rust's default — a *rolling*
+   `DEFAULT_NIGHTLY_VERSION`. CI's rustfmt therefore resolved a different formatter between
+   runs (e.g. `2026-06-30`) than dev formats with (`rust-toolchain.toml` → `2026-07-28`),
+   reddening the rustfmt gate on otherwise-clean trees (first tripped on
+   `crates/pi-shell/src/minimizer/filters/bun.rs`). **Fix (PR #4):** pin
+   `rustfmt_version = "nightly/2026-07-28"` (dev-aligned) with the matching sha256s, and
+   reformat the one divergent crate.
+2. **`kill_builtin_signals_every_process_in_a_jobspec_pipeline` timing flake.** On loaded CI
+   runners the shell's pipeline-wait stalls past its 30s budget. **Fix (PR #3):**
+   `--flaky_test_attempts=3` on the bazel `test` invocation — only re-runs a target after a
+   failed attempt, so a genuinely broken test still fails while a load-stalled one retries.
 
-**Options (tracked):**
-1. Increase timeout to 120s+ (delays CI, doesn't fix the real issue)
-2. Mark test `#[ignore]` on CI (accept coverage gap)
-3. Fix the shell's pipeline-wait to detect stopped members and return early (correct fix, upstream-level change)
-
-**Current state:** The test failure blocks the `Validate Rust workspace` CI job but does not
-block other CI jobs (lint, typecheck, branding guard, TS tests all pass). The sync PR's
-other CI gates are green.
+**Current state:** `Validate Rust workspace (bazel)` is **green** on `main` (verified after
+PR #4 merged). The kill test is mitigated, not fundamentally fixed — the correct upstream
+fix (detect stopped pipeline members and return early) remains a follow-up but is no longer
+CI-blocking.
 
 ---
 
@@ -129,7 +129,7 @@ other CI gates are green.
 
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
-| Child kernels wired into family | High | Medium | A child's `agent_message.recv()` should drain its own mailbox |
+| Child kernels wired into family | High | Medium | **Blocked on the daemon/agent-connection IPC layer** — children run as subprocesses with their own in-memory family state, so a child's `agent_message.recv()` cannot see the parent process's mailboxes. Land the daemon lane first, then route child recv through the parent. |
 | Sibling-to-sibling messaging | Medium | Low | Extend family reach beyond parent↔child |
 | `find_models` catalog | Low | Low | Port from prime-agent's model discovery |
 | Compaction-surviving persistence | High | Medium | Family registry + mailboxes must survive compaction/restart |
@@ -185,7 +185,7 @@ other CI gates are green.
 | Typecheck (tsgo) | ✅ Green | All workspace packages typecheck |
 | TS tests (native/integration) | ✅ Green | 859+ Rust tests pass (excluding flake) |
 | TS tests (coding-agent) | ✅ Green | 121+ slash-command tests, 33 refinement tests, all passing |
-| Rust validation (bazel) | 🔴 Flaky | `pi-shell` kill-pipeline test — timing-sensitive on loaded runners |
+| Rust validation (bazel) | ✅ Green | rustfmt nightly pinned (PR #4) + kill-test flaky retry (PR #3) |
 | Nix build | ✅ Green | `.github/workflows/nix.yml` |
 | Upstream sync (PR #3) | ✅ Green | All TS gates pass; Rust flake is the only blocker |
 

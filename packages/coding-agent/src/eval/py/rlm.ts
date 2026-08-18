@@ -25,6 +25,8 @@
 
 import * as os from "node:os";
 import * as path from "node:path";
+import { type GeneratedProvider, getBundledModels, getBundledProviders } from "@cxn/pi-catalog/models";
+import type { Api, Model } from "@cxn/pi-catalog/types";
 import { runStructuredSubagent, type StructuredSubagentResult } from "../../task/structured-subagent";
 import type { ToolSession } from "../../tools";
 
@@ -354,6 +356,84 @@ function agentMessageRecv(session: ToolSession, payload: Record<string, unknown>
 }
 
 // ---------------------------------------------------------------------------
+// find_models: bundled catalog query
+// ---------------------------------------------------------------------------
+
+/** Compact model summary surfaced by the `find_models` op. */
+export interface RlmCatalogModelSummary {
+	id: string;
+	name: string;
+	provider: string;
+	api: string;
+	reasoning: boolean;
+	contextWindow: number | null;
+	inputModes: readonly ("text" | "image")[];
+	hasTools: boolean;
+}
+
+function catalogModelMatchesCapability(model: Model<Api>, capability: string): boolean {
+	switch (capability.toLowerCase()) {
+		case "reasoning":
+			return model.reasoning;
+		case "vision":
+		case "image":
+			return model.input.includes("image");
+		case "tools":
+		case "tool_use":
+			return model.supportsTools !== false;
+		case "text":
+			return model.input.includes("text");
+		default:
+			return false;
+	}
+}
+
+/**
+ * Query the bundled model catalog across every provider. Filters are optional:
+ * `query` is a case-insensitive substring over id/name/provider/api; `provider`
+ * is an exact (case-insensitive) provider match; `capability` narrows by
+ * reasoning / vision / tools / text support. Results are sorted by provider
+ * then id and capped at MAX_RLM_MODEL_SEARCH_LIMIT.
+ */
+export function findCatalogModels(payload: Record<string, unknown>): RlmCatalogModelSummary[] {
+	const query =
+		typeof payload.query === "string" && payload.query.trim() ? payload.query.trim().toLowerCase() : undefined;
+	const provider =
+		typeof payload.provider === "string" && payload.provider.trim()
+			? payload.provider.trim().toLowerCase()
+			: undefined;
+	const capability =
+		typeof payload.capability === "string" && payload.capability.trim()
+			? payload.capability.trim().toLowerCase()
+			: undefined;
+
+	const results: RlmCatalogModelSummary[] = [];
+	for (const prov of getBundledProviders()) {
+		if (provider && prov.toLowerCase() !== provider) continue;
+		for (const model of getBundledModels(prov as GeneratedProvider)) {
+			if (query) {
+				const haystack = `${model.id} ${model.name} ${model.provider} ${String(model.api)}`.toLowerCase();
+				if (!haystack.includes(query)) continue;
+			}
+			if (capability && !catalogModelMatchesCapability(model, capability)) continue;
+			results.push({
+				id: model.id,
+				name: model.name,
+				provider: model.provider,
+				api: String(model.api),
+				reasoning: model.reasoning,
+				contextWindow: model.contextWindow,
+				inputModes: model.input,
+				hasTools: model.supportsTools !== false,
+			});
+		}
+	}
+
+	results.sort((a, b) => a.provider.localeCompare(b.provider) || a.id.localeCompare(b.id));
+	return results.slice(0, MAX_RLM_MODEL_SEARCH_LIMIT);
+}
+
+// ---------------------------------------------------------------------------
 // Bridge dispatch
 // ---------------------------------------------------------------------------
 
@@ -370,9 +450,7 @@ export async function runRlmBridge(session: ToolSession, payload: unknown): Prom
 		case "delete_subagent":
 			return await rlmDeleteSubagent(session, p);
 		case "find_models":
-			// First slice: the bundled model catalog is available in later
-			// phases; return an empty list so callers degrade gracefully.
-			return { models: [] };
+			return { models: findCatalogModels(p) };
 		default:
 			throw new Error(`__rlm__ unknown op: ${String(p.op)}`);
 	}
