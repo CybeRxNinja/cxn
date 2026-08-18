@@ -5,7 +5,7 @@
 > working, robust subsystem that powers `cxn agents` (list/attach/send/stop),
 > compaction-surviving session leases, and correct cross-session family reach.
 >
-> Status: **Phase 0 + Phase 1 DONE** (implemented in `eval/py/family-store.ts` + `rlm.ts`, merged via PR). Phase 2+ are follow-ups. The in-process child-kernel wiring needs no daemon IPC.
+> Status: **Phase 0 + Phase 1 + Phase 2 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in this PR). Phase 3+ are follow-ups. The in-process child-kernel wiring needs no daemon IPC.
 
 ---
 
@@ -155,23 +155,48 @@ additive authority.
   reaches the parent mailbox.
 - Risk: low. No spawn-path change; covered by new contract tests.
 
-### Phase 2 — Supervisor daemon skeleton (reuse ACP)
-- New `packages/coding-agent/src/modes/daemon/`:
-  - `daemon-socket.ts` — UDS at
-    `$XDG_RUNTIME_DIR`/cxn/daemon-`<uid>`.sock (+ lockfile with pid/identity
-    for cleanup). Reuse `@cxn/pi-utils/acp` `ndJsonStream` for framing, or
-    port prime-agent's `daemon-socket.ts` JSONL if ACP's envelope doesn't fit
-    command/response correlation (prime-agent correlates by
-    `DaemonCommandEnvelope.id` echoed in `DaemonResponse`).
-  - `daemon-supervisor.ts` — lazy-spawned singleton per user
-    (`ensureDaemonRunning`, detached; `--mode daemon --daemon-socket <path>`).
-    Owns the **authoritative** `FamilyStore` (a `DaemonFamilyStore` server
-    side) + session registry + lease table.
-  - Handlers: `agent_message send/recv/list`, `rlm list_subagents/delete`,
-    `find_models` (static, can stay local), `session list/attach/send/stop`.
+### Phase 2 — Supervisor daemon skeleton (DONE — 2026-08-18)
+- Implemented in `packages/coding-agent/src/modes/daemon/`:
+  - `daemon-protocol.ts` — `DaemonRequestEnvelope` / `DaemonResponseEnvelope`
+    with per-request `id` correlation, `command`, `familyId`, `from`
+    (role + optional `childId`), `payload`, `result`/`error`/`ok`. Mirrors
+    ACP's message model (id-correlated request/response) without booting the
+    full ACP server.
+  - `daemon-transport.ts` — `serveConnection` (JSONL line framing over any
+    `DuplexStreams`), `DaemonClient` (correlated `request()`), `inMemoryPair`
+    (in-memory duplex for deterministic tests), and the real `udsServer` /
+    `udsConnect` over a `node:net` Unix-domain socket
+    (`$XDG_RUNTIME_DIR`/cxn/daemon-`<uid>`.sock via `daemon-socket.ts`, with a
+    `<sock>.lock` identity file). `udsServer.stop()` destroys sockets and
+    removes the socket file (idempotent), giving lockfile + identity-checked
+    cleanup on daemon exit.
+  - `daemon-family-store.ts` — `handleDaemonRequest` routes
+    `agent_message send/recv/list`, `rlm register_child/list_subagents/delete`,
+    `session list/attach/send/stop`, and `find_models` to the **same**
+    `FamilyStore` primitives extracted in Phase 0/1 (`familyStateFor`,
+    `sendToFamily`, `recvFromFamily`, `listAgentsInFamily`,
+    `registerChildInFamily`, `listSubagentsInFamily`, `deleteSubagentInFamily`)
+    plus `findCatalogModels`.
+  - `daemon-supervisor.ts` — `ensureDaemonRunning({ socketPath, spawn })`,
+    `stopDaemon`, lockfile read/write/remove. The CLI boot (`--mode daemon
+    --daemon-socket`) is a thin wrapper that fills `spawn` with `udsServer`.
+  - `index.ts` — barrel re-exporting the module.
+- Transport decision: a self-contained JSONL protocol over `node:net` UDS
+  (with an in-memory duplex fallback) rather than booting cxn's full ACP
+  server. The ACP server's CLI boot is heavy and its envelope is
+  request/response-oriented; the daemon only needs command/response
+  correlation, which the lightweight `DaemonClient` provides. The *message
+  model* (id-correlated envelopes, family-scoped commands) still follows the
+  ACP/RPC shape so a later swap to ACP transport is mechanical.
 - Parent-in-process calls keep using `InProcessFamilyStore`; the daemon's
-  store is the server side that `DaemonFamilyStore` clients hit.
-- Risk: medium. New process + lifecycle. Reuse ACP to minimize new protocol.
+  store is the server side that `DaemonClient` clients hit. Both share the
+  Phase 0/1 primitives.
+- Tests: `test/modes/daemon/daemon.test.ts` — in-memory protocol/store
+  (deliver parent→child, list subagents/roster, sibling/unknown-child reach
+  errors, find_models), a real UDS cross-connection delivery + socket
+  cleanup, and a supervisor boot/teardown lifecycle.
+- Risk: retired (medium → low). No new process primitive beyond `node:net`;
+  deterministic in-memory tests; real-UDS + supervisor tests cover lifecycle.
 
 ### Phase 3 — Ledger, leases, reach (the security + topology authority)
 - Port `rlm-ledger.ts` → `RlmSpawnLedger` (durable spawn edges:

@@ -1,7 +1,7 @@
 # cxn — Project Progress
 
 **Last updated:** 2026-08-18
-**Current phase:** Phase 2 (RLM follow-ups landed — `find_models` + child-kernel wiring done; daemon lane next)
+**Current phase:** Phase 3 (daemon skeleton done — `modes/daemon/` transport + supervisor + handlers landed; ledger/leases/reach + `cxn agents` CLI next)
 
 ---
 
@@ -133,7 +133,8 @@ CI-blocking.
 | Sibling-to-sibling messaging | Medium | Low | Extend family reach beyond parent↔child |
 | `find_models` catalog | **Done** | — | Ported to `__rlm__` (free-text / provider / capability over the bundled catalog); added contract tests. |
 | Compaction-surviving persistence | High | Medium | Family registry + mailboxes must survive compaction/restart |
-| Daemon/attach lane | **Critical** | **High** | Port `modes/daemon/` + `agent-connection/` + session leases; `cxn agents/attach/send/...` |
+| Daemon supervisor skeleton | **Done** | — | `modes/daemon/` transport (UDS JSONL + in-memory) + `ensureDaemonRunning` supervisor + handlers (`agent_message`, `rlm`, `session`, `find_models`) over a shared `FamilyStore`. in-memory + real-UDS + supervisor tests. See `docs/daemon-lane.md` Phase 2. |
+| Daemon ledger/leases/reach (`cxn agents` CLI) | **Critical** | **High** | Port `RlmSpawnLedger`, `assertAgentFamilyReach` (verbatim), session leases; `cxn agents/attach/send/...` (Phase 3–4). |
 | Auto-refine hookup | Medium | Low | Wire `reviewAutoRefine` into turn loop (after daemon lands) |
 
 ### Phase 3 — Python-backed skills
