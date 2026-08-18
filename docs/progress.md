@@ -53,7 +53,7 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 | Docs | ✅ | `docs/rlm.md` |
 | Child kernels wired into family | ⏳ | Child's own `agent_message.recv()` cannot drain its mailbox yet |
 | Siblings reach | ⏳ | Parent↔child only; sibling-to-sibling messaging is a follow-up |
-| `find_models` catalog | ⏳ | Not yet ported |
+| `find_models` catalog | ✅ | Queries bundled catalog via `findCatalogModels` (PR #5) |
 | Compaction-surviving persistence | ⏳ | In-memory only; survives process lifetime, not compaction |
 
 #### /refine continual harness ✅
@@ -131,7 +131,7 @@ CI-blocking.
 |------|----------|------------|-------|
 | Child kernels wired into family | High | Medium | **Blocked on the daemon/agent-connection IPC layer** — children run as subprocesses with their own in-memory family state, so a child's `agent_message.recv()` cannot see the parent process's mailboxes. Land the daemon lane first, then route child recv through the parent. |
 | Sibling-to-sibling messaging | Medium | Low | Extend family reach beyond parent↔child |
-| `find_models` catalog | Low | Low | Port from prime-agent's model discovery |
+| `find_models` catalog | Low | Low | **Done** — `find_models` queries the bundled catalog (PR #5) |
 | Compaction-surviving persistence | High | Medium | Family registry + mailboxes must survive compaction/restart |
 | Daemon/attach lane | **Critical** | **High** | Port `modes/daemon/` + `agent-connection/` + session leases; `cxn agents/attach/send/...` |
 | Auto-refine hookup | Medium | Low | Wire `reviewAutoRefine` into turn loop (after daemon lands) |
