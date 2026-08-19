@@ -5,7 +5,7 @@
 > working, robust subsystem that powers `cxn agents` (list/attach/send/stop),
 > compaction-surviving session leases, and correct cross-session family reach.
 >
-> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in PR #8; `cxn agents` CLI in this PR). Phase 5+ are follow-ups. The in-process child-kernel wiring needs no daemon IPC.
+> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in PR #8; `cxn agents` CLI in PR #9; heartbeats/reconnect/real-daemon-boot/crash-cleanup in PR #10). Phase 6 (compaction-surviving persistence) is the follow-up. The in-process child-kernel wiring needs no daemon IPC.
 
 ---
 
@@ -261,15 +261,22 @@ additive authority.
   (187 tests across the touched dirs).
 - Risk: retired (low/medium). Thin CLI over the Phase 2–3 handlers; contract-tested.
 
-### Phase 5 — Robustness
-- Heartbeats: port `heartbeat-catalog.ts` + cron heartbeats
-  (`core/cron-jobs.ts`) so the daemon reaps dead/idle sessions and detects
-  stale leases.
-- `DaemonClient` request-recovery / reconnect with backoff.
-- Supervisor-relaunch + worker fence-checks; `uncaughtException` handlers.
-- Lockfile socket + identity-checked cleanup on daemon exit.
-- Risk: medium. Defense-in-depth; each piece has a test (reap, reconnect,
-  cleanup).
+### Phase 5 — Robustness (DONE — 2026-08-18)
+- Heartbeats: `HeartbeatCatalog` + a `startDaemonHeartbeat` reaper loop that
+  reaps stale child agents (marks their ledger edge `completed` and force-releases
+  their session lease by session dir). `reapStaleAgents(ttlMs)` is unit-tested.
+- `DaemonClient` request-recovery / reconnect with backoff: a `reconnect`
+  factory + `maxRetries` retries a dropped connection on a fresh stream; a
+  generation-guarded pump prevents a stale pump from rejecting the new
+  connection's requests. Reconnect + no-reconnect paths are tested.
+- Real daemon boot: `cli.ts --mode daemon` dispatches `runDaemonMode`, which
+  serves the UDS, runs the heartbeat reaper, and installs `uncaughtException` /
+  `unhandledRejection` / `SIGINT` / `SIGTERM` handlers that clean the socket +
+  lockfile. Verified end-to-end by spawning the real `cxn` CLI subprocess.
+- Lockfile identity-checked cleanup on daemon exit (the supervisor writes the
+  lock; the daemon removes it on shutdown).
+- Risk: retired (medium). Defense-in-depth; each piece has a test (reap,
+  reconnect, real-daemon-boot, cleanup).
 
 ### Phase 6 — Compaction-surviving persistence (follow-up)
 - Serialize `RlmSpawnLedger` + lease table + mailbox cursors to disk
@@ -305,7 +312,7 @@ reach, cleaned socket), never "the code ran."
 | Risk | Mitigation |
 |------|------------|
 | Changing `familyFor` keying breaks existing tests | Phase 0 extraction + Phase 1 tests guard the contract; child path is opt-in via `getRlmRole()`. |
-| Daemon socket conflicts / leaks | Lockfile with pid + identity-checked cleanup (Phase 5); unique per-uid path. |
+| Daemon socket conflicts / leaks | Lockfile identity-checked cleanup on daemon exit + heartbeat reaper (Phase 5 DONE); unique per-uid path. |
 | Reach regression (security) | Port `assertAgentFamilyReach` verbatim; keep `AGENT_FAMILY_REACH_ERROR` tests. |
 | Scope creep (porting whole `AgentConnection`) | Explicit non-goals (§1); port only daemon-specific primitives. |
 | In-process vs daemon store divergence | Single `FamilyStore` interface; both impls share the same test suite. |
@@ -315,11 +322,11 @@ reach, cleaned socket), never "the code ran."
 ## 6. Definition of done
 
 - [x] `cxn agents list/attach/send/stop` work against a running daemon.
-- [ ] A child's `agent_message.recv()` drains its mailbox (in-process).
+- [x] A child's `agent_message.recv()` drains its mailbox (in-process).
 - [x] Sibling/parent/child reach enforced identically in-process and via daemon.
 - [x] Session leases + `RlmSpawnLedger` make sessions attachable; topology is
       authoritative.
-- [ ] Daemon cleans up its socket/lockfile on exit; reaps dead sessions via
+- [x] Daemon cleans up its socket/lockfile on exit; reaps dead sessions via
       heartbeats.
 - [ ] Full test suite green; no new `any`/inline imports; `bun check` + Biome
       clean.
@@ -331,5 +338,4 @@ reach, cleaned socket), never "the code ran."
 **Phase 0–4 DONE** (Phase 0+1 merged in PR #6; Phase 2 daemon skeleton merged in
 PR #7; Phase 3 ledger/leases/reach merged in PR #8; `cxn agents` CLI in this PR).
 Child-kernel wiring is implemented and reach/ledger/leases/CLI are landed. Next
-step is **Phase 5** (robustness: heartbeats/reconnect/crash isolation) as a
-follow-up PR, then Phase 6 (compaction-surviving persistence).
+step is **Phase 6** (compaction-surviving persistence).

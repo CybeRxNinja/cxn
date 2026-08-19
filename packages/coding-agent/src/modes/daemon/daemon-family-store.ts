@@ -21,6 +21,7 @@ import {
 } from "../../eval/py/family-store";
 import { findCatalogModels } from "../../eval/py/rlm";
 import type { DaemonFrom, DaemonRequestEnvelope, DaemonResponseEnvelope } from "./daemon-protocol";
+import { HeartbeatCatalog } from "./heartbeat-catalog";
 import { RlmSpawnLedger } from "./rlm-ledger";
 import { SessionLeaseRegistry } from "./session-lease";
 
@@ -33,6 +34,10 @@ function defaultAgentDir(): string {
 const ledger = new RlmSpawnLedger();
 /** Session-ownership registry for attach/stop. */
 let leaseRegistry: SessionLeaseRegistry | null = null;
+/** Last-seen timestamps for agents; the heartbeat loop reaps stale ones. */
+const heartbeatCatalog = new HeartbeatCatalog();
+/** Repeating heartbeat timer handle (daemon-only). */
+let heartbeatTimer: ReturnType<typeof setInterval> | null = null;
 
 function ensureLeaseRegistry(): SessionLeaseRegistry {
 	if (!leaseRegistry) leaseRegistry = new SessionLeaseRegistry(defaultAgentDir());
@@ -43,12 +48,16 @@ function ensureLeaseRegistry(): SessionLeaseRegistry {
 export function setupDaemonState(opts: { agentDir: string }): void {
 	ledger.reset();
 	leaseRegistry = new SessionLeaseRegistry(opts.agentDir);
+	heartbeatCatalog.reset();
+	stopDaemonHeartbeat();
 }
 
 /** Reset daemon-side state (topology + lease tables). Test-only convenience. */
 export function resetDaemonState(): void {
 	ledger.reset();
 	leaseRegistry?.reset();
+	heartbeatCatalog.reset();
+	stopDaemonHeartbeat();
 }
 
 function ownerIdFor(from: DaemonFrom): string {
@@ -59,6 +68,8 @@ function ownerIdFor(from: DaemonFrom): string {
 export async function handleDaemonRequest(req: DaemonRequestEnvelope): Promise<DaemonResponseEnvelope> {
 	try {
 		const { familyId, from, command, payload } = req;
+		heartbeatCatalog.touch(familyId);
+		if (from.role === "child" && from.childId) heartbeatCatalog.touch(from.childId);
 		let result: unknown;
 		switch (command) {
 			case "agent_message.send":
@@ -83,6 +94,7 @@ export async function handleDaemonRequest(req: DaemonRequestEnvelope): Promise<D
 					name: entry.session_name,
 					sessionId: entry.session_id,
 				});
+				heartbeatCatalog.touch(entry.rlm_child_id);
 				result = { registered: entry.rlm_child_id };
 				break;
 			}
@@ -131,5 +143,59 @@ export async function handleDaemonRequest(req: DaemonRequestEnvelope): Promise<D
 		return { id: req.id, ok: true, result };
 	} catch (e) {
 		return { id: req.id, ok: false, error: e instanceof Error ? e.message : String(e) };
+	}
+}
+
+/**
+ * Reap agents whose heartbeat is older than `ttlMs`: mark their ledger
+ * edges completed and release any held session lease so the slot frees up.
+ * Returns the reaped child ids.
+ */
+export function reapStaleAgents(ttlMs: number): string[] {
+	const stale = heartbeatCatalog.staleIds(ttlMs);
+	const reaped: string[] = [];
+	for (const id of stale) {
+		// Only reap child subagents, not the parent family root.
+		const parent = ledger.parentOf(id);
+		if (parent !== undefined) {
+			ledger.setStatus(id, "completed");
+			// Release the session lease keyed by this child's session dir.
+			const edge = ledger.childrenOf(parent).find(e => e.childId === id);
+			if (edge?.sessionDir) ensureLeaseRegistry().forceRelease(edge.sessionDir);
+			reaped.push(id);
+		}
+		heartbeatCatalog.remove(id);
+	}
+	return reaped;
+}
+
+export interface DaemonHeartbeatOptions {
+	/** How often to run the reaper, in ms. */
+	intervalMs?: number;
+	/** Inactivity threshold beyond which an agent is reaped, in ms. */
+	ttlMs?: number;
+}
+
+/** Start the repeating heartbeat reaper. Idempotent — restarts if already running. */
+export function startDaemonHeartbeat(opts: DaemonHeartbeatOptions = {}): void {
+	stopDaemonHeartbeat();
+	const intervalMs = opts.intervalMs ?? 15_000;
+	const ttlMs = opts.ttlMs ?? 120_000;
+	heartbeatTimer = setInterval(() => {
+		try {
+			reapStaleAgents(ttlMs);
+		} catch {
+			/* reaping must never crash the daemon loop */
+		}
+	}, intervalMs);
+	// Don't keep the event loop alive solely for the heartbeat.
+	if (typeof heartbeatTimer.unref === "function") heartbeatTimer.unref();
+}
+
+/** Stop the heartbeat reaper, if running. */
+export function stopDaemonHeartbeat(): void {
+	if (heartbeatTimer !== null) {
+		clearInterval(heartbeatTimer);
+		heartbeatTimer = null;
 	}
 }

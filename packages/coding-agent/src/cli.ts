@@ -34,6 +34,7 @@ import type { WorkerInbound as JsWorkerInbound, WorkerOutbound as JsWorkerOutbou
 import { DAEMON_BROKER_WORKER_ARG } from "./launch/protocol";
 import { TERMINAL_OUTPUT_WORKER_ARG } from "./launch/terminal-output-worker-protocol";
 import { LSP_MUX_WORKER_ARG } from "./lsp/mux/protocol";
+import { runDaemonMode } from "./modes/daemon/daemon-boot";
 import { COMPUTER_WORKER_ARG } from "./tools/computer/protocol";
 import { smokeTestComputerWorker } from "./tools/computer/supervisor";
 import { startComputerWorker } from "./tools/computer/worker-entry";
@@ -395,6 +396,10 @@ export async function runCli(argv: string[]): Promise<void> {
 
 	if (resolvedArgv[0] === "--smoke-test") {
 		await runSmokeTest();
+		return;
+	}
+	if (resolvedArgv[0] === "--mode" && resolvedArgv[1] === "daemon") {
+		await runDaemonMode(resolvedArgv.slice(1));
 		return;
 	}
 	const [{ run }, { commands, resolveCliArgv }] = await Promise.all([
