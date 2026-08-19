@@ -262,8 +262,6 @@ impl Drop for ComApartment {
 
 struct BaseStream {
 	client:      ComPtr<AudioClientVtable>,
-	device:      ComPtr<MmDeviceVtable>,
-	enumerator:  ComPtr<MmDeviceEnumeratorVtable>,
 	event:       Arc<OwnedEvent>,
 	buffer_size: u32,
 	_apartment:  ComApartment,
@@ -392,7 +390,7 @@ impl BaseStream {
 			return Err("IAudioClient::GetBufferSize returned zero frames".to_owned());
 		}
 
-		Ok(Self { client, device, enumerator, event, buffer_size, _apartment: apartment })
+		Ok(Self { client, event, buffer_size, _apartment: apartment })
 	}
 
 	fn event_handle(&self) -> EventHandle {

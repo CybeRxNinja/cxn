@@ -99,7 +99,7 @@ jobs:
          # tag straight from `github.ref_name`, and fetching `--tags` while
          # checkout uses an explicit tag refspec makes git refuse — so scope
          # fetch-tags to main refs.
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
            with:
               fetch-tags: ${{ github.ref == 'refs/heads/main' }}
          - name: Detect release tag at HEAD
@@ -131,7 +131,7 @@ jobs:
       name: Lint, type check & web build
       runs-on: ubuntu-22.04
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/bun-install
          - name: Branding guard
            run: bun scripts/check-branding.ts
@@ -150,7 +150,7 @@ jobs:
       if: github.event_name != 'pull_request'
       runs-on: ubuntu-22.04
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/bun-install
          - id: cache
            uses: ./.github/actions/bazel-cache
@@ -205,7 +205,7 @@ jobs:
       name: Build native addons (bazel)
       runs-on: ${{ github.event_name == 'pull_request' && 'ubuntu-22.04' || 'ubuntu-22.04' }}
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
          # ---- PR path: latest release addons from GitHub Packages ----
          - name: Fetch release native addons (npm)
@@ -331,7 +331,7 @@ jobs:
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       timeout-minutes: 20
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -354,7 +354,7 @@ jobs:
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       timeout-minutes: 20
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -372,7 +372,7 @@ jobs:
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       timeout-minutes: 25
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -390,7 +390,7 @@ jobs:
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       timeout-minutes: 25
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -408,7 +408,7 @@ jobs:
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       timeout-minutes: 25
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -428,7 +428,7 @@ jobs:
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       timeout-minutes: 25
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -446,7 +446,7 @@ jobs:
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       timeout-minutes: 15
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -461,7 +461,7 @@ jobs:
       needs: [native_addons]
       if: ${{ !cancelled() && needs.native_addons.result == 'success' }}
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/setup-system-deps
          - uses: ./.github/actions/bun-install
          - uses: ./.github/actions/native-artifacts
@@ -558,7 +558,7 @@ jobs:
            with:
               bun-version: "1.3"
          - name: Cache bun dependencies
-           uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+           uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
            with:
               path: ~/.bun/install/cache
               key: bun-${{ runner.os }}-${{ hashFiles('**/bun.lock') }}
@@ -635,7 +635,7 @@ jobs:
            with:
               bun-version: "1.3"
          - name: Cache bun dependencies
-           uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+           uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
            with:
               path: ~/.bun/install/cache
               key: bun-${{ runner.os }}-${{ hashFiles('**/bun.lock') }}
@@ -719,7 +719,7 @@ jobs:
          - name: Ensure npm supports the configured registry
            run: npm install -g npm@11.17.0
          - name: Cache bun dependencies
-           uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+           uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
            with:
               path: ~/.bun/install/cache
               key: bun-${{ runner.os }}-${{ hashFiles('**/bun.lock') }}
@@ -872,7 +872,7 @@ jobs:
          - name: Ensure npm supports the configured registry
            run: npm install -g npm@11.17.0
          - name: Cache bun dependencies
-           uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+           uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
            with:
               path: ~/.bun/install/cache
               key: bun-${{ runner.os }}-${{ hashFiles('**/bun.lock') }}

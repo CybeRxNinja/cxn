@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- CI: bumped `actions/checkout` to v6 and `actions/cache` to v6 (Node 24 lines) and kept `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24` so the pipeline runs on the latest Node.js without the Node 20 deprecation warnings.
+- Native addons: removed dead `device`/`enumerator` fields from `BaseStream` (WASAPI) and allowed `permission_denied` on the Windows build, clearing the `dead_code` warnings from the native build.
+
 ## [17.4.1] - 2026-08-19
 
 ### Fixed
