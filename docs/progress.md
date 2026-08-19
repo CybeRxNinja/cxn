@@ -1,7 +1,7 @@
 # cxn — Project Progress
 
 **Last updated:** 2026-08-18
-**Current phase:** Phase 6 (compaction-surviving persistence — Phase 5 robustness DONE: heartbeats/reconnect/real-daemon-boot/crash-cleanup landed in PR #10; `cxn agents` CLI, ledger/leases/reach, supervisor skeleton merged in #7–#9)
+**Current phase:** Phase 6 DONE — compaction-surviving daemon durability (ledger + leases + mailboxes persist across restart) landed in PR #11; the RLM daemon lane (Phases 0–6) is complete. Next: operational hardening + the pre-existing `cli-computer-lazy` regression (regressed by PR #10, out of Phase 6 scope).
 
 ---
 
@@ -54,7 +54,7 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 | Child kernels wired into family | ✅ | Child's own `agent_message.recv()` drains its mailbox (wired into parent family via `getAgentId()` → `eval/py/family-store.ts`) |
 | Siblings reach | ✅ | Sibling-to-sibling reach implemented in Phase 3 via verbatim `assertAgentFamilyReach`. |
 | `find_models` catalog | ✅ | Ported to `__rlm__` (free-text / provider / capability query over the bundled catalog) |
-| Compaction-surviving persistence | ⏳ | In-memory only; survives process lifetime, not compaction |
+| Compaction-surviving persistence | **Done** | Ledger + leases + mailboxes persist to `agentDir` and reload on daemon boot (Phase 6, PR #11) |
 
 #### /refine continual harness ✅
 
@@ -132,7 +132,7 @@ CI-blocking.
 | Child kernels wired into family | **Done** | — | **DONE (in-process)** — extracted into `eval/py/family-store.ts`; a child's `agent_message.recv()` now drains its real mailbox. Resolution uses `getAgentId()` (== `rlm_child_id`) so no spawn-path injection is needed. The daemon is only needed for *cross-process* `cxn agents` + cross-session sibling reach (see `docs/daemon-lane.md` Phase 1). |
 | Sibling-to-sibling messaging | **Done** | — | **DONE (Phase 3)** — `assertAgentFamilyReach` (ported verbatim from prime-agent) now permits child→sibling within a nuclear family, enforced on every `sendToFamily` (in-process + daemon). See `docs/daemon-lane.md` Phase 3. |
 | `find_models` catalog | **Done** | — | Ported to `__rlm__` (free-text / provider / capability over the bundled catalog); added contract tests. |
-| Compaction-surviving persistence | High | Medium | Family registry + mailboxes must survive compaction/restart (**Phase 6 / current daemon phase** — Phase 5 robustness landed in PR #10) |
+| Compaction-surviving persistence | **Done** | **Phase 6 DONE (PR #11)** — `RlmSpawnLedger.persist()` writes `agentDir/rlm-ledger.json` on every mutation; `SessionLeaseRegistry.reload()` re-scans `agentDir/session-leases/*.lock`; mailboxes written per-family and re-seeded on boot via `restoreMailboxMessages`. All survive a daemon restart (tested). See `docs/daemon-lane.md` Phase 6. |
 | Daemon supervisor skeleton | **Done** | — | `modes/daemon/` transport (UDS JSONL + in-memory) + `ensureDaemonRunning` supervisor + handlers (`agent_message`, `rlm`, `session`, `find_models`) over a shared `FamilyStore`. in-memory + real-UDS + supervisor tests. See `docs/daemon-lane.md` Phase 2. |
 | Daemon ledger/leases/reach (`cxn agents` CLI) | **Done** | — | **Phase 3 + Phase 4 DONE** — `RlmSpawnLedger` (topology authority), `assertAgentFamilyReach` (verbatim reach boundary in `eval/py/family-reach.ts`), and `SessionLeaseRegistry` (on-disk `owner.json` + pid reaping) landed and wired into the daemon handlers; `cxn agents list/attach/send/stop` CLI added in Phase 4 over the shared `FamilyStore`. See `docs/daemon-lane.md` Phases 3–4. |
 | Daemon robustness (heartbeats/reconnect/crash-cleanup) | **Done** | — | **Phase 5 DONE** — `HeartbeatCatalog` + `startDaemonHeartbeat` reaper (reaps stale child agents and force-releases their session leases by session dir), `DaemonClient` reconnect/retry with a generation-guarded pump, real `cli.ts --mode daemon` boot wiring `uncaughtException`/`unhandledRejection`/`SIGINT`/`SIGTERM` cleanup, and identity-checked lockfile removal on exit. Verified end-to-end by spawning the real `cxn` CLI subprocess. See `docs/daemon-lane.md` Phase 5. |

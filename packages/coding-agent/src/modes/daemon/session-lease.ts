@@ -14,7 +14,7 @@
  */
 
 import { createHash, randomUUID } from "node:crypto";
-import { mkdirSync, readFileSync, realpathSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, realpathSync } from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 
@@ -196,6 +196,26 @@ export class SessionLeaseRegistry {
 	reset(): void {
 		this.openingSessions.clear();
 		this.client_owned_sessions.clear();
+	}
+
+	/** Rebuild in-memory ownership from on-disk leases (called on daemon boot). */
+	reload(): void {
+		this.client_owned_sessions.clear();
+		const base = path.join(this.agentDir, "session-leases");
+		let entries: string[];
+		try {
+			entries = readdirSync(base);
+		} catch {
+			return;
+		}
+		for (const name of entries) {
+			if (!name.endsWith(".lock")) continue;
+			const owner = readLeaseOwner(path.join(base, name));
+			if (owner && isLeaseAlive(owner)) {
+				const canonical = canonicalSessionPath(owner.sessionPath);
+				this.client_owned_sessions.set(canonical, owner.ownerId);
+			}
+		}
 	}
 
 	async #writeOwnerAtomic(dir: string, owner: SessionLeaseOwner): Promise<void> {

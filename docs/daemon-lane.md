@@ -5,7 +5,7 @@
 > working, robust subsystem that powers `cxn agents` (list/attach/send/stop),
 > compaction-surviving session leases, and correct cross-session family reach.
 >
-> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in PR #8; `cxn agents` CLI in PR #9; heartbeats/reconnect/real-daemon-boot/crash-cleanup in PR #10). Phase 6 (compaction-surviving persistence) is the follow-up. The in-process child-kernel wiring needs no daemon IPC.
+> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5 + Phase 6 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in PR #8; `cxn agents` CLI in PR #9; heartbeats/reconnect/real-daemon-boot/crash-cleanup in PR #10; compaction-surviving durability of ledger + leases + mailboxes in PR #11). The in-process child-kernel wiring needs no daemon IPC.
 
 ---
 
@@ -278,10 +278,15 @@ additive authority.
 - Risk: retired (medium). Defense-in-depth; each piece has a test (reap,
   reconnect, real-daemon-boot, cleanup).
 
-### Phase 6 — Compaction-surviving persistence (follow-up)
-- Serialize `RlmSpawnLedger` + lease table + mailbox cursors to disk
-  (port `saved-session-catalog.ts` / `command-recovery-journal.ts`).
-- `cxn agents attach` reloads a session's runtime/state from the ledger.
+### Phase 6 — Compaction-surviving persistence (DONE — 2026-08-19)
+The daemon now boots with durable state so a restart/respawn resumes where it left off:
+- **Ledger**: `setupDaemonState` loads `agentDir/rlm-ledger.json` (atomic temp+rename written by
+  `RlmSpawnLedger.persist()` on every `register_child` / `delete_subagent` / reaper mutation).
+- **Leases**: `SessionLeaseRegistry.reload()` re-scans `agentDir/session-leases/*.lock` on boot and
+  rebuilds in-memory ownership for leases whose owner process is still alive (`process.kill(pid,0)`).
+- **Mailboxes**: every `agent_message.send`/`recv` writes `agentDir/mailboxes/<familyId>.json`; on boot
+  `loadAllMailboxes()` seeds the in-memory `FamilyStore` via `restoreMailboxMessages` (dedup by id).
+- Durable dir is `defaultAgentDir()` (overridable via `CXN_DAEMON_AGENT_DIR` for tests/operators).
 - Risk: medium. Depends on Phase 3 ledger being the authority.
 
 ---
@@ -301,6 +306,9 @@ additive authority.
 - **Phase 5**: robustness — kill a child process → daemon reaps + marks
   completed; drop the socket → client reconnects; daemon crash → lockfile
   cleanup on relaunch.
+- **Phase 6**: durability — after a simulated restart (`resetDaemonState` + `setupDaemonState` on the
+  same `agentDir`), the ledger, a held session lease, and an undelivered mailbox all survive; the
+  reaper's `completed` status persists across restart too.
 
 Every test asserts an **observable contract** (delivered message, rejected
 reach, cleaned socket), never "the code ran."
@@ -328,14 +336,19 @@ reach, cleaned socket), never "the code ran."
       authoritative.
 - [x] Daemon cleans up its socket/lockfile on exit; reaps dead sessions via
       heartbeats.
-- [ ] Full test suite green; no new `any`/inline imports; `bun check` + Biome
-      clean.
+- [x] Ledger + session leases + mailboxes persist across a daemon restart.
+- [~] `bun check` + Biome clean; daemon/cli/eval suites green. One pre-existing
+      non-required test (`cli-computer-lazy`) fails on `main` (regressed by PR #10's
+      top-level `cli.ts` computer-worker import) — tracked separately, out of Phase 6 scope.
 
 ---
 
 ## 7. Suggested first PR (this session's next step)
 
-**Phase 0–4 DONE** (Phase 0+1 merged in PR #6; Phase 2 daemon skeleton merged in
-PR #7; Phase 3 ledger/leases/reach merged in PR #8; `cxn agents` CLI in this PR).
-Child-kernel wiring is implemented and reach/ledger/leases/CLI are landed. Next
-step is **Phase 6** (compaction-surviving persistence).
+**Phase 0–6 DONE** (Phase 0+1 merged in PR #6; Phase 2 daemon skeleton merged in
+PR #7; Phase 3 ledger/leases/reach merged in PR #8; `cxn agents` CLI in PR #9;
+robustness in PR #10; compaction-surviving durability in PR #11).
+Child-kernel wiring is implemented, reach/ledger/leases/CLI/robustness/persistence
+are landed. The daemon feature lane is complete through Phase 6; remaining work is
+operational hardening (observability, multi-daemon sharding) and the pre-existing
+cli-laziness regression noted in the Definition of done.

@@ -258,6 +258,25 @@ export function sendToFamily(
 	return { deliveryStatus: "delivered", deliveredAt: msg.at };
 }
 
+/** Snapshot a family's mailbox map (mailboxKey -> messages). Daemon-only durability helper. */
+export function getMailboxMap(familyId: string): Map<string, AgentMessage[]> {
+	return familyStateFor(familyId).mailboxes;
+}
+
+/** Re-seed mailbox messages on daemon boot from durable storage (dedup by message id). */
+export function restoreMailboxMessages(familyId: string, key: string, messages: AgentMessage[]): void {
+	const family = familyStateFor(familyId);
+	const existing = family.mailboxes.get(key) ?? [];
+	const seen = new Set(existing.map(m => m.id));
+	for (const m of messages) {
+		if (!seen.has(m.id)) {
+			existing.push(m);
+			seen.add(m.id);
+		}
+	}
+	family.mailboxes.set(key, existing);
+}
+
 /** Read (and optionally drain) a mailbox within a family, keyed by `key`. */
 export function recvFromFamily(
 	familyId: string,
