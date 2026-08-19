@@ -44,6 +44,19 @@
   mid-conversation reconnect), and `test/modes/daemon/daemon-boot.test.ts` (spawns the real
   `cxn` CLI subprocess and serves catalog + family requests over the socket).
 
+- Added Phase 6 daemon durability: the daemon's authoritative state now survives a restart.
+  `RlmSpawnLedger.persist()` writes an atomic `agentDir/rlm-ledger.json` snapshot on every
+  `register_child` / `delete_subagent` / reaper mutation; `SessionLeaseRegistry.reload()` re-scans
+  `agentDir/session-leases/*.lock` on boot and rebuilds in-memory ownership for leases whose owner
+  process is still alive; and `agent_message.send`/`recv` persist each family's mailboxes to
+  `agentDir/mailboxes/<familyId>.json`, re-seeded on boot via `restoreMailboxMessages`
+  (dedup by message id). `setupDaemonState` now loads all three from disk, so a daemon respawn
+  resumes the topology, held leases, and undelivered mailboxes. The durable dir honors
+  `CXN_DAEMON_AGENT_DIR` (defaults to `defaultAgentDir()`). Covered by
+  `test/modes/daemon/persistence.test.ts` (ledger / lease / mailbox / reaper-status survival across a
+  simulated restart), and `test/modes/daemon/daemon-boot.test.ts` now isolates the spawned daemon's
+  durable dir per run.
+
 ## [17.3.7] - 2026-08-17
 
 ### Changed

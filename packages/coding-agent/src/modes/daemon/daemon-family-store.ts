@@ -9,14 +9,19 @@
  * `RlmSpawnLedger` and session ownership in the `SessionLeaseRegistry`.
  */
 
+import { randomUUID } from "node:crypto";
+import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import {
+	type AgentMessage,
 	deleteSubagentInFamily,
+	getMailboxMap,
 	listAgentsInFamily,
 	type RlmSubagentRegistryEntry,
 	recvFromFamily,
 	registerChildInFamily,
+	restoreMailboxMessages,
 	sendToFamily,
 } from "../../eval/py/family-store";
 import { findCatalogModels } from "../../eval/py/rlm";
@@ -38,10 +43,58 @@ let leaseRegistry: SessionLeaseRegistry | null = null;
 const heartbeatCatalog = new HeartbeatCatalog();
 /** Repeating heartbeat timer handle (daemon-only). */
 let heartbeatTimer: ReturnType<typeof setInterval> | null = null;
+/** Durable ledger snapshot path (Phase 6 persistence). */
+let ledgerFile: string | null = null;
+/** Durable mailbox directory (Phase 6 persistence). */
+let mailboxDir: string | null = null;
 
 function ensureLeaseRegistry(): SessionLeaseRegistry {
 	if (!leaseRegistry) leaseRegistry = new SessionLeaseRegistry(defaultAgentDir());
 	return leaseRegistry;
+}
+
+/** Persist the ledger snapshot to disk (no-op until setupDaemonState ran). */
+function persistLedger(): void {
+	if (ledgerFile) ledger.persist(ledgerFile);
+}
+
+/** Persist a family's mailboxes to disk (no-op until setupDaemonState ran). */
+function persistMailboxes(familyId: string): void {
+	if (!mailboxDir) return;
+	const map = getMailboxMap(familyId);
+	const obj: Record<string, AgentMessage[]> = {};
+	for (const [key, messages] of map) obj[key] = messages;
+	const file = path.join(mailboxDir, `${familyId}.json`);
+	const tmp = `${file}.tmp-${process.pid}-${randomUUID()}`;
+	fs.writeFileSync(
+		tmp,
+		`${JSON.stringify(obj)}
+`,
+	);
+	fs.renameSync(tmp, file);
+}
+
+/** Reload all persisted mailboxes into the in-memory family store (daemon boot). */
+function loadAllMailboxes(): void {
+	if (!mailboxDir) return;
+	let files: string[];
+	try {
+		files = fs.readdirSync(mailboxDir);
+	} catch {
+		return;
+	}
+	for (const f of files) {
+		if (!f.endsWith(".json")) continue;
+		const familyId = f.slice(0, -".json".length);
+		try {
+			const obj = JSON.parse(fs.readFileSync(path.join(mailboxDir, f), "utf8")) as Record<string, AgentMessage[]>;
+			for (const [key, messages] of Object.entries(obj)) {
+				restoreMailboxMessages(familyId, key, messages);
+			}
+		} catch {
+			/* corrupt mailbox file — skip */
+		}
+	}
 }
 
 /** Initialize daemon-side state. Call once at boot (or per test) with a writable dir. */
@@ -50,6 +103,21 @@ export function setupDaemonState(opts: { agentDir: string }): void {
 	leaseRegistry = new SessionLeaseRegistry(opts.agentDir);
 	heartbeatCatalog.reset();
 	stopDaemonHeartbeat();
+	ledgerFile = path.join(opts.agentDir, "rlm-ledger.json");
+	mailboxDir = path.join(opts.agentDir, "mailboxes");
+	fs.mkdirSync(mailboxDir, { recursive: true, mode: 0o700 });
+	// Reload durable state so a restarted daemon resumes where it left off.
+	if (fs.existsSync(ledgerFile)) {
+		try {
+			ledger.loadJSON(JSON.parse(fs.readFileSync(ledgerFile, "utf8")));
+		} catch {
+			/* corrupt snapshot — start fresh */
+		}
+	}
+	try {
+		leaseRegistry.reload();
+	} catch {}
+	loadAllMailboxes();
 }
 
 /** Reset daemon-side state (topology + lease tables). Test-only convenience. */
@@ -58,6 +126,8 @@ export function resetDaemonState(): void {
 	leaseRegistry?.reset();
 	heartbeatCatalog.reset();
 	stopDaemonHeartbeat();
+	ledgerFile = null;
+	mailboxDir = null;
 }
 
 function ownerIdFor(from: DaemonFrom): string {
@@ -74,11 +144,13 @@ export async function handleDaemonRequest(req: DaemonRequestEnvelope): Promise<D
 		switch (command) {
 			case "agent_message.send":
 				result = sendToFamily(familyId, { role: from.role, childId: from.childId }, payload);
+				persistMailboxes(familyId);
 				break;
 			case "agent_message.recv": {
 				// A child reads its own mailbox (keyed by its rlm_child_id); parent reads "parent".
 				const key = from.role === "child" && from.childId ? from.childId : "parent";
 				result = recvFromFamily(familyId, key, payload);
+				persistMailboxes(familyId);
 				break;
 			}
 			case "agent_message.list":
@@ -95,6 +167,7 @@ export async function handleDaemonRequest(req: DaemonRequestEnvelope): Promise<D
 					sessionId: entry.session_id,
 				});
 				heartbeatCatalog.touch(entry.rlm_child_id);
+				persistLedger();
 				result = { registered: entry.rlm_child_id };
 				break;
 			}
@@ -115,6 +188,7 @@ export async function handleDaemonRequest(req: DaemonRequestEnvelope): Promise<D
 				const target = String(payload.target ?? "");
 				result = deleteSubagentInFamily(familyId, target);
 				ledger.remove(target);
+				persistLedger();
 				break;
 			}
 			case "find_models":
@@ -166,6 +240,7 @@ export function reapStaleAgents(ttlMs: number): string[] {
 		}
 		heartbeatCatalog.remove(id);
 	}
+	persistLedger();
 	return reaped;
 }
 

@@ -23,9 +23,16 @@ describe("real daemon process boot (cli.ts --mode daemon)", () => {
 		resetDaemonState();
 		resetRlmFamilies();
 		if (sock) fs.rmSync(sock, { force: true });
+		if (process.env.CXN_DAEMON_AGENT_DIR) {
+			fs.rmSync(process.env.CXN_DAEMON_AGENT_DIR, { recursive: true, force: true });
+			delete process.env.CXN_DAEMON_AGENT_DIR;
+		}
 	});
 
 	it("spawns the cxn CLI in daemon mode and serves catalog + family requests over UDS", async () => {
+		// Isolate the spawned daemon's durable state (ledger/leases/mailboxes). The
+		// child inherits this via spawnCliDaemon's env passthrough (runDaemonMode honors it).
+		process.env.CXN_DAEMON_AGENT_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-boot-agentdir-"));
 		sock = path.join(os.tmpdir(), `cxn-boot-${Date.now()}-${Math.random().toString(36).slice(2)}.sock`);
 		// No `spawn` override → default spawnCliDaemon launches the real cli.ts.
 		handle = await ensureDaemonRunning({ socketPath: sock, timeoutMs: 15_000 });

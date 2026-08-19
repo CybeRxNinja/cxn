@@ -40,7 +40,8 @@ function parseSocketArg(argv: string[]): string {
 /** Boot the supervisor daemon. Resolves only after the process is asked to exit. */
 export async function runDaemonMode(argv: string[]): Promise<void> {
 	const socketPath = parseSocketArg(argv);
-	const agentDir = defaultAgentDir();
+	// Allow tests / operators to isolate the daemon's durable state dir.
+	const agentDir = process.env.CXN_DAEMON_AGENT_DIR ?? defaultAgentDir();
 
 	setupDaemonState({ agentDir });
 	const server = await udsServer(socketPath, handleDaemonRequest);

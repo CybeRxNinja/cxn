@@ -14,6 +14,8 @@
  * file layer is a drop-in later.
  */
 
+import { randomUUID } from "node:crypto";
+import * as fs from "node:fs";
 import type { AgentFamilyCatalogEntry, AgentFamilyStatus } from "../../eval/py/family-reach";
 import type { RlmChildStatus } from "../../eval/py/family-store";
 
@@ -122,5 +124,21 @@ export class RlmSpawnLedger {
 	loadJSON(snapshot: { edges: RlmSpawnEdge[] }): void {
 		this.#edges.clear();
 		for (const edge of snapshot.edges) this.#edges.set(edge.childId, { ...edge });
+	}
+
+	/** Atomically persist the snapshot to `filePath` (temp file + rename). */
+	persist(filePath: string): void {
+		const tmp = `${filePath}.tmp-${process.pid}-${randomUUID()}`;
+		fs.writeFileSync(
+			tmp,
+			`${JSON.stringify(this.toJSON())}
+`,
+		);
+		try {
+			fs.renameSync(tmp, filePath);
+		} catch (e) {
+			fs.rmSync(tmp, { force: true });
+			throw e;
+		}
 	}
 }
