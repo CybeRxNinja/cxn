@@ -23,6 +23,15 @@ export interface DuplexStreams {
 	writable: WritableStream<Uint8Array>;
 }
 
+export interface DaemonClientOptions {
+	/** Reconnect factory — returns fresh streams after a connection drop. */
+	reconnect?: () => Promise<DuplexStreams>;
+	/** Max reconnect attempts per request (default 0). */
+	maxRetries?: number;
+	/** Base backoff between reconnect attempts in ms (default 100). */
+	retryBaseMs?: number;
+}
+
 interface ByteReader {
 	read(): Promise<{ done: boolean | undefined; value?: Uint8Array }>;
 	releaseLock(): void;
@@ -92,10 +101,18 @@ class MemoryPipe {
 			/* already closed */
 		}
 	}
+	/** Force both ends of this pipe closed (simulates a connection drop). */
+	drop(): void {
+		try {
+			this.#controller.close();
+		} catch {
+			/* already closed */
+		}
+	}
 }
 
 /** A connected in-memory duplex pair (server side + client side). For tests. */
-export function inMemoryPair(): { server: DuplexStreams; client: DuplexStreams } {
+export function inMemoryPair(): { server: DuplexStreams; client: DuplexStreams; drop: () => void } {
 	const serverPipe = new MemoryPipe();
 	const clientPipe = new MemoryPipe();
 	serverPipe.link(clientPipe);
@@ -103,28 +120,55 @@ export function inMemoryPair(): { server: DuplexStreams; client: DuplexStreams }
 	return {
 		server: { readable: serverPipe.readable, writable: serverPipe.writable },
 		client: { readable: clientPipe.readable, writable: clientPipe.writable },
+		// Simulate the connection dying (both ends close). The reader pumps
+		// observe `done` and reject in-flight requests so reconnect can fire.
+		drop: () => {
+			try {
+				serverPipe.drop();
+			} catch {}
+			try {
+				clientPipe.drop();
+			} catch {}
+		},
 	};
 }
 
 /** A DaemonClient speaks the protocol over an arbitrary duplex stream. */
 export class DaemonClient {
-	#reader: ByteReader;
-	#writer: ByteWriter;
+	#reader!: ByteReader;
+	#writer!: ByteWriter;
 	#buf = "";
 	#seq = 0;
 	#pending = new Map<string, { resolve: (r: DaemonResponseEnvelope) => void; reject: (e: unknown) => void }>();
+	#generation = 0;
+	#reconnect?: () => Promise<DuplexStreams>;
+	#maxRetries: number;
+	#retryBaseMs: number;
 
-	constructor(streams: DuplexStreams) {
-		this.#reader = streams.readable.getReader() as unknown as ByteReader;
-		this.#writer = streams.writable.getWriter() as unknown as ByteWriter;
-		void this.#pump();
+	constructor(streams: DuplexStreams, opts: DaemonClientOptions = {}) {
+		this.#reconnect = opts.reconnect;
+		this.#maxRetries = opts.maxRetries ?? 0;
+		this.#retryBaseMs = opts.retryBaseMs ?? 100;
+		this.#attach(streams);
 	}
 
-	async #pump(): Promise<void> {
+	#attach(streams: DuplexStreams): void {
+		this.#reader = streams.readable.getReader() as unknown as ByteReader;
+		this.#writer = streams.writable.getWriter() as unknown as ByteWriter;
+		const gen = ++this.#generation;
+		void this.#pump(gen);
+	}
+
+	async #pump(gen: number): Promise<void> {
+		const reader = this.#reader;
+		let closed = false;
 		try {
-			while (true) {
-				const { done, value } = await this.#reader.read();
-				if (done) break;
+			while (gen === this.#generation) {
+				const { done, value } = await reader.read();
+				if (done) {
+					closed = true;
+					break;
+				}
 				this.#buf += decoder.decode(value ?? new Uint8Array());
 				for (let i = this.#buf.indexOf("\n"); i >= 0; i = this.#buf.indexOf("\n")) {
 					const line = this.#buf.slice(0, i);
@@ -139,9 +183,27 @@ export class DaemonClient {
 				}
 			}
 		} catch (e) {
+			// A stale pump (superseded by a reconnect) must not reject requests
+			// belonging to the new connection.
+			if (gen !== this.#generation) return;
 			for (const p of this.#pending.values()) p.reject(e);
 			this.#pending.clear();
+			return;
 		}
+		// Clean close (peer ended the stream): reject anything still in flight
+		// so a configured reconnect/retry can take over.
+		if (gen !== this.#generation) return;
+		if (closed) {
+			const err = new Error("daemon connection closed");
+			for (const p of this.#pending.values()) p.reject(err);
+			this.#pending.clear();
+		}
+	}
+
+	async #reconnectStreams(): Promise<void> {
+		if (!this.#reconnect) throw new Error("no reconnect factory configured");
+		const streams = await this.#reconnect();
+		this.#attach(streams);
 	}
 
 	async request(
@@ -149,15 +211,24 @@ export class DaemonClient {
 		payload: Record<string, unknown>,
 		from: DaemonFrom = { role: "parent" },
 		familyId = "default",
+		attempt = 0,
 	): Promise<unknown> {
 		const id = `c${++this.#seq}`;
 		const req: DaemonRequestEnvelope = { id, familyId, from, command, payload };
-		const res = await new Promise<DaemonResponseEnvelope>((resolve, reject) => {
-			this.#pending.set(id, { resolve, reject });
-			this.#writer.write(encoder.encode(`${JSON.stringify(req)}\n`)).catch(reject);
-		});
-		if (!res.ok) throw new Error(res.error ?? "daemon request failed");
-		return res.result;
+		try {
+			const res = await new Promise<DaemonResponseEnvelope>((resolve, reject) => {
+				this.#pending.set(id, { resolve, reject });
+				this.#writer.write(encoder.encode(`${JSON.stringify(req)}\n`)).catch(reject);
+			});
+			if (!res.ok) throw new Error(res.error ?? "daemon request failed");
+			return res.result;
+		} catch (e) {
+			if (this.#reconnect && attempt < this.#maxRetries) {
+				await this.#reconnectStreams();
+				return this.request(command, payload, from, familyId, attempt + 1);
+			}
+			throw e;
+		}
 	}
 
 	async close(): Promise<void> {
@@ -168,7 +239,6 @@ export class DaemonClient {
 		}
 	}
 }
-
 function socketToStreams(sock: net.Socket): DuplexStreams {
 	const readable = new ReadableStream<Uint8Array>({
 		start(controller) {

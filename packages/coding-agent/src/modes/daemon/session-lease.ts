@@ -171,6 +171,15 @@ export class SessionLeaseRegistry {
 		return false;
 	}
 
+	/** Forcibly drop a lease regardless of owner (used when reaping a dead agent). */
+	async forceRelease(sessionPath: string): Promise<boolean> {
+		const canonical = canonicalSessionPath(sessionPath);
+		const dir = leaseDirFor(this.agentDir, canonical);
+		await fs.rm(dir, { recursive: true, force: true });
+		this.client_owned_sessions.delete(canonical);
+		return true;
+	}
+
 	/** Release a lease if `token` matches the current owner. */
 	releaseLease(sessionPath: string, directory: string, token: string): void {
 		try {

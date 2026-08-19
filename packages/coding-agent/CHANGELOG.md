@@ -30,6 +30,20 @@
   already-running daemon. Covered by `test/cli/agents-cli.test.ts` (list/send/attach+
   stop through the CLI handlers against a live in-process daemon).
 
+- Added Phase 5 daemon robustness: a `HeartbeatCatalog` (`modes/daemon/heartbeat-catalog.ts`)
+  plus `startDaemonHeartbeat` / `reapStaleAgents` in `daemon-family-store.ts` that reap stale
+  child agents (marking their ledger edge `completed` and force-releasing their session lease
+  by session dir). `DaemonClient` now supports transparent reconnect/retry via a `reconnect`
+  factory + `maxRetries`, with a generation-guarded read pump so a stale connection cannot
+  reject requests belonging to the reconnected stream. The real daemon process boot is now
+  wired: `cli.ts --mode daemon` dispatches `runDaemonMode`, which serves the UDS, runs the
+  heartbeat reaper, and installs `uncaughtException` / `unhandledRejection` / `SIGINT` /
+  `SIGTERM` handlers that clean the socket + lockfile on exit. New tests:
+  `test/modes/daemon/heartbeat.test.ts` (catalog + reaper + auto-reap loop),
+  `test/modes/daemon/daemon-transport.test.ts` (reconnect/retry, no-reconnect failure,
+  mid-conversation reconnect), and `test/modes/daemon/daemon-boot.test.ts` (spawns the real
+  `cxn` CLI subprocess and serves catalog + family requests over the socket).
+
 ## [17.3.7] - 2026-08-17
 
 ### Changed
