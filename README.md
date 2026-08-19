@@ -582,6 +582,46 @@ For architecture and contribution guidelines, see [packages/coding-agent/DEVELOP
 
 ---
 
+## Architecture
+
+cxn is a TypeScript coding-agent CLI and SDK assembled from a small set of layered packages. Each layer owns one concern; the CLI wires them together at startup.
+
+```
+cxn CLI / SDK / TUI            packages/coding-agent (+ pi-tui)
+        |
+Agent runtime                 @cxn/pi-agent-core  (tool calling, state, subagents)
+        |
+Multi-provider LLM client     @cxn/pi-ai          (streaming, tool schemas)
+Model catalog                  @cxn/pi-catalog     (ids, providers, identity)
+        |
+Rust native core (~80k LOC)   @cxn/pi-natives     (grep, shell/PTY, image, AST, text, fs-scan)
+```
+
+Shared support packages: `@cxn/pi-utils` (logging/streams/paths), `@cxn/omptype` (schema validation), `@cxn/pi-wire` (collab protocol), `@cxn/hashline` (the `edit` patch language), `@cxn/pi-mnemopi` (SQLite memory), `@cxn/snapcompact` (context compression), `@cxn/cxn-stats` (usage dashboard). The official site and docs live at [cxn.sh](https://cxn.sh) and [cxn.sh/docs](https://cxn.sh/docs); the agent package is published on [npm](https://www.npmjs.com/package/@cxn/pi-coding-agent).
+
+### RLM subagents and the supervisor daemon
+
+cxn's subagent layer (RLM = recursive language model) runs child agents as **in-process kernels** that share the parent's family registry (`FamilyStore`). Parent↔child and sibling messaging is an in-process reach boundary — ordinary subagents need no separate process or socket.
+
+A **supervisor daemon** supplies the *cross-process* authority a single parent can't:
+
+- `cxn agents` — list / attach / send / stop live agent families from another terminal;
+- persistent and attached agents that outlive the spawning parent;
+- sibling messaging **across different parent sessions** (separate processes).
+
+The daemon speaks a UDS JSONL transport and keeps authoritative state in shared stores: an `RlmSpawnLedger` (spawn records), a `SessionLeaseRegistry` (session leases + nuclear-family reach), and per-family mailboxes. **Phase 6** adds durability so the ledger, leases, and mailboxes survive a daemon restart. Full design in [`docs/daemon-lane.md`](docs/daemon-lane.md).
+
+### Entry points
+
+Interactive TUI, one-shot (`cxn "<prompt>"`), embeddable SDK (`@cxn/pi-coding-agent`), headless RPC over stdio, and ACP for editor integrations (Zed and friends).
+
+### Tools
+
+The built-in tool set spans filesystem (`read` `write` `edit` `glob` `grep` `ast_grep` `ast_edit`), execution (`bash` `eval` `computer` `browser`), code intelligence (`lsp` `security_scan`), GitHub (`github`), collaboration (`hub` `checkpoint` `rewind`), delegation (`task` `todo`), memory & learning (`memory_edit` `retain` `recall` `reflect` `learn` `manage_skill`), web (`web_search` `fetch`), media (`inspect_image`), and interaction (`ask` `debug`). Plugins and MCP servers extend it further, and the live tool inventory is delivered to the agent in its system prompt.
+
+The monorepo packages and Rust crates are itemised below.
+
+
 ## Monorepo Packages
 
 | Package                                                                       | Description                                                                 |
@@ -636,8 +676,8 @@ MIT. See [LICENSE](LICENSE).
 _made for terminals that stay open_
 
 - [cxn.sh](https://cxn.sh)
-- [GitHub](https://github.com/can1357/oh-my-pi)
-- [Changelog](https://github.com/can1357/oh-my-pi/blob/main/packages/coding-agent/CHANGELOG.md)
+- [GitHub](https://github.com/CybeRxNinja/cxn)
+- [Changelog](https://github.com/CybeRxNinja/cxn/blob/main/packages/coding-agent/CHANGELOG.md)
 - [npm](https://www.npmjs.com/package/@cxn/pi-coding-agent)
 - [Discord](https://discord.gg/4NMW9cdXZa)
-- [MIT](https://github.com/can1357/oh-my-pi/blob/main/LICENSE)
+- [MIT](https://github.com/CybeRxNinja/cxn/blob/main/LICENSE)
