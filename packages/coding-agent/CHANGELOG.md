@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [17.4.1] - 2026-08-19
+
 ### Fixed
 
 - Deferred the CLI `.env` load until after profile bootstrap: `cli/env-defer.ts` signals `@cxn/pi-utils/env` to skip its eager import-time load, and `runCli` calls `markEnvReady()` right after `setProfile` so the load reads the correct agent directory. Fixes the `process-entry-import` / `profile-cli` regressions in the `test_coding_agent_native` gate.

@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cxn/pi-wire",
-  "version": "17.4.0",
+  "version": "17.4.1",
   "description": "Shared wire protocol types for cxn packages",
   "homepage": "https://cxn.sh",
   "author": "Can Boluk",

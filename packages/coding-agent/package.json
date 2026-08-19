@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cxn/pi-coding-agent",
-  "version": "17.4.0",
+  "version": "17.4.1",
   "description": "Coding agent CLI with read, bash, edit, write tools and session management",
   "homepage": "https://cxn.sh",
   "author": "Can Boluk",
