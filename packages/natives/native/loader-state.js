@@ -828,9 +828,9 @@ export function initLoaderContext(overrides = {}) {
 	};
 }
 
-export function loadNative() {
+export function loadNative(platformOverride) {
 	startupMarker("native:loadNative:start");
-	const ctx = initLoaderContext();
+	const ctx = initLoaderContext({ platform: platformOverride });
 	const require_ = createRequire(import.meta.url);
 
 	const errors = [];

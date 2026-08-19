@@ -127,4 +127,4 @@ export function validateLoadedBindings(
 	candidate: string,
 ): void;
 
-export function loadNative(): Record<string, unknown>;
+export function loadNative(platformOverride?: string): Record<string, unknown>;

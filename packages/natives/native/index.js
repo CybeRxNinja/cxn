@@ -33,7 +33,14 @@ import { loadNative } from "./loader-state.js";
  */
 const nativeBindings = (() => {
 	let loaded = null;
-	const get = () => (loaded ??= loadNative());
+	// Capture the host platform at module-eval time. Some consumers (notably the
+	// TUI test-suite) override `process.platform` to simulate other OSes; if the
+	// addon loaded on first use, it would resolve for the overridden platform
+	// (e.g. `win32-x64`) and fail on a host that only has its own addon built.
+	// Loading for the real host platform keeps behaviour identical to eager eval
+	// while still deferring the `.node` load until a binding is actually used.
+	const hostPlatform = process.platform;
+	const get = () => (loaded ??= loadNative(hostPlatform));
 	return new Proxy(
 		{},
 		{
