@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cxn/pi-tui",
-  "version": "17.4.1",
+  "version": "17.4.2",
   "description": "Terminal User Interface library with differential rendering for efficient text-based applications",
   "homepage": "https://cxn.sh",
   "author": "Can Boluk",

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [17.4.2] - 2026-08-19
+
 ### Changed
 
 - CI: bumped `actions/checkout` to v6 and `actions/cache` to v6 (Node 24 lines) and kept `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24` so the pipeline runs on the latest Node.js without the Node 20 deprecation warnings.
