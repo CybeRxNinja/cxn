@@ -14,6 +14,7 @@ try {
  * CLI entry point — registers all commands explicitly and delegates to the
  * lightweight CLI runner from pi-utils.
  */
+import "./cli/env-defer";
 import { parentPort } from "node:worker_threads";
 import type { CliConfig, CommandMetadata } from "@cxn/pi-utils/cli";
 import {
@@ -24,6 +25,7 @@ import {
 	setProfile,
 	VERSION,
 } from "@cxn/pi-utils/dirs";
+import { markEnvReady } from "@cxn/pi-utils/env";
 import { interceptUnhandledRejections } from "@cxn/pi-utils/postmortem";
 import { setProcessName } from "@cxn/pi-utils/process-name";
 import { declareWorkerHostEntry, installWorkerInbox, isWorkerHostSelector } from "@cxn/pi-utils/worker-host";
@@ -345,6 +347,9 @@ export async function runCli(argv: string[]): Promise<void> {
 			// profile instead of the default agent directory.
 			setProfile(resolveProfileEnv(process.env.CXN_PROFILE, process.env.PI_PROFILE));
 		}
+		// Profile is now chosen, so `.env` loading (deferred by `markEnvReady`) can
+		// read the correct agent directory. Must run before any `$env` access.
+		markEnvReady();
 		if (extracted.aliasName !== undefined) {
 			const profile = extracted.profile ?? getActiveProfile();
 			if (!profile) {

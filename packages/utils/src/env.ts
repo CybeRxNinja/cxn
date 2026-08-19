@@ -193,43 +193,130 @@ export function parseEnvFile(filePath: string): Record<string, string> {
 	return result;
 }
 
-// Eagerly parse the user's $HOME/.env and the current project's .env (from cwd)
-const homeEnv = parseEnvFile(path.join(os.homedir(), ".env"));
-const piEnv = parseEnvFile(path.join(getConfigRootDir(), ".env"));
-const agentEnv = parseEnvFile(path.join(getAgentDir(), ".env"));
-const projectEnv = parseEnvFile(path.join(process.cwd(), ".env"));
+// Defer the one-time `.env` load to {@link markEnvReady} ONLY inside the CLI
+// entry graph. The CLI signals this by setting `process.env.__CXN_ENV_DEFER_LOAD`
+// (see packages/coding-agent/src/cli/env-defer.ts) before any `@cxn/pi-utils`
+// module that imports this file is evaluated. Every other entry point — the SDK,
+// tooling probes, and tests such as packages/utils/test/profiles.test.ts — imports
+// `env.ts` directly and keeps the eager load so directory resolvers honor profile
+// `.env` XDG keys (`refreshDirsFromEnv`).
+//
+// Why defer in the CLI: loading `.env` at import time reads `$HOME/.env` (and the
+// profile/agent `.env`) before `setProfile` has chosen the active profile, so the
+// load would target the wrong agent directory and leak the user's dotenv into the
+// entry graph. The CLI calls `markEnvReady()` from `runCli` right after
+// `setProfile`, which performs the deferred load with the correct profile context.
+const ENV_DEFERRED = process.env.__CXN_ENV_DEFER_LOAD === "1";
 
-for (const key of Object.keys(Bun.env)) {
-	const value = Bun.env[key];
-	if (!isSafeEnvName(key) || isMacosMallocStackLoggingEnvName(key) || value === undefined || !isSafeEnvValue(value)) {
-		delete Bun.env[key];
-	}
-}
+let envLoaded = false;
+let envReady = false;
 
-for (const file of [projectEnv, agentEnv, piEnv, homeEnv]) {
-	for (const key in file) {
-		if (!isMacosMallocStackLoggingEnvName(key) && !Bun.env[key]) {
-			Bun.env[key] = file[key];
-			if (file === projectEnv) projectEnvNamesLoadedByOmp.add(key);
+function applyEnvFiles(): void {
+	const homeEnv = parseEnvFile(path.join(os.homedir(), ".env"));
+	const piEnv = parseEnvFile(path.join(getConfigRootDir(), ".env"));
+	const agentEnv = parseEnvFile(path.join(getAgentDir(), ".env"));
+	const projectEnv = parseEnvFile(path.join(process.cwd(), ".env"));
+
+	for (const key of Object.keys(Bun.env)) {
+		const value = Bun.env[key];
+		if (
+			!isSafeEnvName(key) ||
+			isMacosMallocStackLoggingEnvName(key) ||
+			value === undefined ||
+			!isSafeEnvValue(value)
+		) {
+			delete Bun.env[key];
 		}
 	}
+
+	for (const file of [projectEnv, agentEnv, piEnv, homeEnv]) {
+		for (const key in file) {
+			if (!isMacosMallocStackLoggingEnvName(key) && !Bun.env[key]) {
+				Bun.env[key] = file[key];
+				if (file === projectEnv) projectEnvNamesLoadedByOmp.add(key);
+			}
+		}
+	}
+
+	// Directory-affecting keys (XDG_*_HOME, and in default mode PI_CODING_AGENT_DIR)
+	// may have just arrived from the profile/agent `.env` applied above. The dirs
+	// resolver cached its paths at module load — before this file ran — so rebuild
+	// it now from the updated env. `getAgentDir()` already located the `.env` from
+	// the profile name + home, so this re-reads only the directory vars.
+	refreshDirsFromEnv();
 }
 
-// Directory-affecting keys (XDG_*_HOME, and in default mode PI_CODING_AGENT_DIR)
-// may have just arrived from the profile/agent `.env` applied above. The dirs
-// resolver cached its paths at module load — before this file ran — so rebuild
-// it now from the updated env. `getAgentDir()` already located the `.env` from
-// the profile name + home, so this re-reads only the directory vars.
-refreshDirsFromEnv();
+function applyEnvFilesOnce(): void {
+	if (envLoaded) return;
+	envLoaded = true;
+	applyEnvFiles();
+}
+
+if (!ENV_DEFERRED) {
+	// Non-CLI entry points load `.env` eagerly at import so the directory resolver
+	// (which caches paths at first use) honors profile `.env` XDG keys.
+	applyEnvFilesOnce();
+}
+
+/**
+ * Mark the environment ready to load `.env` files.
+ *
+ * The CLI must call this AFTER `setProfile` has selected the active profile, so
+ * the one-time `.env` load reads the correct agent directory. Until this is
+ * called, every `$env` access is a no-op (the load is deferred), which keeps the
+ * CLI entry graph side-effect-free at import time — module-scope reads such as
+ * `export const NO_STRICT = $flag("PI_NO_STRICT")` must not load `$HOME/.env`
+ * before profile bootstrap (see packages/coding-agent/src/cli.ts).
+ *
+ * Non-CLI entry points keep the eager load and never need to call this; if they
+ * do, it is a no-op.
+ */
+export function markEnvReady(): void {
+	if (!ENV_DEFERRED) return;
+	if (envReady) return;
+	envReady = true;
+	applyEnvFilesOnce();
+}
 
 /**
  * Intentional re-export of Bun.env.
  *
  * All users should import this env module (import { $env } from "@cxn/pi-utils")
- * before using environment variables. This ensures that .env files have been loaded and
- * overrides (project, home) have been applied, so $env always reflects the correct values.
+ * before using environment variables. Inside the deferred (CLI) mode, `$env`
+ * triggers the one-time `.env` load lazily on first access AFTER {@link
+ * markEnvReady} has been called (the CLI does this right after `setProfile`);
+ * until then every access is a no-op, so the CLI entry graph stays
+ * side-effect-free at import time. In eager mode (SDK, probes, tests) `$env` is
+ * the already-populated `Bun.env`.
  */
-export const $env: Record<string, string> = Bun.env as Record<string, string>;
+export const $env: Record<string, string> = ENV_DEFERRED
+	? new Proxy(Bun.env as Record<string, string>, {
+			get(target, prop, receiver) {
+				if (envReady) applyEnvFilesOnce();
+				return Reflect.get(target, prop, receiver);
+			},
+			set(target, prop, value, receiver) {
+				if (envReady) applyEnvFilesOnce();
+				return Reflect.set(target, prop, value, receiver);
+			},
+			has(target, prop) {
+				if (envReady) applyEnvFilesOnce();
+				return Reflect.has(target, prop);
+			},
+			ownKeys(target) {
+				if (envReady) applyEnvFilesOnce();
+				return Reflect.ownKeys(target);
+			},
+			getOwnPropertyDescriptor(target, prop) {
+				if (envReady) applyEnvFilesOnce();
+				return Reflect.getOwnPropertyDescriptor(target, prop);
+			},
+			deleteProperty(target, prop) {
+				if (envReady) applyEnvFilesOnce();
+				return Reflect.deleteProperty(target, prop);
+			},
+		})
+	: (Bun.env as Record<string, string>);
 
 /**
  * Resolve the first environment variable value from the given keys.

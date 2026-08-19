@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Deferred the CLI `.env` load until after profile bootstrap: `cli/env-defer.ts` signals `@cxn/pi-utils/env` to skip its eager import-time load, and `runCli` calls `markEnvReady()` right after `setProfile` so the load reads the correct agent directory. Fixes the `process-entry-import` / `profile-cli` regressions in the `test_coding_agent_native` gate.
+- Gave the JS-eval worker subprocess bootstrap enough cell-timeout headroom in `eval-timeout.test.ts`; the worker now correctly reports `"JS eval worker exited"` (status `error`, exitCode `1`) on `process.exit(0)` instead of being force-killed as "timed out".
+- Skipped macOS-only cases in `theme-auto-detection.test.ts` on non-macOS platforms.
+
 ## [17.4.0] - 2026-08-19
 
 ### Added

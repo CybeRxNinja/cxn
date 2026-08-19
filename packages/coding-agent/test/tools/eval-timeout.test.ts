@@ -75,7 +75,11 @@ describe("EvalTool timeout semantics", () => {
 		const result = await tool.execute("call-worker-exit", {
 			language: "js",
 			code: "process.exit(0);",
-			timeout: 1,
+			// The worker spawns a fresh subprocess that imports the full CLI entry
+			// graph before it can run a cell, so the per-cell timeout must leave room
+			// for that bootstrap on slower machines. The cell itself (process.exit(0))
+			// completes instantly once the worker is ready.
+			timeout: 10,
 		});
 
 		const text = result.content

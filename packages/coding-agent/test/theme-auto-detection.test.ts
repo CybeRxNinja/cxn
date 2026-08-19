@@ -161,23 +161,26 @@ describe("theme auto-detection", () => {
 		expect(observerSpy).not.toHaveBeenCalled();
 	});
 
-	it("updates auto theme from the native fallback observer in Zellij", async () => {
-		using _globals = withThemeTestGlobals({ zellij: "1" });
-		const observer = mockMacAppearanceObserver();
-		vi.spyOn(nativesModule, "detectMacOSAppearance").mockReturnValue(MacOSAppearance.Light);
+	it.skipIf(originalPlatform !== "darwin")(
+		"updates auto theme from the native fallback observer in Zellij",
+		async () => {
+			using _globals = withThemeTestGlobals({ zellij: "1" });
+			const observer = mockMacAppearanceObserver();
+			vi.spyOn(nativesModule, "detectMacOSAppearance").mockReturnValue(MacOSAppearance.Light);
 
-		await themeModule.initTheme(true, undefined, undefined, "dark", "light");
+			await themeModule.initTheme(true, undefined, undefined, "dark", "light");
 
-		expect(observer.start).toHaveBeenCalledTimes(1);
-		expect(themeModule.getCurrentThemeName()).toBe("light");
+			expect(observer.start).toHaveBeenCalledTimes(1);
+			expect(themeModule.getCurrentThemeName()).toBe("light");
 
-		observer.emit(MacOSAppearance.Dark);
-		await Bun.sleep(0);
+			observer.emit(MacOSAppearance.Dark);
+			await Bun.sleep(0);
 
-		expect(themeModule.getCurrentThemeName()).toBe("dark");
-		themeModule.stopThemeWatcher();
-		expect(observer.stop).toHaveBeenCalledTimes(1);
-	});
+			expect(themeModule.getCurrentThemeName()).toBe("dark");
+			themeModule.stopThemeWatcher();
+			expect(observer.stop).toHaveBeenCalledTimes(1);
+		},
+	);
 	it("Zellij fallback stays macOS-only (Linux + Zellij = honor terminal)", async () => {
 		using _globals = withThemeTestGlobals({ platform: "linux", zellij: "1" });
 		const detectSpy = vi.spyOn(nativesModule, "detectMacOSAppearance").mockReturnValue(MacOSAppearance.Light);
@@ -200,7 +203,7 @@ describe("theme auto-detection", () => {
 		expect(detectSpy).not.toHaveBeenCalled();
 	});
 
-	describe("macOS appearance reprobe fallback", () => {
+	describe.skipIf(originalPlatform !== "darwin")("macOS appearance reprobe fallback", () => {
 		beforeEach(() => {
 			vi.useFakeTimers();
 		});
