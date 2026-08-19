@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cxn/snapcompact",
-  "version": "17.3.7",
+  "version": "17.4.0",
   "description": "Bitmap-frame context compression for vision-capable LLMs",
   "homepage": "https://cxn.sh",
   "author": "Can Boluk",

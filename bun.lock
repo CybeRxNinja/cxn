@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "omp",
+      "name": "cxn",
       "dependencies": {
         "sherpa-onnx": "1.13.2",
         "sherpa-onnx-darwin-arm64": "1.13.3",
@@ -21,7 +21,7 @@
     },
     "packages/agent": {
       "name": "@cxn/pi-agent-core",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "dependencies": {
         "@cxn/pi-ai": "catalog:",
         "@cxn/pi-catalog": "catalog:",
@@ -40,7 +40,7 @@
     },
     "packages/ai": {
       "name": "@cxn/pi-ai",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "dependencies": {
         "@bufbuild/protobuf": "catalog:",
         "@cxn/omptype": "catalog:",
@@ -55,7 +55,7 @@
     },
     "packages/browser-relay": {
       "name": "@cxn/browser-relay",
-      "version": "0.1.0",
+      "version": "17.3.7",
       "devDependencies": {
         "@types/bun": "catalog:",
         "puppeteer-core": "catalog:",
@@ -63,7 +63,7 @@
     },
     "packages/catalog": {
       "name": "@cxn/pi-catalog",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "dependencies": {
         "@bufbuild/protobuf": "catalog:",
         "@cxn/omptype": "catalog:",
@@ -76,7 +76,7 @@
     },
     "packages/coding-agent": {
       "name": "@cxn/pi-coding-agent",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "bin": {
         "cxn": "src/cli.ts",
       },
@@ -117,7 +117,7 @@
     },
     "packages/collab-web": {
       "name": "@cxn/collab-web",
-      "version": "16.3.6",
+      "version": "17.3.7",
       "dependencies": {
         "@cxn/pi-utils": "catalog:",
         "@cxn/pi-wire": "catalog:",
@@ -133,7 +133,7 @@
     },
     "packages/hashline": {
       "name": "@cxn/hashline",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "dependencies": {
         "@cxn/pi-natives": "catalog:",
         "@cxn/pi-utils": "catalog:",
@@ -144,7 +144,7 @@
     },
     "packages/metaharness": {
       "name": "@cxn/pi-metaharness",
-      "version": "0.0.1",
+      "version": "17.3.7",
       "bin": {
         "metaharness": "src/server.ts",
       },
@@ -177,7 +177,7 @@
     },
     "packages/mnemopi": {
       "name": "@cxn/pi-mnemopi",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "bin": {
         "mnemopi": "src/cli.ts",
       },
@@ -203,7 +203,7 @@
     },
     "packages/natives": {
       "name": "@cxn/pi-natives",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "devDependencies": {
         "@napi-rs/cli": "catalog:",
         "@types/bun": "catalog:",
@@ -211,7 +211,7 @@
     },
     "packages/omptype": {
       "name": "@cxn/omptype",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "devDependencies": {
         "@ark/attest": "0.56.3",
         "@ark/schema": "0.56.2",
@@ -224,7 +224,7 @@
     },
     "packages/snapcompact": {
       "name": "@cxn/snapcompact",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "dependencies": {
         "@cxn/pi-ai": "catalog:",
         "@cxn/pi-catalog": "catalog:",
@@ -238,7 +238,7 @@
     },
     "packages/stats": {
       "name": "@cxn/cxn-stats",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "bin": {
         "cxn-stats": "./src/index.ts",
       },
@@ -263,7 +263,7 @@
     },
     "packages/tui": {
       "name": "@cxn/pi-tui",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "dependencies": {
         "@cxn/pi-natives": "catalog:",
         "@cxn/pi-utils": "catalog:",
@@ -274,7 +274,7 @@
     },
     "packages/typescript-edit-benchmark": {
       "name": "@cxn/typescript-edit-benchmark",
-      "version": "0.0.1",
+      "version": "17.3.7",
       "dependencies": {
         "@babel/generator": "catalog:",
         "@babel/parser": "catalog:",
@@ -299,7 +299,7 @@
     },
     "packages/utils": {
       "name": "@cxn/pi-utils",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "dependencies": {
         "@cxn/pi-natives": "catalog:",
       },
@@ -309,7 +309,7 @@
     },
     "packages/wire": {
       "name": "@cxn/pi-wire",
-      "version": "17.3.5",
+      "version": "17.4.0",
       "devDependencies": {
         "@types/bun": "catalog:",
       },
@@ -345,19 +345,19 @@
     "@biomejs/biome": "^2.5.3",
     "@bufbuild/protobuf": "^2.12.1",
     "@bufbuild/protoc-gen-es": "^2.12.1",
-    "@cxn/cxn-stats": "17.3.5",
-    "@cxn/hashline": "17.3.5",
-    "@cxn/omptype": "17.3.5",
-    "@cxn/pi-agent-core": "17.3.5",
-    "@cxn/pi-ai": "17.3.5",
-    "@cxn/pi-catalog": "17.3.5",
-    "@cxn/pi-coding-agent": "17.3.5",
-    "@cxn/pi-mnemopi": "17.3.5",
-    "@cxn/pi-natives": "17.3.5",
-    "@cxn/pi-tui": "17.3.5",
-    "@cxn/pi-utils": "17.3.5",
-    "@cxn/pi-wire": "17.3.5",
-    "@cxn/snapcompact": "17.3.5",
+    "@cxn/cxn-stats": "17.4.0",
+    "@cxn/hashline": "17.4.0",
+    "@cxn/omptype": "17.4.0",
+    "@cxn/pi-agent-core": "17.4.0",
+    "@cxn/pi-ai": "17.4.0",
+    "@cxn/pi-catalog": "17.4.0",
+    "@cxn/pi-coding-agent": "17.4.0",
+    "@cxn/pi-mnemopi": "17.4.0",
+    "@cxn/pi-natives": "17.4.0",
+    "@cxn/pi-tui": "17.4.0",
+    "@cxn/pi-utils": "17.4.0",
+    "@cxn/pi-wire": "17.4.0",
+    "@cxn/snapcompact": "17.4.0",
     "@huggingface/transformers": "^4.2.0",
     "@napi-rs/cli": "3.7.2",
     "@opentelemetry/api": "^1.9.1",
@@ -1061,7 +1061,7 @@
 
     "diff": ["diff@9.0.0", "", {}, "sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw=="],
 
-    "electron-to-chromium": ["electron-to-chromium@1.5.406", "", {}, "sha512-hWH5ORBi3d0IipnMh7BN5GDTaAmrSSSWmznwt2zltdiRNEWoEQyTwF0FFSBxzHO7hLSRT6loQu3IQGV0wg/Tvg=="],
+    "electron-to-chromium": ["electron-to-chromium@1.5.407", "", {}, "sha512-4R8XgQOdfxexCd/u63lRm6wCHjECwI45MV9wxAs2ggtfWe2hwlo1ql97jKsju2IcJ+jFSTwBssyYoiWhh7mauQ=="],
 
     "emnapi": ["emnapi@1.11.3", "", { "peerDependencies": { "node-addon-api": ">= 6.1.0" }, "optionalPeers": ["node-addon-api"] }, "sha512-+/ZS90YK/rYfVOHtGLHkGffVsnmD/MAKaBHio+Y4XAtg75RLr4cveV/w0jTkUdLM1CcAlaRgG76mpIemWAlk0A=="],
 

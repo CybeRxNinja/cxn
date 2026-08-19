@@ -169,6 +169,23 @@
     url = "https://registry.npmjs.org/@bufbuild/protoplugin/-/protoplugin-2.14.0.tgz";
     hash = "sha512-S0TvZhVtTEkZQRj2JsXBCXiib/b0+bLQtJCcn+hj9O/usgbcgxHn4D+ii22Ao3qj0/kKxVYeo7BtAI2dMk+iig==";
   };
+  "@cxn/browser-relay" = copyPathToStore ../packages/browser-relay;
+  "@cxn/collab-web" = copyPathToStore ../packages/collab-web;
+  "@cxn/cxn-stats" = copyPathToStore ../packages/stats;
+  "@cxn/hashline" = copyPathToStore ../packages/hashline;
+  "@cxn/omptype" = copyPathToStore ../packages/omptype;
+  "@cxn/pi-agent-core" = copyPathToStore ../packages/agent;
+  "@cxn/pi-ai" = copyPathToStore ../packages/ai;
+  "@cxn/pi-catalog" = copyPathToStore ../packages/catalog;
+  "@cxn/pi-coding-agent" = copyPathToStore ../packages/coding-agent;
+  "@cxn/pi-metaharness" = copyPathToStore ../packages/metaharness;
+  "@cxn/pi-mnemopi" = copyPathToStore ../packages/mnemopi;
+  "@cxn/pi-natives" = copyPathToStore ../packages/natives;
+  "@cxn/pi-tui" = copyPathToStore ../packages/tui;
+  "@cxn/pi-utils" = copyPathToStore ../packages/utils;
+  "@cxn/pi-wire" = copyPathToStore ../packages/wire;
+  "@cxn/snapcompact" = copyPathToStore ../packages/snapcompact;
+  "@cxn/typescript-edit-benchmark" = copyPathToStore ../packages/typescript-edit-benchmark;
   "@emnapi/core@1.11.2" = fetchurl {
     url = "https://registry.npmjs.org/@emnapi/core/-/core-1.11.2.tgz";
     hash = "sha512-TC8MkTuZUtcTSiFeuC0ksCh9QIJ5+F21MvZ4Wn4ORfYaFJ/0dsiudv5tVkejgwZlwQ39jL9WWDe2lz8x0WglOA==";
@@ -689,23 +706,6 @@
     url = "https://registry.npmjs.org/@octokit/types/-/types-17.0.0.tgz";
     hash = "sha512-ByP1v7YL5SMveFPP7+sj0/ZuWCOOg/Chs4NafOMpq6WNIM/hdGY0S7C0TCGDBWu1aGmOxmUIhMx3cO+IdwYZ1Q==";
   };
-  "@cxn/browser-relay" = copyPathToStore ../packages/browser-relay;
-  "@cxn/collab-web" = copyPathToStore ../packages/collab-web;
-  "@cxn/hashline" = copyPathToStore ../packages/hashline;
-  "@cxn/cxn-stats" = copyPathToStore ../packages/stats;
-  "@cxn/omptype" = copyPathToStore ../packages/omptype;
-  "@cxn/pi-agent-core" = copyPathToStore ../packages/agent;
-  "@cxn/pi-ai" = copyPathToStore ../packages/ai;
-  "@cxn/pi-catalog" = copyPathToStore ../packages/catalog;
-  "@cxn/pi-coding-agent" = copyPathToStore ../packages/coding-agent;
-  "@cxn/pi-metaharness" = copyPathToStore ../packages/metaharness;
-  "@cxn/pi-mnemopi" = copyPathToStore ../packages/mnemopi;
-  "@cxn/pi-natives" = copyPathToStore ../packages/natives;
-  "@cxn/pi-tui" = copyPathToStore ../packages/tui;
-  "@cxn/pi-utils" = copyPathToStore ../packages/utils;
-  "@cxn/pi-wire" = copyPathToStore ../packages/wire;
-  "@cxn/snapcompact" = copyPathToStore ../packages/snapcompact;
-  "@cxn/typescript-edit-benchmark" = copyPathToStore ../packages/typescript-edit-benchmark;
   "@opentelemetry/api-logs@0.220.0" = fetchurl {
     url = "https://registry.npmjs.org/@opentelemetry/api-logs/-/api-logs-0.220.0.tgz";
     hash = "sha512-CmVa4ImJ+ynfrPMNaAXHET6Bhb44SwzmfyVJFq9ni2jgXJR/l7C6gfVFddNmHP+ZOkP9cf4f9DBe68qVLTHc9w==";
@@ -1354,9 +1354,9 @@
     url = "https://registry.npmjs.org/diff/-/diff-9.0.0.tgz";
     hash = "sha512-svtcdpS8CgJyqAjEQIXdb3OjhFVVYjzGAPO8WGCmRbrml64SPw/jJD4GoE98aR7r25A0XcgrK3F02yw9R/vhQw==";
   };
-  "electron-to-chromium@1.5.406" = fetchurl {
-    url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.406.tgz";
-    hash = "sha512-hWH5ORBi3d0IipnMh7BN5GDTaAmrSSSWmznwt2zltdiRNEWoEQyTwF0FFSBxzHO7hLSRT6loQu3IQGV0wg/Tvg==";
+  "electron-to-chromium@1.5.407" = fetchurl {
+    url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.407.tgz";
+    hash = "sha512-4R8XgQOdfxexCd/u63lRm6wCHjECwI45MV9wxAs2ggtfWe2hwlo1ql97jKsju2IcJ+jFSTwBssyYoiWhh7mauQ==";
   };
   "emnapi@1.11.3" = fetchurl {
     url = "https://registry.npmjs.org/emnapi/-/emnapi-1.11.3.tgz";

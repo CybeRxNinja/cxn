@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [17.4.0] - 2026-08-19
+
 ### Fixed
 
 - Fixed the main `@cxn/pi-natives` entrypoint eagerly loading the native `.node` addon at module-evaluation time. `native/index.js` now lazily loads the addon on first use of a binding (matching the existing `/desktop` and `/clipboard` subpaths), so importing the index — e.g. from the CLI entrypoint — stays addon-free until a binding is actually invoked. This restores the `cli-computer-lazy` contract (normal CLI startup must not load the native addon under `--no-addons`) without changing runtime behavior when bindings are used.

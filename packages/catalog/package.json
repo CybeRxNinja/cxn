@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cxn/pi-catalog",
-  "version": "17.3.7",
+  "version": "17.4.0",
   "description": "Model catalog for cxn: bundled model database, provider discovery descriptors, model identity, classification, and equivalence",
   "homepage": "https://cxn.sh",
   "author": "Can Boluk",
