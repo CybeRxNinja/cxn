@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+
+- Auto-learn: the autonomous `/refine` (continual-harness) trigger now fires alongside the auto-learn capture nudge, but only after a genuinely successful turn (`stop`/`toolUse` stop reasons) and when `autolearn.autoContinue` is enabled. The manual and autonomous paths share `applyRefinePlan` so persistence and memory-sync stay in lockstep.
 
 ## [17.5.3] - 2026-08-20
 

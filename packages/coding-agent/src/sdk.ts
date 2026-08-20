@@ -169,6 +169,7 @@ import { collectMountedMCPToolRoutes, projectMountedMCPXdevGuidance } from "./se
 import { createSettingsAwareStreamFn } from "./session/settings-stream-fn";
 import { SnapcompactInlineTransformer } from "./session/snapcompact-inline";
 import { createSnapcompactSavingsRecorder } from "./session/snapcompact-savings-journal";
+import { runAutonomousRefine } from "./slash-commands/builtin-refine";
 import { closeAllConnections } from "./ssh/connection-manager";
 import { unmountAll } from "./ssh/sshfs-mount";
 import {
@@ -3871,6 +3872,12 @@ async function createAgentSessionScoped(options: CreateAgentSessionOptions): Pro
 					session,
 					settings,
 					capture: content => session.runAutolearnCapture(signal => runAutoLearnCapture(content, signal)),
+					refine: async ({ turnsSinceLastReview }) => {
+						await runAutonomousRefine(session, settings, {
+							reason: "turn_interval",
+							turnsSinceLastReview,
+						});
+					},
 				});
 			} else {
 				void logger.time("startMemoryStartupTask", startMemoryBackend);

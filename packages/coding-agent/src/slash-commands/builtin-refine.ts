@@ -10,7 +10,11 @@
  * can be rolled back. Applied memory entries are additionally synced into the
  * active memory backend (see ../refinement/memory-backend.ts).
  */
+import { logger } from "@cyberxninja-omp/pi-utils";
+import type { Settings } from "../config/settings";
 import {
+	type AutoRefineReason,
+	type AutoRefineReview,
 	appendRefinement,
 	applyRefinementProposal,
 	buildMemoryRollbackNote,
@@ -20,16 +24,21 @@ import {
 	getGlobalHarnessDir,
 	getLocalHarnessDir,
 	type HarnessScope,
+	type HarnessState,
+	type JsonCompleter,
 	loadHarnessState,
 	loadRefinementHistory,
 	mergeHarnessStates,
 	mergeRefinementHistory,
 	planRefinement,
+	type RefinementPlan,
 	type RefinementResult,
 	type RefineOptions,
+	reviewAutoRefine,
 	saveHarnessState,
 	syncAppliedMemoriesToBackend,
 } from "../refinement";
+import type { AgentSession } from "../session/agent-session";
 import { commandConsumed, errorMessage, usage } from "./helpers/parse";
 import type { SlashCommandRuntime, SlashCommandSpec } from "./types";
 
@@ -64,6 +73,51 @@ function resolveTargets(agentDir: string, sessionId: string): { globalDir: strin
 	};
 }
 
+/** Resolve model + API key from a session (no slash-command runtime needed). */
+async function requireModelFromSession(
+	session: AgentSession,
+): Promise<{ model: NonNullable<AgentSession["model"]>; apiKey: string } | undefined> {
+	const model = session.model ?? session.modelRegistry.getAll()[0];
+	if (!model) return undefined;
+	const apiKey = await session.modelRegistry.getApiKey(model, session.sessionId);
+	if (!apiKey) return undefined;
+	return { model, apiKey };
+}
+
+/**
+ * Plan is already computed; apply it to the on-disk store with a re-read for the
+ * baseline-conflict check, persist, sync memory entries, and return the result
+ * plus the formatted output. Shared by the manual /refine command and the
+ * autonomous trigger so both paths persist identically.
+ */
+async function applyRefinePlan(
+	session: AgentSession,
+	agentDir: string,
+	cwd: string,
+	target: RefineTarget,
+	plan: RefinementPlan,
+	baselineState: HarnessState,
+): Promise<{ result: RefinementResult; output: string }> {
+	const freshState = loadHarnessState(target.dir, target.scope);
+	const result = applyRefinementProposal(freshState, plan.proposal, {
+		id: plan.id,
+		rollbackOf: plan.rollbackOf,
+		scope: plan.rollbackScope ?? target.scope,
+		baselineState,
+	});
+	saveHarnessState(target.dir, freshState);
+	appendRefinement(target.dir, result);
+
+	const memoryContext = createRefinementMemoryContext(session, agentDir, cwd);
+	const synced = await syncAppliedMemoriesToBackend(memoryContext, result);
+	const lines = [formatRefinementResult(result)];
+	const memorySummary = formatMemorySyncSummary(synced);
+	if (memorySummary) lines.push("", memorySummary);
+	const rollbackNote = buildMemoryRollbackNote(result);
+	if (rollbackNote) lines.push("", rollbackNote);
+	return { result, output: lines.join("\n") };
+}
+
 async function runRefine(runtime: SlashCommandRuntime, target: RefineTarget, options: RefineOptions): Promise<void> {
 	const { session, cwd } = runtime;
 	const agentDir = runtime.settings.getAgentDir();
@@ -94,25 +148,88 @@ async function runRefine(runtime: SlashCommandRuntime, target: RefineTarget, opt
 		undefined,
 		undefined,
 	);
-	const freshState = loadHarnessState(target.dir, target.scope);
-	const result = applyRefinementProposal(freshState, plan.proposal, {
-		id: plan.id,
-		rollbackOf: plan.rollbackOf,
-		scope: plan.rollbackScope ?? target.scope,
-		baselineState: state,
-	});
-	saveHarnessState(target.dir, freshState);
-	appendRefinement(target.dir, result);
+	const { output } = await applyRefinePlan(session, agentDir, cwd, target, plan, state);
+	await runtime.output(output);
+}
 
-	const memoryContext = createRefinementMemoryContext(session, agentDir, cwd);
-	const synced = await syncAppliedMemoriesToBackend(memoryContext, result);
-	const memorySummary = formatMemorySyncSummary(synced);
+export interface AutonomousRefineOptions {
+	/** Harness scope to refine; defaults to local. */
+	scope?: HarnessScope;
+	/** Why the autonomous gate ran (drives the review prompt). */
+	reason: AutoRefineReason;
+	/** Assistant turns since the last auto-refine review (context for the gate). */
+	turnsSinceLastReview: number;
+	/** Override the JSON completer (tests use this to avoid network calls). */
+	complete?: JsonCompleter;
+	signal?: AbortSignal;
+}
 
-	const lines = [formatRefinementResult(result)];
-	if (memorySummary) lines.push("", memorySummary);
-	const rollbackNote = buildMemoryRollbackNote(result);
-	if (rollbackNote) lines.push("", rollbackNote);
-	await runtime.output(lines.join("\n"));
+/**
+ * Autonomous /refine trigger: gate on `reviewAutoRefine`, then run a refinement
+ * from the live trajectory. Wired to fire alongside the auto-learn capture so
+ * continual-harness improvement happens whenever auto-learn does.
+ */
+export async function runAutonomousRefine(
+	session: AgentSession,
+	settings: Settings,
+	options: AutonomousRefineOptions,
+): Promise<RefinementResult | undefined> {
+	const scope = options.scope ?? "local";
+	const agentDir = settings.getAgentDir();
+	const sessionId = session.sessionManager.getSessionId() ?? "unsaved";
+	const cwd = session.sessionManager.getCwd();
+	const { globalDir, localDir } = resolveTargets(agentDir, sessionId);
+	const target: RefineTarget = scope === "global" ? { scope, dir: globalDir } : { scope, dir: localDir };
+
+	const state = loadHarnessState(target.dir, target.scope);
+	const mergedForPrompt = mergeHarnessStates(
+		scope === "global" ? state : loadHarnessState(globalDir, "global"),
+		scope === "local" ? state : loadHarnessState(localDir, "local"),
+	);
+	const history = mergeRefinementHistory(loadRefinementHistory(globalDir), loadRefinementHistory(localDir));
+
+	const modelContext = await requireModelFromSession(session);
+	if (!modelContext) {
+		logger.warn("autonomous /refine skipped: no model or API key available");
+		return undefined;
+	}
+	const { model, apiKey } = modelContext;
+
+	let review: AutoRefineReview;
+	try {
+		review = await reviewAutoRefine(
+			session.messages,
+			state,
+			history,
+			model,
+			apiKey,
+			{ reason: options.reason, turnsSinceLastReview: options.turnsSinceLastReview },
+			options.complete,
+			options.signal,
+		);
+	} catch (err) {
+		logger.warn("autonomous /refine review failed", { err });
+		return undefined;
+	}
+	if (!review.shouldRefine) {
+		logger.debug("autonomous /refine gate declined", { rationale: review.rationale });
+		return undefined;
+	}
+
+	const plan = await planRefinement(
+		session.messages,
+		mergedForPrompt,
+		history,
+		model,
+		apiKey,
+		{ instructions: review.instructions },
+		options.complete,
+		options.signal,
+	);
+	const { result, output } = await applyRefinePlan(session, agentDir, cwd, target, plan, state);
+	logger.info("autonomous /refine applied", { id: result.id, scope });
+	logger.debug("autonomous /refine result", { output });
+	return result;
 }
 
 function parseRefineArgs(raw: string): {
