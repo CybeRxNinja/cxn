@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cyberxninja-omp/pi-wire",
-  "version": "17.5.0",
+  "version": "17.5.1",
   "description": "Shared wire protocol types for omp packages",
   "homepage": "https://omp.sh",
   "author": "Can Boluk",

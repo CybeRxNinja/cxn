@@ -21,7 +21,7 @@
     },
     "packages/agent": {
       "name": "@cyberxninja-omp/pi-agent-core",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "dependencies": {
         "@cyberxninja-omp/pi-ai": "catalog:",
         "@cyberxninja-omp/pi-catalog": "catalog:",
@@ -40,7 +40,7 @@
     },
     "packages/ai": {
       "name": "@cyberxninja-omp/pi-ai",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "dependencies": {
         "@bufbuild/protobuf": "catalog:",
         "@cyberxninja-omp/omptype": "catalog:",
@@ -63,7 +63,7 @@
     },
     "packages/catalog": {
       "name": "@cyberxninja-omp/pi-catalog",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "dependencies": {
         "@bufbuild/protobuf": "catalog:",
         "@cyberxninja-omp/omptype": "catalog:",
@@ -76,7 +76,7 @@
     },
     "packages/coding-agent": {
       "name": "@cyberxninja-omp/pi-coding-agent",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "bin": {
         "omp": "src/cli.ts",
       },
@@ -133,7 +133,7 @@
     },
     "packages/hashline": {
       "name": "@cyberxninja-omp/hashline",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "dependencies": {
         "@cyberxninja-omp/pi-natives": "catalog:",
         "@cyberxninja-omp/pi-utils": "catalog:",
@@ -177,7 +177,7 @@
     },
     "packages/mnemopi": {
       "name": "@cyberxninja-omp/pi-mnemopi",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "bin": {
         "mnemopi": "src/cli.ts",
       },
@@ -203,7 +203,7 @@
     },
     "packages/natives": {
       "name": "@cyberxninja-omp/pi-natives",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "devDependencies": {
         "@napi-rs/cli": "catalog:",
         "@types/bun": "catalog:",
@@ -211,7 +211,7 @@
     },
     "packages/omptype": {
       "name": "@cyberxninja-omp/omptype",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "devDependencies": {
         "@ark/attest": "0.56.3",
         "@ark/schema": "0.56.2",
@@ -224,7 +224,7 @@
     },
     "packages/snapcompact": {
       "name": "@cyberxninja-omp/snapcompact",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "dependencies": {
         "@cyberxninja-omp/pi-ai": "catalog:",
         "@cyberxninja-omp/pi-catalog": "catalog:",
@@ -238,7 +238,7 @@
     },
     "packages/stats": {
       "name": "@cyberxninja-omp/omp-stats",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "bin": {
         "omp-stats": "./src/index.ts",
       },
@@ -263,7 +263,7 @@
     },
     "packages/tui": {
       "name": "@cyberxninja-omp/pi-tui",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "dependencies": {
         "@cyberxninja-omp/pi-natives": "catalog:",
         "@cyberxninja-omp/pi-utils": "catalog:",
@@ -299,7 +299,7 @@
     },
     "packages/utils": {
       "name": "@cyberxninja-omp/pi-utils",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "dependencies": {
         "@cyberxninja-omp/pi-natives": "catalog:",
       },
@@ -309,7 +309,7 @@
     },
     "packages/wire": {
       "name": "@cyberxninja-omp/pi-wire",
-      "version": "17.5.0",
+      "version": "17.5.1",
       "devDependencies": {
         "@types/bun": "catalog:",
       },
@@ -345,19 +345,19 @@
     "@biomejs/biome": "^2.5.3",
     "@bufbuild/protobuf": "^2.12.1",
     "@bufbuild/protoc-gen-es": "^2.12.1",
-    "@cyberxninja-omp/hashline": "17.5.0",
-    "@cyberxninja-omp/omp-stats": "17.5.0",
-    "@cyberxninja-omp/omptype": "17.5.0",
-    "@cyberxninja-omp/pi-agent-core": "17.5.0",
-    "@cyberxninja-omp/pi-ai": "17.5.0",
-    "@cyberxninja-omp/pi-catalog": "17.5.0",
-    "@cyberxninja-omp/pi-coding-agent": "17.5.0",
-    "@cyberxninja-omp/pi-mnemopi": "17.5.0",
-    "@cyberxninja-omp/pi-natives": "17.5.0",
-    "@cyberxninja-omp/pi-tui": "17.5.0",
-    "@cyberxninja-omp/pi-utils": "17.5.0",
-    "@cyberxninja-omp/pi-wire": "17.5.0",
-    "@cyberxninja-omp/snapcompact": "17.5.0",
+    "@cyberxninja-omp/hashline": "17.5.1",
+    "@cyberxninja-omp/omp-stats": "17.5.1",
+    "@cyberxninja-omp/omptype": "17.5.1",
+    "@cyberxninja-omp/pi-agent-core": "17.5.1",
+    "@cyberxninja-omp/pi-ai": "17.5.1",
+    "@cyberxninja-omp/pi-catalog": "17.5.1",
+    "@cyberxninja-omp/pi-coding-agent": "17.5.1",
+    "@cyberxninja-omp/pi-mnemopi": "17.5.1",
+    "@cyberxninja-omp/pi-natives": "17.5.1",
+    "@cyberxninja-omp/pi-tui": "17.5.1",
+    "@cyberxninja-omp/pi-utils": "17.5.1",
+    "@cyberxninja-omp/pi-wire": "17.5.1",
+    "@cyberxninja-omp/snapcompact": "17.5.1",
     "@huggingface/transformers": "^4.2.0",
     "@napi-rs/cli": "3.7.2",
     "@opentelemetry/api": "^1.9.1",
@@ -1149,7 +1149,7 @@
 
     "json-stringify-safe": ["json-stringify-safe@5.0.1", "", {}, "sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA=="],
 
-    "json-with-bigint": ["json-with-bigint@3.5.11", "", {}, "sha512-WvkM9Hfb9kqzCcbsvpwfWDvdfGZDhYuCoaCwHRe5q3LtULKkbrI/L6JYcN8owflgA3di5dP2yVAV2NVCXkgtkA=="],
+    "json-with-bigint": ["json-with-bigint@3.5.12", "", {}, "sha512-uwbF/wSSuOgC7qqlq27Xp5B6a2MHVug3t0idZdTqu0JnlFvgJuH7ju+KAk/J06C7GfhoYy2gnb9wz2INqcne7w=="],
 
     "json5": ["json5@2.2.3", "", { "bin": { "json5": "lib/cli.js" } }, "sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg=="],
 

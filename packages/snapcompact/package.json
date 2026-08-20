@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cyberxninja-omp/snapcompact",
-  "version": "17.5.0",
+  "version": "17.5.1",
   "description": "Bitmap-frame context compression for vision-capable LLMs",
   "homepage": "https://omp.sh",
   "author": "Can Boluk",

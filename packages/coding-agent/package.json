@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cyberxninja-omp/pi-coding-agent",
-  "version": "17.5.0",
+  "version": "17.5.1",
   "description": "Coding agent CLI with read, bash, edit, write tools and session management",
   "homepage": "https://omp.sh",
   "author": "Can Boluk",
