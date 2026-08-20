@@ -171,10 +171,10 @@ describe("internal-url-autocomplete", () => {
 			expect(schemes).toEqual([
 				"agent",
 				"artifact",
-				"omp",
 				"history",
 				"local",
 				"memory",
+				"omp",
 				"rule",
 				"security",
 				"skill",

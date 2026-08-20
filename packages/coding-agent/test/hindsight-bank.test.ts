@@ -100,19 +100,19 @@ describe("computeBankScope", () => {
 	describe("scoping=per-project", () => {
 		it("appends the cwd basename to the base bank id", () => {
 			expect(computeBankScope(baseConfig({ scoping: "per-project" }), "/work/proj")).toEqual({
-				bankId: "cxn-proj",
+				bankId: "omp-proj",
 			});
 		});
 
 		it("appends `unknown` for an empty cwd", () => {
 			expect(computeBankScope(baseConfig({ scoping: "per-project" }), "")).toEqual({
-				bankId: "cxn-unknown",
+				bankId: "omp-unknown",
 			});
 		});
 
 		it("lowercases the project segment so one checkout maps to one bank", () => {
 			expect(computeBankScope(baseConfig({ scoping: "per-project" }), "/work/General")).toEqual({
-				bankId: "cxn-general",
+				bankId: "omp-general",
 			});
 		});
 
@@ -208,7 +208,7 @@ describe("computeBankScope", () => {
 
 		it("uses the primary root basename for the per-project bank id from a worktree", () => {
 			expect(computeBankScope(baseConfig({ scoping: "per-project" }), worktreeRoot)).toEqual({
-				bankId: "cxn-myrepo",
+				bankId: "omp-myrepo",
 			});
 		});
 
@@ -218,7 +218,7 @@ describe("computeBankScope", () => {
 			expect(fromA.retainTags).toEqual(["project:bare-repo.git"]);
 			expect(fromB).toEqual(fromA);
 			expect(computeBankScope(baseConfig({ scoping: "per-project" }), bareWorktreeB)).toEqual({
-				bankId: "cxn-bare-repo.git",
+				bankId: "omp-bare-repo.git",
 			});
 		});
 
@@ -275,7 +275,7 @@ describe("computeBankScope", () => {
 describe("deriveBankId (legacy wrapper)", () => {
 	it("returns the bankId field of the resolved scope", () => {
 		expect(deriveBankId(baseConfig({ bankId: "team", bankIdPrefix: "prod" }), "/cwd")).toBe("prod-team");
-		expect(deriveBankId(baseConfig({ scoping: "per-project" }), "/work/proj")).toBe("cxn-proj");
+		expect(deriveBankId(baseConfig({ scoping: "per-project" }), "/work/proj")).toBe("omp-proj");
 		expect(deriveBankId(baseConfig({ scoping: "per-project-tagged" }), "/work/proj")).toBe("omp");
 	});
 });

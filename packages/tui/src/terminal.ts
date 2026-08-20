@@ -1271,7 +1271,7 @@ export class ProcessTerminal implements Terminal {
 		this.#osc99ResponseBuffer = "";
 		if (this.#dead || !this.#shouldQueryOsc99Support()) return;
 
-		const id = `cxn-probe-${nextOsc99ProbeId++}`;
+		const id = `omp-probe-${nextOsc99ProbeId++}`;
 		this.#osc99PendingId = id;
 		this.#da1SentinelOwners.push({ kind: "osc99Probe", id });
 		// The probe never runs under a multiplexer (see #shouldQueryOsc99Support),

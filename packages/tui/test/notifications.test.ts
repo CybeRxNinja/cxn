@@ -134,7 +134,7 @@ describe("terminal notifications", () => {
 		});
 
 		expect(out).toBe(
-			"\x1b]99;i=complete-1:f=Y3hu:a=focus:u=1:t=Y29tcGxldGlvbg==:n=aW5mbw==:s=aW5mbw==:w=5000:d=0;Session\x1b\\" +
+			"\x1b]99;i=complete-1:f=b21w:a=focus:u=1:t=Y29tcGxldGlvbg==:n=aW5mbw==:s=aW5mbw==:w=5000:d=0;Session\x1b\\" +
 				"\x1b]99;i=complete-1:p=body;Complete\x1b\\",
 		);
 	});
@@ -143,7 +143,7 @@ describe("terminal notifications", () => {
 		setOsc99Supported(true);
 		const terminal = getTerminalInfo("kitty");
 		const out = terminal.formatNotification({ title: "Line 1\nLine 2", id: "unsafe" });
-		expect(out).toBe("\x1b]99;i=unsafe:f=Y3hu:e=1;TGluZSAxCkxpbmUgMg==\x1b\\");
+		expect(out).toBe("\x1b]99;i=unsafe:f=b21w:e=1;TGluZSAxCkxpbmUgMg==\x1b\\");
 	});
 
 	it("queries and confirms OSC 99 support before rich notifications", () => {
@@ -151,7 +151,7 @@ describe("terminal notifications", () => {
 		mutableTerminal.notifyProtocol = NotifyProtocol.Osc99;
 		const { terminal, writes, received } = setupProcessTerminal();
 		try {
-			const query = writes.find(w => w.startsWith("\x1b]99;i=cxn-probe-") && w.endsWith("\x1b\\\x1b[c"));
+			const query = writes.find(w => w.startsWith("\x1b]99;i=omp-probe-") && w.endsWith("\x1b\\\x1b[c"));
 			expect(query).toBeDefined();
 			const id = query!.match(/i=([^:;]+):p=\?/u)?.[1];
 			expect(id).toBeDefined();
@@ -402,7 +402,7 @@ describe("terminal notifications", () => {
 			// tmux forwards the passthrough probe to the outer terminal but cannot
 			// route the `p=?` reply back to the sending pane, so the reply would
 			// leak into the pane as text (#5582). The probe must not fire at all.
-			const probe = writes.find(w => w.includes("]99;i=cxn-probe-") && w.includes(":p=?"));
+			const probe = writes.find(w => w.includes("]99;i=omp-probe-") && w.includes(":p=?"));
 			expect(probe).toBeUndefined();
 			expect(isOsc99Supported()).toBe(false);
 		} finally {
