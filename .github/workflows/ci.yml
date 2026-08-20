@@ -781,7 +781,7 @@ jobs:
                 packages/coding-agent/binaries/cxn-* \
                 packages/browser-relay/dist/cxn-browser-relay-extension.zip
          - name: Create GitHub Release
-           uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
+           uses: softprops/action-gh-release@fe965f7af51af5f2602596916f38a38df2e33de0 # v3.0.2
            with:
               tag_name: ${{ needs.release_metadata.outputs.release-tag }}
               files: |
