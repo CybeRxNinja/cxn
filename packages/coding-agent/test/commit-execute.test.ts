@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 import { abortOnGitFailure, CommitAbortedError, pushOrAbort } from "../src/commit/execute";
 import * as git from "../src/utils/git";
 

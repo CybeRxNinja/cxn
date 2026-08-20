@@ -1,6 +1,6 @@
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Model } from "@cxn/pi-ai";
-import { logger } from "@cxn/pi-utils";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { ModelRegistry } from "../config/model-registry";
 import {
 	formatModelSelectorValue,

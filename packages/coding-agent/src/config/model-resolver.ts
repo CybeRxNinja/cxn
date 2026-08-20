@@ -15,19 +15,19 @@
  *   CLI flags, scope globs — onto that pipeline.
  */
 
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Api, Effort, KnownProvider, Model, ModelSpec } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { modelMatchesHost } from "@cxn/pi-catalog/hosts";
-import { buildModelProviderPriorityRank } from "@cxn/pi-catalog/identity";
-import { stripThinkingVariantToken } from "@cxn/pi-catalog/identity/family";
-import { clampThinkingLevelForModel } from "@cxn/pi-catalog/model-thinking";
-import { modelsAreEqual } from "@cxn/pi-catalog/models";
-import { DEFAULT_MODEL_PER_PROVIDER } from "@cxn/pi-catalog/provider-models";
-import { resolveBareVariantAlias, resolveVariantAlias } from "@cxn/pi-catalog/variant-collapse";
-import { fuzzyMatch } from "@cxn/pi-tui";
-import { logger } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Api, Effort, KnownProvider, Model, ModelSpec } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { modelMatchesHost } from "@cyberxninja-omp/pi-catalog/hosts";
+import { buildModelProviderPriorityRank } from "@cyberxninja-omp/pi-catalog/identity";
+import { stripThinkingVariantToken } from "@cyberxninja-omp/pi-catalog/identity/family";
+import { clampThinkingLevelForModel } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { modelsAreEqual } from "@cyberxninja-omp/pi-catalog/models";
+import { DEFAULT_MODEL_PER_PROVIDER } from "@cyberxninja-omp/pi-catalog/provider-models";
+import { resolveBareVariantAlias, resolveVariantAlias } from "@cyberxninja-omp/pi-catalog/variant-collapse";
+import { fuzzyMatch } from "@cyberxninja-omp/pi-tui";
+import { logger } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import MODEL_PRIO from "../priority.json" with { type: "json" };
 import {
 	AUTO_THINKING,
@@ -1785,7 +1785,7 @@ export function resolveCliModel(options: {
 			model: undefined,
 			selector: undefined,
 			warning: undefined,
-			error: `Unknown provider "${cliProvider}". Run "cxn models" to see available providers/models.`,
+			error: `Unknown provider "${cliProvider}". Run "omp models" to see available providers/models.`,
 		};
 	}
 
@@ -1870,7 +1870,7 @@ export function resolveCliModel(options: {
 					selector: undefined,
 					thinkingLevel: undefined,
 					warning: resolved.warning,
-					error: `Model "${trimmedModel}" not found. Run "cxn models" to see available models.`,
+					error: `Model "${trimmedModel}" not found. Run "omp models" to see available models.`,
 				};
 			}
 		}
@@ -1927,7 +1927,7 @@ export function resolveCliModel(options: {
 			selector: undefined,
 			thinkingLevel: undefined,
 			warning,
-			error: `Model "${display}" not found. Run "cxn models" to see available models.`,
+			error: `Model "${display}" not found. Run "omp models" to see available models.`,
 		};
 	}
 

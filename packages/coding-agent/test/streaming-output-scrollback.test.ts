@@ -1,14 +1,14 @@
 import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from "bun:test";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AssistantMessageComponent } from "@cxn/pi-coding-agent/modes/components/assistant-message";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { TranscriptContainer } from "@cxn/pi-coding-agent/modes/components/transcript-container";
-import { theme as activeTheme, initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { AgentProgress, TaskToolDetails } from "@cxn/pi-coding-agent/task/types";
-import { evalToolRenderer } from "@cxn/pi-coding-agent/tools/eval-render";
-import { previewWindowRows } from "@cxn/pi-coding-agent/tools/render-utils";
-import { type Component, TUI } from "@cxn/pi-tui";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AssistantMessageComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/assistant-message";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { TranscriptContainer } from "@cyberxninja-omp/pi-coding-agent/modes/components/transcript-container";
+import { theme as activeTheme, initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { AgentProgress, TaskToolDetails } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import { evalToolRenderer } from "@cyberxninja-omp/pi-coding-agent/tools/eval-render";
+import { previewWindowRows } from "@cyberxninja-omp/pi-coding-agent/tools/render-utils";
+import { type Component, TUI } from "@cyberxninja-omp/pi-tui";
 import { VirtualTerminal } from "../../tui/test/virtual-terminal";
 
 // Long, path-like output that wraps at the box's inner width — the case that

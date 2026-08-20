@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-import { type AuthBrokerServerHandle, startAuthBroker } from "@cxn/pi-ai/auth-broker";
-import { runAuthBrokerCommand } from "@cxn/pi-coding-agent/cli/auth-broker-cli";
-import { getAgentDbPath, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+import { type AuthBrokerServerHandle, startAuthBroker } from "@cyberxninja-omp/pi-ai/auth-broker";
+import { runAuthBrokerCommand } from "@cyberxninja-omp/pi-coding-agent/cli/auth-broker-cli";
+import { getAgentDbPath, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 const ORIGINAL_STDOUT_WRITE = process.stdout.write.bind(process.stdout);
 
@@ -53,7 +53,7 @@ describe("auth-broker import (CLIProxyAPI)", () => {
 		return file;
 	}
 
-	test("imports a directory of CLIProxyAPI JSONs and maps types to cxn providers", async () => {
+	test("imports a directory of CLIProxyAPI JSONs and maps types to omp providers", async () => {
 		await writeCliProxyJson("claude-sample.json", {
 			type: "claude",
 			access_token: "claude-access-1",

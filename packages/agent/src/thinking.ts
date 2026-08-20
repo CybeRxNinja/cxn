@@ -1,4 +1,4 @@
-import { Effort } from "@cxn/pi-ai";
+import { Effort } from "@cyberxninja-omp/pi-ai";
 
 /**
  * Agent-local thinking selector.

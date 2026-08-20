@@ -41,17 +41,17 @@ import { spawnSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Agent, type AgentMessage, type AgentTool } from "@cxn/pi-agent-core";
-import { createMockModel, type MockResponse } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { BashTool, type ToolSession } from "@cxn/pi-coding-agent/tools";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import { Agent, type AgentMessage, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { createMockModel, type MockResponse } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { BashTool, type ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 /** Scripted assistant turn that issues a single `bash` tool call. */

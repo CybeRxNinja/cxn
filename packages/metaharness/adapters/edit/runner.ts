@@ -12,31 +12,31 @@ import {
 	formatHashlineHeader,
 	InMemorySnapshotStore,
 	Tokenizer as HashlineTokenizer,
-} from "@cxn/hashline";
-import type { AgentMessage, ResolvedThinkingLevel, ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Model, ToolExample } from "@cxn/pi-ai";
-import { formatSessionDumpText, RpcClient } from "@cxn/pi-coding-agent";
-import { prompt } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/hashline";
+import type { AgentMessage, ResolvedThinkingLevel, ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Model, ToolExample } from "@cyberxninja-omp/pi-ai";
+import { formatSessionDumpText, RpcClient } from "@cyberxninja-omp/pi-coding-agent";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import { diffLines } from "diff";
-import { formatDirectory } from "@cxn/typescript-edit-benchmark/formatter";
+import { formatDirectory } from "@cyberxninja-omp/typescript-edit-benchmark/formatter";
 import {
 	discoverSharedInfra,
 	InProcessClient,
 	type SharedInfra,
-} from "@cxn/typescript-edit-benchmark/in-process-client";
+} from "@cyberxninja-omp/typescript-edit-benchmark/in-process-client";
 import benchmarkRetryPrompt from "./prompts/benchmark-retry.md" with { type: "text" };
 import benchmarkSystemPrompt from "./prompts/benchmark-system.md" with { type: "text" };
 import benchmarkTaskPrompt from "./prompts/benchmark-task.md" with { type: "text" };
-import type { EditTask } from "@cxn/typescript-edit-benchmark/tasks";
+import type { EditTask } from "@cyberxninja-omp/typescript-edit-benchmark/tasks";
 import {
 	verifyExpectedFileSubset,
 	verifyExpectedFiles,
-} from "@cxn/typescript-edit-benchmark/verify";
+} from "@cyberxninja-omp/typescript-edit-benchmark/verify";
 
 const REPO_ROOT = path.resolve(import.meta.dir, "..", "..", "..", "..");
 const RUNS_DIR = path.join(REPO_ROOT, "runs");
 const TMP = path.join(RUNS_DIR, `rb-${Math.random().toString(36).slice(2, 10)}`);
-const CLI_PATH = Bun.fileURLToPath(import.meta.resolve("@cxn/pi-coding-agent/cli"));
+const CLI_PATH = Bun.fileURLToPath(import.meta.resolve("@cyberxninja-omp/pi-coding-agent/cli"));
 
 function formatLogPath(logFile: string): string {
 	const relativePath = path.relative(REPO_ROOT, logFile);

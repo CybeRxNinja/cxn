@@ -19,9 +19,9 @@ import type {
 	ToolResultMessage,
 	ToolResultProviderMetadata,
 	TSchema,
-} from "@cxn/pi-ai";
-import type { Dialect } from "@cxn/pi-ai/dialect";
-import type { HarmonyAuditEvent } from "@cxn/pi-ai/utils/harmony-leak";
+} from "@cyberxninja-omp/pi-ai";
+import type { Dialect } from "@cyberxninja-omp/pi-ai/dialect";
+import type { HarmonyAuditEvent } from "@cyberxninja-omp/pi-ai/utils/harmony-leak";
 import type { AppendOnlyContextManager } from "./append-only-context";
 import type { AgentRunCoverage, AgentRunSummary } from "./run-collector";
 import type { AgentTelemetryConfig } from "./telemetry";
@@ -640,7 +640,7 @@ export interface AfterToolCallContext {
  *
  * @example
  * ```typescript
- * declare module "@cxn/agent" {
+ * declare module "@cyberxninja-omp/agent" {
  *   interface CustomAgentMessages {
  *     artifact: ArtifactMessage;
  *     notification: NotificationMessage;

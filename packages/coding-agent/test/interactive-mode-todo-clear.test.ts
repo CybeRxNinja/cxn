@@ -1,18 +1,18 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@cxn/pi-agent-core";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TASK_SUBAGENT_LIFECYCLE_CHANNEL } from "@cxn/pi-coding-agent/task";
-import type { TodoPhase } from "@cxn/pi-coding-agent/tools/todo";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import type { NativeScrollbackLiveRegion } from "@cxn/pi-tui";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TASK_SUBAGENT_LIFECYCLE_CHANNEL } from "@cyberxninja-omp/pi-coding-agent/task";
+import type { TodoPhase } from "@cyberxninja-omp/pi-coding-agent/tools/todo";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import type { NativeScrollbackLiveRegion } from "@cyberxninja-omp/pi-tui";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function renderTodos(mode: InteractiveMode): string {
 	return Bun.stripANSI(mode.todoContainer.render(120).join("\n"));

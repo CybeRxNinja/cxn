@@ -1,6 +1,6 @@
 # macOS signing & notarization
 
-The compiled macOS `cxn` binaries shipped on GitHub Releases can be signed with a
+The compiled macOS `omp` binaries shipped on GitHub Releases can be signed with a
 **Developer ID Application** certificate and **notarized** by Apple. This makes
 them Gatekeeper-acceptable and is the prerequisite for an official Homebrew
 submission (see [#776](https://github.com/can1357/oh-my-pi/issues/776)).
@@ -33,7 +33,7 @@ The binary is a Bun single-file executable, so the hardened runtime needs:
 | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `com.apple.security.cs.allow-jit`                        | JavaScriptCore JITs at runtime.                                                                                                                                                                                                                                                                                               |
 | `com.apple.security.cs.allow-unsigned-executable-memory` | JSC executable memory pages.                                                                                                                                                                                                                                                                                                  |
-| `com.apple.security.cs.disable-library-validation`       | cxn extracts its native addon (`pi_natives.<triple>.node`) and other optional dylibs to a runtime cache and `dlopen()`s them. They do not share the main binary's Team ID, so without this the hardened runtime aborts with _"mapping process and mapped file have different Team IDs"_ — breaking effectively every command. |
+| `com.apple.security.cs.disable-library-validation`       | omp extracts its native addon (`pi_natives.<triple>.node`) and other optional dylibs to a runtime cache and `dlopen()`s them. They do not share the main binary's Team ID, so without this the hardened runtime aborts with _"mapping process and mapped file have different Team IDs"_ — breaking effectively every command. |
 
 Without `disable-library-validation`, a signed+notarized binary signs and
 notarizes fine but **fails at first real use**. `scripts/ci-macos-sign.sh` runs
@@ -52,7 +52,7 @@ signing or credential failure.
 
 What this means in practice:
 
-- `curl https://cxn.sh/install | sh` — `curl` sets no quarantine bit, so
+- `curl https://omp.sh/install | sh` — `curl` sets no quarantine bit, so
   Gatekeeper is not consulted.
 - Homebrew **formula** installs — Homebrew does not quarantine formula files, so
   Gatekeeper is not consulted.

@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage, Context, ImageContent, Message, TextContent } from "@cxn/pi-ai";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, Context, ImageContent, Message, TextContent } from "@cyberxninja-omp/pi-ai";
 import type { SessionContext } from "../session/session-context";
 import type { JsonValue, SecretObfuscator } from "./obfuscator";
 import { collectJsonRegexSecretValues, mapJsonStrings } from "./placeholder-scan";

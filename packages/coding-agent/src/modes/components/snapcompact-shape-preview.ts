@@ -12,7 +12,7 @@
  * Sixel, Kitty `a=p`) do not survive. Everything else falls back to the stats
  * line plus a dim notice.
  */
-import { type Component, type ImageBudget, renderImage, TERMINAL } from "@cxn/pi-tui";
+import { type Component, type ImageBudget, renderImage, TERMINAL } from "@cyberxninja-omp/pi-tui";
 import {
 	DIM_OFF,
 	DIM_ON,
@@ -26,7 +26,7 @@ import {
 	type Shape,
 	type ShapeTarget,
 	type ShapeVariantName,
-} from "@cxn/snapcompact";
+} from "@cyberxninja-omp/snapcompact";
 import { theme } from "../theme/theme";
 import sampleDoc from "./snapcompact-shape-preview-doc.md" with { type: "text" };
 

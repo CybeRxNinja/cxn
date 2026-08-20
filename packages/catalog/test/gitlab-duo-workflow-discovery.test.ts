@@ -8,11 +8,11 @@ import {
 	discoverGitLabDuoWorkflowNamespace,
 	discoverGitLabDuoWorkflowRuntimeNamespace,
 	fetchGitLabDuoWorkflowModels,
-} from "@cxn/pi-catalog/discovery/gitlab-duo-workflow";
-import { getSupportedEfforts } from "@cxn/pi-catalog/model-thinking";
-import { isCatalogDescriptor } from "@cxn/pi-catalog/provider-models/descriptor-types";
-import { PROVIDER_DESCRIPTORS } from "@cxn/pi-catalog/provider-models/descriptors";
-import type { FetchImpl } from "@cxn/pi-catalog/types";
+} from "@cyberxninja-omp/pi-catalog/discovery/gitlab-duo-workflow";
+import { getSupportedEfforts } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { isCatalogDescriptor } from "@cyberxninja-omp/pi-catalog/provider-models/descriptor-types";
+import { PROVIDER_DESCRIPTORS } from "@cyberxninja-omp/pi-catalog/provider-models/descriptors";
+import type { FetchImpl } from "@cyberxninja-omp/pi-catalog/types";
 
 const TEST_TOKEN = "redacted-test-token";
 const originalNamespaceId = Bun.env.GITLAB_DUO_NAMESPACE_ID;

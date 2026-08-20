@@ -1,14 +1,18 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createLspWritethrough, type FileDiagnosticsResult, FileFormatResult } from "@cxn/pi-coding-agent/lsp";
-import * as lspClient from "@cxn/pi-coding-agent/lsp/client";
-import * as lspConfig from "@cxn/pi-coding-agent/lsp/config";
-import type { Diagnostic, LinterClient, LspClient, ServerConfig } from "@cxn/pi-coding-agent/lsp/types";
-import { EquivalentUriMap, fileToUri } from "@cxn/pi-coding-agent/lsp/utils";
-import type { DeferredDiagnosticsEntry, ToolSession } from "@cxn/pi-coding-agent/tools";
-import { WriteTool } from "@cxn/pi-coding-agent/tools/write";
-import { type ptree, TempDir } from "@cxn/pi-utils";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	createLspWritethrough,
+	type FileDiagnosticsResult,
+	FileFormatResult,
+} from "@cyberxninja-omp/pi-coding-agent/lsp";
+import * as lspClient from "@cyberxninja-omp/pi-coding-agent/lsp/client";
+import * as lspConfig from "@cyberxninja-omp/pi-coding-agent/lsp/config";
+import type { Diagnostic, LinterClient, LspClient, ServerConfig } from "@cyberxninja-omp/pi-coding-agent/lsp/types";
+import { EquivalentUriMap, fileToUri } from "@cyberxninja-omp/pi-coding-agent/lsp/utils";
+import type { DeferredDiagnosticsEntry, ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { WriteTool } from "@cyberxninja-omp/pi-coding-agent/tools/write";
+import { type ptree, TempDir } from "@cyberxninja-omp/pi-utils";
 
 const TEST_SERVER: ServerConfig = {
 	command: "test-lsp",

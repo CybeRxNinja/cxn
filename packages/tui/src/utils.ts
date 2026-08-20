@@ -7,12 +7,12 @@ import {
 	truncateToWidth as nativeTruncateToWidth,
 	wrapTextWithAnsi as nativeWrapTextWithAnsi,
 	type SliceResult,
-} from "@cxn/pi-natives";
-import { DEFAULT_TAB_WIDTH } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-natives";
+import { DEFAULT_TAB_WIDTH } from "@cyberxninja-omp/pi-utils";
 
-export { Ellipsis } from "@cxn/pi-natives";
+export { Ellipsis } from "@cyberxninja-omp/pi-natives";
 
-export { DEFAULT_TAB_WIDTH } from "@cxn/pi-utils";
+export { DEFAULT_TAB_WIDTH } from "@cyberxninja-omp/pi-utils";
 
 export type HangulCompatibilityJamoWidth = "platform" | "unicode" | 1 | 2;
 

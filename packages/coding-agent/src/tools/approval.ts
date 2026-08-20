@@ -6,9 +6,9 @@
  * - compare a tool capability tier against the active approval mode,
  * - format the generic approval prompt body.
  */
-import type { AgentTool, ToolApprovalDecision, ToolTier } from "@cxn/pi-agent-core";
+import type { AgentTool, ToolApprovalDecision, ToolTier } from "@cyberxninja-omp/pi-agent-core";
 
-export type { ToolApproval, ToolApprovalDecision, ToolTier } from "@cxn/pi-agent-core";
+export type { ToolApproval, ToolApprovalDecision, ToolTier } from "@cyberxninja-omp/pi-agent-core";
 
 export type ApprovalPolicy = "allow" | "deny" | "prompt";
 export type ApprovalMode = "always-ask" | "write" | "yolo";

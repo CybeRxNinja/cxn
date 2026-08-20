@@ -11,12 +11,12 @@ import { Database } from "bun:sqlite";
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { HindsightApi } from "@cxn/pi-coding-agent/hindsight/client";
-import type { HindsightConfig } from "@cxn/pi-coding-agent/hindsight/config";
-import { HindsightSessionState } from "@cxn/pi-coding-agent/hindsight/state";
-import { mnemopiBackend } from "@cxn/pi-coding-agent/mnemopi/backend";
-import { loadMnemopiConfig, type MnemopiBackendConfig } from "@cxn/pi-coding-agent/mnemopi/config";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { HindsightApi } from "@cyberxninja-omp/pi-coding-agent/hindsight/client";
+import type { HindsightConfig } from "@cyberxninja-omp/pi-coding-agent/hindsight/config";
+import { HindsightSessionState } from "@cyberxninja-omp/pi-coding-agent/hindsight/state";
+import { mnemopiBackend } from "@cyberxninja-omp/pi-coding-agent/mnemopi/backend";
+import { loadMnemopiConfig, type MnemopiBackendConfig } from "@cyberxninja-omp/pi-coding-agent/mnemopi/config";
 import {
 	getMnemopiScopedDbPaths,
 	getMnemopiSessionState,
@@ -24,15 +24,15 @@ import {
 	loadMnemopiCore,
 	MnemopiSessionState,
 	setMnemopiSessionState,
-} from "@cxn/pi-coding-agent/mnemopi/state";
-import type { AgentSessionEventListener } from "@cxn/pi-coding-agent/session/agent-session";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools/index";
-import { MemoryEditTool } from "@cxn/pi-coding-agent/tools/memory-edit";
-import { MemoryRecallTool } from "@cxn/pi-coding-agent/tools/memory-recall";
-import { MemoryReflectTool } from "@cxn/pi-coding-agent/tools/memory-reflect";
-import { MemoryRetainTool } from "@cxn/pi-coding-agent/tools/memory-retain";
-import { resetMemoryForTests } from "@cxn/pi-mnemopi";
-import { logger, TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/mnemopi/state";
+import type { AgentSessionEventListener } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools/index";
+import { MemoryEditTool } from "@cyberxninja-omp/pi-coding-agent/tools/memory-edit";
+import { MemoryRecallTool } from "@cyberxninja-omp/pi-coding-agent/tools/memory-recall";
+import { MemoryReflectTool } from "@cyberxninja-omp/pi-coding-agent/tools/memory-reflect";
+import { MemoryRetainTool } from "@cyberxninja-omp/pi-coding-agent/tools/memory-retain";
+import { resetMemoryForTests } from "@cyberxninja-omp/pi-mnemopi";
+import { logger, TempDir } from "@cyberxninja-omp/pi-utils";
 
 // Mnemopi is lazy-loaded at runtime; preload it for synchronous state construction.
 await Promise.all([loadMnemopi(), loadMnemopiCore()]);
@@ -57,7 +57,7 @@ function makeConfig(overrides: Partial<HindsightConfig> = {}): HindsightConfig {
 		retainMode: "full-session",
 		retainEveryNTurns: 3,
 		retainOverlapTurns: 2,
-		retainContext: "cxn",
+		retainContext: "omp",
 		recallBudget: "mid",
 		recallMaxTokens: 1024,
 		recallTypes: ["world", "experience"],

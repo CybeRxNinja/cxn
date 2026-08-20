@@ -1,14 +1,17 @@
 import { beforeAll, describe, expect, type Mock, test, vi } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ModelPickerComponent, type ModelPickerOptions } from "@cxn/pi-coding-agent/modes/components/model-picker";
-import { resolveSegmentPalette } from "@cxn/pi-coding-agent/modes/components/segment-track";
-import { getThemeByName, setThemeInstance, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { ResolvedRoleModel } from "@cxn/pi-coding-agent/session/agent-session";
-import type { TUI } from "@cxn/pi-tui";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	ModelPickerComponent,
+	type ModelPickerOptions,
+} from "@cyberxninja-omp/pi-coding-agent/modes/components/model-picker";
+import { resolveSegmentPalette } from "@cyberxninja-omp/pi-coding-agent/modes/components/segment-track";
+import { getThemeByName, setThemeInstance, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { ResolvedRoleModel } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 
 function normalize(lines: readonly string[]): string {
 	return stripVTControlCharacters(lines.join("\n")).replace(/\s+/g, " ").trim();

@@ -1,5 +1,5 @@
 import * as path from "node:path";
-import { getRemoteDir } from "@cxn/pi-utils";
+import { getRemoteDir } from "@cyberxninja-omp/pi-utils";
 import type { ToolSession } from "../sdk";
 import { findUniqueWorkspaceSuffix } from "./path-utils";
 

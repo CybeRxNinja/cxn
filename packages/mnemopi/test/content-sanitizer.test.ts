@@ -11,7 +11,7 @@ import {
 	sanitizeContent,
 	shannonEntropy,
 	storeBlob,
-} from "@cxn/pi-mnemopi/core/content-sanitizer";
+} from "@cyberxninja-omp/pi-mnemopi/core/content-sanitizer";
 
 const ORIGINAL_BLOB_DIR = process.env.MNEMOPI_BLOB_DIR;
 

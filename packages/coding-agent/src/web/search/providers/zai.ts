@@ -4,8 +4,8 @@
  * Calls Z.AI's remote MCP server (`webSearchPrime`) and adapts results into
  * the unified SearchResponse shape used by the web search tool.
  */
-import { type ApiKey, type AuthStorage, type FetchImpl, getEnvApiKey, withAuth } from "@cxn/pi-ai";
-import { isRecord } from "@cxn/pi-utils";
+import { type ApiKey, type AuthStorage, type FetchImpl, getEnvApiKey, withAuth } from "@cyberxninja-omp/pi-ai";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 import type { SearchResponse, SearchSource } from "../../../web/search/types";
 import { SearchProviderError } from "../../../web/search/types";
 import { formatQuery, parseSearchQuery, type QuerySyntax } from "../query";
@@ -417,7 +417,7 @@ export async function searchZai(params: ZaiSearchParams): Promise<SearchResponse
 
 	const rawResult = await withAuth(keyOrResolver, key => callZaiSearch(key, params), {
 		signal: params.signal,
-		missingKeyMessage: "Z.AI credentials not found. Set ZAI_API_KEY or login with 'cxn /login zai'.",
+		missingKeyMessage: "Z.AI credentials not found. Set ZAI_API_KEY or login with 'omp /login zai'.",
 	});
 	const payload = parseSearchPayload(rawResult);
 	let sources = toSources(payload.results);

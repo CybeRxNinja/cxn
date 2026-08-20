@@ -1,5 +1,5 @@
-import type { Clipboard, SnapshotStore } from "@cxn/hashline";
-import type { AgentTool } from "@cxn/pi-agent-core";
+import type { Clipboard, SnapshotStore } from "@cyberxninja-omp/hashline";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
 import {
 	Box,
 	type Component,
@@ -13,8 +13,8 @@ import {
 	TERMINAL,
 	Text,
 	type TUI,
-} from "@cxn/pi-tui";
-import { getProjectDir, logger, sanitizeText } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { getProjectDir, logger, sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { EDIT_MODE_STRATEGIES, type EditMode, type PerFileDiffPreview } from "../../edit";
 import type { Theme } from "../../modes/theme/theme";
 import { getThemeEpoch, theme } from "../../modes/theme/theme";

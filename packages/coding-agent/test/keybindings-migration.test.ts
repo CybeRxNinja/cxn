@@ -2,16 +2,16 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { KeybindingsManager } from "@cxn/pi-coding-agent/config/keybindings";
-import { matchesAppFollowUp } from "@cxn/pi-coding-agent/modes/utils/keybinding-matchers";
-import { type KeybindingsConfig, setKeybindings } from "@cxn/pi-tui";
+import { KeybindingsManager } from "@cyberxninja-omp/pi-coding-agent/config/keybindings";
+import { matchesAppFollowUp } from "@cyberxninja-omp/pi-coding-agent/modes/utils/keybinding-matchers";
+import { type KeybindingsConfig, setKeybindings } from "@cyberxninja-omp/pi-tui";
 import {
 	__resetDirsFromEnvForTests,
 	getAgentDir,
 	getProfileRootDir,
 	removeWithRetries,
 	setProfile,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import { YAML } from "bun";
 
 function ctrl(key: string): string {

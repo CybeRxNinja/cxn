@@ -11,7 +11,7 @@ import {
 	sliceLastTurnsByUserBoundary,
 	stripMemoryTags,
 	truncateRecallQuery,
-} from "@cxn/pi-coding-agent/hindsight/content";
+} from "@cyberxninja-omp/pi-coding-agent/hindsight/content";
 
 describe("stripMemoryTags", () => {
 	it("removes both <memories> and legacy memory blocks", () => {

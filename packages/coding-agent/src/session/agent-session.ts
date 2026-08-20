@@ -19,7 +19,7 @@ import * as path from "node:path";
 import { scheduler } from "node:timers/promises";
 import { isPromise } from "node:util/types";
 
-import type { Clipboard, InMemorySnapshotStore } from "@cxn/hashline";
+import type { Clipboard, InMemorySnapshotStore } from "@cyberxninja-omp/hashline";
 import {
 	type AfterToolCallContext,
 	type AfterToolCallResult,
@@ -43,7 +43,7 @@ import {
 	TERMINAL_TOOL_RESULT_ABORT_REASON,
 	type ThinkingLevel,
 	type ToolChoiceDirective,
-} from "@cxn/pi-agent-core";
+} from "@cyberxninja-omp/pi-agent-core";
 import {
 	type CompactionPreparation,
 	type CompactionResult,
@@ -52,7 +52,7 @@ import {
 	estimateTokens,
 	generateBranchSummary,
 	type ShakeConfig,
-} from "@cxn/pi-agent-core/compaction";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
 import type {
 	AssistantMessage,
 	CodexCompactionContext,
@@ -74,13 +74,13 @@ import type {
 	ToolResultMessage,
 	UsageReport,
 	UserMessage,
-} from "@cxn/pi-ai";
-import { type Effort, streamSimple } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { resetOpenAICodexHistoryAfterCompaction } from "@cxn/pi-ai/providers/openai-codex-responses";
-import { toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { modelsAreEqual } from "@cxn/pi-catalog/models";
-import { MacOSPowerAssertion } from "@cxn/pi-natives";
+} from "@cyberxninja-omp/pi-ai";
+import { type Effort, streamSimple } from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { resetOpenAICodexHistoryAfterCompaction } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { modelsAreEqual } from "@cyberxninja-omp/pi-catalog/models";
+import { MacOSPowerAssertion } from "@cyberxninja-omp/pi-natives";
 import {
 	$env,
 	APP_NAME,
@@ -97,7 +97,7 @@ import {
 	Snowflake,
 	stringProperty,
 	withTimeout,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import { type AdvisorConfig, type AdvisorRuntimeStatus, loadAdvisorTranscriptCosts } from "../advisor";
 import { ASYNC_JOB_MANAGER_SHUTDOWN_REASON, type AsyncJob, AsyncJobManager } from "../async";
 import { shouldEnableAppendOnlyContext } from "../config/append-only-context-mode";
@@ -681,7 +681,7 @@ export class AgentSession {
 		if (mode === "off") return;
 		try {
 			this.#powerAssertion = MacOSPowerAssertion.start({
-				reason: "cxn agent session",
+				reason: "omp agent session",
 				idle: true,
 				display: mode === "display" || mode === "system",
 				system: mode === "system",
@@ -3795,7 +3795,7 @@ export class AgentSession {
 	 * `metadata.user_id` shaped like real Claude Code's `getAPIMetadata` output:
 	 * `{ session_id, account_uuid, device_id }`. `account_uuid` is included only
 	 * when an Anthropic OAuth credential with a known account UUID is loaded;
-	 * `device_id` is derived from both the persistent cxn install id and that
+	 * `device_id` is derived from both the persistent omp install id and that
 	 * account UUID. Resolving live keeps the value in sync with auth-state changes
 	 * (login/logout, token refresh that surfaces a new account UUID) without
 	 * needing to re-call `#syncAgentSessionId()` on every such event.

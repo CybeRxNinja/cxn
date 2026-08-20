@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
-import type { SearchParams } from "@cxn/pi-coding-agent/web/search/providers/base";
-import { searchMojeek } from "@cxn/pi-coding-agent/web/search/providers/mojeek";
-import { SearchProviderError } from "@cxn/pi-coding-agent/web/search/types";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import type { SearchParams } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/base";
+import { searchMojeek } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/mojeek";
+import { SearchProviderError } from "@cyberxninja-omp/pi-coding-agent/web/search/types";
 
 const fakeAuthStorage = {
 	async getApiKey() {

@@ -1,5 +1,5 @@
-import type { TextContent } from "@cxn/pi-ai";
-import { Container, Markdown, Text } from "@cxn/pi-tui";
+import type { TextContent } from "@cyberxninja-omp/pi-ai";
+import { Container, Markdown, Text } from "@cyberxninja-omp/pi-tui";
 import type { CollabPromptDetails } from "../../collab/protocol";
 import type { CustomMessage } from "../../session/messages";
 import { getMarkdownTheme, theme } from "../theme/theme";

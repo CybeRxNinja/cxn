@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { withOAuthAccess } from "@cxn/pi-ai/auth-retry";
-import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
-import * as oauthUtils from "@cxn/pi-ai/registry/oauth";
+import { withOAuthAccess } from "@cyberxninja-omp/pi-ai/auth-retry";
+import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai/auth-storage";
+import * as oauthUtils from "@cyberxninja-omp/pi-ai/registry/oauth";
 
 const PROVIDER = "unit-oauth-select";
 

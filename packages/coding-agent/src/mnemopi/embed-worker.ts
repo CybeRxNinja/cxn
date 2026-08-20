@@ -9,7 +9,7 @@
  * in either process.
  */
 
-import { defaultLocalModelInitializer, type StandardEmbeddingModel } from "@cxn/pi-mnemopi/core";
+import { defaultLocalModelInitializer, type StandardEmbeddingModel } from "@cyberxninja-omp/pi-mnemopi/core";
 import type { MnemopiEmbedModelId, MnemopiEmbedTransport, MnemopiEmbedWorkerInbound } from "./embed-protocol";
 
 interface LoadedModel {

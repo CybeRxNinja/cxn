@@ -6,8 +6,8 @@
  * alias, and compare model families — without touching the mutable registry or
  * duplicating resolution/family heuristics.
  */
-import type { Api, Model } from "@cxn/pi-ai";
-import { modelFamilyToken } from "@cxn/pi-catalog/identity";
+import type { Api, Model } from "@cyberxninja-omp/pi-ai";
+import { modelFamilyToken } from "@cyberxninja-omp/pi-catalog/identity";
 import type { ModelRegistry } from "../../config/model-registry";
 import { getModelMatchPreferences, resolveModelRoleValue } from "../../config/model-resolver";
 import type { Settings } from "../../config/settings";

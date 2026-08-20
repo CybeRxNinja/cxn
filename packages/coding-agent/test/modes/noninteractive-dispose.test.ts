@@ -6,7 +6,7 @@
  * an CXN-owned Chromium survived the exit (issue #5643).
  */
 import { describe, expect, it, spyOn } from "bun:test";
-import type { AssistantMessage } from "@cxn/pi-ai";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
 import { runPrintMode } from "../../src/modes/print-mode";
 import type { AgentSession } from "../../src/session/agent-session";
 import * as telemetryExport from "../../src/telemetry-export";

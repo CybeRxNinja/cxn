@@ -1,18 +1,18 @@
-# @cxn/pi-agent
+# @cyberxninja-omp/pi-agent
 
-Stateful agent with tool execution and event streaming. Built on `@cxn/pi-ai`.
+Stateful agent with tool execution and event streaming. Built on `@cyberxninja-omp/pi-ai`.
 
 ## Installation
 
 ```bash
-npm install @cxn/pi-agent
+npm install @cyberxninja-omp/pi-agent
 ```
 
 ## Quick Start
 
 ```typescript
-import { Agent } from "@cxn/pi-agent";
-import { getModel } from "@cxn/pi-ai";
+import { Agent } from "@cyberxninja-omp/pi-agent";
+import { getModel } from "@cyberxninja-omp/pi-ai";
 
 const agent = new Agent({
 	initialState: {
@@ -255,7 +255,7 @@ steering until the current turn completes.
 Extend `AgentMessage` via declaration merging:
 
 ```typescript
-declare module "@cxn/pi-agent" {
+declare module "@cyberxninja-omp/pi-agent" {
 	interface CustomAgentMessages {
 		notification: { role: "notification"; text: string; timestamp: number };
 	}
@@ -282,7 +282,7 @@ const agent = new Agent({
 Define tools using `AgentTool` with an omptype parameter schema.
 
 ```typescript
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 
 const readFileTool: AgentTool = {
 	name: "read_file",
@@ -328,7 +328,7 @@ Thrown errors are caught by the agent and reported to the LLM as tool errors wit
 For browser apps that proxy through a backend:
 
 ```typescript
-import { Agent, streamProxy } from "@cxn/pi-agent";
+import { Agent, streamProxy } from "@cyberxninja-omp/pi-agent";
 
 const agent = new Agent({
 	streamFn: (model, context, options) =>
@@ -345,7 +345,7 @@ const agent = new Agent({
 For direct control without the Agent class:
 
 ```typescript
-import { agentLoop, agentLoopContinue } from "@cxn/pi-agent";
+import { agentLoop, agentLoopContinue } from "@cyberxninja-omp/pi-agent";
 
 const context: AgentContext = {
 	systemPrompt: ["You are helpful."],
@@ -445,7 +445,7 @@ fold N summaries with `aggregateAgentRunSummaries` / `aggregateAgentRunCoverage`
 import {
 	aggregateAgentRunSummaries,
 	aggregateAgentRunCoverage,
-} from "@cxn/pi-agent";
+} from "@cyberxninja-omp/pi-agent";
 
 const summaries: AgentRunSummary[] = [];
 const coverages: AgentRunCoverage[] = [];

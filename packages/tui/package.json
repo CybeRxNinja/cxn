@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@cxn/pi-tui",
+  "name": "@cyberxninja-omp/pi-tui",
   "version": "17.4.2",
   "description": "Terminal User Interface library with differential rendering for efficient text-based applications",
-  "homepage": "https://cxn.sh",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "contributors": [
     "Mario Zechner"
@@ -37,8 +37,8 @@
     "fmt": "biome format --write ."
   },
   "dependencies": {
-    "@cxn/pi-natives": "catalog:",
-    "@cxn/pi-utils": "catalog:"
+    "@cyberxninja-omp/pi-natives": "catalog:",
+    "@cyberxninja-omp/pi-utils": "catalog:"
   },
   "devDependencies": {
     "ghostty-web": "catalog:"

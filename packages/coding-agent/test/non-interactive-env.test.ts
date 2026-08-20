@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { buildNonInteractiveEnv, NON_INTERACTIVE_ENV } from "@cxn/pi-coding-agent/exec/non-interactive-env";
+import { buildNonInteractiveEnv, NON_INTERACTIVE_ENV } from "@cyberxninja-omp/pi-coding-agent/exec/non-interactive-env";
 
 describe("buildNonInteractiveEnv", () => {
 	it("defaults Windows child-process encoding to UTF-8 when inherited env is unset", () => {
@@ -92,7 +92,7 @@ it("filters expanded dotenv values while preserving matching and empty launcher 
 		await Bun.write(
 			path.join(tmp, ".env"),
 			[
-				"BASE=loaded-by-cxn",
+				"BASE=loaded-by-omp",
 				"EMPTY_PARENT_VAR=project-secret",
 				"TEST_ENV_FROM_DOTENV=$BASE-suffix",
 				"NODE_ENV=development",

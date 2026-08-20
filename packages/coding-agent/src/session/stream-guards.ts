@@ -1,10 +1,10 @@
 import * as fs from "node:fs";
-import type { Agent, AgentEvent, AgentMessage, AgentTurnEndContext } from "@cxn/pi-agent-core";
-import type { AssistantMessage, AssistantMessageEvent, Model, ToolCall } from "@cxn/pi-ai";
-import { GeminiHeaderRunDetector } from "@cxn/pi-ai/utils/thinking-loop";
-import { type RepeatedToolCallDetection, ToolCallLoopGuard } from "@cxn/pi-ai/utils/tool-call-loop-guard";
-import { modelFamilyToken } from "@cxn/pi-catalog/identity";
-import { isEnoent, logger, prompt } from "@cxn/pi-utils";
+import type { Agent, AgentEvent, AgentMessage, AgentTurnEndContext } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, AssistantMessageEvent, Model, ToolCall } from "@cyberxninja-omp/pi-ai";
+import { GeminiHeaderRunDetector } from "@cyberxninja-omp/pi-ai/utils/thinking-loop";
+import { type RepeatedToolCallDetection, ToolCallLoopGuard } from "@cyberxninja-omp/pi-ai/utils/tool-call-loop-guard";
+import { modelFamilyToken } from "@cyberxninja-omp/pi-catalog/identity";
+import { isEnoent, logger, prompt } from "@cyberxninja-omp/pi-utils";
 import type { Settings } from "../config/settings";
 import { normalizeDiff, normalizeToLF, ParseError, previewPatch, stripBom } from "../edit";
 import { type LocalProtocolOptions, resolveLocalUrlToPath } from "../internal-urls";

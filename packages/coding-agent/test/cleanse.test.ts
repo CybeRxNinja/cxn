@@ -2,19 +2,19 @@ import { afterEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import * as cleanseAgent from "@cxn/pi-coding-agent/cleanse/agent";
-import { balanceDiagnostics } from "@cxn/pi-coding-agent/cleanse/balance";
-import * as cleanseCheckers from "@cxn/pi-coding-agent/cleanse/checkers";
-import { runCleanseCommand } from "@cxn/pi-coding-agent/cleanse/index";
-import { runCleanseLoop } from "@cxn/pi-coding-agent/cleanse/loop";
-import { type CleanseParserKind, parseCleanseDiagnostics } from "@cxn/pi-coding-agent/cleanse/parsers";
+import * as cleanseAgent from "@cyberxninja-omp/pi-coding-agent/cleanse/agent";
+import { balanceDiagnostics } from "@cyberxninja-omp/pi-coding-agent/cleanse/balance";
+import * as cleanseCheckers from "@cyberxninja-omp/pi-coding-agent/cleanse/checkers";
+import { runCleanseCommand } from "@cyberxninja-omp/pi-coding-agent/cleanse/index";
+import { runCleanseLoop } from "@cyberxninja-omp/pi-coding-agent/cleanse/loop";
+import { type CleanseParserKind, parseCleanseDiagnostics } from "@cyberxninja-omp/pi-coding-agent/cleanse/parsers";
 import type {
 	CleanseAgentOutcome,
 	CleanseDiagnostic,
 	CleanseDiagnosticReport,
-} from "@cxn/pi-coding-agent/cleanse/types";
-import { createProgressReporter } from "@cxn/pi-coding-agent/cli/progress-reporter";
-import { resolveCliArgv } from "@cxn/pi-coding-agent/cli-commands";
+} from "@cyberxninja-omp/pi-coding-agent/cleanse/types";
+import { createProgressReporter } from "@cyberxninja-omp/pi-coding-agent/cli/progress-reporter";
+import { resolveCliArgv } from "@cyberxninja-omp/pi-coding-agent/cli-commands";
 
 afterEach(() => {
 	vi.restoreAllMocks();

@@ -9,7 +9,7 @@
  * normalization remains available.
  */
 
-import { enclosingBlockBoundaries } from "@cxn/pi-natives";
+import { enclosingBlockBoundaries } from "@cyberxninja-omp/pi-natives";
 
 /** Parse-result cache keyed by content hash + path; FIFO-bounded. */
 const parseCache = new Map<string, boolean>();

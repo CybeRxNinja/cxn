@@ -3,8 +3,8 @@
  * Handles data loading, tree building, filtering, and toggle persistence.
  */
 import * as path from "node:path";
-import { fuzzyMatch } from "@cxn/pi-tui";
-import { getMCPConfigPath, logger } from "@cxn/pi-utils";
+import { fuzzyMatch } from "@cyberxninja-omp/pi-tui";
+import { getMCPConfigPath, logger } from "@cyberxninja-omp/pi-utils";
 import type { ContextFile } from "../../../capability/context-file";
 import type { ExtensionModule } from "../../../capability/extension-module";
 import type { Hook } from "../../../capability/hook";

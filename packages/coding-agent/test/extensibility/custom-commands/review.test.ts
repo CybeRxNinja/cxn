@@ -2,15 +2,15 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, spyOn, vi } from 
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { ReviewCommand } from "@cxn/pi-coding-agent/extensibility/custom-commands/bundled/review";
-import type { CustomCommandAPI } from "@cxn/pi-coding-agent/extensibility/custom-commands/types";
-import type { HookCommandContext } from "@cxn/pi-coding-agent/extensibility/hooks/types";
-import type { SessionEntry } from "@cxn/pi-coding-agent/session/session-entries";
-import type { PrDiffPayload, ViewLookupResult } from "@cxn/pi-coding-agent/tools/gh";
-import * as gh from "@cxn/pi-coding-agent/tools/gh";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import * as jj from "@cxn/pi-coding-agent/utils/jj";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { ReviewCommand } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-commands/bundled/review";
+import type { CustomCommandAPI } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-commands/types";
+import type { HookCommandContext } from "@cyberxninja-omp/pi-coding-agent/extensibility/hooks/types";
+import type { SessionEntry } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import type { PrDiffPayload, ViewLookupResult } from "@cyberxninja-omp/pi-coding-agent/tools/gh";
+import * as gh from "@cyberxninja-omp/pi-coding-agent/tools/gh";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import * as jj from "@cyberxninja-omp/pi-coding-agent/utils/jj";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const SAMPLE_JJ_DIFF = `diff --git a/src/workspace.ts b/src/workspace.ts
 --- a/src/workspace.ts

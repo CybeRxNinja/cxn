@@ -1,10 +1,10 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import type { SessionSelectorComponent } from "@cxn/pi-coding-agent/modes/components/session-selector";
-import { SelectorController } from "@cxn/pi-coding-agent/modes/controllers/selector-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import type { SessionInfo } from "@cxn/pi-coding-agent/session/session-listing";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import type { SessionSelectorComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/session-selector";
+import { SelectorController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/selector-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { SessionInfo } from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 
 beforeAll(async () => {
 	await initTheme();

@@ -14,9 +14,9 @@
  * estimate (`estimateInlineSavings`) so the two can never disagree.
  */
 
-import { countTokens } from "@cxn/pi-agent-core";
-import type { Context, ImageContent, Model, TextContent, ToolResultMessage, UserMessage } from "@cxn/pi-ai";
-import * as snapcompact from "@cxn/snapcompact";
+import { countTokens } from "@cyberxninja-omp/pi-agent-core";
+import type { Context, ImageContent, Model, TextContent, ToolResultMessage, UserMessage } from "@cyberxninja-omp/pi-ai";
+import * as snapcompact from "@cyberxninja-omp/snapcompact";
 import contextFramesNote from "../prompts/system/snapcompact-context-frames-note.md" with { type: "text" };
 import contextStub from "../prompts/system/snapcompact-context-stub.md" with { type: "text" };
 import systemFramesNote from "../prompts/system/snapcompact-system-frames-note.md" with { type: "text" };
@@ -43,7 +43,7 @@ export type SnapcompactSavingsSink = (
 	model: Model,
 ) => void;
 
-// Per-provider image-count budgets live in @cxn/snapcompact
+// Per-provider image-count budgets live in @cyberxninja-omp/snapcompact
 // (`providerImageBudget`): snapcompact frames are 1568px (<2000px) so
 // dimension/size limits never bind; only COUNT does. Once the budget is
 // spent by already-attached archive/system-prompt images, tool results ship

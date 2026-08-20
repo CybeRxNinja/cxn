@@ -1,4 +1,4 @@
-import { THINKING_EFFORTS } from "@cxn/pi-catalog/effort";
+import { THINKING_EFFORTS } from "@cyberxninja-omp/pi-catalog/effort";
 
 /**
  * Thinking selectors accepted by the `--thinking` CLI flag, in display order.

@@ -2,14 +2,14 @@ import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from "bun:
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { buildSessionOptions } from "@cxn/pi-coding-agent/main";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { buildSessionOptions } from "@cyberxninja-omp/pi-coding-agent/main";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 // Regression for #6064: prewalk is an optional, off-by-default optimization.
 // A missing key (or unresolvable target) for the prewalk hand-off model must

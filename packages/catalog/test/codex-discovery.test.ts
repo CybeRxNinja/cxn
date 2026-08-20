@@ -3,14 +3,14 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { fetchCodexModels } from "@cxn/pi-catalog/discovery/codex";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { writeModelCache } from "@cxn/pi-catalog/model-cache";
-import { resolveProviderModels } from "@cxn/pi-catalog/model-manager";
-import { getSupportedEfforts } from "@cxn/pi-catalog/model-thinking";
-import { openaiCodexModelManagerOptions } from "@cxn/pi-catalog/provider-models/special";
-import type { ModelSpec } from "@cxn/pi-catalog/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { fetchCodexModels } from "@cyberxninja-omp/pi-catalog/discovery/codex";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { writeModelCache } from "@cyberxninja-omp/pi-catalog/model-cache";
+import { resolveProviderModels } from "@cyberxninja-omp/pi-catalog/model-manager";
+import { getSupportedEfforts } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { openaiCodexModelManagerOptions } from "@cyberxninja-omp/pi-catalog/provider-models/special";
+import type { ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 
 describe("Codex model discovery", () => {
 	it("marks discovered models for provider-native V2 compaction", async () => {

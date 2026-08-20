@@ -1,4 +1,4 @@
-import { sanitizeText } from "@cxn/pi-utils";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { replaceTabs, truncateToWidth, wrapTextWithAnsi } from "../tools/render-utils";
 
 export function formatDebugLogLine(line: string, maxWidth: number): string {

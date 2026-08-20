@@ -1,4 +1,4 @@
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { throwIfAborted } from "../tools/tool-errors";
 import {
 	getActiveClients,

@@ -1,8 +1,14 @@
 import * as os from "node:os";
 import * as path from "node:path";
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import { TERMINAL } from "@cxn/pi-tui";
-import { formatDuration, formatNumber, getProjectDir, pathIsWithin, relativePathWithinRoot } from "@cxn/pi-utils";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import { TERMINAL } from "@cyberxninja-omp/pi-tui";
+import {
+	formatDuration,
+	formatNumber,
+	getProjectDir,
+	pathIsWithin,
+	relativePathWithinRoot,
+} from "@cyberxninja-omp/pi-utils";
 import { type ThemeColor, theme } from "../../../modes/theme/theme";
 import { shortenPath, TRUNCATE_LENGTHS, truncateToWidth } from "../../../tools/render-utils";
 import { fileHyperlink } from "../../../tui/hyperlink";

@@ -2,16 +2,16 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { RenderResultOptions } from "@cxn/pi-coding-agent/extensibility/custom-tools/types";
-import { getThemeByName, initTheme, type Theme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { RenderResultOptions } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-tools/types";
+import { getThemeByName, initTheme, type Theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 import {
 	expandDelimitedPathEntries,
 	parseFindPattern,
 	resolveToolSearchScope,
 	splitDelimitedPathEntry,
-} from "@cxn/pi-coding-agent/tools/path-utils";
-import type { Component } from "@cxn/pi-tui";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/tools/path-utils";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 import { globToolRenderer } from "../../src/tools/glob";
 
 let uiTheme: Theme;

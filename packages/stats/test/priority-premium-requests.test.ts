@@ -2,10 +2,10 @@ import { Database } from "bun:sqlite";
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { syncAllSessions } from "@cxn/cxn-stats/aggregator";
-import { closeDb, getOverallStats, getRecentRequests } from "@cxn/cxn-stats/db";
-import { parseSessionFile } from "@cxn/cxn-stats/parser";
-import { getSessionsDir, getStatsDbPath } from "@cxn/pi-utils";
+import { syncAllSessions } from "@cyberxninja-omp/omp-stats/aggregator";
+import { closeDb, getOverallStats, getRecentRequests } from "@cyberxninja-omp/omp-stats/db";
+import { parseSessionFile } from "@cyberxninja-omp/omp-stats/parser";
+import { getSessionsDir, getStatsDbPath } from "@cyberxninja-omp/pi-utils";
 import { installStatsTestIsolation } from "./helpers/temp-agent";
 
 installStatsTestIsolation("@pi-stats-priority-");

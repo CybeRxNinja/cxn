@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { SelectorController } from "@cxn/pi-coding-agent/modes/controllers/selector-controller";
-import { AgentStorage } from "@cxn/pi-coding-agent/session/agent-storage";
-import { getProjectAgentDir, TempDir } from "@cxn/pi-utils";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { SelectorController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/selector-controller";
+import { AgentStorage } from "@cyberxninja-omp/pi-coding-agent/session/agent-storage";
+import { getProjectAgentDir, TempDir } from "@cyberxninja-omp/pi-utils";
 import { YAML } from "bun";
 import { beginSettingsTest, restoreSettingsTestState, type SettingsTestState } from "./helpers/settings-test-state";
 

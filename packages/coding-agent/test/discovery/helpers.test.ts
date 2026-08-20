@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCache } from "@cxn/pi-coding-agent/capability/fs";
-import type { LoadContext } from "@cxn/pi-coding-agent/capability/types";
-import { loadFilesFromDir } from "@cxn/pi-coding-agent/discovery/helpers";
-import { parseFrontmatter, removeSyncWithRetries } from "@cxn/pi-utils";
+import { clearCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
+import type { LoadContext } from "@cyberxninja-omp/pi-coding-agent/capability/types";
+import { loadFilesFromDir } from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { parseFrontmatter, removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("parseFrontmatter", () => {
 	const parse = (content: string) => parseFrontmatter(content, { source: "tests:frontmatter", level: "off" });

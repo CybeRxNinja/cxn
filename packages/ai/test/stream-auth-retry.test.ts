@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import type { ApiKeyResolveContext } from "@cxn/pi-ai";
-import { registerCustomApi, unregisterCustomApis } from "@cxn/pi-ai";
-import { ProviderHttpError } from "@cxn/pi-ai/error";
-import { classify } from "@cxn/pi-ai/error/flags";
-import { streamSimple } from "@cxn/pi-ai/stream";
-import type { Api, AssistantMessage, Context, Model, SimpleStreamOptions, Usage } from "@cxn/pi-ai/types";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+import type { ApiKeyResolveContext } from "@cyberxninja-omp/pi-ai";
+import { registerCustomApi, unregisterCustomApis } from "@cyberxninja-omp/pi-ai";
+import { ProviderHttpError } from "@cyberxninja-omp/pi-ai/error";
+import { classify } from "@cyberxninja-omp/pi-ai/error/flags";
+import { streamSimple } from "@cyberxninja-omp/pi-ai/stream";
+import type { Api, AssistantMessage, Context, Model, SimpleStreamOptions, Usage } from "@cyberxninja-omp/pi-ai/types";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
 
 const SOURCE_ID = "stream-auth-retry-test";
 const API = "stream-auth-retry-test" as Api;

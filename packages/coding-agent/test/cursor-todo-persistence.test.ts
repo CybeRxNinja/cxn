@@ -1,15 +1,15 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import type { AgentEvent } from "@cxn/pi-agent-core";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { CursorExecHandlers } from "@cxn/pi-coding-agent/cursor";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { AgentEvent } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { CursorExecHandlers } from "@cyberxninja-omp/pi-coding-agent/cursor";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 import {
 	getLatestTodoPhasesFromEntries,
 	type TodoPhase,
 	todoToolRenderer,
 	USER_TODO_EDIT_CUSTOM_TYPE,
-} from "@cxn/pi-coding-agent/tools/todo";
+} from "@cyberxninja-omp/pi-coding-agent/tools/todo";
 import { buildSessionContext } from "../src/session/session-context";
 import type { SessionEntry } from "../src/session/session-entries";
 

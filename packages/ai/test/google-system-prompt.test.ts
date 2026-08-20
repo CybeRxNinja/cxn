@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { renderDemotedThinking } from "@cxn/pi-ai/dialect";
-import { streamGoogle } from "@cxn/pi-ai/providers/google";
-import type { Context, FetchImpl, Model } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { renderDemotedThinking } from "@cyberxninja-omp/pi-ai/dialect";
+import { streamGoogle } from "@cyberxninja-omp/pi-ai/providers/google";
+import type { Context, FetchImpl, Model } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const model: Model<"google-generative-ai"> = buildModel({
 	id: "gemini-3-pro-preview",

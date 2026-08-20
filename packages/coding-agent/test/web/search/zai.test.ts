@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
-import { searchZai, ZaiProvider } from "@cxn/pi-coding-agent/web/search/providers/zai";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import { searchZai, ZaiProvider } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/zai";
 
 interface CapturedRequest {
 	method: string | undefined;
@@ -87,7 +87,7 @@ describe("Z.AI web search provider", () => {
 		} as unknown as AuthStorage;
 
 		const response = await searchZai({
-			query: "cxn z.ai search",
+			query: "omp z.ai search",
 			authStorage,
 			fetch: fetchImpl,
 			sessionId: "session-zai-test",

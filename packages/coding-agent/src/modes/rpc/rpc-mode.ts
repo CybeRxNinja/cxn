@@ -11,9 +11,9 @@
  * - Extension UI: Extension UI requests are emitted, client responds with extension_ui_response
  */
 import { once } from "node:events";
-import { getOAuthProviders } from "@cxn/pi-ai/oauth";
-import { toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { $env, isRecord, Snowflake } from "@cxn/pi-utils";
+import { getOAuthProviders } from "@cyberxninja-omp/pi-ai/oauth";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { $env, isRecord, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { reset as resetCapabilities } from "../../capability";
 import { clearPluginRootsAndCaches, resolveActiveProjectRegistryPath } from "../../discovery/helpers";
 import {

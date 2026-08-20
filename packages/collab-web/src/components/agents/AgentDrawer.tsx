@@ -1,4 +1,4 @@
-import type { AgentSnapshot, SessionEntry, SubagentProgressPayload } from "@cxn/pi-wire";
+import type { AgentSnapshot, SessionEntry, SubagentProgressPayload } from "@cyberxninja-omp/pi-wire";
 import { OctagonX, RotateCcw, SendHorizontal, X } from "lucide-react";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";

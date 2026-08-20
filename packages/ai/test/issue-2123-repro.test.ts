@@ -1,7 +1,7 @@
 /**
  * Issue #2123 — `Error while using Claude Opus models`
  *
- * Reporter (cxn 15.10.4, Windows, Claude Pro/Max OAuth): a fresh chat on
+ * Reporter (omp 15.10.4, Windows, Claude Pro/Max OAuth): a fresh chat on
  * Claude Opus 4.6 fails immediately with
  *   `400 ... clear_thinking_20251015 strategy requires thinking to be enabled or adaptive`.
  *
@@ -20,10 +20,10 @@
  * the strategy goes with them).
  */
 import { describe, expect, it } from "bun:test";
-import { streamAnthropic } from "@cxn/pi-ai/providers/anthropic";
-import type { Context, Model, Tool } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
+import { streamAnthropic } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import type { Context, Model, Tool } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
 
 const OPUS_46_OAUTH: Model<"anthropic-messages"> = buildModel({
 	id: "claude-opus-4-6",

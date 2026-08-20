@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@cxn/pi-wire",
+  "name": "@cyberxninja-omp/pi-wire",
   "version": "17.4.2",
-  "description": "Shared wire protocol types for cxn packages",
-  "homepage": "https://cxn.sh",
+  "description": "Shared wire protocol types for omp packages",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "license": "MIT",
   "repository": {

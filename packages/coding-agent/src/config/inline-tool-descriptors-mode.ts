@@ -1,4 +1,4 @@
-import { modelFamilyToken } from "@cxn/pi-catalog/identity";
+import { modelFamilyToken } from "@cyberxninja-omp/pi-catalog/identity";
 
 /**
  * Resolves whether full tool descriptors should be inlined into the system

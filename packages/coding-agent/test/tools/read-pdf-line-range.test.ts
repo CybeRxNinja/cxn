@@ -8,12 +8,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { Markit } from "@cxn/pi-coding-agent/markit";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import * as markit from "@cxn/pi-coding-agent/utils/markit";
-import { __resetDirsFromEnvForTests, removeSyncWithRetries, Snowflake, setAgentDir } from "@cxn/pi-utils";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { Markit } from "@cyberxninja-omp/pi-coding-agent/markit";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import * as markit from "@cyberxninja-omp/pi-coding-agent/utils/markit";
+import { __resetDirsFromEnvForTests, removeSyncWithRetries, Snowflake, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 function restoreEnv(key: string, value: string | undefined): void {
 	if (value === undefined) {

@@ -2,17 +2,21 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { getManagedSkillsDir } from "@cxn/pi-coding-agent/autolearn/managed-skills";
-import { type SettingPath, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { resetActiveSkillsForTests, type Skill, setActiveSkills } from "@cxn/pi-coding-agent/extensibility/skills";
-import type { HindsightSessionState } from "@cxn/pi-coding-agent/hindsight/state";
-import type { MnemopiSessionState } from "@cxn/pi-coding-agent/mnemopi/state";
-import { createTools, type ToolSession } from "@cxn/pi-coding-agent/tools";
-import { LearnTool } from "@cxn/pi-coding-agent/tools/learn";
-import { ManageSkillTool } from "@cxn/pi-coding-agent/tools/manage-skill";
-import { removeWithRetries } from "@cxn/pi-utils";
-import { getAgentDir, setAgentDir } from "@cxn/pi-utils/dirs";
+import { type } from "@cyberxninja-omp/omptype";
+import { getManagedSkillsDir } from "@cyberxninja-omp/pi-coding-agent/autolearn/managed-skills";
+import { type SettingPath, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	resetActiveSkillsForTests,
+	type Skill,
+	setActiveSkills,
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/skills";
+import type { HindsightSessionState } from "@cyberxninja-omp/pi-coding-agent/hindsight/state";
+import type { MnemopiSessionState } from "@cyberxninja-omp/pi-coding-agent/mnemopi/state";
+import { createTools, type ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { LearnTool } from "@cyberxninja-omp/pi-coding-agent/tools/learn";
+import { ManageSkillTool } from "@cyberxninja-omp/pi-coding-agent/tools/manage-skill";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
+import { getAgentDir, setAgentDir } from "@cyberxninja-omp/pi-utils/dirs";
 
 function makeSession(
 	settingsOverrides: Partial<Record<SettingPath, unknown>> = {},
@@ -125,7 +129,7 @@ describe("manage_skill execute", () => {
 		originalAgentDir = getAgentDir();
 		tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-manage-skill-"));
 		spyOn(os, "homedir").mockReturnValue(tempHome);
-		setAgentDir(path.join(tempHome, ".cxn", "agent"));
+		setAgentDir(path.join(tempHome, ".omp", "agent"));
 	});
 
 	afterEach(async () => {
@@ -218,7 +222,7 @@ describe("learn execute", () => {
 		originalAgentDir = getAgentDir();
 		tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-learn-"));
 		spyOn(os, "homedir").mockReturnValue(tempHome);
-		setAgentDir(path.join(tempHome, ".cxn", "agent"));
+		setAgentDir(path.join(tempHome, ".omp", "agent"));
 		remembered = [];
 	});
 

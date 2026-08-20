@@ -3,7 +3,7 @@ import {
 	RpcExtensionUserMessageTracker,
 	reportLocalOnlyPromptResult,
 	watchAndReportLocalOnlyPromptResult,
-} from "@cxn/pi-coding-agent/modes/rpc/rpc-mode";
+} from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-mode";
 import type { ExtensionActions } from "../src/extensibility/extensions/types";
 import { initializeExtensions } from "../src/modes/runtime-init";
 import type { AgentSession } from "../src/session/agent-session";

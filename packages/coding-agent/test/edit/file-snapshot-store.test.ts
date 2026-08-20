@@ -2,12 +2,12 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { InMemorySnapshotStore } from "@cxn/hashline";
+import type { InMemorySnapshotStore } from "@cyberxninja-omp/hashline";
 import {
 	canonicalSnapshotKey,
 	getFileSnapshotStore,
 	parseSeenLinesFromHashlineBody,
-} from "@cxn/pi-coding-agent/edit/file-snapshot-store";
+} from "@cyberxninja-omp/pi-coding-agent/edit/file-snapshot-store";
 
 interface SessionOwner {
 	fileSnapshotStore?: InMemorySnapshotStore;

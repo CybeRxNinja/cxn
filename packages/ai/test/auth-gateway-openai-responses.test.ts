@@ -2,16 +2,16 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCustomApis } from "@cxn/pi-ai/api-registry";
-import { startAuthGateway } from "@cxn/pi-ai/auth-gateway";
-import { AuthStorage } from "@cxn/pi-ai/auth-storage";
-import { createMockModel, registerMockApi } from "@cxn/pi-ai/providers/mock";
-import { encodeResponse, encodeStream, parseRequest } from "@cxn/pi-ai/providers/openai-responses-server";
-import { buildResponsesInput } from "@cxn/pi-ai/providers/openai-shared";
-import type { AssistantMessage, ModelSpec } from "@cxn/pi-ai/types";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
+import { clearCustomApis } from "@cyberxninja-omp/pi-ai/api-registry";
+import { startAuthGateway } from "@cyberxninja-omp/pi-ai/auth-gateway";
+import { AuthStorage } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { createMockModel, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { encodeResponse, encodeStream, parseRequest } from "@cyberxninja-omp/pi-ai/providers/openai-responses-server";
+import { buildResponsesInput } from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import type { AssistantMessage, ModelSpec } from "@cyberxninja-omp/pi-ai/types";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
 
 function zeroUsage(): AssistantMessage["usage"] {
 	return {

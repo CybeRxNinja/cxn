@@ -9,8 +9,8 @@ import {
 	type ToolCall,
 	type ToolResultMessage,
 	type Usage,
-} from "@cxn/pi-ai";
-import { getSessionsDir, isEnoent, readLines } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { getSessionsDir, isEnoent, readLines } from "@cyberxninja-omp/pi-utils";
 import type {
 	AgentType,
 	MessageStats,

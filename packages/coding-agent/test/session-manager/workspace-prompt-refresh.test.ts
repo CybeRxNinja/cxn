@@ -1,13 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { createMockModel, registerMockApi } from "@cxn/pi-ai/providers/mock";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { createMockModel, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 registerMockApi();
 

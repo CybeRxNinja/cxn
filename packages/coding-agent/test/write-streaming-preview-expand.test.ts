@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
 import {
 	decodeStreamedToolArgs,
 	streamingStringKeysForTool,
-} from "@cxn/pi-coding-agent/modes/controllers/tool-args-reveal";
-import * as themeModule from "@cxn/pi-coding-agent/modes/theme/theme";
-import { writeToolRenderer } from "@cxn/pi-coding-agent/tools/write";
-import type { TUI } from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-coding-agent/modes/controllers/tool-args-reveal";
+import * as themeModule from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { writeToolRenderer } from "@cyberxninja-omp/pi-coding-agent/tools/write";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 
 const stripAnsi = (s: string): string => s.replace(/\u001b\[[0-9;]*m/g, "");
 const hasLine = (lines: readonly string[], n: number): boolean =>

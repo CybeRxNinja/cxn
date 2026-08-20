@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { isEnoent } from "@cxn/pi-utils";
+import { isEnoent } from "@cyberxninja-omp/pi-utils";
 import { type LocalProtocolOptions, resolveLocalUrlToPath } from "../internal-urls";
 import { normalizeLocalScheme, resolveToCwd } from "../tools/path-utils";
 

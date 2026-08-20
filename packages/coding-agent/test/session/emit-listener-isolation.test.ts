@@ -5,15 +5,15 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Agent, type AgentEvent } from "@cxn/pi-agent-core";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import { Agent, type AgentEvent } from "@cyberxninja-omp/pi-agent-core";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 function makeEvent(): AgentEvent {
 	return { type: "tool_execution_start", toolCallId: "probe-1", toolName: "probe", args: {} };

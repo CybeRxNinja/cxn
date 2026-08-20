@@ -22,20 +22,20 @@ import {
 	type TSchema,
 	toolWireSchema,
 	validateToolArguments,
-} from "@cxn/pi-ai";
+} from "@cyberxninja-omp/pi-ai";
 import {
 	type Dialect,
 	encodeInbandToolHistory,
 	renderInbandToolPrompt,
 	renderToolExamples,
 	wrapInbandToolStream,
-} from "@cxn/pi-ai/dialect";
-import * as AIError from "@cxn/pi-ai/error";
+} from "@cyberxninja-omp/pi-ai/dialect";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
 import {
 	type CursorExecResolvedCarrier,
 	copyCursorExecResolved,
 	kCursorExecResolved,
-} from "@cxn/pi-ai/utils/block-symbols";
+} from "@cyberxninja-omp/pi-ai/utils/block-symbols";
 import {
 	createHarmonyAuditEvent,
 	detectHarmonyLeakInAssistantMessage,
@@ -45,9 +45,9 @@ import {
 	isHarmonyLeakMitigationTarget,
 	recoverHarmonyToolCall,
 	signalListLabel,
-} from "@cxn/pi-ai/utils/harmony-leak";
-import { logger, sanitizeText, structuredCloneJSON } from "@cxn/pi-utils";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+} from "@cyberxninja-omp/pi-ai/utils/harmony-leak";
+import { logger, sanitizeText, structuredCloneJSON } from "@cyberxninja-omp/pi-utils";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import { agentPauseGate } from "./pause";
 import { type AgentRunCoverage, type AgentRunSummary, ToolCallBlockedError } from "./run-collector";
 import {

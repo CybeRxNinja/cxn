@@ -7,8 +7,8 @@ import {
 	type SgrMouseEvent,
 	truncateToWidth,
 	visibleWidth,
-} from "@cxn/pi-tui";
-import { APP_NAME } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { APP_NAME } from "@cyberxninja-omp/pi-utils";
 import { gradientLogo, PI_LOGO } from "../components/welcome";
 import { theme } from "../theme/theme";
 import type { InteractiveModeContext } from "../types";

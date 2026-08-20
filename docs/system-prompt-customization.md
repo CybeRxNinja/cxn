@@ -20,14 +20,14 @@ Primary implementation:
 | `--append-system-prompt <text-or-file>` | CLI                    | Adds text to the rendered prompt. Highest append precedence.                                             |
 | `APPEND_SYSTEM.md`                      | Discovered config file | Same effect as the append flag; used when the flag is absent.                                            |
 
-`SYSTEM.md` and `APPEND_SYSTEM.md` are searched project-first, then user-level. At each scope the config bases are ordered `.cxn`, `.claude`, `.codex`, `.gemini`:
+`SYSTEM.md` and `APPEND_SYSTEM.md` are searched project-first, then user-level. At each scope the config bases are ordered `.omp`, `.claude`, `.codex`, `.gemini`:
 
-1. `<cwd>/.cxn/<file>`, `<cwd>/.claude/<file>`, `<cwd>/.codex/<file>`, `<cwd>/.gemini/<file>`
-2. `~/.cxn/agent/<file>`, `~/.claude/<file>`, `~/.codex/<file>`, `~/.gemini/<file>`
+1. `<cwd>/.omp/<file>`, `<cwd>/.claude/<file>`, `<cwd>/.codex/<file>`, `<cwd>/.gemini/<file>`
+2. `~/.omp/agent/<file>`, `~/.claude/<file>`, `~/.codex/<file>`, `~/.gemini/<file>`
 
-The native user path follows the active profile: with `cxn --profile work`, `~/.cxn/agent` becomes `~/.cxn/profiles/work/agent`. `PI_CONFIG_DIR` changes the native config-directory name. This shared config lookup does not use `PI_CODING_AGENT_DIR` as an arbitrary replacement base.
+The native user path follows the active profile: with `omp --profile work`, `~/.omp/agent` becomes `~/.omp/profiles/work/agent`. `PI_CONFIG_DIR` changes the native config-directory name. This shared config lookup does not use `PI_CODING_AGENT_DIR` as an arbitrary replacement base.
 
-Discovery does **not** walk ancestors. Starting CXN in `<repo>/packages/api` does not discover `<repo>/.cxn/SYSTEM.md`; launch from `<repo>`, put the file under the current directory's config base, or use a user-level file. See [Configuration usage](./config-usage.md) for the shared config-directory contract.
+Discovery does **not** walk ancestors. Starting CXN in `<repo>/packages/api` does not discover `<repo>/.omp/SYSTEM.md`; launch from `<repo>`, put the file under the current directory's config base, or use a user-level file. See [Configuration usage](./config-usage.md) for the shared config-directory contract.
 
 A flag wins over every discovered file. For each filename, project scope wins over user scope and the first config base in the order above wins within that scope.
 
@@ -90,7 +90,7 @@ those characters reach the model literally. Internal values such as `cwd`, `skil
 Create `APPEND_SYSTEM.md` without a `SYSTEM.md`:
 
 ```text
-# ~/.cxn/agent/APPEND_SYSTEM.md
+# ~/.omp/agent/APPEND_SYSTEM.md
 Prefer Bun APIs over Node APIs in this project.
 When you change a public function, run `bun check` before yielding.
 ```
@@ -98,7 +98,7 @@ When you change a public function, run `bun check` before yielding.
 ### Supply a custom base prompt
 
 ```text
-# <cwd>/.cxn/SYSTEM.md
+# <cwd>/.omp/SYSTEM.md
 You are a code reviewer. Read changes, surface concrete issues, and never edit files.
 Cite paths with backticks.
 ```
@@ -110,7 +110,7 @@ CXN still adds the generated context, skills, rules, and project/environment foo
 `SYSTEM.md` and `APPEND_SYSTEM.md` do not affect title-generation calls. Use `TITLE_SYSTEM.md`:
 
 ```text
-# ~/.cxn/agent/TITLE_SYSTEM.md
+# ~/.omp/agent/TITLE_SYSTEM.md
 Generate a session name using lowercase `<type>:<primary-objective>`.
 If the message has no concrete task, output exactly `none`.
 ```

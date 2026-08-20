@@ -2,11 +2,11 @@
  * Text normalization utilities for the edit tool.
  *
  * Whitespace, Unicode, and indentation helpers. Line-ending and BOM
- * primitives live in `@cxn/hashline` and are re-exported here so
+ * primitives live in `@cyberxninja-omp/hashline` and are re-exported here so
  * existing consumers see one stable surface.
  */
 
-import { padding } from "@cxn/pi-tui";
+import { padding } from "@cyberxninja-omp/pi-tui";
 
 export {
 	type BomResult,
@@ -15,7 +15,7 @@ export {
 	normalizeToLF,
 	restoreLineEndings,
 	stripBom,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Whitespace Utilities

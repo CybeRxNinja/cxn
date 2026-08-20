@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { SessionAccountSelectorComponent } from "@cxn/pi-coding-agent/modes/components/session-account-selector";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { toSessionPinAccounts } from "@cxn/pi-coding-agent/slash-commands/helpers/session-pin";
+import { SessionAccountSelectorComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/session-account-selector";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { toSessionPinAccounts } from "@cyberxninja-omp/pi-coding-agent/slash-commands/helpers/session-pin";
 
 beforeAll(async () => {
 	await initTheme();

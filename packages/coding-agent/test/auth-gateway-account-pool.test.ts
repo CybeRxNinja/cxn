@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-import { type AuthBrokerServerHandle, startAuthBroker } from "@cxn/pi-ai/auth-broker";
-import { runAuthGatewayCommand } from "@cxn/pi-coding-agent/cli/auth-gateway-cli";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+import { type AuthBrokerServerHandle, startAuthBroker } from "@cyberxninja-omp/pi-ai/auth-broker";
+import { runAuthGatewayCommand } from "@cyberxninja-omp/pi-coding-agent/cli/auth-gateway-cli";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const BROKER_TOKEN = "gateway-account-pool-token";
 const ENV_KEYS = ["CXN_AUTH_BROKER_URL", "CXN_AUTH_BROKER_TOKEN", "CXN_AUTH_BROKER_ACCOUNT_POOL_FILE"] as const;

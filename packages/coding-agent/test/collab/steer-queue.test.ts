@@ -5,17 +5,17 @@
  * `queuedMessageCount` from the agent-core queue for host and guest UI state.
  */
 import { afterEach, describe, expect, it } from "bun:test";
-import { importRoomKey } from "@cxn/pi-coding-agent/collab/crypto";
-import { CollabHost } from "@cxn/pi-coding-agent/collab/host";
+import { importRoomKey } from "@cyberxninja-omp/pi-coding-agent/collab/crypto";
+import { CollabHost } from "@cyberxninja-omp/pi-coding-agent/collab/host";
 import {
 	COLLAB_PROTO,
 	type CollabFrame,
 	parseCollabLink,
 	rewriteEnvelopePeer,
 	unpackEnvelope,
-} from "@cxn/pi-coding-agent/collab/protocol";
-import { CollabSocket } from "@cxn/pi-coding-agent/collab/relay-client";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+} from "@cyberxninja-omp/pi-coding-agent/collab/protocol";
+import { CollabSocket } from "@cyberxninja-omp/pi-coding-agent/collab/relay-client";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
 
 interface RelayData {
 	role: "host" | "guest";

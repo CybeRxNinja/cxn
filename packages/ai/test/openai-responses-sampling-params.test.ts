@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { streamSimple } from "@cxn/pi-ai/stream";
-import type { Context, FetchImpl, Model } from "@cxn/pi-ai/types";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import { streamSimple } from "@cyberxninja-omp/pi-ai/stream";
+import type { Context, FetchImpl, Model } from "@cyberxninja-omp/pi-ai/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 function mockSseFetch(): { fetchMock: FetchImpl; captured: Record<string, unknown> } {
 	const captured: Record<string, unknown> = {};

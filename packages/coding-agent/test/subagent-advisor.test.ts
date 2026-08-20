@@ -9,11 +9,11 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentRegistry, MAIN_AGENT_ID } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { registerPersistedSubagents } from "@cxn/pi-coding-agent/registry/persisted-agents";
-import { CURRENT_SESSION_VERSION } from "@cxn/pi-coding-agent/session/session-entries";
-import { createSubagentSettings } from "@cxn/pi-coding-agent/task/executor";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentRegistry, MAIN_AGENT_ID } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { registerPersistedSubagents } from "@cyberxninja-omp/pi-coding-agent/registry/persisted-agents";
+import { CURRENT_SESSION_VERSION } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { createSubagentSettings } from "@cyberxninja-omp/pi-coding-agent/task/executor";
 
 describe("advisor.subagents migration", () => {
 	let agentDir = "";

@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { AgentMessage, AgentTelemetryConfig } from "@cxn/pi-agent-core";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { kCursorExecResolved } from "@cxn/pi-ai/utils/block-symbols";
-import type { TUI } from "@cxn/pi-tui";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentMessage, AgentTelemetryConfig } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { kCursorExecResolved } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 import {
 	AdviseTool,
 	type AdvisorAgent,

@@ -1,14 +1,14 @@
-# @cxn/pi-utils
+# @cyberxninja-omp/pi-utils
 
-Shared utilities for [cxn](https://github.com/can1357/oh-my-pi) packages. Zero ceremony, Bun-first.
+Shared utilities for [omp](https://github.com/can1357/oh-my-pi) packages. Zero ceremony, Bun-first.
 
 ## Notable modules
 
 | Module | Purpose |
 | --- | --- |
-| `logger` | Centralized logger writing to `~/.cxn/logs/` with rotation (TUI-safe — never stdout) |
+| `logger` | Centralized logger writing to `~/.omp/logs/` with rotation (TUI-safe — never stdout) |
 | `prompt` | Handlebars-based prompt templating and formatting helpers |
-| `dirs` | Path helpers for cxn config directories (`~/.cxn`, XDG-aware on Linux) |
+| `dirs` | Path helpers for omp config directories (`~/.omp`, XDG-aware on Linux) |
 | `stream` | `readStream` / `readLines` helpers over `ReadableStream` |
 | `ptree` / `procmgr` | Process trees, `ChildProcess` wrapper, process lifecycle management |
 | `postmortem` | Cleanup callbacks on exit, signals, and fatal exceptions |
@@ -20,12 +20,12 @@ Shared utilities for [cxn](https://github.com/can1357/oh-my-pi) packages. Zero c
 | `peek-file` | Read the first N bytes of a file with pooled buffers |
 | `frontmatter`, `glob`, `mime`, `temp`, `format`, `color`, `snowflake`, `tab-spacing`, `path-tree`, `sanitize-text` | Smaller single-purpose helpers |
 
-Import from the root barrel or per-module subpaths (`@cxn/pi-utils/<module>`).
+Import from the root barrel or per-module subpaths (`@cyberxninja-omp/pi-utils/<module>`).
 
 ## Install
 
 ```sh
-bun add @cxn/pi-utils
+bun add @cyberxninja-omp/pi-utils
 ```
 
 Ships TypeScript source directly (no build step); requires Bun ≥ 1.3.14.

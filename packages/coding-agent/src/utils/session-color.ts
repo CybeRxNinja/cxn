@@ -1,4 +1,4 @@
-import { hexToHsv, hslToHex, relativeLuminance } from "@cxn/pi-utils";
+import { hexToHsv, hslToHex, relativeLuminance } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Derive a stable hue (0-359) from a string using djb2 hash.

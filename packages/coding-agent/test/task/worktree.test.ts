@@ -13,11 +13,11 @@ import {
 	getRepoRoot,
 	mergeTaskBranches,
 	parseIsolationMode,
-} from "@cxn/pi-coding-agent/task/worktree";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import * as jj from "@cxn/pi-coding-agent/utils/jj";
-import * as natives from "@cxn/pi-natives";
-import { removeWithRetries, setWorktreesDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/task/worktree";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import * as jj from "@cyberxninja-omp/pi-coding-agent/utils/jj";
+import * as natives from "@cyberxninja-omp/pi-natives";
+import { removeWithRetries, setWorktreesDir } from "@cyberxninja-omp/pi-utils";
 
 const tempDirs: string[] = [];
 
@@ -351,7 +351,7 @@ describe("worktree isolation helpers", () => {
 				await fs.writeFile(path.join(iso, fixtureName), `${isolatedLines.join("\n")}\n`);
 
 				const taskId = `dirty-context-${path.basename(isoRoot)}`;
-				let branchName = `cxn/task/${taskId}`;
+				let branchName = `omp/task/${taskId}`;
 				try {
 					const commitResult = await commitToBranch(iso, baseline, taskId, "dirty context merge");
 					if (!commitResult?.branchName) throw new Error("expected task branch");
@@ -983,7 +983,7 @@ describe("commitToBranch preserves agent commits", () => {
 		const aiMessage = vi.fn(async () => "fix: update line5 in clean commit example");
 		const result = await commitToBranch(isolation, baseline, taskId, undefined, aiMessage);
 
-		expect(result?.branchName).toBe(`cxn/task/${taskId}`);
+		expect(result?.branchName).toBe(`omp/task/${taskId}`);
 		expect(result?.baseSha).toBe(baseline.root.headCommit);
 		// commitMessage callback must NOT have been invoked — the agent's
 		// message is taken verbatim.
@@ -1013,12 +1013,12 @@ describe("commitToBranch preserves agent commits", () => {
 		await runGit(isolation, ["commit", "-q", "-m", "test: add beta coverage"]);
 
 		const result = await commitToBranch(isolation, baseline, "multi", undefined);
-		expect(result?.branchName).toBe("cxn/task/multi");
+		expect(result?.branchName).toBe("omp/task/multi");
 
 		const merge = await mergeTaskBranches(parent, [
 			{ branchName: result!.branchName!, taskId: "multi", baseSha: result!.baseSha! },
 		]);
-		expect(merge).toEqual({ failed: [], merged: ["cxn/task/multi"] });
+		expect(merge).toEqual({ failed: [], merged: ["omp/task/multi"] });
 
 		const subjects = (await runGit(parent, ["log", "-2", "--pretty=%s"])).split("\n");
 		expect(subjects).toEqual(["test: add beta coverage", "feat: add alpha file"]);
@@ -1036,7 +1036,7 @@ describe("commitToBranch preserves agent commits", () => {
 
 		const aiMessage = vi.fn(async () => "chore: leftover beta wip");
 		const result = await commitToBranch(isolation, baseline, "leftover", undefined, aiMessage);
-		expect(result?.branchName).toBe("cxn/task/leftover");
+		expect(result?.branchName).toBe("omp/task/leftover");
 		expect(aiMessage).toHaveBeenCalledTimes(1);
 
 		const subjects = (await runGit(parent, ["log", "-2", "--pretty=%s", result!.branchName!])).split("\n");
@@ -1062,7 +1062,7 @@ describe("commitToBranch preserves agent commits", () => {
 
 		const aiMessage = vi.fn(async () => "fix: generated fallback");
 		const result = await commitToBranch(isolation, baseline, "dirty-baseline", undefined, aiMessage);
-		expect(result?.branchName).toBe("cxn/task/dirty-baseline");
+		expect(result?.branchName).toBe("omp/task/dirty-baseline");
 		expect(aiMessage).not.toHaveBeenCalled();
 
 		const branchFiles = (await runGit(parent, ["show", "--name-only", "--pretty=format:", result!.branchName!]))
@@ -1073,7 +1073,7 @@ describe("commitToBranch preserves agent commits", () => {
 		const merge = await mergeTaskBranches(parent, [
 			{ branchName: result!.branchName!, taskId: "dirty-baseline", baseSha: result!.baseSha! },
 		]);
-		expect(merge).toEqual({ failed: [], merged: ["cxn/task/dirty-baseline"] });
+		expect(merge).toEqual({ failed: [], merged: ["omp/task/dirty-baseline"] });
 
 		const [headSubject, status, fixture] = await Promise.all([
 			runGit(parent, ["log", "-1", "--pretty=%s"]),
@@ -1111,7 +1111,7 @@ describe("commitToBranch preserves agent commits", () => {
 
 		const taskId = "dirty-parent-committed-agent";
 		const result = await commitToBranch(isolation, baseline, taskId, undefined);
-		expect(result?.branchName).toBe(`cxn/task/${taskId}`);
+		expect(result?.branchName).toBe(`omp/task/${taskId}`);
 
 		const merge = await mergeTaskBranches(parent, [
 			{ branchName: result!.branchName!, taskId, baseSha: result!.baseSha! },
@@ -1128,7 +1128,7 @@ describe("commitToBranch preserves agent commits", () => {
 		const aiMessage = vi.fn(async () => "feat: add alpha");
 		const result = await commitToBranch(isolation, baseline, "nocommit", undefined, aiMessage);
 
-		expect(result?.branchName).toBe("cxn/task/nocommit");
+		expect(result?.branchName).toBe("omp/task/nocommit");
 		expect(aiMessage).toHaveBeenCalledTimes(1);
 
 		const branchSubject = await runGit(parent, ["log", "-1", "--pretty=%s", result!.branchName!]);
@@ -1178,7 +1178,7 @@ describe("commitToBranch preserves agent commits", () => {
 
 			const baseline = await captureBaseline(parent);
 			const result = await commitToBranch(isolation, baseline, "wip-tracked-file", undefined);
-			expect(result?.branchName).toBe("cxn/task/wip-tracked-file");
+			expect(result?.branchName).toBe("omp/task/wip-tracked-file");
 
 			const branchDiff = await runGit(parent, ["show", "--pretty=format:", result!.branchName!]);
 			expect(branchDiff).toContain("+# line 30 def new_func()");
@@ -1200,7 +1200,7 @@ describe("commitToBranch preserves agent commits", () => {
 			const baseline = await captureBaseline(parent);
 			expect(baseline.root.untracked).toContain("src/new.py");
 			const result = await commitToBranch(isolation, baseline, "wip-untracked", undefined);
-			expect(result?.branchName).toBe("cxn/task/wip-untracked");
+			expect(result?.branchName).toBe("omp/task/wip-untracked");
 
 			const branchDiff = await runGit(parent, ["show", "--pretty=format:", result!.branchName!]);
 			expect(branchDiff).toContain("new file mode");
@@ -1222,7 +1222,7 @@ describe("commitToBranch preserves agent commits", () => {
 			const baseline = await captureBaseline(parent);
 			expect(baseline.root.staged).toContain("new file mode");
 			const result = await commitToBranch(isolation, baseline, "wip-staged-new", undefined);
-			expect(result?.branchName).toBe("cxn/task/wip-staged-new");
+			expect(result?.branchName).toBe("omp/task/wip-staged-new");
 
 			const branchDiff = await runGit(parent, ["show", "--pretty=format:", result!.branchName!]);
 			expect(branchDiff).toContain("new file mode");
@@ -1255,7 +1255,7 @@ describe("commitToBranch preserves agent commits", () => {
 
 			const baseline = await captureBaseline(parent);
 			const result = await commitToBranch(isolation, baseline, "wip-filter", undefined);
-			expect(result?.branchName).toBe("cxn/task/wip-filter");
+			expect(result?.branchName).toBe("omp/task/wip-filter");
 
 			const files = (await runGit(parent, ["show", "--name-only", "--pretty=format:", result!.branchName!]))
 				.split("\n")
@@ -1291,7 +1291,7 @@ describe("commitToBranch preserves agent commits", () => {
 			const baseline = await captureBaseline(parent);
 			expect(baseline.root.untracked).toContain("src/new.py");
 			const result = await commitToBranch(isolation, baseline, "wip-only-commit", undefined);
-			expect(result?.branchName).toBe("cxn/task/wip-only-commit");
+			expect(result?.branchName).toBe("omp/task/wip-only-commit");
 
 			const branchDiff = await runGit(parent, ["show", "--pretty=format:", result!.branchName!]);
 			expect(branchDiff).toContain("new file mode");

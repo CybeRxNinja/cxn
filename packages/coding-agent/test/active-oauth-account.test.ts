@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import type { StoredAuthCredential, UsageLimit, UsageReport } from "@cxn/pi-ai";
+import type { StoredAuthCredential, UsageLimit, UsageReport } from "@cyberxninja-omp/pi-ai";
 import {
 	limitMatchesActiveAccount,
 	reportMatchesActiveAccount,

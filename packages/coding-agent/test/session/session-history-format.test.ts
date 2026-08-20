@@ -9,8 +9,8 @@
  * - No system prompt / tool catalog sections.
  */
 import { describe, expect, it } from "bun:test";
-import { formatSessionHistoryMarkdown } from "@cxn/pi-coding-agent/session/session-history-format";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import { formatSessionHistoryMarkdown } from "@cyberxninja-omp/pi-coding-agent/session/session-history-format";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 
 function buildMessages(): unknown[] {
 	return [

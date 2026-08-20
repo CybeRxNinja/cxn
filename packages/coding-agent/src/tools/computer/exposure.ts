@@ -1,4 +1,4 @@
-import type { Model } from "@cxn/pi-ai";
+import type { Model } from "@cyberxninja-omp/pi-ai";
 
 /** How the computer tool is represented to the active model. */
 export type ComputerExposureMode = "function" | "unavailable";

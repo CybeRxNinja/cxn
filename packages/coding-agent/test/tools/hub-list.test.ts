@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { AgentRegistry, MAIN_AGENT_ID } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { CURRENT_SESSION_VERSION } from "@cxn/pi-coding-agent/session/session-entries";
-import { executeList } from "@cxn/pi-coding-agent/tools/hub/messaging";
-import { TempDir } from "@cxn/pi-utils";
+import { AgentRegistry, MAIN_AGENT_ID } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { CURRENT_SESSION_VERSION } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { executeList } from "@cyberxninja-omp/pi-coding-agent/tools/hub/messaging";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function sessionHeader(id: string): string {
 	return JSON.stringify({

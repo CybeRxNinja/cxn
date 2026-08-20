@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import { Box, type Component, Container, Text } from "@cxn/pi-tui";
+import { Box, type Component, Container, Text } from "@cyberxninja-omp/pi-tui";
 import {
 	publishLineWidths,
 	resetHangulCompatibilityJamoWidthForTests,
 	setHangulCompatibilityJamoWidth,
 	visibleWidth,
-} from "@cxn/pi-tui/utils";
+} from "@cyberxninja-omp/pi-tui/utils";
 
 /**
  * Leaf component that returns a stable cached array and counts render calls.

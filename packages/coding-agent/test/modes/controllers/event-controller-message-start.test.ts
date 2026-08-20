@@ -1,12 +1,12 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import type { TextContent, UserMessage } from "@cxn/pi-ai";
-import { TranscriptContainer } from "@cxn/pi-coding-agent/modes/components/transcript-container";
-import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import type { CustomMessage } from "@cxn/pi-coding-agent/session/messages";
-import type { Component } from "@cxn/pi-tui";
+import type { TextContent, UserMessage } from "@cyberxninja-omp/pi-ai";
+import { TranscriptContainer } from "@cyberxninja-omp/pi-coding-agent/modes/components/transcript-container";
+import { EventController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/event-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import type { CustomMessage } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import type { Component } from "@cyberxninja-omp/pi-tui";
 
 beforeAll(() => {
 	initTheme();

@@ -8,7 +8,7 @@ import {
 	type TinyModelDevice,
 	tinyModelDeviceLoadOrder,
 	tinyModelDeviceSettingToEnv,
-} from "@cxn/pi-coding-agent/tiny/device";
+} from "@cyberxninja-omp/pi-coding-agent/tiny/device";
 
 describe("tiny model device selection", () => {
 	it("defaults to CPU-only inference on every platform", () => {

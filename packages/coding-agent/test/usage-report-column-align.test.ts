@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import type { UsageReport } from "@cxn/pi-ai";
-import { renderUsageReports } from "@cxn/pi-coding-agent/modes/controllers/command-controller";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { UsageReport } from "@cyberxninja-omp/pi-ai";
+import { renderUsageReports } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/command-controller";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 
 const HOUR = 3_600_000;
 

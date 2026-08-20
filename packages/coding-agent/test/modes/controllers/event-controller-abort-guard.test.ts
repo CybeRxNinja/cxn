@@ -16,15 +16,15 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
-import { SETTINGS_SCHEMA } from "@cxn/pi-coding-agent/config/settings-schema";
-import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import type { AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import * as titleGenerator from "@cxn/pi-coding-agent/utils/title-generator";
-import { TERMINAL } from "@cxn/pi-tui";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings, settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { SETTINGS_SCHEMA } from "@cyberxninja-omp/pi-coding-agent/config/settings-schema";
+import { EventController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/event-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import * as titleGenerator from "@cyberxninja-omp/pi-coding-agent/utils/title-generator";
+import { TERMINAL } from "@cyberxninja-omp/pi-tui";
 
 const originalWarpProtocolVersion = process.env.WARP_CLI_AGENT_PROTOCOL_VERSION;
 

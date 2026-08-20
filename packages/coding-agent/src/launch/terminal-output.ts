@@ -1,5 +1,5 @@
-import { logger } from "@cxn/pi-utils";
-import xterm, { type Terminal as XtermTerminal } from "@cxn/pi-utils/vterm";
+import { logger } from "@cyberxninja-omp/pi-utils";
+import xterm, { type Terminal as XtermTerminal } from "@cyberxninja-omp/pi-utils/vterm";
 import { readTerminalRows } from "../tools/terminal-output";
 import { DAEMON_PTY_COLUMNS, DAEMON_PTY_ROWS } from "./protocol";
 

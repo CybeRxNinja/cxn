@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import Plugin from "@cxn/pi-coding-agent/commands/plugin";
-import type { CliConfig } from "@cxn/pi-utils/cli";
+import Plugin from "@cyberxninja-omp/pi-coding-agent/commands/plugin";
+import type { CliConfig } from "@cyberxninja-omp/pi-utils/cli";
 
 const TEST_CONFIG: CliConfig = {
-	bin: "cxn",
+	bin: "omp",
 	version: "0.0.0-test",
 	commands: new Map(),
 };

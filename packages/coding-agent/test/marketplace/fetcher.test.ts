@@ -6,9 +6,9 @@ import {
 	classifySource,
 	fetchMarketplace,
 	parseMarketplaceCatalog,
-} from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // Fixture lives at test/marketplace/fixtures/valid-marketplace/
 const FIXTURE_DIR = path.join(import.meta.dir, "fixtures", "valid-marketplace");

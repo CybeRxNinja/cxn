@@ -1,12 +1,12 @@
 /**
- * Autocomplete for internal-url schemes (skill://, rule://, cxn://, local://,
+ * Autocomplete for internal-url schemes (skill://, rule://, omp://, local://,
  * memory://, agent://, artifact://) while composing a prompt.
  *
  * Detection here MUST stay in sync with the generic URL-scheme trigger in the
  * TUI editor (`packages/tui/src/components/editor.ts`); the editor fires the
  * popup, this module decides whether there are candidates to show.
  */
-import type { AutocompleteItem } from "@cxn/pi-tui";
+import type { AutocompleteItem } from "@cyberxninja-omp/pi-tui";
 import { InternalUrlRouter } from "../internal-urls/router";
 
 /** Upper bound on candidates surfaced in the dropdown. */

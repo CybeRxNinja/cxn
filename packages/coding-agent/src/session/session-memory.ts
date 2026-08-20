@@ -1,7 +1,7 @@
 /** Session memory backend lifecycle and transcript resets. */
 
-import type { Agent, AgentTool } from "@cxn/pi-agent-core";
-import { logger } from "@cxn/pi-utils";
+import type { Agent, AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { ModelRegistry } from "../config/model-registry";
 import type { Settings } from "../config/settings";
 import type { HindsightSessionState } from "../hindsight/state";

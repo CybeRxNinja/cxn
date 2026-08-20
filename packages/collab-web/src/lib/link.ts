@@ -1,6 +1,6 @@
 /**
  * Collab link + wire-envelope handling (browser-safe vendored mirror of the
- * link/envelope half of `@cxn/pi-coding-agent/src/collab/protocol.ts`;
+ * link/envelope half of `@cyberxninja-omp/pi-coding-agent/src/collab/protocol.ts`;
  * base64url goes through atob/btoa instead of Buffer).
  *
  * Link format: `wss://<host[:port]>/r/<roomId>.<base64url-32-byte-key>`
@@ -8,16 +8,16 @@
  * sends peerId 0; the relay rewrites it to the sender's id.
  */
 
-import type { ParsedCollabLink } from "@cxn/pi-wire";
+import type { ParsedCollabLink } from "@cyberxninja-omp/pi-wire";
 import {
 	DEFAULT_RELAY_URL,
 	ENVELOPE_HEADER_LENGTH,
 	ROOM_ID_BYTES,
 	ROOM_KEY_BYTES,
 	WRITE_TOKEN_BYTES,
-} from "@cxn/pi-wire";
+} from "@cyberxninja-omp/pi-wire";
 
-export { COLLAB_PROTO } from "@cxn/pi-wire";
+export { COLLAB_PROTO } from "@cyberxninja-omp/pi-wire";
 export type { ParsedCollabLink };
 export { DEFAULT_RELAY_URL, ENVELOPE_HEADER_LENGTH, ROOM_ID_BYTES };
 

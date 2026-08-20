@@ -1,4 +1,4 @@
-import { Text } from "@cxn/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
 import { theme } from "../../modes/theme/theme";
 
 /**

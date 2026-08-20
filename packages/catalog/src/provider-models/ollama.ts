@@ -1,4 +1,4 @@
-import { fetchWithRetry } from "@cxn/pi-utils";
+import { fetchWithRetry } from "@cyberxninja-omp/pi-utils";
 import { Effort } from "../effort";
 import { isGlm52ReasoningEffortModelId } from "../identity/family";
 import type { ModelManagerOptions } from "../model-manager";

@@ -2,7 +2,7 @@
  * Daemon socket + lockfile location and helpers.
  *
  * The daemon listens on a per-user Unix-domain socket under
- * `$XDG_RUNTIME_DIR/cxn` (falling back to `$TMPDIR`). A companion `.lock`
+ * `$XDG_RUNTIME_DIR/omp` (falling back to `$TMPDIR`). A companion `.lock`
  * file records the owning pid + socket path so a client can discover a
  * running daemon and a relaunched supervisor can tell a stale socket from a
  * live one.
@@ -22,7 +22,7 @@ export interface DaemonLock {
 export function daemonSocketPath(): string {
 	const runtime = process.env.XDG_RUNTIME_DIR || os.tmpdir();
 	const uid = process.getuid?.() ?? 0;
-	return path.join(runtime, "cxn", `daemon-${uid}.sock`);
+	return path.join(runtime, "omp", `daemon-${uid}.sock`);
 }
 
 export function daemonLockPath(socketPath: string = daemonSocketPath()): string {

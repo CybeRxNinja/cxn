@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { ExponentialYield, YieldGate } from "@cxn/pi-agent-core/utils/yield";
+import { ExponentialYield, YieldGate } from "@cyberxninja-omp/pi-agent-core/utils/yield";
 
 const YIELD_INTERVAL_MS = 50;
 

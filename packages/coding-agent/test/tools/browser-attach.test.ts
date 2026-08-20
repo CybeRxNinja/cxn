@@ -1,20 +1,20 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/sdk";
-import { BrowserTool } from "@cxn/pi-coding-agent/tools/browser";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { BrowserTool } from "@cyberxninja-omp/pi-coding-agent/tools/browser";
 import {
 	findFreeCdpPort,
 	pickElectronTarget,
 	probeCdpStatus,
 	shouldPreserveConnectedBrowserFocus,
-} from "@cxn/pi-coding-agent/tools/browser/attach";
+} from "@cyberxninja-omp/pi-coding-agent/tools/browser/attach";
 import {
 	acquireBrowser,
 	type BrowserHandle,
 	normalizeConnectedCdpUrl,
 	releaseBrowser,
-} from "@cxn/pi-coding-agent/tools/browser/registry";
-import { acquireTab } from "@cxn/pi-coding-agent/tools/browser/tab-supervisor";
+} from "@cyberxninja-omp/pi-coding-agent/tools/browser/registry";
+import { acquireTab } from "@cyberxninja-omp/pi-coding-agent/tools/browser/tab-supervisor";
 import type { Browser, Page, Target } from "puppeteer-core";
 import { chromiumAvailable } from "./chromium-probe";
 

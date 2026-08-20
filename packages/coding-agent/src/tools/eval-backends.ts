@@ -1,4 +1,4 @@
-import { $flag } from "@cxn/pi-utils";
+import { $flag } from "@cyberxninja-omp/pi-utils";
 import type { ToolSession } from ".";
 
 export interface EvalBackendsAllowance {

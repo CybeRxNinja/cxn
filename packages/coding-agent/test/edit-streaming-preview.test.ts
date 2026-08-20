@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { computeFileHash, formatHashlineHeader, InMemorySnapshotStore } from "@cxn/hashline";
-import { dropIncompleteLastEdit, EDIT_MODE_STRATEGIES } from "@cxn/pi-coding-agent/edit";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { computeFileHash, formatHashlineHeader, InMemorySnapshotStore } from "@cyberxninja-omp/hashline";
+import { dropIncompleteLastEdit, EDIT_MODE_STRATEGIES } from "@cyberxninja-omp/pi-coding-agent/edit";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("dropIncompleteLastEdit", () => {
 	test("keeps all entries when partialJson is undefined", () => {

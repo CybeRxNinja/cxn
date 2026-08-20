@@ -1,5 +1,5 @@
-import { Args, type CommandMetadata, Flags } from "@cxn/pi-utils/cli";
-import { APP_NAME } from "@cxn/pi-utils/dirs";
+import { Args, type CommandMetadata, Flags } from "@cyberxninja-omp/pi-utils/cli";
+import { APP_NAME } from "@cyberxninja-omp/pi-utils/dirs";
 import { CLI_THINKING_LEVELS } from "../cli/thinking-levels";
 import { SERVICE_TIER_OPENAI_VALUES } from "../config/service-tier";
 
@@ -114,6 +114,6 @@ export const launchHelp = {
 		`# Create a shell shortcut for a work profile\n  ${APP_NAME} --profile work --alias cxn-work`,
 		`# Use different model (fuzzy matching)\n  ${APP_NAME} --model opus "Help me refactor this code"`,
 		`# Limit model cycling to specific models\n  ${APP_NAME} --models claude-sonnet,claude-haiku,gpt-4o`,
-		`# Export a session file to HTML\n  ${APP_NAME} --export ~/.cxn/agent/sessions/--path--/session.jsonl`,
+		`# Export a session file to HTML\n  ${APP_NAME} --export ~/.omp/agent/sessions/--path--/session.jsonl`,
 	],
 } satisfies CommandMetadata;

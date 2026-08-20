@@ -1,15 +1,15 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentMessage, type AgentOptions, type AgentTool } from "@cxn/pi-agent-core";
-import type { AssistantMessage, FetchImpl, Model, ProviderSessionState, Usage } from "@cxn/pi-ai";
-import { streamGoogle } from "@cxn/pi-ai/providers/google";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { AutoLearnController, buildAutoLearnInstructions } from "@cxn/pi-coding-agent/autolearn/controller";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createAutoLearnCaptureRunner } from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentMessage, type AgentOptions, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, FetchImpl, Model, ProviderSessionState, Usage } from "@cyberxninja-omp/pi-ai";
+import { streamGoogle } from "@cyberxninja-omp/pi-ai/providers/google";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { AutoLearnController, buildAutoLearnInstructions } from "@cyberxninja-omp/pi-coding-agent/autolearn/controller";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { createAutoLearnCaptureRunner } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AgentSession, AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
 
 class FakeSession {
 	readonly listeners: Array<(event: AgentSessionEvent) => void> = [];

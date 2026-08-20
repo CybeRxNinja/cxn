@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype/ark";
+import { type } from "@cyberxninja-omp/omptype/ark";
 
 describe("target option", () => {
 	it("omits the dialect until a target is requested", () => {

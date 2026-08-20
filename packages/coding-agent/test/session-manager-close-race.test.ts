@@ -24,15 +24,15 @@
  */
 
 import { describe, expect, it } from "bun:test";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 import {
 	MemorySessionStorage,
 	type SessionStorage,
 	type SessionStorageWriter,
 	type WriteTextAtomicOptions,
-} from "@cxn/pi-coding-agent/session/session-storage";
-import type { SessionTitleUpdate } from "@cxn/pi-coding-agent/session/session-title-slot";
+} from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
+import type { SessionTitleUpdate } from "@cyberxninja-omp/pi-coding-agent/session/session-title-slot";
 
 class CloseHoldingStorage implements SessionStorage {
 	readonly #inner = new MemorySessionStorage();

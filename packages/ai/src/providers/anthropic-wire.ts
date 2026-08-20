@@ -74,10 +74,10 @@ export type ServerToolUseBlockParam = {
 	[key: string]: unknown;
 };
 
-/** Web-search server-tool call whose matching result is replayable by cxn. */
+/** Web-search server-tool call whose matching result is replayable by omp. */
 export type WebSearchServerToolUseBlockParam = ServerToolUseBlockParam & { name: "web_search" };
 
-/** Tool-search server-tool call whose matching result is replayable by cxn. */
+/** Tool-search server-tool call whose matching result is replayable by omp. */
 export type ToolSearchServerToolUseBlockParam = ServerToolUseBlockParam & {
 	name: "tool_search_tool_regex" | "tool_search_tool_bm25";
 };
@@ -98,14 +98,14 @@ export type ToolSearchToolResultBlockParam = {
 	[key: string]: unknown;
 };
 
-/** Anthropic server-tool history variants cxn can replay atomically. */
+/** Anthropic server-tool history variants omp can replay atomically. */
 export type AnthropicServerToolHistoryBlockParam =
 	| WebSearchServerToolUseBlockParam
 	| WebSearchToolResultBlockParam
 	| ToolSearchServerToolUseBlockParam
 	| ToolSearchToolResultBlockParam;
 
-/** True when a block is complete Anthropic server-tool history cxn can replay. */
+/** True when a block is complete Anthropic server-tool history omp can replay. */
 export function isAnthropicServerToolHistoryBlock(block: {
 	type: string;
 	name?: unknown;

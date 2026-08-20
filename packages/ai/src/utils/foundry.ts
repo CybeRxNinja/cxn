@@ -1,4 +1,4 @@
-import { $env } from "@cxn/pi-utils";
+import { $env } from "@cyberxninja-omp/pi-utils";
 
 export function isFoundryEnabled(): boolean {
 	const value = $env.CLAUDE_CODE_USE_FOUNDRY;

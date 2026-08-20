@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { MCPManager } from "@cxn/pi-coding-agent/mcp/manager";
-import type { McpConnectionStatusEvent } from "@cxn/pi-coding-agent/mcp/startup-events";
-import type { MCPServerConfig } from "@cxn/pi-coding-agent/mcp/types";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+import { MCPManager } from "@cyberxninja-omp/pi-coding-agent/mcp/manager";
+import type { McpConnectionStatusEvent } from "@cyberxninja-omp/pi-coding-agent/mcp/startup-events";
+import type { MCPServerConfig } from "@cyberxninja-omp/pi-coding-agent/mcp/types";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const FIXTURE_PATH = path.join(import.meta.dir, "fixtures", "many-tools-mcp.ts");
 const BUN_EXEC = process.execPath;

@@ -7,7 +7,7 @@ import {
 	parsePatchStreaming,
 	splitAddressableFileLines,
 	Tokenizer,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 
 function applyPatch(text: string, diff: string): string {
 	return applyEdits(text, parsePatch(diff).edits).text;

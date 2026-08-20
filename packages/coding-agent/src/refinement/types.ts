@@ -1,6 +1,6 @@
 /**
  * Continual harness data model, ported from the /refine harness concept and
- * adapted to cxn's memory-backend layer.
+ * adapted to omp's memory-backend layer.
  *
  * The harness is the persistent, editable set of supplemental state — prompt
  * notes, memories, skills, and subagent specs — that survives outside the

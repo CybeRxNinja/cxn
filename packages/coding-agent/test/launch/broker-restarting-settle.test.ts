@@ -6,8 +6,8 @@
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { Process } from "@cxn/pi-natives";
-import { TempDir } from "@cxn/pi-utils";
+import { Process } from "@cyberxninja-omp/pi-natives";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { type DaemonBrokerStartOptions, startDaemonBrokerFromEnvironment } from "../../src/launch/broker";
 import { createDaemonBrokerClient, type DaemonBrokerClient } from "../../src/launch/client";
 import {

@@ -1,4 +1,4 @@
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { Settings } from "../config/settings";
 import { OutputSink } from "../session/streaming-output";
 import type { ToolSession } from "../tools";

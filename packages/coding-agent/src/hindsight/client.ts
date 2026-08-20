@@ -8,7 +8,7 @@
  * tests to spy on.
  */
 
-import { USER_AGENT } from "@cxn/pi-utils";
+import { USER_AGENT } from "@cyberxninja-omp/pi-utils";
 import { isTimeoutError, withTimeoutSignal } from "../utils/fetch-timeout";
 import type { HindsightConfig } from "./config";
 

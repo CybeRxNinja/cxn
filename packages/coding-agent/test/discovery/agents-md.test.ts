@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { LoadContext } from "@cxn/pi-coding-agent/capability/types";
-import { loadAgentsMd } from "@cxn/pi-coding-agent/discovery/agents-md";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+import type { LoadContext } from "@cyberxninja-omp/pi-coding-agent/capability/types";
+import { loadAgentsMd } from "@cyberxninja-omp/pi-coding-agent/discovery/agents-md";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 function writeAgents(filePath: string, content: string): void {
 	fs.mkdirSync(path.dirname(filePath), { recursive: true });

@@ -1,4 +1,11 @@
-import { Container, type SelectItem, SelectList, type SgrMouseEvent, Spacer, TruncatedText } from "@cxn/pi-tui";
+import {
+	Container,
+	type SelectItem,
+	SelectList,
+	type SgrMouseEvent,
+	Spacer,
+	TruncatedText,
+} from "@cyberxninja-omp/pi-tui";
 import { getSelectListTheme, theme } from "../../modes/theme/theme";
 import type { SessionPinAccount } from "../../slash-commands/helpers/session-pin";
 import { DynamicBorder } from "./dynamic-border";

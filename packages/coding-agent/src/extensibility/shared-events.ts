@@ -12,9 +12,9 @@
  * carry subsystem-specific message types — lives in the per-subsystem
  * `types.ts` files and is documented there.
  */
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { CompactionPreparation, CompactionResult } from "@cxn/pi-agent-core/compaction";
-import type { AssistantRetryRecovery, ImageContent, TextContent, ToolResultMessage } from "@cxn/pi-ai";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { CompactionPreparation, CompactionResult } from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantRetryRecovery, ImageContent, TextContent, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
 import type { Rule } from "../capability/rule";
 import type { Goal, GoalModeState } from "../goals/state";
 import type { BranchSummaryEntry, CompactionEntry, SessionEntry } from "../session/session-entries";

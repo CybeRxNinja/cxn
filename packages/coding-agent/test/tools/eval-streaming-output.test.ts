@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import * as evalIndex from "@cxn/pi-coding-agent/eval";
-import type { EvalToolDetails } from "@cxn/pi-coding-agent/eval/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { EvalTool } from "@cxn/pi-coding-agent/tools/eval";
-import { formatOutputNotice } from "@cxn/pi-coding-agent/tools/output-meta";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import * as evalIndex from "@cyberxninja-omp/pi-coding-agent/eval";
+import type { EvalToolDetails } from "@cyberxninja-omp/pi-coding-agent/eval/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { EvalTool } from "@cyberxninja-omp/pi-coding-agent/tools/eval";
+import { formatOutputNotice } from "@cyberxninja-omp/pi-coding-agent/tools/output-meta";
 
 function makeSession(settings = Settings.isolated()): ToolSession {
 	return {

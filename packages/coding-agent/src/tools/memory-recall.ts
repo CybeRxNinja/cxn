@@ -1,6 +1,6 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core";
-import { logger, untilAborted } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { logger, untilAborted } from "@cyberxninja-omp/pi-utils";
 import { formatCurrentTime, formatMemories } from "../hindsight/content";
 import recallDescription from "../prompts/tools/recall.md" with { type: "text" };
 import type { ToolSession } from ".";

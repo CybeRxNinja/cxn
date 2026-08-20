@@ -8,7 +8,7 @@
  * - re-exported `SqliteAuthCredentialStore`: concrete SQLite-backed implementation
  */
 import { createHash } from "node:crypto";
-import { $env, $envExact, extractRetryHint, getAgentDbPath, logger } from "@cxn/pi-utils";
+import { $env, $envExact, extractRetryHint, getAgentDbPath, logger } from "@cyberxninja-omp/pi-utils";
 import {
 	isSqliteCorruptionError,
 	resolveCredentialIdentityKey,
@@ -182,7 +182,7 @@ export interface StoredCredentialBlock {
 /**
  * Identity slice of a disabled (soft-deleted) credential tombstone — cause and
  * account identity only, never token material. Surfaced so auto-disabled
- * accounts (e.g. an expired Anthropic OAuth grant) stay visible in `cxn usage`
+ * accounts (e.g. an expired Anthropic OAuth grant) stay visible in `omp usage`
  * instead of silently vanishing until the user notices missing quota.
  */
 export interface DisabledCredentialSummary {
@@ -619,8 +619,8 @@ export type AuthStorageOptions = {
 	 * so the TUI can show where a token came from (broker URL or local SQLite path).
 	 *
 	 * Examples:
-	 * - `"local ~/.cxn/agent/agent.db"`
-	 * - `"broker http://cxn.internal:8765"`
+	 * - `"local ~/.omp/agent/agent.db"`
+	 * - `"broker http://omp.internal:8765"`
 	 */
 	sourceLabel?: string;
 	/**
@@ -735,7 +735,7 @@ const OAUTH_REFRESH_OPERATION_TIMEOUT_MS = 10_000;
 const MAX_PENDING_DISABLED_EVENTS = 32;
 
 // Re-exported from the error module (its new home) to preserve the public
-// `@cxn/pi-ai` entrypoint and the in-module call sites below.
+// `@cyberxninja-omp/pi-ai` entrypoint and the in-module call sites below.
 export { isDefinitiveOAuthFailure } from "./error/auth-classify";
 
 /**
@@ -6377,7 +6377,7 @@ export class AuthStorage {
 	}
 
 	/**
-	 * Disabled credential tombstones for display surfaces (`cxn usage`,
+	 * Disabled credential tombstones for display surfaces (`omp usage`,
 	 * broker `GET /v1/credentials/disabled`). Empty when the backing store
 	 * keeps no tombstones or the remote broker predates the endpoint.
 	 */
@@ -6390,7 +6390,7 @@ export class AuthStorage {
 	 * Force the backing store to revalidate its credential snapshot, then
 	 * reload. Remote broker stores re-fetch the snapshot; local stores are
 	 * always current, so only the reload runs. Callers that pair live
-	 * per-credential data with stored identities (`cxn usage`) use this so a
+	 * per-credential data with stored identities (`omp usage`) use this so a
 	 * disk-cached snapshot cannot misattribute fresh reports.
 	 */
 	async revalidateCredentials(): Promise<void> {

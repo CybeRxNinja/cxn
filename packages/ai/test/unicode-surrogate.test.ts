@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { complete } from "@cxn/pi-ai/stream";
-import type { Api, Context, Model, OptionsForApi, ToolResultMessage } from "@cxn/pi-ai/types";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import { type } from "@cyberxninja-omp/omptype";
+import { complete } from "@cyberxninja-omp/pi-ai/stream";
+import type { Api, Context, Model, OptionsForApi, ToolResultMessage } from "@cyberxninja-omp/pi-ai/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 import { e2eApiKey, resolveApiKey } from "./oauth";
 
 // Empty schema for test tools - must be proper OBJECT type for Cloud Code Assist

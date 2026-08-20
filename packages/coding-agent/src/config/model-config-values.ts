@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { $envExact } from "@cxn/pi-utils";
+import { $envExact } from "@cyberxninja-omp/pi-utils";
 
 const commandValueCache = new Map<string, string>();
 // Failed `!command` resolutions (non-zero exit, empty stdout) are negative-cached

@@ -7,11 +7,11 @@
 
 import * as os from "node:os";
 import * as path from "node:path";
-import type { ToolCallContext } from "@cxn/pi-agent-core";
-import type { Ellipsis } from "@cxn/pi-natives";
-import type { Component } from "@cxn/pi-tui";
-import { getKeybindings, replaceTabs, truncateToWidth } from "@cxn/pi-tui";
-import { pluralize } from "@cxn/pi-utils";
+import type { ToolCallContext } from "@cyberxninja-omp/pi-agent-core";
+import type { Ellipsis } from "@cyberxninja-omp/pi-natives";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { getKeybindings, replaceTabs, truncateToWidth } from "@cyberxninja-omp/pi-tui";
+import { pluralize } from "@cyberxninja-omp/pi-utils";
 import { formatKeyHints, type KeyId } from "../config/keybindings";
 import { isSettingsInitialized, settings } from "../config/settings";
 import { getDefault } from "../config/settings-schema";
@@ -19,8 +19,8 @@ import type { Theme } from "../modes/theme/theme";
 import { Hasher } from "../tui/utils";
 import { formatDimensionNote, type ResizedImage } from "../utils/image-resize";
 
-export { Ellipsis } from "@cxn/pi-natives";
-export { replaceTabs, truncateToWidth, wrapTextWithAnsi } from "@cxn/pi-tui";
+export { Ellipsis } from "@cyberxninja-omp/pi-natives";
+export { replaceTabs, truncateToWidth, wrapTextWithAnsi } from "@cyberxninja-omp/pi-tui";
 
 // =============================================================================
 // Standardized Display Constants
@@ -142,7 +142,7 @@ export function getDomain(url: string): string {
 // Formatting Utilities
 // =============================================================================
 
-export { formatAge, formatBytes, formatCount, formatDuration, pluralize } from "@cxn/pi-utils";
+export { formatAge, formatBytes, formatCount, formatDuration, pluralize } from "@cyberxninja-omp/pi-utils";
 
 // =============================================================================
 // Theme Helper Utilities

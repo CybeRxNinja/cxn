@@ -17,8 +17,8 @@ import {
 	resolveProfileEnv,
 	setAgentDir,
 	setProfile,
-} from "@cxn/pi-utils/dirs";
-import { Snowflake } from "@cxn/pi-utils/snowflake";
+} from "@cyberxninja-omp/pi-utils/dirs";
+import { Snowflake } from "@cyberxninja-omp/pi-utils/snowflake";
 
 async function readStream(stream: ReadableStream<Uint8Array>): Promise<string> {
 	const reader = stream.getReader();
@@ -148,16 +148,16 @@ describe("profile directories", () => {
 		process.env.XDG_CACHE_HOME = path.join(tempRoot, "cache");
 		// Named profiles only adopt XDG when their *own* XDG path already exists,
 		// so the profile location stays stable across activations.
-		await fs.mkdir(path.join(process.env.XDG_DATA_HOME, "cxn", "profiles", "work"), { recursive: true });
-		await fs.mkdir(path.join(process.env.XDG_STATE_HOME, "cxn", "profiles", "work"), { recursive: true });
-		await fs.mkdir(path.join(process.env.XDG_CACHE_HOME, "cxn", "profiles", "work"), { recursive: true });
+		await fs.mkdir(path.join(process.env.XDG_DATA_HOME, "omp", "profiles", "work"), { recursive: true });
+		await fs.mkdir(path.join(process.env.XDG_STATE_HOME, "omp", "profiles", "work"), { recursive: true });
+		await fs.mkdir(path.join(process.env.XDG_CACHE_HOME, "omp", "profiles", "work"), { recursive: true });
 
 		setProfile("work");
 
-		expect(getAgentDbPath()).toBe(path.join(process.env.XDG_DATA_HOME, "cxn", "profiles", "work", "agent.db"));
-		expect(getSessionsDir()).toBe(path.join(process.env.XDG_DATA_HOME, "cxn", "profiles", "work", "sessions"));
+		expect(getAgentDbPath()).toBe(path.join(process.env.XDG_DATA_HOME, "omp", "profiles", "work", "agent.db"));
+		expect(getSessionsDir()).toBe(path.join(process.env.XDG_DATA_HOME, "omp", "profiles", "work", "sessions"));
 		expect(getPythonGatewayDir()).toBe(
-			path.join(process.env.XDG_STATE_HOME, "cxn", "profiles", "work", "python-gateway"),
+			path.join(process.env.XDG_STATE_HOME, "omp", "profiles", "work", "python-gateway"),
 		);
 	});
 
@@ -168,19 +168,19 @@ describe("profile directories", () => {
 		process.env.XDG_STATE_HOME = path.join(tempRoot, "state");
 		process.env.XDG_CACHE_HOME = path.join(tempRoot, "cache");
 
-		// Fresh install: XDG vars are set (typical Linux) but no $XDG/cxn exists yet.
+		// Fresh install: XDG vars are set (typical Linux) but no $XDG/omp exists yet.
 		// First activation must land in ~/<config-dir>/profiles/work because
 		// the profile-specific XDG path does not exist.
 		setProfile("work");
 		const firstAgentDir = getAgentDir();
 		expect(firstAgentDir).toBe(path.join(os.homedir(), configDir, "profiles", "work", "agent"));
 
-		// Later, the base XDG app dir materializes (e.g. via `cxn config init-xdg`
+		// Later, the base XDG app dir materializes (e.g. via `omp config init-xdg`
 		// migrating only the default-profile data). The named profile must stay
 		// in its original location until the user explicitly migrates it.
-		await fs.mkdir(path.join(process.env.XDG_DATA_HOME, "cxn"), { recursive: true });
-		await fs.mkdir(path.join(process.env.XDG_STATE_HOME, "cxn"), { recursive: true });
-		await fs.mkdir(path.join(process.env.XDG_CACHE_HOME, "cxn"), { recursive: true });
+		await fs.mkdir(path.join(process.env.XDG_DATA_HOME, "omp"), { recursive: true });
+		await fs.mkdir(path.join(process.env.XDG_STATE_HOME, "omp"), { recursive: true });
+		await fs.mkdir(path.join(process.env.XDG_CACHE_HOME, "omp"), { recursive: true });
 
 		setProfile(undefined);
 		setProfile("work");
@@ -321,7 +321,7 @@ describe("dirs module import behavior", () => {
 	it("exposes worker-host without loading agent env", async () => {
 		const root = await fs.mkdtemp(path.join(os.tmpdir(), "pi-utils-worker-host-import-"));
 		try {
-			const workerHostUrl = import.meta.resolve("@cxn/pi-utils/worker-host");
+			const workerHostUrl = import.meta.resolve("@cyberxninja-omp/pi-utils/worker-host");
 			const agentDir = path.join(root, "agent");
 			await fs.mkdir(agentDir, { recursive: true });
 			await Bun.write(path.join(agentDir, ".env"), "CXN_WORKER_HOST_PROBE=from-agent-env\n");
@@ -431,7 +431,7 @@ describe("dirs module import behavior", () => {
 			// import time — the exact ordering refreshDirsFromEnv() guards.
 			await Bun.write(path.join(agentDir, ".env"), `XDG_STATE_HOME=${xdgStateRoot}\n`);
 			// Named profiles only adopt XDG when their own XDG path already exists.
-			const xdgProfileRoot = path.join(xdgStateRoot, "cxn", "profiles", "work");
+			const xdgProfileRoot = path.join(xdgStateRoot, "omp", "profiles", "work");
 			await fs.mkdir(xdgProfileRoot, { recursive: true });
 
 			const probePath = path.join(root, "probe.ts");

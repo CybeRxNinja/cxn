@@ -2,7 +2,7 @@
  * Tool card chrome + per-tool dispatch. Works in the collab-web app and inside
  * the `<cxn-tool-view>` web component embedded in HTML session exports.
  */
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { resolveToolRenderer } from "./registry";

@@ -1,7 +1,10 @@
 import { expect, test } from "bun:test";
-import type { Api, Model, OAuthAccess } from "@cxn/pi-ai";
-import { type DryBalanceModelRegistry, runDryBalanceCommand } from "@cxn/pi-coding-agent/cli/dry-balance-cli";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { Api, Model, OAuthAccess } from "@cyberxninja-omp/pi-ai";
+import {
+	type DryBalanceModelRegistry,
+	runDryBalanceCommand,
+} from "@cyberxninja-omp/pi-coding-agent/cli/dry-balance-cli";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 
 function fakeModel(provider: string, id: string): Model<Api> {
 	return {

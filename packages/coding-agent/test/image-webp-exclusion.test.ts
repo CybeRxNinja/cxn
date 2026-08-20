@@ -1,16 +1,16 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import type { Api, Message, Model } from "@cxn/pi-ai";
-import { buildResponsesInput } from "@cxn/pi-ai/providers/openai-shared";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { getBundledModels } from "@cxn/pi-catalog/models";
-import type { CustomMessage } from "@cxn/pi-coding-agent/session/messages";
-import { SessionProviderBoundary } from "@cxn/pi-coding-agent/session/session-provider-boundary";
+import type { Api, Message, Model } from "@cyberxninja-omp/pi-ai";
+import { buildResponsesInput } from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { getBundledModels } from "@cyberxninja-omp/pi-catalog/models";
+import type { CustomMessage } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionProviderBoundary } from "@cyberxninja-omp/pi-coding-agent/session/session-provider-boundary";
 import {
 	modelLacksWebpSupport,
 	normalizeModelContextImages,
 	normalizeModelContextMessages,
 	webpExclusionForModel,
-} from "@cxn/pi-coding-agent/utils/image-loading";
+} from "@cyberxninja-omp/pi-coding-agent/utils/image-loading";
 
 // 1x1 red PNG seed, upscaled + re-encoded as WebP at test time so no binary
 // fixture is checked in. Bun.Image sniffs format from bytes.

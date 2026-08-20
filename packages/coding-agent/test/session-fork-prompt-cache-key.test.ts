@@ -1,19 +1,19 @@
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { type Args, parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import type { ScopedModel } from "@cxn/pi-coding-agent/config/model-resolver";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { buildSessionOptions } from "@cxn/pi-coding-agent/main";
-import { type CreateAgentSessionOptions, createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { CURRENT_SESSION_VERSION, type SessionHeader } from "@cxn/pi-coding-agent/session/session-entries";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { type Args, parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import type { ScopedModel } from "@cyberxninja-omp/pi-coding-agent/config/model-resolver";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { buildSessionOptions } from "@cyberxninja-omp/pi-coding-agent/main";
+import { type CreateAgentSessionOptions, createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { CURRENT_SESSION_VERSION, type SessionHeader } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const OPENAI_TEST_MODEL = getBundledModel("openai", "gpt-4o-mini");
 

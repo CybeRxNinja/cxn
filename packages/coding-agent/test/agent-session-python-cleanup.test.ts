@@ -1,15 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from "bun:test";
 import * as fs from "node:fs";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import * as pythonExecutor from "@cxn/pi-coding-agent/eval/py/executor";
-import type { PythonKernel as PythonKernelInstance } from "@cxn/pi-coding-agent/eval/py/kernel";
-import * as pythonKernel from "@cxn/pi-coding-agent/eval/py/kernel";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { createAgentSession, type ExtensionFactory, type WorkspaceTree } from "@cxn/pi-coding-agent/sdk";
-import { AgentStorage } from "@cxn/pi-coding-agent/session/agent-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { Snowflake, TempDir } from "@cxn/pi-utils";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import * as pythonExecutor from "@cyberxninja-omp/pi-coding-agent/eval/py/executor";
+import type { PythonKernel as PythonKernelInstance } from "@cyberxninja-omp/pi-coding-agent/eval/py/kernel";
+import * as pythonKernel from "@cyberxninja-omp/pi-coding-agent/eval/py/kernel";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { createAgentSession, type ExtensionFactory, type WorkspaceTree } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { AgentStorage } from "@cyberxninja-omp/pi-coding-agent/session/agent-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { Snowflake, TempDir } from "@cyberxninja-omp/pi-utils";
 
 const OK_EXECUTION = { status: "ok", cancelled: false, timedOut: false, stdinRequested: false } as const;
 

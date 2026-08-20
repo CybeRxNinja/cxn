@@ -10,11 +10,11 @@
  * which can be cheaper/faster than the main conversation model.
  *
  * Usage:
- *   cxn --hook examples/hooks/custom-compaction.ts
+ *   omp --hook examples/hooks/custom-compaction.ts
  */
-import { complete, getModel } from "@cxn/pi-ai";
-import type { HookAPI } from "@cxn/pi-coding-agent";
-import { convertToLlm, serializeConversation } from "@cxn/pi-coding-agent";
+import { complete, getModel } from "@cyberxninja-omp/pi-ai";
+import type { HookAPI } from "@cyberxninja-omp/pi-coding-agent";
+import { convertToLlm, serializeConversation } from "@cyberxninja-omp/pi-coding-agent";
 
 export default function (pi: HookAPI) {
 	pi.on("session_before_compact", async (event, ctx) => {

@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { getThemeByName, setThemeInstance } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { AgentProgress, SingleResult, TaskToolDetails } from "@cxn/pi-coding-agent/task";
-import { taskToolRenderer } from "@cxn/pi-coding-agent/task/renderer";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { getThemeByName, setThemeInstance } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { AgentProgress, SingleResult, TaskToolDetails } from "@cyberxninja-omp/pi-coding-agent/task";
+import { taskToolRenderer } from "@cyberxninja-omp/pi-coding-agent/task/renderer";
 
 // Regression for #1987: when a subagent stores a non-array value in
 // `extractedToolData.yield`, the renderer cast it to `Array<{ data }>` and

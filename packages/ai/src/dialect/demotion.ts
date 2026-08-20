@@ -1,4 +1,4 @@
-import { preferredDialect } from "@cxn/pi-catalog/identity";
+import { preferredDialect } from "@cyberxninja-omp/pi-catalog/identity";
 import { getDialectDefinition } from "./factory";
 
 /**

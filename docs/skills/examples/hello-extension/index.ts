@@ -1,5 +1,5 @@
-// @ts-nocheck — example file; install @cxn/pi-coding-agent before running
-import type { ExtensionAPI } from "@cxn/pi-coding-agent";
+// @ts-nocheck — example file; install @cyberxninja-omp/pi-coding-agent before running
+import type { ExtensionAPI } from "@cyberxninja-omp/pi-coding-agent";
 
 export default function helloExtension(pi: ExtensionAPI) {
   // Show a greeting whenever a session starts.

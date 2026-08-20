@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage } from "@cxn/pi-ai";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
 import {
 	type CustomMessage,
 	convertToLlm,

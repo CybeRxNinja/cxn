@@ -90,8 +90,8 @@ bun --cwd=packages/coding-agent run build
 
 BINARY_DIR="$WORK_DIR/binary-bin"
 mkdir -p "$BINARY_DIR"
-cp packages/coding-agent/dist/cxn "$BINARY_DIR/cxn"
-smoke_cli "$BINARY_DIR/cxn"
+cp packages/coding-agent/dist/omp "$BINARY_DIR/omp"
+smoke_cli "$BINARY_DIR/omp"
 
 section "Source install smoke"
 SOURCE_BUN_HOME="$WORK_DIR/bun-source"
@@ -99,7 +99,7 @@ SOURCE_BUN_HOME="$WORK_DIR/bun-source"
    export BUN_INSTALL="$SOURCE_BUN_HOME"
    export PATH="$BUN_INSTALL/bin:$PATH"
    bun --cwd="$ROOT_DIR/packages/coding-agent" link
-   smoke_cli "$BUN_INSTALL/bin/cxn"
+   smoke_cli "$BUN_INSTALL/bin/omp"
 )
 
 section "Tarball install smoke"
@@ -143,7 +143,7 @@ for pkg in utils wire omptype hashline catalog ai mnemopi snapcompact agent tui 
 done
 
 # 4. Pack the coding agent with its *published* manifest: release swaps
-#    `bin.cxn` from `src/cli.ts` to the prepack bundle `dist/cli.js`. The repo
+#    `bin.omp` from `src/cli.ts` to the prepack bundle `dist/cli.js`. The repo
 #    manifest keeps pointing at source so `bun link`/`install.sh --source`
 #    work without a build, so the swap must be reproduced here for the smoke
 #    to exercise the bundled worker-host entry the published package ships.
@@ -170,7 +170,7 @@ mnemopi_tgz="$(find_tarball "$TARBALL_DIR"/cxn-pi-mnemopi-*.tgz)"
 snapcompact_tgz="$(find_tarball "$TARBALL_DIR"/cxn-snapcompact-*.tgz)"
 agent_tgz="$(find_tarball "$TARBALL_DIR"/cxn-pi-agent-core-*.tgz)"
 tui_tgz="$(find_tarball "$TARBALL_DIR"/cxn-pi-tui-*.tgz)"
-stats_tgz="$(find_tarball "$TARBALL_DIR"/cxn-cxn-stats-*.tgz)"
+stats_tgz="$(find_tarball "$TARBALL_DIR"/cxn-omp-stats-*.tgz)"
 coding_agent_tgz="$(find_tarball "$TARBALL_DIR"/cxn-pi-coding-agent-*.tgz)"
 collab_web_tgz="$(find_tarball "$TARBALL_DIR"/cxn-collab-web-*.tgz)"
 
@@ -185,21 +185,21 @@ mkdir -p "$TARBALL_APP_DIR"
    node -e "
 		const pkg = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
 		pkg.overrides = {
-			'@cxn/pi-utils': '$utils_tgz',
-			'@cxn/pi-wire': '$wire_tgz',
-			'@cxn/omptype': '$omptype_tgz',
-			'@cxn/pi-natives': '$natives_tgz',
-			'@cxn/pi-natives-$host_tag': '$natives_leaf_tgz',
-			'@cxn/hashline': '$hashline_tgz',
-			'@cxn/pi-ai': '$ai_tgz',
-			'@cxn/pi-catalog': '$catalog_tgz',
-			'@cxn/pi-mnemopi': '$mnemopi_tgz',
-			'@cxn/snapcompact': '$snapcompact_tgz',
-			'@cxn/pi-agent-core': '$agent_tgz',
-			'@cxn/pi-tui': '$tui_tgz',
-			'@cxn/cxn-stats': '$stats_tgz',
-			'@cxn/pi-coding-agent': '$coding_agent_tgz',
-			'@cxn/collab-web': '$collab_web_tgz'
+			'@cyberxninja-omp/pi-utils': '$utils_tgz',
+			'@cyberxninja-omp/pi-wire': '$wire_tgz',
+			'@cyberxninja-omp/omptype': '$omptype_tgz',
+			'@cyberxninja-omp/pi-natives': '$natives_tgz',
+			'@cyberxninja-omp/pi-natives-$host_tag': '$natives_leaf_tgz',
+			'@cyberxninja-omp/hashline': '$hashline_tgz',
+			'@cyberxninja-omp/pi-ai': '$ai_tgz',
+			'@cyberxninja-omp/pi-catalog': '$catalog_tgz',
+			'@cyberxninja-omp/pi-mnemopi': '$mnemopi_tgz',
+			'@cyberxninja-omp/snapcompact': '$snapcompact_tgz',
+			'@cyberxninja-omp/pi-agent-core': '$agent_tgz',
+			'@cyberxninja-omp/pi-tui': '$tui_tgz',
+			'@cyberxninja-omp/omp-stats': '$stats_tgz',
+			'@cyberxninja-omp/pi-coding-agent': '$coding_agent_tgz',
+			'@cyberxninja-omp/collab-web': '$collab_web_tgz'
 		};
 		require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
 	"
@@ -208,32 +208,32 @@ mkdir -p "$TARBALL_APP_DIR"
    # The platform leaf must arrive through the core's optionalDependencies +
    # override, not as a direct dependency — assert it landed before smoking so a
    # resolution regression is distinguishable from a runtime loader bug.
-   leaf_dir="node_modules/@cxn/pi-natives-$host_tag"
+   leaf_dir="node_modules/@cyberxninja-omp/pi-natives-$host_tag"
    [ -d "$leaf_dir" ] || {
       echo "Platform leaf package not installed: $leaf_dir"
       exit 1
    }
-   wire_proto="$(bun -e 'import { COLLAB_PROTO } from "@cxn/pi-wire"; process.stdout.write(String(COLLAB_PROTO));')"
+   wire_proto="$(bun -e 'import { COLLAB_PROTO } from "@cyberxninja-omp/pi-wire"; process.stdout.write(String(COLLAB_PROTO));')"
    [ "$wire_proto" = "3" ] || {
-      echo "Unexpected @cxn/pi-wire COLLAB_PROTO: $wire_proto"
+      echo "Unexpected @cyberxninja-omp/pi-wire COLLAB_PROTO: $wire_proto"
       exit 1
    }
    omptype_probe="$(bun -e '
-      import { type } from "@cxn/omptype";
-      import { Type } from "@cxn/omptype/typebox";
-      const root = type({ name: "string", enabled: "boolean = false" }).assert({ name: "cxn" });
+      import { type } from "@cyberxninja-omp/omptype";
+      import { Type } from "@cyberxninja-omp/omptype/typebox";
+      const root = type({ name: "string", enabled: "boolean = false" }).assert({ name: "omp" });
       const typebox = Type.Object({ name: Type.String() }).assert({ name: "tb" });
       process.stdout.write(`${root.name}:${root.enabled}:${typebox.name}`);
    ')"
-   [ "$omptype_probe" = "cxn:false:tb" ] || {
-      echo "Unexpected @cxn/omptype probe result: $omptype_probe"
+   [ "$omptype_probe" = "omp:false:tb" ] || {
+      echo "Unexpected @cyberxninja-omp/omptype probe result: $omptype_probe"
       exit 1
    }
-   [ -f "node_modules/@cxn/collab-web/dist/index.html" ] || {
+   [ -f "node_modules/@cyberxninja-omp/collab-web/dist/index.html" ] || {
       echo "Collab web tarball did not install built dist/index.html"
       exit 1
    }
-   smoke_cli ./node_modules/.bin/cxn
+   smoke_cli ./node_modules/.bin/omp
 )
 
 echo ""

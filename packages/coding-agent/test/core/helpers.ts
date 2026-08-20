@@ -1,5 +1,5 @@
-import type { PythonKernelExecutor } from "@cxn/pi-coding-agent/eval/py/executor";
-import type { KernelExecuteOptions, KernelExecuteResult } from "@cxn/pi-coding-agent/eval/py/kernel";
+import type { PythonKernelExecutor } from "@cyberxninja-omp/pi-coding-agent/eval/py/executor";
+import type { KernelExecuteOptions, KernelExecuteResult } from "@cyberxninja-omp/pi-coding-agent/eval/py/kernel";
 
 export class FakeKernel implements PythonKernelExecutor {
 	private result: KernelExecuteResult;

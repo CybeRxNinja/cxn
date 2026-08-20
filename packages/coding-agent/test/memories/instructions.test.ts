@@ -2,9 +2,9 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { buildMemoryToolDeveloperInstructions, getMemoryRoot } from "@cxn/pi-coding-agent/memories";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { buildMemoryToolDeveloperInstructions, getMemoryRoot } from "@cyberxninja-omp/pi-coding-agent/memories";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 async function withTempDir<T>(fn: (dir: string) => Promise<T>): Promise<T> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "memory-instructions-"));

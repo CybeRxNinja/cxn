@@ -10,8 +10,8 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { applyPatch, findContextLine, seekSequence } from "@cxn/pi-coding-agent/edit";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+import { applyPatch, findContextLine, seekSequence } from "@cyberxninja-omp/pi-coding-agent/edit";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("regression: indentation adjustment for line-based replacements (2B)", () => {
 	let tempDir: string;

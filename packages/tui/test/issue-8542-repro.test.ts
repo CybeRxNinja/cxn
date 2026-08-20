@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { ProcessTerminal } from "@cxn/pi-tui/terminal";
-import { setTerminalHeadless } from "@cxn/pi-utils";
+import { ProcessTerminal } from "@cyberxninja-omp/pi-tui/terminal";
+import { setTerminalHeadless } from "@cyberxninja-omp/pi-utils";
 
-// #8542: a terminal Device-Attributes reply to cxn's startup capability probe
+// #8542: a terminal Device-Attributes reply to omp's startup capability probe
 // leaks into the composer as literal text (`1;22;...;52c`) when it arrives
 // after the DA1 sentinel FIFO has already drained. The extra SSH+zmx PTY hops
 // slow the query->response round-trip enough to make the race observable.

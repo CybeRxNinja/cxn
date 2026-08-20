@@ -7,12 +7,15 @@ import {
 	SESSION_TITLE_SLOT_BYTES,
 	type SessionHeader,
 	TITLE_CHANGE_ENTRY_TYPE,
-} from "@cxn/pi-coding-agent/session/session-entries";
-import { loadEntriesFromFile } from "@cxn/pi-coding-agent/session/session-loader";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { FileSessionStorage, type WriteTextAtomicOptions } from "@cxn/pi-coding-agent/session/session-storage";
-import type { SessionTitleUpdate } from "@cxn/pi-coding-agent/session/session-title-slot";
-import { getConfigRootDir, removeSyncWithRetries, setAgentDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { loadEntriesFromFile } from "@cyberxninja-omp/pi-coding-agent/session/session-loader";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import {
+	FileSessionStorage,
+	type WriteTextAtomicOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
+import type { SessionTitleUpdate } from "@cyberxninja-omp/pi-coding-agent/session/session-title-slot";
+import { getConfigRootDir, removeSyncWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 import { makeAssistantMessage } from "./helpers";
 

@@ -9,11 +9,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InternalUrlRouter } from "@cxn/pi-coding-agent/internal-urls";
-import { resetForTests as resetCacheForTests } from "@cxn/pi-coding-agent/tools/github-cache";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InternalUrlRouter } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { resetForTests as resetCacheForTests } from "@cyberxninja-omp/pi-coding-agent/tools/github-cache";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 let tempDir: string;
 let originalEnv: string | undefined;

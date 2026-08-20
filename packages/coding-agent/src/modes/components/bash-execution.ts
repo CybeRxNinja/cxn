@@ -12,8 +12,8 @@ import {
 	type TUI,
 	truncateToWidth,
 	visibleWidth,
-} from "@cxn/pi-tui";
-import { sanitizeText } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { theme } from "../../modes/theme/theme";
 import type { TruncationMeta } from "../../tools/output-meta";
 import { getSixelLineMask, isSixelPassthroughEnabled, sanitizeWithOptionalSixelPassthrough } from "../../utils/sixel";

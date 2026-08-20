@@ -1,11 +1,11 @@
 import { describe, expect, spyOn, test } from "bun:test";
 import { scheduler } from "node:timers/promises";
-import { clearCustomApis, registerCustomApi } from "@cxn/pi-ai/api-registry";
-import * as AIError from "@cxn/pi-ai/error";
-import { createMockModel, type MockContent, registerMockApi } from "@cxn/pi-ai/providers/mock";
-import { complete, completeSimple, stream, streamSimple } from "@cxn/pi-ai/stream";
-import type { Api, AssistantMessage, AssistantMessageEvent, Context, Model } from "@cxn/pi-ai/types";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+import { clearCustomApis, registerCustomApi } from "@cyberxninja-omp/pi-ai/api-registry";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { createMockModel, type MockContent, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { complete, completeSimple, stream, streamSimple } from "@cyberxninja-omp/pi-ai/stream";
+import type { Api, AssistantMessage, AssistantMessageEvent, Context, Model } from "@cyberxninja-omp/pi-ai/types";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
 import {
 	GEMINI_HEADER_RUNAWAY_THRESHOLD,
 	GeminiHeaderRunDetector,
@@ -14,8 +14,8 @@ import {
 	THINKING_LOOP_ERROR_MARKER,
 	ThinkingLoopDetector,
 	withThinkingLoopGuard,
-} from "@cxn/pi-ai/utils/thinking-loop";
-import { isRetryableError } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/utils/thinking-loop";
+import { isRetryableError } from "@cyberxninja-omp/pi-utils";
 
 function context(): Context {
 	return { systemPrompt: [], messages: [{ role: "user", content: "go", timestamp: 0 }] };

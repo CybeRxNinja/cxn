@@ -1,4 +1,4 @@
-//! Native utilities exported via N-API for the cxn toolchain.
+//! Native utilities exported via N-API for the omp toolchain.
 //!
 //! # Overview
 //! High-performance primitives for clipboard access, grep, file discovery,

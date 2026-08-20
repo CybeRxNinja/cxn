@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { RenderResultOptions } from "@cxn/pi-agent-core";
-import type { SettingPath, SettingValue } from "@cxn/pi-coding-agent/config/settings";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { getThemeByName, setThemeInstance } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { taskToolRenderer } from "@cxn/pi-coding-agent/task/renderer";
-import type { AgentProgress, SingleResult, TaskToolDetails } from "@cxn/pi-coding-agent/task/types";
+import type { RenderResultOptions } from "@cyberxninja-omp/pi-agent-core";
+import type { SettingPath, SettingValue } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { getThemeByName, setThemeInstance } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { taskToolRenderer } from "@cyberxninja-omp/pi-coding-agent/task/renderer";
+import type { AgentProgress, SingleResult, TaskToolDetails } from "@cyberxninja-omp/pi-coding-agent/task/types";
 
 function runningProgress(overrides: Partial<AgentProgress> = {}): AgentProgress {
 	return {

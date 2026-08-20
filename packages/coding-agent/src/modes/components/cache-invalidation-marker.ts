@@ -1,6 +1,6 @@
-import type { Usage } from "@cxn/pi-ai";
-import type { Component } from "@cxn/pi-tui";
-import { formatNumber } from "@cxn/pi-utils";
+import type { Usage } from "@cyberxninja-omp/pi-ai";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { formatNumber } from "@cyberxninja-omp/pi-utils";
 import { theme } from "../../modes/theme/theme";
 
 /**

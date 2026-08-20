@@ -2,10 +2,14 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { generateThemeVars } from "@cxn/pi-coding-agent/export/html";
-import { defaultThemes } from "@cxn/pi-coding-agent/modes/theme/defaults";
-import { getResolvedThemeColors, getThemeByName, isLightTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { getAgentDir, getCustomThemesDir, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { generateThemeVars } from "@cyberxninja-omp/pi-coding-agent/export/html";
+import { defaultThemes } from "@cyberxninja-omp/pi-coding-agent/modes/theme/defaults";
+import {
+	getResolvedThemeColors,
+	getThemeByName,
+	isLightTheme,
+} from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { getAgentDir, getCustomThemesDir, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 describe("Theme.isLight", () => {
 	it("classifies built-in themes by their status-line surface", async () => {

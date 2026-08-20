@@ -6,14 +6,17 @@
  * / `write xd://<tool>`).
  */
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { CustomToolAdapter } from "@cxn/pi-coding-agent/extensibility/custom-tools/wrapper";
-import type { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import { RegisteredToolAdapter } from "@cxn/pi-coding-agent/extensibility/extensions/wrapper";
-import { BUILTIN_TOOLS, type ToolSession } from "@cxn/pi-coding-agent/tools";
-import { defaultLoadModeForToolName, ESSENTIAL_BUILTIN_TOOL_NAMES } from "@cxn/pi-coding-agent/tools/essential-tools";
-import { isMountableUnderXdev } from "@cxn/pi-coding-agent/tools/xdev";
+import { type } from "@cyberxninja-omp/omptype";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { CustomToolAdapter } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-tools/wrapper";
+import type { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import { RegisteredToolAdapter } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/wrapper";
+import { BUILTIN_TOOLS, type ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import {
+	defaultLoadModeForToolName,
+	ESSENTIAL_BUILTIN_TOOL_NAMES,
+} from "@cyberxninja-omp/pi-coding-agent/tools/essential-tools";
+import { isMountableUnderXdev } from "@cyberxninja-omp/pi-coding-agent/tools/xdev";
 
 function makeSession(): ToolSession {
 	return {

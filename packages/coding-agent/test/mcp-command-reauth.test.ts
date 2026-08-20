@@ -3,13 +3,13 @@ import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "bu
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-import * as mcpClient from "@cxn/pi-coding-agent/mcp/client";
-import * as oauthFlow from "@cxn/pi-coding-agent/mcp/oauth-flow";
-import type { MCPServerConfig } from "@cxn/pi-coding-agent/mcp/types";
-import { MCPCommandController } from "@cxn/pi-coding-agent/modes/controllers/mcp-command-controller";
-import { OAuthManualInputManager } from "@cxn/pi-coding-agent/modes/oauth-manual-input";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+import * as mcpClient from "@cyberxninja-omp/pi-coding-agent/mcp/client";
+import * as oauthFlow from "@cyberxninja-omp/pi-coding-agent/mcp/oauth-flow";
+import type { MCPServerConfig } from "@cyberxninja-omp/pi-coding-agent/mcp/types";
+import { MCPCommandController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/mcp-command-controller";
+import { OAuthManualInputManager } from "@cyberxninja-omp/pi-coding-agent/modes/oauth-manual-input";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 import {
 	getConfigRootDir,
 	getMCPConfigPath,
@@ -17,7 +17,7 @@ import {
 	removeWithRetries,
 	setAgentDir,
 	setProjectDir,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 
 const RAW_SERVER_URL = `https://\${MCP_HOST}/mcp`;
 const EXPANDED_SERVER_URL = "https://mcp.example.com/mcp";

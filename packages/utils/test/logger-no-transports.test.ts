@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Regression: `setTransports({ file: false, console: false })` left the shared
@@ -68,7 +68,7 @@ describe("logger with no transports", () => {
 
 		let found = false;
 		for (let i = 0; i < 40 && !found; i++) {
-			for (const f of fs.readdirSync(tempDir).filter(n => n.startsWith("cxn.") && n.endsWith(".log"))) {
+			for (const f of fs.readdirSync(tempDir).filter(n => n.startsWith("omp.") && n.endsWith(".log"))) {
 				if (fs.readFileSync(path.join(tempDir, f), "utf8").includes("no-transports-resume-fixture")) {
 					found = true;
 					break;

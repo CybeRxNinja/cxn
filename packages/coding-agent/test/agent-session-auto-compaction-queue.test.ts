@@ -1,18 +1,21 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import { scheduler } from "node:timers/promises";
-import { Agent } from "@cxn/pi-agent-core";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ExtensionRuntime, loadExtensionFromFactory } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import { AgentSession, type AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import * as unexpectedStopClassifier from "@cxn/pi-coding-agent/session/unexpected-stop-classifier";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { TempDir, withTimeout } from "@cxn/pi-utils";
-import * as logger from "@cxn/pi-utils/logger";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	ExtensionRuntime,
+	loadExtensionFromFactory,
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import { AgentSession, type AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import * as unexpectedStopClassifier from "@cyberxninja-omp/pi-coding-agent/session/unexpected-stop-classifier";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { TempDir, withTimeout } from "@cyberxninja-omp/pi-utils";
+import * as logger from "@cyberxninja-omp/pi-utils/logger";
 
 const runtimeSignalStoreKey = "__ompRuntimeSignals";
 

@@ -1,5 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { generateThemeStyles, generateThemeVars, getTemplate, parseExportArgs } from "@cxn/pi-coding-agent/export/html";
+import {
+	generateThemeStyles,
+	generateThemeVars,
+	getTemplate,
+	parseExportArgs,
+} from "@cyberxninja-omp/pi-coding-agent/export/html";
 
 describe("HTML export themes", () => {
 	it("bundles dark, light, and auto-following web themes", async () => {

@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { isBlobRef } from "@cxn/pi-coding-agent/session/blob-store";
-import type { SessionEntry } from "@cxn/pi-coding-agent/session/session-entries";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { isBlobRef } from "@cyberxninja-omp/pi-coding-agent/session/blob-store";
+import type { SessionEntry } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const tempDirs: TempDir[] = [];
 

@@ -2,8 +2,8 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type RlmSubagentRegistryEntry, resetRlmFamilies } from "@cxn/pi-coding-agent/eval/py/family-store";
-import { HeartbeatCatalog } from "@cxn/pi-coding-agent/modes/daemon/heartbeat-catalog";
+import { type RlmSubagentRegistryEntry, resetRlmFamilies } from "@cyberxninja-omp/pi-coding-agent/eval/py/family-store";
+import { HeartbeatCatalog } from "@cyberxninja-omp/pi-coding-agent/modes/daemon/heartbeat-catalog";
 import {
 	handleDaemonRequest,
 	reapStaleAgents,
@@ -11,7 +11,7 @@ import {
 	setupDaemonState,
 	startDaemonHeartbeat,
 	stopDaemonHeartbeat,
-} from "@cxn/pi-coding-agent/modes/daemon/index";
+} from "@cyberxninja-omp/pi-coding-agent/modes/daemon/index";
 
 function childEntry(id: string, name: string): RlmSubagentRegistryEntry {
 	return {

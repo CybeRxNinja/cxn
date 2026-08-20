@@ -2,11 +2,11 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { RawSseDebugBuffer } from "@cxn/pi-coding-agent/debug/raw-sse-buffer";
-import { createReportBundle } from "@cxn/pi-coding-agent/debug/report-bundle";
-import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { RawSseDebugBuffer } from "@cyberxninja-omp/pi-coding-agent/debug/raw-sse-buffer";
+import { createReportBundle } from "@cyberxninja-omp/pi-coding-agent/debug/report-bundle";
+import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 const model: Model<"anthropic-messages"> = buildModel({
 	id: "claude-test",
@@ -48,7 +48,7 @@ describe("raw SSE report bundle", () => {
 	it("includes captured raw SSE text and dropped-record disclosure", async () => {
 		cleanupRoot = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-raw-sse-report-"));
 		const xdgStateHome = path.join(cleanupRoot, "state");
-		await fs.mkdir(path.join(xdgStateHome, "cxn"), { recursive: true });
+		await fs.mkdir(path.join(xdgStateHome, "omp"), { recursive: true });
 		process.env.XDG_STATE_HOME = xdgStateHome;
 		setAgentDir(fallbackAgentDir);
 

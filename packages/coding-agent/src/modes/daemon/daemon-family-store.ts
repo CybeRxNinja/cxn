@@ -2,7 +2,7 @@
  * Daemon family-store handler — the authoritative server side.
  *
  * This is the single source of truth for a family's registry + mailboxes when
- * the daemon is running: every `cxn agents` client (and any future
+ * the daemon is running: every `omp agents` client (and any future
  * daemon-backed child kernel) talks to this handler. Messaging delegates to the
  * same primitives as the in-process path in family-store.ts (so in-process and
  * daemon behavior stay identical), while the spawn topology lives in the
@@ -32,7 +32,7 @@ import { SessionLeaseRegistry } from "./session-lease";
 
 function defaultAgentDir(): string {
 	const base = process.env.XDG_RUNTIME_DIR ?? os.tmpdir();
-	return path.join(base, "cxn", "daemon");
+	return path.join(base, "omp", "daemon");
 }
 
 /** The daemon's topology authority (spawn edges) — shared across all connections. */

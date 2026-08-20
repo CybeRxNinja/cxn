@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { type Component, TUI } from "@cxn/pi-tui";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { type Component, TUI } from "@cyberxninja-omp/pi-tui";
 import { StressRenderScheduler } from "../../tui/test/render-stress-scheduler";
 import { VirtualTerminal } from "../../tui/test/virtual-terminal";
 

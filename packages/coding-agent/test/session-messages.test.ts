@@ -1,9 +1,13 @@
 import { describe, expect, it } from "bun:test";
-import { type AgentMessage, filterProviderReplayMessages } from "@cxn/pi-agent-core";
-import type { ImageContent, Message, TextContent } from "@cxn/pi-ai";
-import { inferCopilotInitiator } from "@cxn/pi-ai/providers/github-copilot-headers";
-import { convertToLlm, SKILL_PROMPT_MESSAGE_TYPE, wrapSteeringForModel } from "@cxn/pi-coding-agent/session/messages";
-import { COLLAB_PROMPT_MESSAGE_TYPE } from "@cxn/pi-wire";
+import { type AgentMessage, filterProviderReplayMessages } from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, Message, TextContent } from "@cyberxninja-omp/pi-ai";
+import { inferCopilotInitiator } from "@cyberxninja-omp/pi-ai/providers/github-copilot-headers";
+import {
+	convertToLlm,
+	SKILL_PROMPT_MESSAGE_TYPE,
+	wrapSteeringForModel,
+} from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { COLLAB_PROMPT_MESSAGE_TYPE } from "@cyberxninja-omp/pi-wire";
 
 function expectAttribution(message: Message | undefined, expected: "user" | "agent" | undefined): void {
 	expect(message).toBeDefined();

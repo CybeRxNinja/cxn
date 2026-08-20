@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { handleMDN } from "@cxn/pi-coding-agent/web/scrapers/mdn";
-import { handleReadTheDocs } from "@cxn/pi-coding-agent/web/scrapers/readthedocs";
+import { handleMDN } from "@cyberxninja-omp/pi-coding-agent/web/scrapers/mdn";
+import { handleReadTheDocs } from "@cyberxninja-omp/pi-coding-agent/web/scrapers/readthedocs";
 
 const SKIP = !Bun.env.WEB_FETCH_INTEGRATION;
 

@@ -1,7 +1,7 @@
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Api, ApiKey, AssistantMessage, Message, Model } from "@cxn/pi-ai";
-import { completeSimple, retryTransientCompletion } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Api, ApiKey, AssistantMessage, Message, Model } from "@cyberxninja-omp/pi-ai";
+import { completeSimple, retryTransientCompletion } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import fileObserverSystemPrompt from "../../commit/prompts/file-observer-system.md" with { type: "text" };
 import fileObserverUserPrompt from "../../commit/prompts/file-observer-user.md" with { type: "text" };
 import type { FileDiff, FileObservation } from "../../commit/types";

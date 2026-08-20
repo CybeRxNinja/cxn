@@ -2,14 +2,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearWorktrees } from "@cxn/pi-coding-agent/cli/worktree-cli";
-import { ISOLATION_OWNER_FILE, writeIsolationOwner } from "@cxn/pi-coding-agent/task/isolation-ownership";
-import { setWorktreesDir } from "@cxn/pi-utils";
+import { clearWorktrees } from "@cyberxninja-omp/pi-coding-agent/cli/worktree-cli";
+import { ISOLATION_OWNER_FILE, writeIsolationOwner } from "@cyberxninja-omp/pi-coding-agent/task/isolation-ownership";
+import { setWorktreesDir } from "@cyberxninja-omp/pi-utils";
 
 /**
- * Regression for #6761: `cxn worktree clear` (no `--all`) must delete only
+ * Regression for #6761: `omp worktree clear` (no `--all`) must delete only
  * task-isolation sandboxes whose owner process is gone. A sandbox owned by a
- * live cxn process holds a running subagent's uncaptured work and must survive.
+ * live omp process holds a running subagent's uncaptured work and must survive.
  */
 describe("worktree clear task-isolation ownership", () => {
 	let base: string;

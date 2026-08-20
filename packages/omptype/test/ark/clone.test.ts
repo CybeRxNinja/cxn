@@ -1,5 +1,5 @@
 import { expect, it } from "bun:test";
-import { type } from "@cxn/omptype/ark";
+import { type } from "@cyberxninja-omp/omptype/ark";
 
 it("preserves the original references if no morphs are present", () => {
 	const T = type({ foo: "string" });

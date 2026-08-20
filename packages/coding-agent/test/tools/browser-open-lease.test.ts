@@ -10,12 +10,12 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, spyOn, vi } from "bun:test";
-import { BrowserTool } from "@cxn/pi-coding-agent/tools/browser";
-import { CmuxSocketClient } from "@cxn/pi-coding-agent/tools/browser/cmux/socket-client";
-import { getBrowsersMapForTest } from "@cxn/pi-coding-agent/tools/browser/registry";
-import { getTabsMapForTest, releaseTab } from "@cxn/pi-coding-agent/tools/browser/tab-supervisor";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools/index";
-import { ToolAbortError, ToolError } from "@cxn/pi-coding-agent/tools/tool-errors";
+import { BrowserTool } from "@cyberxninja-omp/pi-coding-agent/tools/browser";
+import { CmuxSocketClient } from "@cyberxninja-omp/pi-coding-agent/tools/browser/cmux/socket-client";
+import { getBrowsersMapForTest } from "@cyberxninja-omp/pi-coding-agent/tools/browser/registry";
+import { getTabsMapForTest, releaseTab } from "@cyberxninja-omp/pi-coding-agent/tools/browser/tab-supervisor";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools/index";
+import { ToolAbortError, ToolError } from "@cyberxninja-omp/pi-coding-agent/tools/tool-errors";
 
 function makeSession(): ToolSession {
 	return {

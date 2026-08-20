@@ -7,32 +7,32 @@ import * as crypto from "node:crypto";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage, Context, Message, TextContent } from "@cxn/pi-ai";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, Context, Message, TextContent } from "@cyberxninja-omp/pi-ai";
 import {
 	builtinCredentialSecretEntries,
 	getExistingSecretPlaceholderKey,
 	getSecretPlaceholderKey,
 	getSecretPlaceholderKeySync,
 	loadSecrets,
-} from "@cxn/pi-coding-agent/secrets";
+} from "@cyberxninja-omp/pi-coding-agent/secrets";
 import {
 	deobfuscateAgentMessages,
 	deobfuscateToolArguments,
 	obfuscateMessages,
 	obfuscateProviderContext,
 	obfuscateToolArguments,
-} from "@cxn/pi-coding-agent/secrets/message-transform";
-import { type SecretEntry, SecretObfuscator } from "@cxn/pi-coding-agent/secrets/obfuscator";
+} from "@cyberxninja-omp/pi-coding-agent/secrets/message-transform";
+import { type SecretEntry, SecretObfuscator } from "@cyberxninja-omp/pi-coding-agent/secrets/obfuscator";
 import {
 	sanitizeSecretFriendlyName,
 	secretEntriesNeedPlaceholderKey,
 	secretEntryNeedsPlaceholderKey,
 	stripPendingSecretPlaceholderSuffix,
-} from "@cxn/pi-coding-agent/secrets/placeholder";
-import { compileSecretRegex } from "@cxn/pi-coding-agent/secrets/regex";
-import { getActiveProfile, getAgentDir, setProfile } from "@cxn/pi-utils/dirs";
+} from "@cyberxninja-omp/pi-coding-agent/secrets/placeholder";
+import { compileSecretRegex } from "@cyberxninja-omp/pi-coding-agent/secrets/regex";
+import { getActiveProfile, getAgentDir, setProfile } from "@cyberxninja-omp/pi-utils/dirs";
 
 describe("compileSecretRegex", () => {
 	it("adds global flag when not provided", () => {
@@ -2955,10 +2955,10 @@ describe("SecretObfuscator friendlyName placeholders", () => {
 		try {
 			const project = path.join(root, "project");
 			const agentDir = path.join(root, "agent");
-			await fs.mkdir(path.join(project, ".cxn"), { recursive: true });
+			await fs.mkdir(path.join(project, ".omp"), { recursive: true });
 			await fs.mkdir(agentDir, { recursive: true });
 			await fs.writeFile(
-				path.join(project, ".cxn", "secrets.yml"),
+				path.join(project, ".omp", "secrets.yml"),
 				"- type: plain\n  content: invalid-friendly-secret\n  friendlyName: '***'\n",
 			);
 
@@ -2981,10 +2981,10 @@ describe("SecretObfuscator friendlyName placeholders", () => {
 		try {
 			const project = path.join(root, "project");
 			const agentDir = path.join(root, "agent");
-			await fs.mkdir(path.join(project, ".cxn"), { recursive: true });
+			await fs.mkdir(path.join(project, ".omp"), { recursive: true });
 			await fs.mkdir(agentDir, { recursive: true });
 			await fs.writeFile(
-				path.join(project, ".cxn", "secrets.yml"),
+				path.join(project, ".omp", "secrets.yml"),
 				"- type: plain\n  content: non-string-friendly-secret\n  friendlyName: 123\n",
 			);
 
@@ -3007,10 +3007,10 @@ describe("SecretObfuscator friendlyName placeholders", () => {
 		try {
 			const project = path.join(root, "project");
 			const agentDir = path.join(root, "agent");
-			await fs.mkdir(path.join(project, ".cxn"), { recursive: true });
+			await fs.mkdir(path.join(project, ".omp"), { recursive: true });
 			await fs.mkdir(agentDir, { recursive: true });
 			await fs.writeFile(
-				path.join(project, ".cxn", "secrets.yml"),
+				path.join(project, ".omp", "secrets.yml"),
 				'- type: regex\n  mode: replace\n  content: "."\n',
 			);
 
@@ -3036,10 +3036,10 @@ describe("SecretObfuscator friendlyName placeholders", () => {
 		try {
 			const project = path.join(root, "project");
 			const agentDir = path.join(root, "agent");
-			await fs.mkdir(path.join(project, ".cxn"), { recursive: true });
+			await fs.mkdir(path.join(project, ".omp"), { recursive: true });
 			await fs.mkdir(agentDir, { recursive: true });
 			await fs.writeFile(
-				path.join(project, ".cxn", "secrets.yml"),
+				path.join(project, ".omp", "secrets.yml"),
 				'- type: regex\n  content: "tok_[a-z0-9]+"\n  friendlyName: "tok_abc123"\n',
 			);
 

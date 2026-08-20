@@ -1,4 +1,4 @@
-import { CODEX_BASE_URL } from "@cxn/pi-catalog/wire/codex";
+import { CODEX_BASE_URL } from "@cyberxninja-omp/pi-catalog/wire/codex";
 
 /**
  * Resolve the base URL for ChatGPT account-API requests (`wham/usage`,

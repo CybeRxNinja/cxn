@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { parseReadUrlTarget } from "@cxn/pi-coding-agent/tools/fetch";
+import { parseReadUrlTarget } from "@cyberxninja-omp/pi-coding-agent/tools/fetch";
 
 describe("parseReadUrlTarget", () => {
 	it("returns null for non-URL paths", () => {

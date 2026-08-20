@@ -1,4 +1,4 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type { CommitAgentState, SplitCommitGroup, SplitCommitPlan } from "../../../commit/agentic/state";
 import { computeDependencyOrder } from "../../../commit/agentic/topo-sort";
 import {

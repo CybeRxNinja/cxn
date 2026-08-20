@@ -2,7 +2,7 @@
 
 These tests swap `robomp.worker.RpcClient` for a recording fake so we can
 observe the `extra_args` and `set_todos` decisions the driver takes based on
-whether the workspace's cxn session directory already holds a JSONL transcript.
+whether the workspace's omp session directory already holds a JSONL transcript.
 """
 
 from __future__ import annotations
@@ -275,7 +275,7 @@ def test_build_extra_env_stages_agent_home(tmp_path: Path, settings: Settings, m
 
     agent_dir = stage_home / ".agent"
     agent_rules_dir = agent_dir / "rules"
-    cxn_agent_dir = stage_home / ".cxn" / "agent"
+    cxn_agent_dir = stage_home / ".omp" / "agent"
     agent_rules_dir.mkdir(parents=True)
     cxn_agent_dir.mkdir(parents=True)
     (agent_dir / "AGENTS.md").write_text("agent instructions\n", encoding="utf-8")
@@ -287,13 +287,13 @@ def test_build_extra_env_stages_agent_home(tmp_path: Path, settings: Settings, m
     assert env["HOME"] == str(agent_home)
     assert (agent_home / ".agent" / "AGENTS.md").is_file()
     assert (agent_home / ".agent" / "rules" / "rule.md").is_file()
-    assert (agent_home / ".cxn" / "agent" / "models.yml").is_file()
+    assert (agent_home / ".omp" / "agent" / "models.yml").is_file()
     assert (agent_home / ".agent").stat().st_mode & 0o777 == 0o755
     assert (agent_home / ".agent" / "AGENTS.md").stat().st_mode & 0o777 == 0o644
     assert (agent_home / ".agent" / "rules").stat().st_mode & 0o777 == 0o755
     assert (agent_home / ".agent" / "rules" / "rule.md").stat().st_mode & 0o777 == 0o644
-    assert (agent_home / ".cxn" / "agent").stat().st_mode & 0o777 == 0o755
-    assert (agent_home / ".cxn" / "agent" / "models.yml").stat().st_mode & 0o777 == 0o644
+    assert (agent_home / ".omp" / "agent").stat().st_mode & 0o777 == 0o755
+    assert (agent_home / ".omp" / "agent" / "models.yml").stat().st_mode & 0o777 == 0o644
 
 
 @pytest.mark.asyncio
@@ -342,7 +342,7 @@ async def test_run_rpc_uses_workspace_xdg_dirs_without_slot(tmp_path: Path, sett
     for key in ("XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
         path = Path(env[key])
         assert path.is_relative_to(xdg_root)
-        assert (path / "cxn").is_dir()
+        assert (path / "omp").is_dir()
     tmpdir = inputs.workspace.root / ".cxn-tmp"
     assert env["TMPDIR"] == str(tmpdir)
     assert env["TMP"] == str(tmpdir)
@@ -384,7 +384,7 @@ async def test_run_rpc_uses_workspace_xdg_dirs_for_slot_without_chown(
     for key in ("XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"):
         base = Path(env[key])
         assert base.is_dir()
-        assert (base / "cxn").is_dir()
+        assert (base / "omp").is_dir()
     assert Path(env["BUN_INSTALL_CACHE_DIR"]).is_dir()
     assert chown_calls == []
 
@@ -462,7 +462,7 @@ async def test_run_rpc_passes_slot_uid_user_slot_group_and_cxn_extra_group(tmp_p
     client_kwargs = _FakeRpcClient.instances[0].kwargs
     assert client_kwargs["user"] == 2001
     assert client_kwargs["group"] == 2001
-    assert client_kwargs["extra_groups"] == ["cxn"]
+    assert client_kwargs["extra_groups"] == ["omp"]
 
 
 @pytest.mark.asyncio

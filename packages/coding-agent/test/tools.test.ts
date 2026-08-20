@@ -4,19 +4,19 @@ import * as os from "node:os";
 import * as path from "node:path";
 import * as url from "node:url";
 import * as zlib from "node:zlib";
-import type { AgentToolContext } from "@cxn/pi-agent-core";
-import { AsyncJobManager } from "@cxn/pi-coding-agent/async";
-import { DEFAULT_BASH_INTERCEPTOR_RULES, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { EditTool } from "@cxn/pi-coding-agent/edit";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { BashTool } from "@cxn/pi-coding-agent/tools/bash";
-import { wrapToolWithMetaNotice } from "@cxn/pi-coding-agent/tools/output-meta";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import * as toolTimeouts from "@cxn/pi-coding-agent/tools/tool-timeouts";
-import { WriteTool } from "@cxn/pi-coding-agent/tools/write";
-import { openArchive, readArchiveEntries, unzip } from "@cxn/pi-coding-agent/utils/zip";
-import { $which, removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import type { AgentToolContext } from "@cyberxninja-omp/pi-agent-core";
+import { AsyncJobManager } from "@cyberxninja-omp/pi-coding-agent/async";
+import { DEFAULT_BASH_INTERCEPTOR_RULES, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { EditTool } from "@cyberxninja-omp/pi-coding-agent/edit";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { BashTool } from "@cyberxninja-omp/pi-coding-agent/tools/bash";
+import { wrapToolWithMetaNotice } from "@cyberxninja-omp/pi-coding-agent/tools/output-meta";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import * as toolTimeouts from "@cyberxninja-omp/pi-coding-agent/tools/tool-timeouts";
+import { WriteTool } from "@cyberxninja-omp/pi-coding-agent/tools/write";
+import { openArchive, readArchiveEntries, unzip } from "@cyberxninja-omp/pi-coding-agent/utils/zip";
+import { $which, removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { GlobTool } from "../src/tools/glob";
 import { DEFAULT_FILE_LIMIT, GrepTool, MULTI_FILE_PER_FILE_MATCHES } from "../src/tools/grep";
 import { HubTool } from "../src/tools/hub";
@@ -193,7 +193,7 @@ function createBase256TarArchive(entry: Base256TarEntry): Buffer {
 }
 
 function createPaxHeader(typeFlag: "g" | "x", body: Buffer): Buffer {
-	return tarRecord(createTarHeader("./PaxHeaders/cxn", body.byteLength, typeFlag), body);
+	return tarRecord(createTarHeader("./PaxHeaders/omp", body.byteLength, typeFlag), body);
 }
 
 function paxRecord(key: string, value: string): Buffer {

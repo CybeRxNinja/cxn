@@ -1,6 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import type { ReadyInfo, WorkerInbound, WorkerOutbound } from "@cxn/pi-coding-agent/tools/browser/tab-protocol";
-import { initializeTabWorkerForTest } from "@cxn/pi-coding-agent/tools/browser/tab-supervisor";
+import type {
+	ReadyInfo,
+	WorkerInbound,
+	WorkerOutbound,
+} from "@cyberxninja-omp/pi-coding-agent/tools/browser/tab-protocol";
+import { initializeTabWorkerForTest } from "@cyberxninja-omp/pi-coding-agent/tools/browser/tab-supervisor";
 
 class FakeStartupWorker {
 	#errorHandlers = new Set<(error: Error) => void>();

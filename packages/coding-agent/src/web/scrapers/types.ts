@@ -2,13 +2,13 @@
  * Shared types and utilities for web-fetch handlers
  */
 import { scheduler } from "node:timers/promises";
-import { ptree } from "@cxn/pi-utils";
-import type TurndownService from "@cxn/pi-utils/turndown";
+import { ptree } from "@cyberxninja-omp/pi-utils";
+import type TurndownService from "@cyberxninja-omp/pi-utils/turndown";
 
 import type { AgentStorage } from "../../session/agent-storage";
 import { ToolAbortError } from "../../tools/tool-errors";
 
-export { formatNumber } from "@cxn/pi-utils";
+export { formatNumber } from "@cyberxninja-omp/pi-utils";
 
 export interface RenderResult {
 	url: string;

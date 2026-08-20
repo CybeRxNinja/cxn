@@ -1,5 +1,5 @@
 /**
- * Routing tests for `cxn plugin install <local-path>` (#1945).
+ * Routing tests for `omp plugin install <local-path>` (#1945).
  *
  * Two layers of coverage:
  *  1. Spy-based: `runPluginCommand` with a local path calls
@@ -16,12 +16,12 @@ import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { runPluginCommand } from "@cxn/pi-coding-agent/cli/plugin-cli";
-import { PluginManager } from "@cxn/pi-coding-agent/extensibility/plugins/manager";
-import { MarketplaceManager } from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
-import type { InstalledPlugin } from "@cxn/pi-coding-agent/extensibility/plugins/types";
-import * as piUtils from "@cxn/pi-utils";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { runPluginCommand } from "@cyberxninja-omp/pi-coding-agent/cli/plugin-cli";
+import { PluginManager } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/manager";
+import { MarketplaceManager } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
+import type { InstalledPlugin } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/types";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const FAKE_INSTALLED: InstalledPlugin = {
 	name: "kimi-datasource",
@@ -40,7 +40,7 @@ async function createLocalPlugin(root: string): Promise<string> {
 		JSON.stringify({
 			name: "kimi-datasource",
 			version: "1.0.0",
-			cxn: { extensions: ["./src/extension.ts"] },
+			omp: { extensions: ["./src/extension.ts"] },
 		}),
 	);
 	return localPlugin;
@@ -125,7 +125,7 @@ describe("runPluginCommand({ action: 'install', args: [<local>] })", () => {
 		// End-to-end: stage a real plugin folder, route through plugin-cli
 		// (no spies on PluginManager.link), and verify the resulting symlink
 		// + lockfile entry. Pins the contract that local-path installs
-		// symlink rather than copy-install, matching `cxn plugin link`.
+		// symlink rather than copy-install, matching `omp plugin link`.
 		const localPlugin = await createLocalPlugin(tmpRoot);
 
 		await runPluginCommand({ action: "install", args: [localPlugin], flags: { json: true } });

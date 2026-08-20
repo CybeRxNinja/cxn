@@ -1,4 +1,4 @@
-import { parseKey as nativeParseKey } from "@cxn/pi-natives";
+import { parseKey as nativeParseKey } from "@cyberxninja-omp/pi-natives";
 import * as native from "../src/keys";
 import { makeBench } from "./_harness";
 import * as js from "./_jskey";

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { BeamMemory } from "@cxn/pi-mnemopi/core/beam";
-import { parseQueryTime, temporalBoost } from "@cxn/pi-mnemopi/core/beam/recall";
+import { BeamMemory } from "@cyberxninja-omp/pi-mnemopi/core/beam";
+import { parseQueryTime, temporalBoost } from "@cyberxninja-omp/pi-mnemopi/core/beam/recall";
 
 const beams: BeamMemory[] = [];
 

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import { buildBedrockCompat } from "@cxn/pi-catalog/compat/bedrock";
-import { MODELS_DEV_PROVIDER_DESCRIPTORS, mapModelsDevToModels } from "@cxn/pi-catalog/provider-models";
-import type { ModelSpec } from "@cxn/pi-catalog/types";
+import { buildBedrockCompat } from "@cyberxninja-omp/pi-catalog/compat/bedrock";
+import { MODELS_DEV_PROVIDER_DESCRIPTORS, mapModelsDevToModels } from "@cyberxninja-omp/pi-catalog/provider-models";
+import type { ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 import { dropUnsupportedBedrockGeoIds } from "../scripts/generated-policies";
 
 // AWS's Bedrock model card for Claude Opus 5 lists these commercial/geo

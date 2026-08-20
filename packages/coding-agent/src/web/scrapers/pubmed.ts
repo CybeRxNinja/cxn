@@ -1,7 +1,7 @@
 /**
  * PubMed handler for web-fetch
  */
-import { tryParseJson, USER_AGENT } from "@cxn/pi-utils";
+import { tryParseJson, USER_AGENT } from "@cyberxninja-omp/pi-utils";
 import { buildResult, loadPage, type RenderResult, type SpecialHandler } from "./types";
 
 const NCBI_HEADERS = {

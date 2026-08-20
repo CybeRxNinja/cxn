@@ -4,10 +4,16 @@
  */
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { type Agent, AgentBusyError, type AgentMessage, EventLoopKeepalive, ThinkingLevel } from "@cxn/pi-agent-core";
-import type { CompactionOutcome } from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, ImageContent, Message, Model, Usage, UsageReport } from "@cxn/pi-ai";
-import { modelsAreEqual } from "@cxn/pi-catalog/models";
+import {
+	type Agent,
+	AgentBusyError,
+	type AgentMessage,
+	EventLoopKeepalive,
+	ThinkingLevel,
+} from "@cyberxninja-omp/pi-agent-core";
+import type { CompactionOutcome } from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantMessage, ImageContent, Message, Model, Usage, UsageReport } from "@cyberxninja-omp/pi-ai";
+import { modelsAreEqual } from "@cyberxninja-omp/pi-catalog/models";
 import type {
 	AutocompleteProvider,
 	Component,
@@ -16,7 +22,7 @@ import type {
 	NativeScrollbackLiveRegion,
 	OverlayHandle,
 	SlashCommand,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import {
 	Container,
 	clearRenderCache,
@@ -30,9 +36,9 @@ import {
 	Text,
 	TUI,
 	visibleWidth,
-} from "@cxn/pi-tui";
-import type { TerminalAppearanceRequestToken } from "@cxn/pi-tui/terminal";
-import { isInsideTerminalMultiplexer } from "@cxn/pi-tui/terminal-capabilities";
+} from "@cyberxninja-omp/pi-tui";
+import type { TerminalAppearanceRequestToken } from "@cyberxninja-omp/pi-tui/terminal";
+import { isInsideTerminalMultiplexer } from "@cyberxninja-omp/pi-tui/terminal-capabilities";
 import {
 	$env,
 	APP_NAME,
@@ -46,8 +52,8 @@ import {
 	prompt,
 	sanitizeText,
 	setProjectDir,
-} from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+} from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { reset as resetCapabilities } from "../capability";
 import type { CollabGuestLink } from "../collab/guest";
 import type { CollabHost } from "../collab/host";
@@ -1094,7 +1100,7 @@ export class InteractiveMode implements InteractiveModeContext {
 			this.#eventBusUnsubscribers.push(startMacOSAppearanceReprobeFallback(this.ui.terminal));
 		}
 
-		// Start the UI. Cold `cxn` launch opts into clearing on the first paint so
+		// Start the UI. Cold `omp` launch opts into clearing on the first paint so
 		// the initial welcome frame does not append over the previous run's scrollback.
 		this.ui.start({ clearScrollback: options.clearInitialTerminalHistory === true });
 		pushTerminalTitle();
@@ -1155,7 +1161,7 @@ export class InteractiveMode implements InteractiveModeContext {
 		// custom messages, branch summaries, and compaction summaries) and the user
 		// set no explicit `mode_change` (which #reconcileModeFromSession just
 		// restored). SDK startup metadata and extension `custom` state entries are
-		// ignored. This way `cxn --continue` (or auto-resume) that finds no recent
+		// ignored. This way `omp --continue` (or auto-resume) that finds no recent
 		// session and creates a fresh one still honors the default, while a session
 		// with restored context or an explicit mode keeps its reconciled mode. Scoped
 		// to launch (not the switch reconciler above) so /new and the plan-approval →

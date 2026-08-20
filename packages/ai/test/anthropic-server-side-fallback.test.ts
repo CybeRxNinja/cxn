@@ -15,11 +15,11 @@
  *     the current request also opts in AND the target is official Anthropic.
  */
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { convertAnthropicMessages, streamAnthropic } from "@cxn/pi-ai/providers/anthropic";
-import { AnthropicMessages } from "@cxn/pi-ai/providers/anthropic-client";
-import type { MessageParam } from "@cxn/pi-ai/providers/anthropic-wire";
-import type { AssistantMessage, Context, Model, ToolResultMessage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { convertAnthropicMessages, streamAnthropic } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import { AnthropicMessages } from "@cyberxninja-omp/pi-ai/providers/anthropic-client";
+import type { MessageParam } from "@cyberxninja-omp/pi-ai/providers/anthropic-wire";
+import type { AssistantMessage, Context, Model, ToolResultMessage } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const fableModel: Model<"anthropic-messages"> = buildModel({
 	id: "claude-fable-5",

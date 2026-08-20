@@ -1,11 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import type { AgentToolCall } from "@cxn/pi-agent-core";
-import type { SessionMessageEntry } from "@cxn/pi-agent-core/compaction/entries";
-import { DEFAULT_PRUNE_CONFIG, pruneToolOutputs } from "@cxn/pi-agent-core/compaction/pruning";
-import { AGGRESSIVE_SHAKE_CONFIG, collectShakeRegions } from "@cxn/pi-agent-core/compaction/shake";
-import type { ProtectedToolContext } from "@cxn/pi-agent-core/compaction/tool-protection";
-import type { AssistantMessage, TextContent, ToolResultMessage, Usage } from "@cxn/pi-ai";
-import { createPlanReadMatcher } from "@cxn/pi-coding-agent/plan-mode/plan-protection";
+import type { AgentToolCall } from "@cyberxninja-omp/pi-agent-core";
+import type { SessionMessageEntry } from "@cyberxninja-omp/pi-agent-core/compaction/entries";
+import { DEFAULT_PRUNE_CONFIG, pruneToolOutputs } from "@cyberxninja-omp/pi-agent-core/compaction/pruning";
+import { AGGRESSIVE_SHAKE_CONFIG, collectShakeRegions } from "@cyberxninja-omp/pi-agent-core/compaction/shake";
+import type { ProtectedToolContext } from "@cyberxninja-omp/pi-agent-core/compaction/tool-protection";
+import type { AssistantMessage, TextContent, ToolResultMessage, Usage } from "@cyberxninja-omp/pi-ai";
+import { createPlanReadMatcher } from "@cyberxninja-omp/pi-coding-agent/plan-mode/plan-protection";
 
 function context(opts: { toolName?: string; callName?: string | undefined; path?: string }): ProtectedToolContext {
 	const toolResult = {

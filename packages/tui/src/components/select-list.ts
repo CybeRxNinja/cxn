@@ -1,4 +1,4 @@
-import { popLoopPhase, pushLoopPhase } from "@cxn/pi-utils";
+import { popLoopPhase, pushLoopPhase } from "@cyberxninja-omp/pi-utils";
 import { fuzzyFilter } from "../fuzzy";
 import { getKeybindings } from "../keybindings";
 import { extractPrintableText } from "../keys";

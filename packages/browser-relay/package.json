@@ -1,10 +1,10 @@
 {
 	"type": "module",
-	"name": "@cxn/browser-relay",
+	"name": "@cyberxninja-omp/browser-relay",
 	"version": "17.3.7",
 	"private": true,
-	"description": "Chrome extension that lets the cxn browser tool drive your existing tabs (relay server lives in the cxn CLI: `cxn browser-relay`)",
-	"homepage": "https://cxn.sh",
+	"description": "Chrome extension that lets the omp browser tool drive your existing tabs (relay server lives in the omp CLI: `omp browser-relay`)",
+	"homepage": "https://omp.sh",
 	"author": "Can Boluk",
 	"license": "MIT",
 	"repository": {

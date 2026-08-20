@@ -2,8 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { HistoryStorage } from "@cxn/pi-coding-agent/session/history-storage";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { HistoryStorage } from "@cyberxninja-omp/pi-coding-agent/session/history-storage";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 let tempDir = "";
 

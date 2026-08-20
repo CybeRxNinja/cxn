@@ -5,24 +5,24 @@
  * `discoverModelsByProviderType` with a `DiscoveryContext`; built-in provider
  * discovery lives in pi-catalog's provider-models.
  */
-import { type ApiKey, type FetchImpl, withAuth } from "@cxn/pi-ai";
-import type { Api, Model, RemoteCompactionConfig } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { type ApiKey, type FetchImpl, withAuth } from "@cyberxninja-omp/pi-ai";
+import type { Api, Model, RemoteCompactionConfig } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import {
 	getBundledModelReferenceIndex,
 	inheritReferenceThinking,
 	isQwenModelId,
 	resolveModelReference,
 	stripBracketedModelIdAffixes,
-} from "@cxn/pi-catalog/identity";
+} from "@cyberxninja-omp/pi-catalog/identity";
 import {
 	fetchLiteLLMRichModels,
 	fetchLmStudioNativeModelMetadata,
 	OPENAI_COMPAT_DISCOVERY_DEFAULT_CONTEXT_WINDOW,
 	OPENAI_COMPAT_DISCOVERY_DEFAULT_MAX_TOKENS,
-} from "@cxn/pi-catalog/provider-models/openai-compat";
-import type { ModelSpec, OpenAICompat } from "@cxn/pi-catalog/types";
-import { isRecord } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
+import type { ModelSpec, OpenAICompat } from "@cyberxninja-omp/pi-catalog/types";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 import type { ProviderDiscovery } from "./models-config-schema";
 
 // Default cap on `max_tokens` for auto-discovered models that do not advertise
@@ -566,7 +566,7 @@ function isBonsaiQwenGguf(id: string): boolean {
  * turned off. Qwen ids and the Qwen3.6-based PrismLM Ternary Bonsai GGUFs are
  * routed through chat-completions (the implicit llama.cpp provider defaults to
  * `openai-responses`, whose disable path has no Qwen encoding) with the
- * `qwen-template-false` dialect; cxn emits `preserve_thinking` inside
+ * `qwen-template-false` dialect; omp emits `preserve_thinking` inside
  * `chat_template_kwargs` for Qwen, so the toggle rides there too and history
  * `<think>` blocks survive (`qwenPreserveThinking`). The runtime base URL gets a
  * `/v1` suffix because the chat-completions request would otherwise POST to the

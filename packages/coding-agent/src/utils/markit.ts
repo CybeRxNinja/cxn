@@ -1,5 +1,5 @@
 import * as path from "node:path";
-import { untilAborted } from "@cxn/pi-utils";
+import { untilAborted } from "@cyberxninja-omp/pi-utils";
 import type { ConversionResult, Markit, StreamInfo } from "../markit";
 import { ToolAbortError } from "../tools/tool-errors";
 import {

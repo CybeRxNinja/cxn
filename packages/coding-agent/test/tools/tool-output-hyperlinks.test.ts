@@ -3,14 +3,14 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import * as url from "node:url";
-import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
-import { editToolRenderer } from "@cxn/pi-coding-agent/edit/renderer";
-import { getThemeByName, initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { astGrepToolRenderer } from "@cxn/pi-coding-agent/tools/ast-grep";
-import { ReadTool, readToolRenderer } from "@cxn/pi-coding-agent/tools/read";
-import { WriteTool, writeToolRenderer } from "@cxn/pi-coding-agent/tools/write";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+import { resetSettingsForTest, Settings, settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { editToolRenderer } from "@cyberxninja-omp/pi-coding-agent/edit/renderer";
+import { getThemeByName, initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { astGrepToolRenderer } from "@cyberxninja-omp/pi-coding-agent/tools/ast-grep";
+import { ReadTool, readToolRenderer } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { WriteTool, writeToolRenderer } from "@cyberxninja-omp/pi-coding-agent/tools/write";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 import { grepToolRenderer } from "../../src/tools/grep";
 
 // 1x1 PNG so the read tool takes its image branch.

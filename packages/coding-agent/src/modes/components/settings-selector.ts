@@ -1,5 +1,5 @@
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Effort } from "@cxn/pi-ai";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Effort } from "@cyberxninja-omp/pi-ai";
 import {
 	type Component,
 	Container,
@@ -24,8 +24,8 @@ import {
 	Text,
 	truncateToWidth,
 	visibleWidth,
-} from "@cxn/pi-tui";
-import type { ShapeTarget } from "@cxn/snapcompact";
+} from "@cyberxninja-omp/pi-tui";
+import type { ShapeTarget } from "@cyberxninja-omp/snapcompact";
 import {
 	getDefault,
 	getType,

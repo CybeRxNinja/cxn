@@ -2,8 +2,8 @@
  * Agent discovery from filesystem.
  *
  * Discovers agent definitions from CXN-native task-agent roots:
- *   - ~/.cxn/agent/agents/*.md (user-level)
- *   - .cxn/agents/*.md (project-level)
+ *   - ~/.omp/agent/agents/*.md (user-level)
+ *   - .omp/agents/*.md (project-level)
  *   - <ext>/agents/*.md for every CXN extension package wired through
  *     `listOmpExtensionRoots` (CLI `--extension` roots, `extensions:` in
  *     settings, and enabled npm/link plugins under `<plugins>/node_modules/`).
@@ -20,7 +20,7 @@
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { isProviderEnabled } from "../capability";
 import { findAllNearestProjectConfigDirs, getConfigDirs } from "../config";
 import { listOmpExtensionRoots } from "../discovery/cxn-extension-roots";
@@ -28,7 +28,7 @@ import { listClaudePluginRoots } from "../discovery/helpers";
 import { loadBundledAgents, parseAgent } from "./agents";
 import type { AgentDefinition, AgentSource } from "./types";
 
-const TASK_AGENT_CONFIG_SOURCE = ".cxn";
+const TASK_AGENT_CONFIG_SOURCE = ".omp";
 
 /** Result of agent discovery */
 export interface DiscoveryResult {
@@ -60,7 +60,7 @@ async function loadAgentsFromDir(dir: string, source: AgentSource): Promise<Agen
 
 /**
  * Discover agents from filesystem and merge with bundled agents.
- * Precedence (highest wins): project `.cxn/agents`, user `.cxn/agents`,
+ * Precedence (highest wins): project `.omp/agents`, user `.omp/agents`,
  * CXN extension-package agents in `listOmpExtensionRoots` source order
  * (CLI roots > project `extensions:` settings > user `extensions:` settings >
  * installed npm/link plugins), Claude marketplace plugin agents (project

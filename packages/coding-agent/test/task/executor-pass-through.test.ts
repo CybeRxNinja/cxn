@@ -4,22 +4,26 @@
  * paid for. Regression guard for issue #2190.
  */
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Model } from "@cxn/pi-ai";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import type { Rule } from "@cxn/pi-coding-agent/capability/rule";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolPathWithSource } from "@cxn/pi-coding-agent/extensibility/custom-tools";
-import type { LoadExtensionsResult } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import type { MCPManager } from "@cxn/pi-coding-agent/mcp/manager";
-import type { CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent, PromptOptions } from "@cxn/pi-coding-agent/session/agent-session";
-import { runSubprocess } from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition } from "@cxn/pi-coding-agent/task/types";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import type { Rule } from "@cyberxninja-omp/pi-coding-agent/capability/rule";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolPathWithSource } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-tools";
+import type { LoadExtensionsResult } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import type { MCPManager } from "@cyberxninja-omp/pi-coding-agent/mcp/manager";
+import type { CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type {
+	AgentSession,
+	AgentSessionEvent,
+	PromptOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { runSubprocess } from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { AgentDefinition } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
 
 function createMockSession(onPrompt: (params: { emit: (event: AgentSessionEvent) => void }) => void): AgentSession {
 	const listeners: Array<(event: AgentSessionEvent) => void> = [];
@@ -116,7 +120,7 @@ describe("runSubprocess parent-discovery pass-through (issue #2190)", () => {
 		const spy = vi.spyOn(sdkModule, "createAgentSession").mockResolvedValue(createSessionResult(session));
 
 		const rules: Rule[] = [{ name: "rule-a" } as unknown as Rule];
-		const preloadedExtensionPaths = ["/abs/parent/.cxn/extensions/foo.ts"];
+		const preloadedExtensionPaths = ["/abs/parent/.omp/extensions/foo.ts"];
 		const preloadedCustomToolPaths: ToolPathWithSource[] = [
 			{ path: "tools/x.ts", source: { provider: "config", providerName: "Config", level: "project" } },
 		];

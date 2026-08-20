@@ -1,14 +1,14 @@
 import { Database, type SQLQueryBindings } from "bun:sqlite";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { getAutoresearchDbPath, getAutoresearchProjectDir, logger } from "@cxn/pi-utils";
+import { getAutoresearchDbPath, getAutoresearchProjectDir, logger } from "@cyberxninja-omp/pi-utils";
 import * as git from "../utils/git";
 import type { ASIData, ExperimentStatus, MetricDirection, NumericMetricMap } from "./types";
 
 /**
  * Encode an absolute project path into a single filesystem-safe segment.
  *
- * Used to key per-project autoresearch state under `~/.cxn/autoresearch/`.
+ * Used to key per-project autoresearch state under `~/.omp/autoresearch/`.
  * The `--…--` wrapper is historical — existing on-disk state depends on it,
  * so changing the format here would orphan every prior autoresearch DB.
  * Not collision-free for pathological inputs (`/a/b` vs `/a-b`) but matches

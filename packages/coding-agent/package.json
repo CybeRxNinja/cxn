@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@cxn/pi-coding-agent",
+  "name": "@cyberxninja-omp/pi-coding-agent",
   "version": "17.4.2",
   "description": "Coding agent CLI with read, bash, edit, write tools and session management",
-  "homepage": "https://cxn.sh",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "contributors": [
     "Mario Zechner"
@@ -28,7 +28,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "bin": {
-    "cxn": "src/cli.ts"
+    "omp": "src/cli.ts"
   },
   "scripts": {
     "build": "bun scripts/build-binary.ts",
@@ -48,18 +48,18 @@
   },
   "dependencies": {
     "@babel/parser": "catalog:",
-    "@cxn/hashline": "catalog:",
-    "@cxn/cxn-stats": "catalog:",
-    "@cxn/omptype": "catalog:",
-    "@cxn/pi-agent-core": "catalog:",
-    "@cxn/pi-ai": "catalog:",
-    "@cxn/pi-catalog": "catalog:",
-    "@cxn/pi-mnemopi": "catalog:",
-    "@cxn/pi-natives": "catalog:",
-    "@cxn/pi-tui": "catalog:",
-    "@cxn/pi-utils": "catalog:",
-    "@cxn/pi-wire": "catalog:",
-    "@cxn/snapcompact": "catalog:",
+    "@cyberxninja-omp/hashline": "catalog:",
+    "@cyberxninja-omp/omp-stats": "catalog:",
+    "@cyberxninja-omp/omptype": "catalog:",
+    "@cyberxninja-omp/pi-agent-core": "catalog:",
+    "@cyberxninja-omp/pi-ai": "catalog:",
+    "@cyberxninja-omp/pi-catalog": "catalog:",
+    "@cyberxninja-omp/pi-mnemopi": "catalog:",
+    "@cyberxninja-omp/pi-natives": "catalog:",
+    "@cyberxninja-omp/pi-tui": "catalog:",
+    "@cyberxninja-omp/pi-utils": "catalog:",
+    "@cyberxninja-omp/pi-wire": "catalog:",
+    "@cyberxninja-omp/snapcompact": "catalog:",
     "@opentelemetry/api": "catalog:",
     "@opentelemetry/api-logs": "catalog:",
     "@opentelemetry/context-async-hooks": "catalog:",

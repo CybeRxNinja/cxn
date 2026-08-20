@@ -1,11 +1,11 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	createHandoffSummaryMessageComponent,
 	HandoffSummaryMessageComponent,
-} from "@cxn/pi-coding-agent/modes/components/compaction-summary-message";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { CustomMessage } from "@cxn/pi-coding-agent/session/messages";
+} from "@cyberxninja-omp/pi-coding-agent/modes/components/compaction-summary-message";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { CustomMessage } from "@cyberxninja-omp/pi-coding-agent/session/messages";
 
 beforeAll(async () => {
 	resetSettingsForTest();

@@ -2,7 +2,7 @@
  * Manage configuration settings.
  */
 
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { configHelp as commandHelp } from "../cli/command-help";
 import { type ConfigAction, type ConfigCommandArgs, runConfigCommand } from "../cli/config-cli";
 import { initTheme } from "../modes/theme/theme";

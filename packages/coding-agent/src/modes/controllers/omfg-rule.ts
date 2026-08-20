@@ -1,6 +1,6 @@
 import * as path from "node:path";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage } from "@cxn/pi-ai";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
 import { compileRuleCondition, type Rule } from "../../capability/rule";
 import { buildRuleFromMarkdown, createSourceMeta } from "../../discovery/helpers";
 import { TtsrManager, type TtsrMatchContext } from "../../export/ttsr";

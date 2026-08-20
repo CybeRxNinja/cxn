@@ -1,4 +1,4 @@
-import type { ToolResultMessage } from "@cxn/pi-ai";
+import type { ToolResultMessage } from "@cyberxninja-omp/pi-ai";
 import type { AgentToolCall } from "../types";
 import type { SessionEntry } from "./entries";
 

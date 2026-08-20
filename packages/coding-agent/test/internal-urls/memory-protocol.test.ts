@@ -2,21 +2,21 @@ import { afterAll, afterEach, beforeEach, describe, expect, it } from "bun:test"
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InternalUrlRouter } from "@cxn/pi-coding-agent/internal-urls";
-import { getMemoryRoot } from "@cxn/pi-coding-agent/memories";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InternalUrlRouter } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { getMemoryRoot } from "@cyberxninja-omp/pi-coding-agent/memories";
 import {
 	loadMnemopi,
 	loadMnemopiCore,
 	MnemopiSessionState,
 	setMnemopiSessionState,
-} from "@cxn/pi-coding-agent/mnemopi/state";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { GlobTool } from "@cxn/pi-coding-agent/tools/glob";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import { getAgentDir, removeWithRetries, setAgentDir, TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/mnemopi/state";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { GlobTool } from "@cyberxninja-omp/pi-coding-agent/tools/glob";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { getAgentDir, removeWithRetries, setAgentDir, TempDir } from "@cyberxninja-omp/pi-utils";
 
 // Mnemopi state is loaded lazily; preload so `new MnemopiSessionState(...)` can
 // resolve the module synchronously in the fixtures below.

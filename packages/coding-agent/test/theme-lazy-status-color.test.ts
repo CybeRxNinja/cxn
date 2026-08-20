@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import * as themeModule from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import type { Component } from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui";
+import * as themeModule from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
 
 /**
  * Regression for issue #6337: a status message presented while the auto-theme
@@ -122,6 +122,6 @@ describe("lazy status color re-resolves on theme switch", () => {
 			.split("\n")
 			.map(line => line.trim())
 			.filter(line => line === "Update Available" || line.startsWith("New version "));
-		expect(semanticLines).toEqual(["Update Available", "New version 1.2.3 is available. Run: cxn update"]);
+		expect(semanticLines).toEqual(["Update Available", "New version 1.2.3 is available. Run: omp update"]);
 	});
 });

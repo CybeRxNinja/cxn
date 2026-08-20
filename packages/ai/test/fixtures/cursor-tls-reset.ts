@@ -1,7 +1,7 @@
 import * as net from "node:net";
-import { streamCursor } from "@cxn/pi-ai/providers/cursor";
-import type { Context, Model } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { streamCursor } from "@cyberxninja-omp/pi-ai/providers/cursor";
+import type { Context, Model } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const server = net.createServer(socket => socket.resetAndDestroy());
 const listening = Promise.withResolvers<void>();

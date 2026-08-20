@@ -1,4 +1,4 @@
-import { getOAuthProviders } from "@cxn/pi-ai/oauth";
+import { getOAuthProviders } from "@cyberxninja-omp/pi-ai/oauth";
 import { settings } from "../config/settings";
 import type { AgentSession } from "../session/agent-session";
 import type { SessionOAuthAccountList } from "../session/agent-session-types";

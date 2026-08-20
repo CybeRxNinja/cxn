@@ -1,13 +1,13 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { Tool } from "@cxn/pi-ai/types";
+import { type } from "@cyberxninja-omp/omptype";
+import type { Tool } from "@cyberxninja-omp/pi-ai/types";
 import {
 	adaptSchemaForStrict,
 	normalizeEmptySchemas,
 	stripSchemaDescriptions,
 	stripToolDescriptions,
 	toolWireSchema,
-} from "@cxn/pi-ai/utils/schema";
+} from "@cyberxninja-omp/pi-ai/utils/schema";
 
 // ---------------------------------------------------------------------------
 // normalizeEmptySchemas — provider-agnostic post-pipeline normalization

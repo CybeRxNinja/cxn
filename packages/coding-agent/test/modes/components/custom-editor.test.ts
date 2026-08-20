@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { ImageContent } from "@cxn/pi-ai";
-import { CURSOR_MARKER } from "@cxn/pi-tui";
-import { setKittyProtocolActive } from "@cxn/pi-tui/keys";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
+import { CURSOR_MARKER } from "@cyberxninja-omp/pi-tui";
+import { setKittyProtocolActive } from "@cyberxninja-omp/pi-tui/keys";
 import { $ } from "bun";
 import { getDefaultPasteImageKeys } from "../../../src/config/keybindings";
 import {

@@ -11,19 +11,19 @@
  *      user), and either decision tool resets the counter.
  */
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentMessage, type AgentTool, type StreamFn } from "@cxn/pi-agent-core";
-import { createMockModel, type MockModel, type MockResponse } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { resolveLocalUrlToPath } from "@cxn/pi-coding-agent/internal-urls";
-import { IrcBus, type IrcMessage } from "@cxn/pi-coding-agent/irc/bus";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentMessage, type AgentTool, type StreamFn } from "@cyberxninja-omp/pi-agent-core";
+import { createMockModel, type MockModel, type MockResponse } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { resolveLocalUrlToPath } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { IrcBus, type IrcMessage } from "@cyberxninja-omp/pi-coding-agent/irc/bus";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import planModeReminderPrompt from "../src/prompts/system/plan-mode-tool-decision-reminder.md" with { type: "text" };
 
 /** A stable, literal (non-templated) line of the reminder prompt, so the test

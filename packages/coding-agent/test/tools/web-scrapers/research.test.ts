@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { handleBiorxiv } from "@cxn/pi-coding-agent/web/scrapers/biorxiv";
-import { handleOpenLibrary } from "@cxn/pi-coding-agent/web/scrapers/openlibrary";
-import { handleWikidata } from "@cxn/pi-coding-agent/web/scrapers/wikidata";
+import { handleBiorxiv } from "@cyberxninja-omp/pi-coding-agent/web/scrapers/biorxiv";
+import { handleOpenLibrary } from "@cyberxninja-omp/pi-coding-agent/web/scrapers/openlibrary";
+import { handleWikidata } from "@cyberxninja-omp/pi-coding-agent/web/scrapers/wikidata";
 
 const SKIP = !Bun.env.WEB_FETCH_INTEGRATION;
 

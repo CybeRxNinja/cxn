@@ -5,9 +5,9 @@ import {
 	getCopilotPremiumMultiplier,
 	hasCopilotVisionInput,
 	inferCopilotInitiator,
-} from "@cxn/pi-ai/providers/github-copilot-headers";
-import type { Message } from "@cxn/pi-ai/types";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+} from "@cyberxninja-omp/pi-ai/providers/github-copilot-headers";
+import type { Message } from "@cyberxninja-omp/pi-ai/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 describe("inferCopilotInitiator", () => {
 	it("returns 'user' when there are no messages", () => {

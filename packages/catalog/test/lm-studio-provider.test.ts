@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "bun:test";
-import { lmStudioModelManagerOptions } from "@cxn/pi-catalog/provider-models/openai-compat";
-import type { FetchImpl } from "@cxn/pi-catalog/types";
+import { lmStudioModelManagerOptions } from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
+import type { FetchImpl } from "@cyberxninja-omp/pi-catalog/types";
 
 describe("lm studio local provider discovery", () => {
 	test("marks native VLM models as image-capable", async () => {

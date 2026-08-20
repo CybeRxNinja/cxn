@@ -1,5 +1,5 @@
 import { scheduler } from "node:timers/promises";
-import type { AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
+import type { AgentToolResult, AgentToolUpdateCallback } from "@cyberxninja-omp/pi-agent-core";
 import * as git from "../utils/git";
 import type { ToolSession } from ".";
 import type {

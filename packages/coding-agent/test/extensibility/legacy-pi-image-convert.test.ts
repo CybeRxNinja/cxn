@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { convertToPng } from "@cxn/pi-coding-agent/extensibility/legacy-pi-coding-agent-shim";
+import { convertToPng } from "@cyberxninja-omp/pi-coding-agent/extensibility/legacy-pi-coding-agent-shim";
 
 const RED_1X1_PNG_BASE64 =
 	"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC";

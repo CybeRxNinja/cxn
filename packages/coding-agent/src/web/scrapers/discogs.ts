@@ -5,7 +5,7 @@
  * API docs: https://www.discogs.com/developers
  */
 
-import { tryParseJson, USER_AGENT } from "@cxn/pi-utils";
+import { tryParseJson, USER_AGENT } from "@cyberxninja-omp/pi-utils";
 import type { RenderResult, SpecialHandler } from "./types";
 import { buildResult, loadPage } from "./types";
 

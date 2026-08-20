@@ -2,11 +2,11 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { processFileArguments } from "@cxn/pi-coding-agent/cli/file-processor";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+import { processFileArguments } from "@cyberxninja-omp/pi-coding-agent/cli/file-processor";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // 1x1 red PNG image as base64 (smallest valid PNG)
 const TINY_PNG_BASE64 =

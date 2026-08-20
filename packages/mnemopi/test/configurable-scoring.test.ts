@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { normalizedRecallWeights } from "@cxn/pi-mnemopi/config";
-import { BeamMemory } from "@cxn/pi-mnemopi/core/beam";
+import { normalizedRecallWeights } from "@cyberxninja-omp/pi-mnemopi/config";
+import { BeamMemory } from "@cyberxninja-omp/pi-mnemopi/core/beam";
 
 const beams: BeamMemory[] = [];
 const ORIGINAL_ENV = {

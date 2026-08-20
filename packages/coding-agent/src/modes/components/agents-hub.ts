@@ -12,7 +12,7 @@
 
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { AgentMessage } from "@cxn/pi-agent-core";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
 import {
 	type Component,
 	Editor,
@@ -26,8 +26,8 @@ import {
 	truncateToWidth,
 	visibleWidth,
 	wrapTextWithAnsi,
-} from "@cxn/pi-tui";
-import { isEnoent, prompt } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { isEnoent, prompt } from "@cyberxninja-omp/pi-utils";
 import { YAML } from "bun";
 import { getConfigDirs } from "../../config";
 import type { ModelRegistry } from "../../config/model-registry";

@@ -3,8 +3,8 @@ import { createHash } from "node:crypto";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { computeFactId, VeracityConsolidator } from "@cxn/pi-mnemopi/core/veracity-consolidation";
-import { closeQuietly } from "@cxn/pi-mnemopi/db";
+import { computeFactId, VeracityConsolidator } from "@cyberxninja-omp/pi-mnemopi/core/veracity-consolidation";
+import { closeQuietly } from "@cyberxninja-omp/pi-mnemopi/db";
 
 afterEach(() => {
 	vi.restoreAllMocks();

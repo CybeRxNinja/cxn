@@ -29,7 +29,7 @@ npx tsx examples/sdk/01-minimal.ts
 ## Quick Reference
 
 ```typescript
-import { getModel } from "@cxn/pi-ai";
+import { getModel } from "@cyberxninja-omp/pi-ai";
 import {
 	AuthStorage,
 	createAgentSession,
@@ -47,7 +47,7 @@ import {
 	BUILTIN_TOOLS,
 	HIDDEN_TOOLS,
 	createTools,
-} from "@cxn/pi-coding-agent";
+} from "@cyberxninja-omp/pi-coding-agent";
 
 // Auth and models setup
 const authStorage = discoverAuthStorage();
@@ -130,7 +130,7 @@ await writeTool.execute("call-1", {
 | `authStorage`               | `discoverAuthStorage()`       | Credential storage                |
 | `modelRegistry`             | `discoverModels(authStorage)` | Model registry                    |
 | `cwd`                       | `process.cwd()`               | Working directory                 |
-| `agentDir`                  | `~/.cxn/agent`                | Config directory                  |
+| `agentDir`                  | `~/.omp/agent`                | Config directory                  |
 | `model`                     | From settings/first available | Model to use                      |
 | `thinkingLevel`             | From settings/"off"           | off, low, medium, high            |
 | `systemPrompt`              | Discovered                    | String or `(default) => modified` |

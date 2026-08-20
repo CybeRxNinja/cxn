@@ -2,19 +2,19 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCustomApis } from "@cxn/pi-ai/api-registry";
-import { startAuthGateway } from "@cxn/pi-ai/auth-gateway";
-import { AuthStorage } from "@cxn/pi-ai/auth-storage";
-import { createMockModel, registerMockApi } from "@cxn/pi-ai/providers/mock";
-import { encodeStream, formatError, parseRequest } from "@cxn/pi-ai/providers/pi-native-server";
+import { clearCustomApis } from "@cyberxninja-omp/pi-ai/api-registry";
+import { startAuthGateway } from "@cyberxninja-omp/pi-ai/auth-gateway";
+import { AuthStorage } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { createMockModel, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { encodeStream, formatError, parseRequest } from "@cyberxninja-omp/pi-ai/providers/pi-native-server";
 import type {
 	AssistantMessage,
 	AssistantMessageEvent,
 	AssistantMessageEventStream,
 	Context,
 	Usage,
-} from "@cxn/pi-ai/types";
-import { Effort } from "@cxn/pi-catalog/effort";
+} from "@cyberxninja-omp/pi-ai/types";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
 
 function makeEventStream(events: AssistantMessageEvent[], final: AssistantMessage): AssistantMessageEventStream {
 	async function* iter() {
@@ -275,7 +275,7 @@ describe("pi-native gateway cache controls", () => {
 });
 describe("pi-native encodeStream", () => {
 	it("ships every AssistantMessageEvent verbatim, terminated by [DONE]", async () => {
-		// Pi-native is cxn-talks-to-cxn: the client feeds parsed events directly
+		// Pi-native is cxn-talks-to-omp: the client feeds parsed events directly
 		// into `AssistantMessageEventStream.push()`, so the wire IS the canonical
 		// event type. No partial-stripping, no per-event re-shaping.
 		const finalMessage = baseAssistant({

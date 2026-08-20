@@ -1,7 +1,10 @@
 import { describe, expect, test } from "bun:test";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { CATALOG_PROVIDERS } from "@cxn/pi-catalog/provider-models/descriptors";
-import { META_MUSE_STATIC_MODELS, metaModelManagerOptions } from "@cxn/pi-catalog/provider-models/openai-compat";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { CATALOG_PROVIDERS } from "@cyberxninja-omp/pi-catalog/provider-models/descriptors";
+import {
+	META_MUSE_STATIC_MODELS,
+	metaModelManagerOptions,
+} from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
 
 describe("Meta Model API provider", () => {
 	test("ships Muse Spark 1.1 with its documented Responses capabilities", () => {

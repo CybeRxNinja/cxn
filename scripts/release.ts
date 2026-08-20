@@ -21,7 +21,7 @@ const cargoTomlGlob = new Glob("crates/*/Cargo.toml");
  * leading `v` and NO prerelease suffix. Prereleases are rejected because the
  * downstream publish (`scripts/ci-release-publish.ts`) runs `npm publish` with
  * no `--tag`, which would promote a prerelease to the npm `latest` dist-tag —
- * hitting every unqualified install and the `/latest` endpoint `cxn update`
+ * hitting every unqualified install and the `/latest` endpoint `omp update`
  * reads. Bump keywords (major/minor/patch) are handled separately and must not
  * be routed through this check.
  *
@@ -283,12 +283,12 @@ async function cmdRelease(versionOrBump: string): Promise<void> {
 	}
 	console.log();
 
-	// Update @cxn/* catalog entries in root package.json
+	// Update @cyberxninja-omp/* catalog entries in root package.json
 	console.log("Updating root catalog versions...");
 	let rootPkgRaw = await Bun.file("package.json").text();
-	rootPkgRaw = rootPkgRaw.replace(/("@cxn\/[^"]+":\s*)"[^"]+"/g, `$1"${version}"`);
+	rootPkgRaw = rootPkgRaw.replace(/("@cyberxninja-omp\/[^"]+":\s*)"[^"]+"/g, `$1"${version}"`);
 	await Bun.write("package.json", rootPkgRaw);
-	console.log("  Updated root catalog @cxn/* entries");
+	console.log("  Updated root catalog @cyberxninja-omp/* entries");
 
 	// 3. Update Rust workspace version
 	console.log(`Updating Rust workspace version to ${version}…`);

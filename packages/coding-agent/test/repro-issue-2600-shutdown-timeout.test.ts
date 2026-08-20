@@ -18,18 +18,18 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { discoverAndLoadExtensions } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { discoverAndLoadExtensions } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
 import {
 	EXTENSION_HANDLER_TIMEOUT_MS,
 	ExtensionRunner,
 	SESSION_SHUTDOWN_HANDLER_TIMEOUT_MS,
 	testSetExtensionHandlerTimeoutMs,
 	testSetSessionShutdownHandlerTimeoutMs,
-} from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { getProjectAgentDir, logger, TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { getProjectAgentDir, logger, TempDir } from "@cyberxninja-omp/pi-utils";
 
 const HANG_EXTENSION_SRC = `
 	export default function(pi) {

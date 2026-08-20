@@ -33,7 +33,7 @@
  * Reference: https://docs.searxng.org/dev/search_api.html
  */
 
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
 
 import { settings } from "../../../config/settings";
 import type { SearchResponse, SearchSource } from "../../../web/search/types";

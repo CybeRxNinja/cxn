@@ -2,7 +2,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, spyOn
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getProjectDir, setProjectDir } from "@cxn/pi-utils";
+import { getProjectDir, setProjectDir } from "@cyberxninja-omp/pi-utils";
 import { Settings, settings } from "../../../../src/config/settings";
 import { StatusLineComponent } from "../../../../src/modes/components/status-line/component";
 import { getThemeByName, setThemeInstance } from "../../../../src/modes/theme/theme";

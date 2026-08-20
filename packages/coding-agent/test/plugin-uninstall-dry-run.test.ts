@@ -1,5 +1,5 @@
 /**
- * Regression tests for `cxn plugin uninstall <plugin> --dry-run` (#8178).
+ * Regression tests for `omp plugin uninstall <plugin> --dry-run` (#8178).
  *
  * `--dry-run` must be non-mutating: it reports what would be removed and
  * leaves the installed plugin list untouched. Before the fix, `handleUninstall`
@@ -11,10 +11,10 @@
  * theme (`runPluginCommand` does not initialize the theme on its own).
  */
 import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:test";
-import { runPluginCommand } from "@cxn/pi-coding-agent/cli/plugin-cli";
-import { PluginManager } from "@cxn/pi-coding-agent/extensibility/plugins/manager";
-import type { InstalledPluginSummary } from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
-import { MarketplaceManager } from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
+import { runPluginCommand } from "@cyberxninja-omp/pi-coding-agent/cli/plugin-cli";
+import { PluginManager } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/manager";
+import type { InstalledPluginSummary } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
+import { MarketplaceManager } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
 
 describe("runPluginCommand({ action: 'uninstall', flags: { dryRun } })", () => {
 	beforeEach(() => {

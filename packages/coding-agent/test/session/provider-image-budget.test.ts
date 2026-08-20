@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import type { Context, ImageContent, TextContent } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { clampProviderContextImages } from "@cxn/pi-coding-agent/session/provider-image-budget";
+import type { Context, ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { clampProviderContextImages } from "@cyberxninja-omp/pi-coding-agent/session/provider-image-budget";
 
 const UMANS_MODEL = buildModel({
 	id: "umans-glm-5.2",

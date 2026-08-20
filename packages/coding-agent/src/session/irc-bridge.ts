@@ -1,5 +1,5 @@
-import type { Agent } from "@cxn/pi-agent-core";
-import { logger, prompt } from "@cxn/pi-utils";
+import type { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { logger, prompt } from "@cyberxninja-omp/pi-utils";
 import type { Settings } from "../config/settings";
 import { IrcBus, type IrcMessage } from "../irc/bus";
 import parentIrcSteerTemplate from "../prompts/steering/parent-irc.md" with { type: "text" };

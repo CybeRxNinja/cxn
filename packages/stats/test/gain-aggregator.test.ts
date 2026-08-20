@@ -1,10 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { initDb, insertMessageStats } from "@cxn/cxn-stats/db";
-import { dedupeProjects, getGainDashboardStats, normalizeProjectPath } from "@cxn/cxn-stats/gain-aggregator";
-import type { MessageStats } from "@cxn/cxn-stats/types";
-import { getStatsDbPath } from "@cxn/pi-utils";
+import { initDb, insertMessageStats } from "@cyberxninja-omp/omp-stats/db";
+import {
+	dedupeProjects,
+	getGainDashboardStats,
+	normalizeProjectPath,
+} from "@cyberxninja-omp/omp-stats/gain-aggregator";
+import type { MessageStats } from "@cyberxninja-omp/omp-stats/types";
+import { getStatsDbPath } from "@cyberxninja-omp/pi-utils";
 import { installStatsTestIsolation } from "./helpers/temp-agent";
 
 installStatsTestIsolation("@pi-stats-gain-");

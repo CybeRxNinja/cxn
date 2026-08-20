@@ -19,8 +19,8 @@
 
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { Model } from "@cxn/pi-ai";
-import { getStatsDbPath, isEnoent, logger } from "@cxn/pi-utils";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { getStatsDbPath, isEnoent, logger } from "@cyberxninja-omp/pi-utils";
 
 export interface SnapcompactSavingsRecord {
 	/** Epoch milliseconds when the swap was applied. */
@@ -33,7 +33,7 @@ export interface SnapcompactSavingsRecord {
 	savedTokens: number;
 }
 
-/** `~/.cxn/.../snapcompact-savings.jsonl`, colocated with stats.db. */
+/** `~/.omp/.../snapcompact-savings.jsonl`, colocated with stats.db. */
 export function snapcompactSavingsJournalPath(): string {
 	return path.join(path.dirname(getStatsDbPath()), "snapcompact-savings.jsonl");
 }

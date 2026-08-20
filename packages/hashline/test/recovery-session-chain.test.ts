@@ -17,7 +17,7 @@ import {
 	RECOVERY_LINE_REMAP_WARNING,
 	RECOVERY_SESSION_CHAIN_WARNING,
 	Recovery,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 
 const PATH = "/tmp/__hashline-recovery-session-chain__.ts";
 

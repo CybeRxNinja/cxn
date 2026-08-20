@@ -7,7 +7,7 @@ import {
 	logger,
 	type RuntimeInstallSpec,
 	resolveRuntimeModule,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import type * as Fastembed from "fastembed";
 import packageManifest from "../../package.json" with { type: "json" };
 

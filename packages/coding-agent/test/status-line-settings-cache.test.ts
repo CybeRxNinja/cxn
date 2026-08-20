@@ -3,12 +3,15 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { stripVTControlCharacters } from "node:util";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { StatusLineComponent, type StatusLineSettings } from "@cxn/pi-coding-agent/modes/components/status-line";
-import { STATUS_LINE_PRESETS } from "@cxn/pi-coding-agent/modes/components/status-line/presets";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import { removeSyncWithRetries, setProjectDir } from "@cxn/pi-utils";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	StatusLineComponent,
+	type StatusLineSettings,
+} from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line";
+import { STATUS_LINE_PRESETS } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line/presets";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import { removeSyncWithRetries, setProjectDir } from "@cyberxninja-omp/pi-utils";
 import { beginSettingsTest, restoreSettingsTestState, type SettingsTestState } from "./helpers/settings-test-state";
 
 let settingsState: SettingsTestState | undefined;

@@ -1,9 +1,9 @@
 import { afterAll, afterEach, describe, expect, it, vi } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { disposeAllVmContexts } from "@cxn/pi-coding-agent/eval/js/context-manager";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { EvalTool } from "@cxn/pi-coding-agent/tools/eval";
-import * as toolTimeouts from "@cxn/pi-coding-agent/tools/tool-timeouts";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { disposeAllVmContexts } from "@cyberxninja-omp/pi-coding-agent/eval/js/context-manager";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { EvalTool } from "@cyberxninja-omp/pi-coding-agent/tools/eval";
+import * as toolTimeouts from "@cyberxninja-omp/pi-coding-agent/tools/tool-timeouts";
 
 function makeSession(): ToolSession {
 	return {

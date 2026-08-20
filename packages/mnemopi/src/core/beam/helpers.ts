@@ -1,5 +1,5 @@
 import type { Database } from "bun:sqlite";
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { generateId as generateTimedId, sha256Hex16, stableMemoryId } from "../../util/ids";
 import {
 	cjkFtsTerms,

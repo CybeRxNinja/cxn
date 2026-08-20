@@ -1,8 +1,8 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test";
-import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
-import { loadHindsightConfig } from "@cxn/pi-coding-agent/hindsight/config";
-import { SettingsSelectorComponent } from "@cxn/pi-coding-agent/modes/components/settings-selector";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import { resetSettingsForTest, Settings, settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { loadHindsightConfig } from "@cyberxninja-omp/pi-coding-agent/hindsight/config";
+import { SettingsSelectorComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/settings-selector";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 
 beforeAll(async () => {
 	await initTheme();

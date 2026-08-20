@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 
-import { getProjectDir, logger } from "@cxn/pi-utils";
+import { getProjectDir, logger } from "@cyberxninja-omp/pi-utils";
 import type { ToolSession } from "../../tools";
 import {
 	buildManagedKernelEnv,

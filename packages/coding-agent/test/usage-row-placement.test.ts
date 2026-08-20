@@ -4,16 +4,16 @@
  * assistant turns retain a standalone row below their visible content/tools.
  */
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
-import { ChatTranscriptBuilder } from "@cxn/pi-coding-agent/modes/components/chat-transcript-builder";
-import { ReadToolGroupComponent } from "@cxn/pi-coding-agent/modes/components/read-tool-group";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import type { SessionContext } from "@cxn/pi-coding-agent/session/session-context";
-import { Container, type TUI } from "@cxn/pi-tui";
-import { formatNumber } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { resetSettingsForTest, Settings, settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { ChatTranscriptBuilder } from "@cyberxninja-omp/pi-coding-agent/modes/components/chat-transcript-builder";
+import { ReadToolGroupComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/read-tool-group";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import type { SessionContext } from "@cyberxninja-omp/pi-coding-agent/session/session-context";
+import { Container, type TUI } from "@cyberxninja-omp/pi-tui";
+import { formatNumber } from "@cyberxninja-omp/pi-utils";
 
 // 4242 → "4.2K": distinctive enough not to collide with a read group's render.
 const USAGE_INPUT = 4242;

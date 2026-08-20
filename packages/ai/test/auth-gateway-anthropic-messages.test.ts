@@ -1,14 +1,14 @@
 import { describe, expect, it } from "bun:test";
-import { encodeResponse, encodeStream, parseRequest } from "@cxn/pi-ai/providers/anthropic-messages-server";
+import { encodeResponse, encodeStream, parseRequest } from "@cyberxninja-omp/pi-ai/providers/anthropic-messages-server";
 import type {
 	ToolSearchServerToolUseBlockParam,
 	ToolSearchToolResultBlockParam,
 	WebSearchServerToolUseBlockParam,
 	WebSearchToolResultBlockParam,
-} from "@cxn/pi-ai/providers/anthropic-wire";
-import type { AssistantMessage, AssistantMessageEvent, ToolResultMessage } from "@cxn/pi-ai/types";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { Effort } from "@cxn/pi-catalog/effort";
+} from "@cyberxninja-omp/pi-ai/providers/anthropic-wire";
+import type { AssistantMessage, AssistantMessageEvent, ToolResultMessage } from "@cyberxninja-omp/pi-ai/types";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
 
 function emptyUsage(): AssistantMessage["usage"] {
 	return {

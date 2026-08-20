@@ -5,8 +5,8 @@
  * The negotiated protocol revision is carried in the `MCP-Protocol-Version`
  * header on every request (see `MCP_PROTOCOL_VERSION`).
  */
-import * as AIError from "@cxn/pi-ai/error";
-import { logger, readSseEvents, readSseJson } from "@cxn/pi-utils";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { logger, readSseEvents, readSseJson } from "@cyberxninja-omp/pi-utils";
 import type {
 	JsonRpcError,
 	JsonRpcMessage,

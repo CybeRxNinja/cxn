@@ -5,9 +5,14 @@ import {
 	goalTokenDelta,
 	renderGoalPrompt,
 	renderTrustedObjective,
-} from "@cxn/pi-coding-agent/goals/runtime";
-import type { Goal, GoalModeState, GoalRuntimeEvent, GoalTokenUsage } from "@cxn/pi-coding-agent/goals/state";
-import { escapeXmlText } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/goals/runtime";
+import type {
+	Goal,
+	GoalModeState,
+	GoalRuntimeEvent,
+	GoalTokenUsage,
+} from "@cyberxninja-omp/pi-coding-agent/goals/state";
+import { escapeXmlText } from "@cyberxninja-omp/pi-utils";
 
 function createUsage(overrides: Partial<GoalTokenUsage> = {}): GoalTokenUsage {
 	return {

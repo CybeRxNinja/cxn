@@ -1,13 +1,16 @@
 import { describe, expect, test } from "bun:test";
-import { unregisterOAuthProvider } from "@cxn/pi-ai/oauth";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { ExtensionRuntime, loadExtensionFromFactory } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import type { ProviderConfig } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { TempDir } from "@cxn/pi-utils";
+import { unregisterOAuthProvider } from "@cyberxninja-omp/pi-ai/oauth";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import {
+	ExtensionRuntime,
+	loadExtensionFromFactory,
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import type { ProviderConfig } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const testProviderConfig: ProviderConfig = {
 	baseUrl: "https://example.invalid/v1",

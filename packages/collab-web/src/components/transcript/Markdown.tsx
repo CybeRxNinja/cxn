@@ -1,4 +1,4 @@
-import { Marked } from "@cxn/pi-utils/marked";
+import { Marked } from "@cyberxninja-omp/pi-utils/marked";
 import type { ReactNode } from "react";
 import { memo, useMemo } from "react";
 

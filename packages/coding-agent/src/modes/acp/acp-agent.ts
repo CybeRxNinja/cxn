@@ -1,8 +1,8 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
-import type { AssistantMessage, Model } from "@cxn/pi-ai";
-import { getBlobsDir, isEnoent, logger, type postmortem, VERSION } from "@cxn/pi-utils";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, Model } from "@cyberxninja-omp/pi-ai";
+import { getBlobsDir, isEnoent, logger, type postmortem, VERSION } from "@cyberxninja-omp/pi-utils";
 import {
 	type Agent,
 	type AgentSideConnection,
@@ -42,7 +42,7 @@ import {
 	type SetSessionModeRequest,
 	type SetSessionModeResponse,
 	type Usage,
-} from "@cxn/pi-utils/acp";
+} from "@cyberxninja-omp/pi-utils/acp";
 import { disableProvider, enableProvider, reset as resetCapabilities } from "../../capability";
 import { Settings } from "../../config/settings";
 import { clearPluginRootsAndCaches, resolveActiveProjectRegistryPath } from "../../discovery/helpers";
@@ -497,23 +497,23 @@ export class AcpAgent implements Agent {
 			{
 				id: "agent",
 				name: "Use existing local credentials",
-				description: "Authenticate via the provider keys/OAuth state already configured under ~/.cxn.",
+				description: "Authenticate via the provider keys/OAuth state already configured under ~/.omp.",
 			},
 		];
 		if (params.clientCapabilities?.auth?.terminal === true) {
 			authMethods.push({
 				type: "terminal",
 				id: "terminal",
-				name: "Set up cxn in terminal",
-				description: "Launch the cxn TUI to add provider keys and select models.",
+				name: "Set up omp in terminal",
+				description: "Launch the omp TUI to add provider keys and select models.",
 				args: [ACP_TERMINAL_AUTH_FLAG],
 			});
 		}
 		return {
 			protocolVersion: PROTOCOL_VERSION,
 			agentInfo: {
-				name: "cxn",
-				title: "cxn",
+				name: "omp",
+				title: "omp",
 				version: VERSION,
 			},
 			authMethods,

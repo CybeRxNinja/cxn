@@ -3,12 +3,12 @@ import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 import { stripVTControlCharacters } from "node:util";
-import { CURSOR_MARKER, TUI } from "@cxn/pi-tui";
-import { CombinedAutocompleteProvider } from "@cxn/pi-tui/autocomplete";
-import { Editor } from "@cxn/pi-tui/components/editor";
-import { KeybindingsManager, setKeybindings, TUI_KEYBINDINGS } from "@cxn/pi-tui/keybindings";
-import { setKittyProtocolActive } from "@cxn/pi-tui/keys";
-import { visibleWidth } from "@cxn/pi-tui/utils";
+import { CURSOR_MARKER, TUI } from "@cyberxninja-omp/pi-tui";
+import { CombinedAutocompleteProvider } from "@cyberxninja-omp/pi-tui/autocomplete";
+import { Editor } from "@cyberxninja-omp/pi-tui/components/editor";
+import { KeybindingsManager, setKeybindings, TUI_KEYBINDINGS } from "@cyberxninja-omp/pi-tui/keybindings";
+import { setKittyProtocolActive } from "@cyberxninja-omp/pi-tui/keys";
+import { visibleWidth } from "@cyberxninja-omp/pi-tui/utils";
 import { defaultEditorTheme } from "./test-themes";
 import { VirtualTerminal } from "./virtual-terminal";
 

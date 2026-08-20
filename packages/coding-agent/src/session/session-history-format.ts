@@ -6,10 +6,10 @@
  * result pairs collapsed to single lines, thinking elided, custom messages
  * as one-liners. No system prompt, no tool catalog, no config sections.
  */
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage, ImageContent, TextContent, ToolResultMessage } from "@cxn/pi-ai";
-import { escapeXmlText } from "@cxn/pi-utils";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, ImageContent, TextContent, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
+import { escapeXmlText } from "@cyberxninja-omp/pi-utils";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import type {
 	BashExecutionMessage,
 	BranchSummaryMessage,

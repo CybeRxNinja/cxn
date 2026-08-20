@@ -1,4 +1,4 @@
-import { getProjectDir, sanitizeText } from "@cxn/pi-utils";
+import { getProjectDir, sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { pickCleanseTarget, promptCleanseRequest } from "../cli/cleanse-picker";
 import { createProgressReporter } from "../cli/progress-reporter";
 import { shortenPath } from "../tools/render-utils";
@@ -11,7 +11,7 @@ import type { CleanseAgentOutcome, CleanseAssignment, CleanseDiagnosticReport, C
 const DEFAULT_MODEL = "@smol";
 const DISPLAY_FILE_LIMIT = 50;
 
-/** User-facing options for `cxn cleanse`. */
+/** User-facing options for `omp cleanse`. */
 export interface CleanseCommandOptions {
 	maxAgents?: number;
 	model?: string;

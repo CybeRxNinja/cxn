@@ -6,7 +6,7 @@
  * files within one call). The executor works on a fork per batch and commits
  * it back only after every write lands — see `executeHashlineSingle`.
  */
-import type { Clipboard } from "@cxn/hashline";
+import type { Clipboard } from "@cyberxninja-omp/hashline";
 
 interface EditClipboardOwner {
 	editClipboard?: Clipboard;

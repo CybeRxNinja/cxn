@@ -7,7 +7,7 @@ import type {
 	InstalledPluginsRegistry,
 	MarketplaceRegistryEntry,
 	MarketplacesRegistry,
-} from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
 import {
 	addInstalledPlugin,
 	addMarketplaceEntry,
@@ -22,11 +22,11 @@ import {
 	removeMarketplaceEntry,
 	writeInstalledPluginsRegistry,
 	writeMarketplacesRegistry,
-} from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // Inline the parseClaudePluginsRegistry validation logic to avoid pulling
-// in discovery/helpers.ts which transitively imports @cxn/pi-natives.
+// in discovery/helpers.ts which transitively imports @cyberxninja-omp/pi-natives.
 // Matches the exact checks in helpers.ts parseClaudePluginsRegistry().
 function validateClaudeRegistryFormat(content: string): Record<string, unknown> | null {
 	let data: Record<string, unknown>;

@@ -3,7 +3,7 @@ import { spawnSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 /**
- * Harbor benchmark runner for the local `cxn` build.
+ * Harbor benchmark runner for the local `omp` build.
  *
  * Orchestrates Harbor (`harbor run`) against any Harbor dataset (default
  * terminal-bench-2) using a custom agent (`agent/cxn_local.py`) that installs
@@ -30,8 +30,8 @@ const CODING_AGENT_DIR = path.join(REPO_ROOT, "packages", "coding-agent");
 const AGENT_IMPORT_PATH = "cxn_local:OmpLocal";
 
 /** Container-side mount points for `--install source` (must match cxn_local.py defaults). */
-const SOURCE_SRC_MOUNT = "/opt/cxn/src";
-const SOURCE_BIN_MOUNT = "/opt/cxn/bin";
+const SOURCE_SRC_MOUNT = "/opt/omp/src";
+const SOURCE_BIN_MOUNT = "/opt/omp/bin";
 
 /** Host address containers see on Apple Container's vmnet (bridge) network. */
 const VMNET_HOST_IP = "192.168.64.1";
@@ -53,7 +53,7 @@ export interface Config {
 	include: string[];
 	exclude: string[];
 	thinking: string | null;
-	/** Extra args forwarded verbatim to the in-container cxn CLI invocation (repeatable). */
+	/** Extra args forwarded verbatim to the in-container omp CLI invocation (repeatable). */
 	agentArgs: string[];
 
 	agent: string;
@@ -99,7 +99,7 @@ function defaultConfig(): Config {
 		thinking: null,
 		agentArgs: [],
 
-		agent: "cxn",
+		agent: "omp",
 		install: "source",
 		version: null,
 		tarball: null,
@@ -128,7 +128,7 @@ function defaultConfig(): Config {
 	};
 }
 
-const HELP = `metaharness runner (local cxn)
+const HELP = `metaharness runner (local omp)
 
 Usage: metaharness harbor [options] [-- <extra harbor args>]
 
@@ -137,17 +137,17 @@ Commands:
 
 Model / agent:
   -m, --model <provider/model>   Model (repeatable). Default anthropic/claude-sonnet-4-6
-      --agent <name>             cxn (default) | oracle | nop | any harbor agent
-      --install <source|local|published> cxn install mode (default: source).
+      --agent <name>             omp (default) | oracle | nop | any harbor agent
+      --install <source|local|published> omp install mode (default: source).
                                  source = mount /work/pi read-only + prebuilt linux deps tree; TS changes
                                  apply per-trial with no rebuild. local = pack a tarball. published = npm.
-      --version <v>              cxn version for published install (default: latest)
+      --version <v>              omp version for published install (default: latest)
       --thinking <level>         off|minimal|low|medium|high|xhigh|max
 
-      --tarball <path>           Reuse a prebuilt cxn tarball (implies --install local, --no-build)
+      --tarball <path>           Reuse a prebuilt omp tarball (implies --install local, --no-build)
       --no-build                 Skip packing; reuse newest tarball in bench dir (--install local)
-      --agent-arg <arg>          Extra arg forwarded verbatim to the in-container cxn CLI (repeatable)
-      --env <KEY[=VALUE]>        Forward env into cxn container (repeatable).
+      --agent-arg <arg>          Extra arg forwarded verbatim to the in-container omp CLI (repeatable)
+      --env <KEY[=VALUE]>        Forward env into omp container (repeatable).
                                  KEY alone forwards host value; host PI_* auto-forwarded.
 
 Dataset / scale:
@@ -163,7 +163,7 @@ Gateway (auth, no keys in container):
       --gateway-token <tok>      Default "no-auth" (gateway runs --no-auth)
       --providers <csv>          Providers to route (default: model provider + anthropic,openai-codex)
       --no-gateway               Pass host provider API keys into containers instead
-      --web-search               Enable cxn web_search (off by default; can't auth via gateway)
+      --web-search               Enable omp web_search (off by default; can't auth via gateway)
       --allow-host <host>        harbor --allow-agent-host (repeatable)
 
 Environment:
@@ -572,7 +572,7 @@ function probeLine(line: string, probe: CostProbe): void {
 
 /**
  * Realtime usage for a still-running trial, read incrementally from its
- * `agent/cxn.txt` JSONL. Only bytes appended since the previous call are read
+ * `agent/omp.txt` JSONL. Only bytes appended since the previous call are read
  * and parsed — both this runner's render loop and the manager's 2s sync tick
  * call this for every live trial, and a full-file reread used to block the
  * event loop for seconds (and OOM outright on runaway multi-GB transcripts).
@@ -646,8 +646,8 @@ function parseTrial(dir: string, name: string): Trial | null {
 			/* ignore */
 		}
 
-		// Realtime cost from the live agent cxn.txt log, parsed incrementally.
-		const probe = probeTrialCost(path.join(dir, "agent", "cxn.txt"));
+		// Realtime cost from the live agent omp.txt log, parsed incrementally.
+		const probe = probeTrialCost(path.join(dir, "agent", "omp.txt"));
 		const costUsd = probe?.costUsd ?? 0;
 		const tokIn = probe?.tokIn ?? 0;
 		const tokOut = probe?.tokOut ?? 0;
@@ -666,7 +666,7 @@ function parseTrial(dir: string, name: string): Trial | null {
 		};
 	}
 	// Trial finished: usage now comes from result.json; drop the live-parse state.
-	costProbes.delete(path.join(dir, "agent", "cxn.txt"));
+	costProbes.delete(path.join(dir, "agent", "omp.txt"));
 	const raw = readJson(resultPath);
 	if (!raw || typeof raw !== "object") return null;
 	const r = raw as Record<string, unknown>;
@@ -924,7 +924,7 @@ function writeReport(st: RenderState, benchDir: string, exitCode: number): strin
 	const tot = aggregate(trials, readJobResult(st.jobDir), st.expected);
 	const successPct = tot.done > 0 ? (tot.pass / tot.done) * 100 : 0;
 	const lines: string[] = [];
-	const isOmp = st.cfg.agent === "cxn";
+	const isOmp = st.cfg.agent === "omp";
 	const argsLabel = agentArgsLabel(st.cfg);
 	const baseModelLine = st.cfg.models.join(", ");
 	const modelLine = argsLabel ? `${baseModelLine} (${argsLabel})` : baseModelLine;
@@ -985,7 +985,7 @@ function readPkgVersion(): string {
 }
 
 function buildTarball(benchDir: string): string {
-	process.stdout.write(dim("packing local cxn (bun pm pack)…\n"));
+	process.stdout.write(dim("packing local omp (bun pm pack)…\n"));
 	const r = spawnSync("bun", ["pm", "pack", "--destination", benchDir], {
 		cwd: CODING_AGENT_DIR,
 		encoding: "utf8",
@@ -1019,7 +1019,7 @@ function newestTarball(benchDir: string): string | null {
 
 // ─────────────────────────────────────────────────────── source mount (--install source)
 
-/** Linux deps tree + mount plan for running cxn straight from the mounted repo. */
+/** Linux deps tree + mount plan for running omp straight from the mounted repo. */
 export interface SourceMount {
 	arch: "arm64" | "x64";
 	/** Host dir holding the linux `bin/bun` + skeleton `node_modules` trees. */
@@ -1326,7 +1326,7 @@ function buildHarborArgs(
 	if (cfg.envType !== "docker") a.push("-e", cfg.envType);
 	if (mountsJson) a.push("--mounts", mountsJson);
 
-	if (cfg.agent === "cxn") {
+	if (cfg.agent === "omp") {
 		// Config + secrets travel via env (CXN_BENCH_*); the agent reads os.environ.
 		a.push("--agent-import-path", AGENT_IMPORT_PATH);
 		void modelsYaml;
@@ -1366,7 +1366,7 @@ const FORWARD_ENV_DENYLIST = new Set([
 ]);
 
 /**
- * Env vars injected into the in-container cxn run: every host `PI_*` knob (minus
+ * Env vars injected into the in-container omp run: every host `PI_*` knob (minus
  * container-hostile dir/profile/session keys) plus explicit `--env` entries,
  * which always win and bypass the denylist.
  */
@@ -1391,7 +1391,7 @@ export function buildHarborEnv(
 	// Drop any stale CXN_BENCH_FORWARD_ENV inherited from the caller's shell before
 	// the agent-type early return, so it never leaks (incl. into the dry-run dump).
 	delete env.CXN_BENCH_FORWARD_ENV;
-	if (cfg.agent !== "cxn") return env;
+	if (cfg.agent !== "omp") return env;
 	const prepend = (k: string, v: string): void => {
 		env[k] = env[k] ? `${v}:${env[k]}` : v;
 	};
@@ -1542,7 +1542,7 @@ async function runBenchmark(cfg: Config): Promise<BenchmarkRun> {
 	if (!which("harbor")) {
 		throw new Error("harbor not found on PATH. Install with: uv tool install harbor");
 	}
-	if (cfg.agent === "cxn" && cfg.envType === "docker" && !which("docker")) {
+	if (cfg.agent === "omp" && cfg.envType === "docker" && !which("docker")) {
 		throw new Error("docker not found on PATH (required to run task containers).");
 	}
 	if (cfg.envType === "apple-container" && !which("container")) {
@@ -1567,7 +1567,7 @@ async function runBenchmark(cfg: Config): Promise<BenchmarkRun> {
 
 	// tarball (local install only)
 	let tarball: string | null = cfg.tarball;
-	if (cfg.agent === "cxn" && cfg.install === "local" && !cfg.binaryArm64 && !cfg.binaryX64) {
+	if (cfg.agent === "omp" && cfg.install === "local" && !cfg.binaryArm64 && !cfg.binaryX64) {
 		if (tarball) {
 			process.stdout.write(dim(`using tarball ${tarball}\n`));
 		} else if (cfg.build) {
@@ -1580,13 +1580,13 @@ async function runBenchmark(cfg: Config): Promise<BenchmarkRun> {
 
 	// source mount (default): repo bind-mounted read-only + cached linux deps tree
 	let source: SourceMount | null = null;
-	if (cfg.agent === "cxn" && cfg.install === "source" && !cfg.binaryArm64 && !cfg.binaryX64) {
+	if (cfg.agent === "omp" && cfg.install === "source" && !cfg.binaryArm64 && !cfg.binaryX64) {
 		source = prepareSourceDeps(cfg);
 	}
 
 	// models.yml (gateway)
 	let modelsYaml = "";
-	if (cfg.agent === "cxn" && cfg.gateway) {
+	if (cfg.agent === "omp" && cfg.gateway) {
 		modelsYaml = writeModelsYaml(benchDir, cfg);
 		if (!gatewayHealthOk(cfg.gatewayUrl)) {
 			process.stderr.write(
@@ -1611,7 +1611,7 @@ async function runBenchmark(cfg: Config): Promise<BenchmarkRun> {
 			process.stdout.write(bold("models.yml:\n"));
 			process.stdout.write(`${fs.readFileSync(modelsYaml, "utf8")}\n`);
 		}
-		process.stdout.write(bold("cxn env:\n"));
+		process.stdout.write(bold("omp env:\n"));
 		for (const key in harborEnv) {
 			if (key === "CXN_BENCH_FORWARD_ENV") continue;
 			if (key.startsWith("CXN_BENCH_") || key === "PYTHONPATH") process.stdout.write(`  ${key}=${harborEnv[key]}\n`);

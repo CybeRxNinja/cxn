@@ -2,13 +2,13 @@ import { afterAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { Type as TypeBoxShimType } from "@cxn/pi-coding-agent/extensibility/legacy-typebox";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { Type as TypeBoxShimType } from "@cyberxninja-omp/pi-coding-agent/extensibility/legacy-typebox";
 import {
 	installLegacyPiSpecifierShim,
 	loadLegacyPiModule,
-} from "@cxn/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // The remap installs a Bun.plugin onResolve hook plus an explicit
 // rewrite branch inside `rewriteBareImportsForLegacyExtension` that

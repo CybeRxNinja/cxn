@@ -1,7 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { isInvalidThinkingSignatureError, maybeAddReplayUnsignedThinkingHint } from "@cxn/pi-ai/providers/anthropic";
-import type { Model, ModelSpec } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import {
+	isInvalidThinkingSignatureError,
+	maybeAddReplayUnsignedThinkingHint,
+} from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import type { Model, ModelSpec } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 /**
  * Regression for #4297 — an unmarked custom `anthropic-messages` signing proxy

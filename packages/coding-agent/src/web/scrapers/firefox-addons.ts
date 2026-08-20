@@ -1,4 +1,4 @@
-import { tryParseJson } from "@cxn/pi-utils";
+import { tryParseJson } from "@cyberxninja-omp/pi-utils";
 import type { LocalizedText, RenderResult, SpecialHandler } from "./types";
 import { buildResult, formatNumber, getLocalizedText, htmlToBasicMarkdown, loadPage } from "./types";
 

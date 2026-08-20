@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { buildModel } from "@cxn/pi-catalog/build";
-import type { ModelSpec } from "@cxn/pi-catalog/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import type { ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 
 function bedrockSpec(
 	overrides: Partial<ModelSpec<"bedrock-converse-stream">> = {},

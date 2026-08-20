@@ -530,18 +530,18 @@ mod tests {
 		let out = filter(
 			&ctx,
 			"$ bun run check:tools && bun run --workspaces --if-present check\n$ biome check . \
-			 --no-errors-on-unmatched\nChecked 1690 files in 371ms. No fixes applied.\n@cxn/pi-utils \
-			 check: Checked 40 files in 11ms. No fixes applied.\n@cxn/pi-utils check: $ tsgo -p \
-			 tsconfig.json --noEmit\n@cxn/pi-utils check: Exited with code 0\n@cxn/pi-coding-agent \
-			 check: Checked 1178 files in 287ms. No fixes applied.\n@cxn/pi-coding-agent check: $ \
-			 tsgo -p tsconfig.json --noEmit\n@cxn/pi-coding-agent check: Exited with code 0\n",
+			 --no-errors-on-unmatched\nChecked 1690 files in 371ms. No fixes applied.\n@cyberxninja-omp/pi-utils \
+			 check: Checked 40 files in 11ms. No fixes applied.\n@cyberxninja-omp/pi-utils check: $ tsgo -p \
+			 tsconfig.json --noEmit\n@cyberxninja-omp/pi-utils check: Exited with code 0\n@cyberxninja-omp/pi-coding-agent \
+			 check: Checked 1178 files in 287ms. No fixes applied.\n@cyberxninja-omp/pi-coding-agent check: $ \
+			 tsgo -p tsconfig.json --noEmit\n@cyberxninja-omp/pi-coding-agent check: Exited with code 0\n",
 			0,
 		);
 
 		assert!(out.text.contains("check:ts: passed"));
 		assert!(out.text.contains("root biome: ok"));
-		assert!(out.text.contains("@cxn/pi-utils"));
-		assert!(out.text.contains("@cxn/pi-coding-agent"));
+		assert!(out.text.contains("@cyberxninja-omp/pi-utils"));
+		assert!(out.text.contains("@cyberxninja-omp/pi-coding-agent"));
 		assert!(!out.text.contains("No fixes applied"));
 		assert!(!out.text.contains("tsgo -p"));
 		assert!(!out.text.contains("Exited with code 0"));
@@ -553,7 +553,7 @@ mod tests {
 		let ctx = ctx("bun", Some("run"), "bun run check:ts", &cfg);
 		let out = filter(
 			&ctx,
-			"@cxn/pi-utils check: Checked 40 files in 11ms. No fixes applied.\n@cxn/pi-utils check: \
+			"@cyberxninja-omp/pi-utils check: Checked 40 files in 11ms. No fixes applied.\n@cyberxninja-omp/pi-utils check: \
 			 Exited with code 0\n[Command timed out after 300 seconds]\n",
 			1,
 		);
@@ -665,12 +665,12 @@ mod tests {
 		let bun_ctx = ctx("bun", Some("run"), "bun run check:ts", &cfg);
 		let input = concat!(
 			"$ bun run --workspaces check\n",
-			"@cxn/pi-utils check: $ tsgo -p tsconfig.json --noEmit\n",
-			"@cxn/pi-utils check: Exited with code 0\n",
-			"@cxn/pi-coding-agent check: $ tsgo -p tsconfig.json --noEmit\n",
+			"@cyberxninja-omp/pi-utils check: $ tsgo -p tsconfig.json --noEmit\n",
+			"@cyberxninja-omp/pi-utils check: Exited with code 0\n",
+			"@cyberxninja-omp/pi-coding-agent check: $ tsgo -p tsconfig.json --noEmit\n",
 			"src/tools/bash.ts(42,7): error TS2322: Type 'string' is not assignable to type \
 			 'number'.\n",
-			"@cxn/pi-coding-agent check: Exited with code 1\n",
+			"@cyberxninja-omp/pi-coding-agent check: Exited with code 1\n",
 		);
 
 		let out = filter(&bun_ctx, input, 1);
@@ -704,12 +704,12 @@ mod tests {
 		let input = concat!(
 			"$ bun run --workspaces check\n",
 			"Checked 1690 files in 371ms. No fixes applied.\n",
-			"@cxn/pi-utils check: Checked 40 files in 11ms. No fixes applied.\n",
-			"@cxn/pi-utils check: $ tsgo -p tsconfig.json --noEmit\n",
-			"@cxn/pi-utils check: Exited with code 0\n",
-			"@cxn/pi-coding-agent check: Checked 1178 files in 287ms. No fixes applied.\n",
-			"@cxn/pi-coding-agent check: $ tsgo -p tsconfig.json --noEmit\n",
-			"@cxn/pi-coding-agent check: Exited with code 0\n",
+			"@cyberxninja-omp/pi-utils check: Checked 40 files in 11ms. No fixes applied.\n",
+			"@cyberxninja-omp/pi-utils check: $ tsgo -p tsconfig.json --noEmit\n",
+			"@cyberxninja-omp/pi-utils check: Exited with code 0\n",
+			"@cyberxninja-omp/pi-coding-agent check: Checked 1178 files in 287ms. No fixes applied.\n",
+			"@cyberxninja-omp/pi-coding-agent check: $ tsgo -p tsconfig.json --noEmit\n",
+			"@cyberxninja-omp/pi-coding-agent check: Exited with code 0\n",
 		);
 
 		let out = filter(&bun_ctx, input, 0);

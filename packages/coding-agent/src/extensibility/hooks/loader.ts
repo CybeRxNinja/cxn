@@ -2,9 +2,9 @@
  * Hook loader - loads TypeScript hook modules using native Bun import.
  */
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import * as zod from "@cxn/omptype/zod";
-import { logger } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import * as zod from "@cyberxninja-omp/omptype/zod";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { hookCapability } from "../../capability/hook";
 import type { Hook } from "../../discovery";
 import { loadCapability } from "../../discovery";
@@ -211,7 +211,7 @@ export async function loadHooks(paths: string[], cwd: string): Promise<LoadHooks
 /**
  * Discover and load hooks from all registered providers.
  * Uses the capability API to discover hook paths from:
- * 1. CXN native configs (.cxn/.pi hooks/)
+ * 1. CXN native configs (.omp/.pi hooks/)
  * 2. Installed plugins
  * 3. Other editor/IDE configurations
  *

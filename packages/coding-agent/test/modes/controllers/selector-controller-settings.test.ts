@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "bun:test";
-import { SelectorController } from "@cxn/pi-coding-agent/modes/controllers/selector-controller";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { SelectorController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/selector-controller";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
 
 describe("SelectorController prompt-affecting settings", () => {
 	it("refreshes the active prompt when xdev docs mode changes", async () => {

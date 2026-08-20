@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { claudeCodeVersion } from "@cxn/pi-ai/providers/claude-code-fingerprint";
-import { AnthropicOAuthFlow, refreshAnthropicToken } from "@cxn/pi-ai/registry/oauth/anthropic";
+import { claudeCodeVersion } from "@cyberxninja-omp/pi-ai/providers/claude-code-fingerprint";
+import { AnthropicOAuthFlow, refreshAnthropicToken } from "@cyberxninja-omp/pi-ai/registry/oauth/anthropic";
 import {
 	buildAnthropicAuthConfig,
 	buildAnthropicSearchHeaders,
 	buildAnthropicUrl,
-} from "@cxn/pi-ai/utils/anthropic-auth";
+} from "@cyberxninja-omp/pi-ai/utils/anthropic-auth";
 import { withEnv } from "./helpers";
 
 afterEach(() => {

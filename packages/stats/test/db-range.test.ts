@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { getDashboardStats } from "@cxn/cxn-stats/aggregator";
-import { initDb, insertMessageStats } from "@cxn/cxn-stats/db";
-import type { MessageStats } from "@cxn/cxn-stats/types";
+import { getDashboardStats } from "@cyberxninja-omp/omp-stats/aggregator";
+import { initDb, insertMessageStats } from "@cyberxninja-omp/omp-stats/db";
+import type { MessageStats } from "@cyberxninja-omp/omp-stats/types";
 import { installStatsTestIsolation } from "./helpers/temp-agent";
 
 installStatsTestIsolation("@pi-stats-db-range-");

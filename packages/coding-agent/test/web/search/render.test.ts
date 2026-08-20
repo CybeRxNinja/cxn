@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { getThemeByName, initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { renderSearchResult, type SearchRenderDetails } from "@cxn/pi-coding-agent/web/search/render";
-import type { SearchResponse } from "@cxn/pi-coding-agent/web/search/types";
-import { sanitizeText } from "@cxn/pi-utils";
+import { getThemeByName, initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { renderSearchResult, type SearchRenderDetails } from "@cyberxninja-omp/pi-coding-agent/web/search/render";
+import type { SearchResponse } from "@cyberxninja-omp/pi-coding-agent/web/search/types";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 
 const ANSWER = [
 	"## Overview Heading",

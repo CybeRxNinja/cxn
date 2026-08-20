@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { $env } from "@cxn/pi-utils";
+import { $env } from "@cyberxninja-omp/pi-utils";
 import { AUTHENTICATED_SENTINEL, type ProviderDefinition } from "./types";
 
 let cachedVertexAdcCredentialsExists: boolean | null = null;

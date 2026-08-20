@@ -1,4 +1,4 @@
-import type { UsageLimit, UsageReport } from "@cxn/pi-ai";
+import type { UsageLimit, UsageReport } from "@cyberxninja-omp/pi-ai";
 import type { OAuthAccountIdentity } from "../../session/auth-storage";
 
 function normalizeIdentityValue(value: unknown): string | undefined {

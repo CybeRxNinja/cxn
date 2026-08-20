@@ -1,18 +1,18 @@
 #!/usr/bin/env bun
 //
-// Render the Homebrew formula for `cxn` from a published GitHub release and write
+// Render the Homebrew formula for `omp` from a published GitHub release and write
 // it to a tap checkout. The release publishes per-platform bare binaries
 // (cxn-<platform>-<arch>); this reads their sha256 digests straight from the
 // release metadata so the formula never drifts from the shipped assets.
 //
 // Usage:
-//   bun scripts/ci-update-brew-formula.ts <tag> --out <path/to/Formula/cxn.rb>
+//   bun scripts/ci-update-brew-formula.ts <tag> --out <path/to/Formula/omp.rb>
 //   bun scripts/ci-update-brew-formula.ts v15.10.3        # prints to stdout
 
 import { $ } from "bun";
 
-const REPO = process.env.CXN_REPO ?? "CybeRxNinja/cxn";
-const HOMEPAGE = "https://cxn.sh";
+const REPO = process.env.CXN_REPO ?? "CybeRxNinja/omp";
+const HOMEPAGE = "https://omp.sh";
 const DESC = "Coding agent with the IDE wired in";
 
 interface ReleaseAsset {
@@ -59,11 +59,11 @@ export function renderFormula(version: string, sums: Record<string, string>): st
 	// Mach-O/ELF executables, not archives. Without it Homebrew's default
 	// CurlDownloadStrategy routes through UnpackStrategy::Uncompressed#extract_nestedly,
 	// which nests the file outside the staging CWD; `Dir["cxn-*"].first` then
-	// returns `nil` and `bin.install nil => "cxn"` raises.
+	// returns `nil` and `bin.install nil => "omp"` raises.
 	//
 	// `with_env(HOME: buildpath)` redirects the CLI's `os.homedir()` lookup to
 	// the writable staging dir so `generate_completions_from_executable` does
-	// not touch the real `/Users/<user>/.cxn` (denied by Homebrew's sandbox
+	// not touch the real `/Users/<user>/.omp` (denied by Homebrew's sandbox
 	// profile, which would otherwise fail the popen).
 	return `class Omp < Formula
   desc "${DESC}"
@@ -98,15 +98,15 @@ export function renderFormula(version: string, sums: Record<string, string>): st
   end
 
   def install
-    bin.install Dir["cxn-*"].first => "cxn"
-    (bin/"cxn").chmod 0555
+    bin.install Dir["cxn-*"].first => "omp"
+    (bin/"omp").chmod 0555
     with_env(HOME: buildpath) do
-      generate_completions_from_executable(bin/"cxn", "completions", shells: [:bash, :zsh, :fish])
+      generate_completions_from_executable(bin/"omp", "completions", shells: [:bash, :zsh, :fish])
     end
   end
 
   test do
-    assert_match version.to_s, shell_output("#{bin}/cxn --version")
+    assert_match version.to_s, shell_output("#{bin}/omp --version")
   end
 end
 `;

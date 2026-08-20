@@ -1,5 +1,5 @@
-import { encodeSixel } from "@cxn/pi-natives";
-import { $env, isBunTestRuntime, isTerminalHeadless } from "@cxn/pi-utils";
+import { encodeSixel } from "@cyberxninja-omp/pi-natives";
+import { $env, isBunTestRuntime, isTerminalHeadless } from "@cyberxninja-omp/pi-utils";
 import { sendDesktopNotification, shouldDeliverDesktopNotification } from "./desktop-notify";
 import {
 	detectKittyUnicodePlaceholdersSupport,
@@ -37,7 +37,7 @@ export type TerminalId =
 	| "base"
 	| "trueColor";
 
-const CMUX_NOTIFICATION_TITLE = "cxn";
+const CMUX_NOTIFICATION_TITLE = "omp";
 const CMUX_SURFACE_ID_PATTERN = /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/iu;
 
 /**
@@ -1173,7 +1173,7 @@ function notificationToLine(n: TerminalNotification): string {
 // C0/C1 control characters that are unsafe inside an OSC payload (must base64).
 const OSC99_UNSAFE = /[\x00-\x1f\x7f\x80-\x9f]/u;
 const OSC99_MAX_PAYLOAD_BYTES = 2048;
-const OSC99_APP_NAME = "cxn";
+const OSC99_APP_NAME = "omp";
 let nextOsc99NotificationId = 1;
 
 function base64Utf8(value: string): string {

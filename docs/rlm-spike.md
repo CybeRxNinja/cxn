@@ -7,7 +7,7 @@
 ## 1. Purpose
 
 Before porting any RLM machinery from prime-agent, prove that an RLM-style turn
-can run on cxn's existing `eval` Python kernel:
+can run on omp's existing `eval` Python kernel:
 
 ```
 persistent Python cell → host request → tool call → result → next cell
@@ -47,9 +47,9 @@ PASS  6. %%bash magic                     → magic-works-2
 
 All five spike checks green; process exits cleanly.
 
-## 4. How the RLM execution model maps onto cxn today
+## 4. How the RLM execution model maps onto omp today
 
-| RLM concept (prime-agent) | cxn mechanism (existing, verified) |
+| RLM concept (prime-agent) | omp mechanism (existing, verified) |
 |---|---|
 | Persistent IPython kernel as the model-facing surface | `eval` Python kernel: retained subprocess, NDJSON frames, state persists per session (`kernelMode: "session"`) |
 | Typed host requests (kernel → host operations) | HTTP loopback tool bridge (`src/eval/py/tool-bridge.ts`) + prelude helpers (`read`, `write`, `env`, `output`, …) |
@@ -60,7 +60,7 @@ All five spike checks green; process exits cleanly.
 | Rich display / MIME bundles | `display()` with `_repr_*_` fallbacks (pandas/PIL/plotly) |
 
 **Key structural difference:** prime-agent boots a real **ipykernel** (ZeroMQ,
-managed venv, `prime-agent-runtime` shim installed into the kernel env). cxn's
+managed venv, `prime-agent-runtime` shim installed into the kernel env). omp's
 runner is **self-contained** (stdlib-only, no IPython dependency, no extra pip
 packages) and reaches host tools over loopback HTTP instead of ZeroMQ host
 requests. That is a *simpler, more portable* substrate — not a missing one.
@@ -71,13 +71,13 @@ The kernel substrate is proven; the *RLM layer* on top is not yet there:
 
 1. **`rlm()` admission semantics** — async child spawn returning an admission
    handle, parent-scoped child registry surviving compaction, `agent_message`
-   delivery modes (auto/steer/follow_up). cxn's `agent()` is synchronous with
+   delivery modes (auto/steer/follow_up). omp's `agent()` is synchronous with
    structured output; the RLM model needs the async handle + registry layer
    (port `rlm-runtime.ts`, `agent-messages.ts` concepts onto `task`/`hub` infra).
 2. **`/refine` continual harness** — snapshot/rollback of supplemental harness
-   state (port `core/refinement/`, layered on cxn memory backends).
+   state (port `core/refinement/`, layered on omp memory backends).
 3. **Python-backed skills** — skills as importable packages installed into the
-   kernel env (cxn has markdown managed skills; needs the package-install path).
+   kernel env (omp has markdown managed skills; needs the package-install path).
 4. **"ipython as the model tool" prompt/loop design** — RLM makes the Python
    cell the *primary* model surface; today `eval` is one of 31 tools. The RLM
    prompt + loop wiring is a coding-agent layer, not a kernel change.
@@ -89,7 +89,7 @@ bridge covers the execution contract.
 
 ## 6. Decision
 
-**ADAPT, do not transplant.** Build the RLM layer on cxn's existing `eval`
+**ADAPT, do not transplant.** Build the RLM layer on omp's existing `eval`
 kernel and loopback bridge. Rationale:
 
 - The execution contract (persistent state, host requests, arbitrary tool
@@ -97,7 +97,7 @@ kernel and loopback bridge. Rationale:
 - Avoiding ipykernel/ZeroMQ removes a venv-managed Python dependency and a
   second wire protocol.
 - The porting effort moves entirely to the RLM *semantics* layer, which is
-  where cxn's `task`/`hub`/memory infra already provides strong anchors.
+  where omp's `task`/`hub`/memory infra already provides strong anchors.
 
 ## 7. Notes & risks
 

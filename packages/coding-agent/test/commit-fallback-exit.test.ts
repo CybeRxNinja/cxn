@@ -5,15 +5,15 @@
  */
 import { Database } from "bun:sqlite";
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { runAgenticCommit } from "@cxn/pi-coding-agent/commit/agentic";
-import * as agentModule from "@cxn/pi-coding-agent/commit/agentic/agent";
-import * as modelSelection from "@cxn/pi-coding-agent/commit/model-selection";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import * as gitModule from "@cxn/pi-coding-agent/utils/git";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { runAgenticCommit } from "@cyberxninja-omp/pi-coding-agent/commit/agentic";
+import * as agentModule from "@cyberxninja-omp/pi-coding-agent/commit/agentic/agent";
+import * as modelSelection from "@cyberxninja-omp/pi-coding-agent/commit/model-selection";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as gitModule from "@cyberxninja-omp/pi-coding-agent/utils/git";
 
 const NUMSTAT = [{ path: "src/a.ts", additions: 1, deletions: 0 }];
 let authStorage: AuthStorage | undefined;

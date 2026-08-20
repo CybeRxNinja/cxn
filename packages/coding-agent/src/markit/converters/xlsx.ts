@@ -1,5 +1,5 @@
 // Adapted from markit-ai (MIT). See ../NOTICE.
-import { XMLParser } from "@cxn/pi-utils/xml";
+import { XMLParser } from "@cyberxninja-omp/pi-utils/xml";
 import { unzip, unzipText } from "../../utils/zip";
 import type { ConversionResult, Converter, StreamInfo } from "../types";
 

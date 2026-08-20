@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { TempDir } from "@cxn/pi-utils";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { checkPythonSetup } from "../src/cli/setup-cli";
 
 const cliEntry = path.join(import.meta.dir, "..", "src", "cli.ts");
@@ -33,7 +33,7 @@ async function runSetupPython(cwd: string): Promise<CliProcessResult> {
 	return { exitCode, output: stdout, error: stderr };
 }
 
-describe("cxn setup python", () => {
+describe("omp setup python", () => {
 	let projectDir: TempDir | undefined;
 
 	afterEach(async () => {
@@ -49,7 +49,7 @@ describe("cxn setup python", () => {
 			const interpreter = path.join(cwd, "configured-python");
 			await Bun.write(interpreter, "#!/bin/sh\nexit 0\n");
 			await fs.chmod(interpreter, 0o755);
-			await Bun.write(path.join(cwd, ".cxn", "config.yml"), `python:\n  interpreter: ${interpreter}\n`);
+			await Bun.write(path.join(cwd, ".omp", "config.yml"), `python:\n  interpreter: ${interpreter}\n`);
 
 			const result = await runSetupPython(cwd);
 

@@ -1,21 +1,21 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@cxn/pi-agent-core";
-import type { ImageContent, Model } from "@cxn/pi-ai";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { GoalTool } from "@cxn/pi-coding-agent/goals/tools/goal-tool";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { SubmittedUserInput } from "@cxn/pi-coding-agent/modes/types";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { normalizeCustomMessagePayload } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { executeBuiltinSlashCommand } from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
-import { createTools, type Tool, type ToolSession } from "@cxn/pi-coding-agent/tools";
-import type { TodoPhase } from "@cxn/pi-coding-agent/tools/todo";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, Model } from "@cyberxninja-omp/pi-ai";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { GoalTool } from "@cyberxninja-omp/pi-coding-agent/goals/tools/goal-tool";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { SubmittedUserInput } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { normalizeCustomMessagePayload } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { executeBuiltinSlashCommand } from "@cyberxninja-omp/pi-coding-agent/slash-commands/builtin-registry";
+import { createTools, type Tool, type ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import type { TodoPhase } from "@cyberxninja-omp/pi-coding-agent/tools/todo";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function createToolSession(cwd: string, settings: Settings, overrides: Partial<ToolSession> = {}): ToolSession {
 	return {

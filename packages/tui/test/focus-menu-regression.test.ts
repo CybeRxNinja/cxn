@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type Component, CURSOR_MARKER, type Focusable, TUI } from "@cxn/pi-tui";
+import { type Component, CURSOR_MARKER, type Focusable, TUI } from "@cyberxninja-omp/pi-tui";
 import { VirtualTerminal } from "./virtual-terminal";
 
 class FocusToken implements Component, Focusable {

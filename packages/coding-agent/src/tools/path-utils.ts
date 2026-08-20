@@ -2,8 +2,14 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import * as url from "node:url";
-import { glob } from "@cxn/pi-natives";
-import { hasFsCode, isEnoent, isEnotdir, stripWindowsExtendedLengthPathPrefix, untilAborted } from "@cxn/pi-utils";
+import { glob } from "@cyberxninja-omp/pi-natives";
+import {
+	hasFsCode,
+	isEnoent,
+	isEnotdir,
+	stripWindowsExtendedLengthPathPrefix,
+	untilAborted,
+} from "@cyberxninja-omp/pi-utils";
 import type { Skill } from "../extensibility/skills";
 import { InternalUrlRouter, type LocalProtocolOptions } from "../internal-urls";
 import { ToolAbortError, ToolError } from "./tool-errors";
@@ -39,7 +45,7 @@ const INTERNAL_SCHEMES_WITH_SELECTORS: Record<string, true> = {
 	history: true,
 	local: true,
 	memory: true,
-	cxn: true,
+	omp: true,
 	pr: true,
 	rule: true,
 	security: true,

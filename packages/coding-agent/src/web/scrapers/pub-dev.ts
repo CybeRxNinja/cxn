@@ -1,4 +1,4 @@
-import { tryParseJson } from "@cxn/pi-utils";
+import { tryParseJson } from "@cyberxninja-omp/pi-utils";
 import { buildResult, formatNumber, htmlToBasicMarkdown, loadPage, type SpecialHandler } from "./types";
 
 /**

@@ -1,6 +1,6 @@
-import type { Component, OverlayHandle, TUI } from "@cxn/pi-tui";
-import { Container, Spacer, Text } from "@cxn/pi-tui";
-import type { CollabUiRequestDraft, CollabUiSelectItem } from "@cxn/pi-wire";
+import type { Component, OverlayHandle, TUI } from "@cyberxninja-omp/pi-tui";
+import { Container, Spacer, Text } from "@cyberxninja-omp/pi-tui";
+import type { CollabUiRequestDraft, CollabUiSelectItem } from "@cyberxninja-omp/pi-wire";
 import { KeybindingsManager } from "../../config/keybindings";
 import type {
 	CompactOptions,

@@ -17,9 +17,9 @@
  *   ({@link isTerminalRedeemOutcome}).
  */
 import { describe, expect, it } from "bun:test";
-import type { UsageReport } from "@cxn/pi-ai";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { SETTINGS_SCHEMA } from "@cxn/pi-coding-agent/config/settings-schema";
+import type { UsageReport } from "@cyberxninja-omp/pi-ai";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { SETTINGS_SCHEMA } from "@cyberxninja-omp/pi-coding-agent/config/settings-schema";
 import {
 	blockedAttemptKey,
 	type CodexResetPlanInput,
@@ -29,7 +29,7 @@ import {
 	salvageAttemptKey,
 	shouldEvaluateCodexAutoRedeem,
 	shouldPromptCodexAutoRedeem,
-} from "@cxn/pi-coding-agent/session/codex-auto-reset";
+} from "@cyberxninja-omp/pi-coding-agent/session/codex-auto-reset";
 
 // Epoch ms divisible by 60_000 so minute-boundary reset/expiry times let the
 // debounce-jitter cases reason about bucket crossings precisely.

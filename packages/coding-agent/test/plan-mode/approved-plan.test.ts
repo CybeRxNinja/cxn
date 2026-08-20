@@ -5,8 +5,8 @@ import {
 	planFileUrlForSlug,
 	resolveApprovedPlan,
 	resolvePlanTitle,
-} from "@cxn/pi-coding-agent/plan-mode/approved-plan";
-import { normalizeLocalScheme } from "@cxn/pi-coding-agent/tools/path-utils";
+} from "@cyberxninja-omp/pi-coding-agent/plan-mode/approved-plan";
+import { normalizeLocalScheme } from "@cyberxninja-omp/pi-coding-agent/tools/path-utils";
 
 describe("planFileUrlForSlug", () => {
 	it("maps a slug to its local plan URL", () => {

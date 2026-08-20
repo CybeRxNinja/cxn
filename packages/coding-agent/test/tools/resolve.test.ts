@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { getThemeByName } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { getThemeByName } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 import {
 	dispatchResolutionDevice,
 	isPreviewResolutionToolCall,
@@ -16,8 +16,8 @@ import {
 	resolutionDeviceUsage,
 	resolveRenderer,
 	writeDeviceDispatch,
-} from "@cxn/pi-coding-agent/tools/resolve";
-import { sanitizeText } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/tools/resolve";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 
 function createSession(
 	options: {

@@ -16,12 +16,12 @@ import {
 	type FetchImpl,
 	type Usage,
 	withOAuthAccess,
-} from "@cxn/pi-ai";
-import { streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import { streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
-import { buildModel } from "@cxn/pi-catalog/build";
-import type { Model, ModelSpec } from "@cxn/pi-catalog/types";
-import { $env, readSseJson } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { streamOpenAICompletions } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import { streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import type { Model, ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
+import { $env, readSseJson } from "@cyberxninja-omp/pi-utils";
 import type {
 	PerplexityRequest,
 	PerplexitySearchResult,

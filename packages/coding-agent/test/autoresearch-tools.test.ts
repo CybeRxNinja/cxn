@@ -1,22 +1,27 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import { createSessionRuntime } from "@cxn/pi-coding-agent/autoresearch/state";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { createSessionRuntime } from "@cyberxninja-omp/pi-coding-agent/autoresearch/state";
 import {
 	type AutoresearchStorage,
 	closeAllAutoresearchStorages,
 	openAutoresearchStorage,
 	type SessionRow,
-} from "@cxn/pi-coding-agent/autoresearch/storage";
-import { createInitExperimentTool } from "@cxn/pi-coding-agent/autoresearch/tools/init-experiment";
-import { createLogExperimentTool } from "@cxn/pi-coding-agent/autoresearch/tools/log-experiment";
-import { createRunExperimentTool } from "@cxn/pi-coding-agent/autoresearch/tools/run-experiment";
-import { createUpdateNotesTool } from "@cxn/pi-coding-agent/autoresearch/tools/update-notes";
-import type { ASIData, LogDetails, NumericMetricMap, RunDetails } from "@cxn/pi-coding-agent/autoresearch/types";
-import type { ExtensionAPI, ExtensionContext } from "@cxn/pi-coding-agent/extensibility/extensions";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import { TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/autoresearch/storage";
+import { createInitExperimentTool } from "@cyberxninja-omp/pi-coding-agent/autoresearch/tools/init-experiment";
+import { createLogExperimentTool } from "@cyberxninja-omp/pi-coding-agent/autoresearch/tools/log-experiment";
+import { createRunExperimentTool } from "@cyberxninja-omp/pi-coding-agent/autoresearch/tools/run-experiment";
+import { createUpdateNotesTool } from "@cyberxninja-omp/pi-coding-agent/autoresearch/tools/update-notes";
+import type {
+	ASIData,
+	LogDetails,
+	NumericMetricMap,
+	RunDetails,
+} from "@cyberxninja-omp/pi-coding-agent/autoresearch/types";
+import type { ExtensionAPI, ExtensionContext } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { $ } from "bun";
 
 afterEach(() => {

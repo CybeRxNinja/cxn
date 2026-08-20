@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "bun:test";
-import { loginSynthetic } from "@cxn/pi-ai/registry/synthetic";
-import type { FetchImpl } from "@cxn/pi-ai/types";
+import { loginSynthetic } from "@cyberxninja-omp/pi-ai/registry/synthetic";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 
 describe("synthetic login", () => {
 	it("validates API keys against the models endpoint instead of a deprecated model", async () => {

@@ -3,8 +3,8 @@ import {
 	readImageFromClipboard,
 	readMacFileUrlsFromClipboard,
 	readTextFromClipboard,
-} from "@cxn/pi-coding-agent/utils/clipboard";
-import * as native from "@cxn/pi-natives/clipboard";
+} from "@cyberxninja-omp/pi-coding-agent/utils/clipboard";
+import * as native from "@cyberxninja-omp/pi-natives/clipboard";
 import type { Subprocess } from "bun";
 
 type SpawnOptions = Bun.SpawnOptions.SpawnOptions<

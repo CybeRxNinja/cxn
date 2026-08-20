@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { getAgentDir, setAgentDir, TempDir } from "@cxn/pi-utils";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { getAgentDir, setAgentDir, TempDir } from "@cyberxninja-omp/pi-utils";
 
 const originalAgentDir = getAgentDir();
 const originalAgentDirEnv = process.env.PI_CODING_AGENT_DIR;

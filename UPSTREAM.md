@@ -1,6 +1,6 @@
 # Upstream Sync Log
 
-`scripts/upstream-sync.ts` + `.github/workflows/upstream-sync.yml` keep cxn in
+`scripts/upstream-sync.ts` + `.github/workflows/upstream-sync.yml` keep omp in
 lockstep with its upstreams. This file records the last-synced commit per lane;
 the sync workflow updates it automatically.
 
@@ -12,7 +12,7 @@ The base tree is a fork of [can1357/oh-my-pi](https://github.com/can1357/oh-my-p
 (MIT, © Mario Zechner, © Can Bölük), itself a fork of
 [Pi](https://github.com/badlogic/pi-mono) by Mario Zechner. Every sync merges
 `can1357/oh-my-pi/main` into a `sync/upstream-omp-<date>` branch; conflicting
-hunks resolve with `-X ours` (keep cxn's rebranded lines) and the branding
+hunks resolve with `-X ours` (keep omp's rebranded lines) and the branding
 guard (`scripts/check-branding.ts`) is the enforcement backstop.
 
 ## Lane B — prime-agent (RLM layer)

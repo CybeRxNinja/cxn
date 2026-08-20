@@ -2,7 +2,7 @@
  * Tool output pruning utilities for compaction.
  */
 
-import type { ToolResultMessage } from "@cxn/pi-ai";
+import type { ToolResultMessage } from "@cyberxninja-omp/pi-ai";
 import type { AgentMessage, AgentToolCall } from "../types";
 import { estimateTokens } from "./compaction";
 import type { SessionEntry, SessionMessageEntry } from "./entries";

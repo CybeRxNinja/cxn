@@ -2,12 +2,12 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import {
 	createSnapcompactSavingsRecorder,
 	readSnapcompactSavingsJournal,
-} from "@cxn/pi-coding-agent/session/snapcompact-savings-journal";
+} from "@cyberxninja-omp/pi-coding-agent/session/snapcompact-savings-journal";
 
 function model(provider = "anthropic", id = "claude-test"): Model {
 	return buildModel({

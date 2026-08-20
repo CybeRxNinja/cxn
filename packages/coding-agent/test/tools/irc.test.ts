@@ -1,15 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Agent } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { SettingPath } from "@cxn/pi-coding-agent/config/settings-schema";
-import { IrcBus, type IrcMessage } from "@cxn/pi-coding-agent/irc/bus";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { AgentSession, type AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import type { CustomMessage } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { type CoordinationDetails, HubTool, isIrcEnabled } from "@cxn/pi-coding-agent/tools/hub";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { SettingPath } from "@cyberxninja-omp/pi-coding-agent/config/settings-schema";
+import { IrcBus, type IrcMessage } from "@cyberxninja-omp/pi-coding-agent/irc/bus";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { AgentSession, type AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { CustomMessage } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { type CoordinationDetails, HubTool, isIrcEnabled } from "@cyberxninja-omp/pi-coding-agent/tools/hub";
 
 interface FakeSession {
 	session: AgentSession;

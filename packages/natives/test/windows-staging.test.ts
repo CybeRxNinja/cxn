@@ -1,14 +1,14 @@
 /**
- * Regression for the Windows `bun install -g` update path: when an `cxn`
+ * Regression for the Windows `bun install -g` update path: when an `omp`
  * process is running, bun cannot overwrite a locked
- * `node_modules/@cxn/pi-natives/native/pi_natives.win32-x64.node` during
+ * `node_modules/@cyberxninja-omp/pi-natives/native/pi_natives.win32-x64.node` during
  * package update and silently keeps the old binary next to the new ESM
  * wrapper. The next launch then throws `<sym> is not a function` deep inside
  * tool execution (see Discord report, 2026-05-14).
  *
  * The fix has two halves, both pinned by this test:
  *   1. The loader stages `nativeDir/<filename>.node` → `versionedDir/<filename>.node`
- *      (per-package-version cache under `~/.cxn/natives/<version>/`) so the
+ *      (per-package-version cache under `~/.omp/natives/<version>/`) so the
  *      running process holds its OS-level handle on a path bun is never asked
  *      to overwrite. Gated to Windows + node_modules installs + non-compiled
  *      mode by `shouldStageNodeModulesAddon`.
@@ -33,9 +33,9 @@ import {
 } from "../native/loader-state.js";
 import packageJson from "../package.json" with { type: "json" };
 
-const winNodeModulesNativeDir = "C:\\Users\\Admin\\node_modules\\@cxn\\pi-natives\\native";
-const winWorkspaceNativeDir = "C:\\Users\\Admin\\dev\\cxn\\packages\\natives\\native";
-const posixNodeModulesNativeDir = "/home/u/proj/node_modules/@cxn/pi-natives/native";
+const winNodeModulesNativeDir = "C:\\Users\\Admin\\node_modules\\@cyberxninja-omp\\pi-natives\\native";
+const winWorkspaceNativeDir = "C:\\Users\\Admin\\dev\\omp\\packages\\natives\\native";
+const posixNodeModulesNativeDir = "/home/u/proj/node_modules/@cyberxninja-omp/pi-natives/native";
 
 describe("windows native addon staging", () => {
 	it("stages only on Windows node_modules installs", () => {
@@ -87,8 +87,8 @@ describe("windows native addon staging", () => {
 	});
 
 	it("prepends versionedDir candidates ahead of node_modules when staging on Windows", () => {
-		const versionedDir = "C:\\Users\\Admin\\.cxn\\natives\\15.0.1";
-		const userDataDir = "C:\\Users\\Admin\\AppData\\Local\\cxn";
+		const versionedDir = "C:\\Users\\Admin\\.omp\\natives\\15.0.1";
+		const userDataDir = "C:\\Users\\Admin\\AppData\\Local\\omp";
 		const candidates = resolveLoaderCandidates({
 			addonFilenames: getAddonFilenames({ tag: "win32-x64", arch: "x64", variant: "baseline" }),
 			isCompiledBinary: false,
@@ -117,21 +117,21 @@ describe("windows native addon staging", () => {
 	});
 
 	it("classifies only Windows node_modules paths case-insensitively", () => {
-		const leafPackageDir = "/tmp/node_modules/@cxn/pi-natives-darwin-arm64";
-		const uppercaseNodeModulesNativeDir = "/tmp/NODE_MODULES/@cxn/pi-natives/native";
+		const leafPackageDir = "/tmp/node_modules/@cyberxninja-omp/pi-natives-darwin-arm64";
+		const uppercaseNodeModulesNativeDir = "/tmp/NODE_MODULES/@cyberxninja-omp/pi-natives/native";
 		const variantCacheKey = "__PI_NATIVE_VARIANT_CACHE";
 		const previousVariantCache = process.env[variantCacheKey];
 		try {
 			const workspace = initLoaderContext({
 				platform: "linux",
 				isCompiledBinary: false,
-				nativeDir: "/tmp/cxn/packages/natives/native",
+				nativeDir: "/tmp/omp/packages/natives/native",
 				leafPackageDir,
 			});
 			const installed = initLoaderContext({
 				platform: "linux",
 				isCompiledBinary: false,
-				nativeDir: "/tmp/node_modules/@cxn/pi-natives/native",
+				nativeDir: "/tmp/node_modules/@cyberxninja-omp/pi-natives/native",
 				leafPackageDir,
 			});
 			const uppercaseWorkspace = initLoaderContext({
@@ -175,7 +175,7 @@ describe("windows native addon staging", () => {
 	it("falls back to the node_modules-only candidate list when staging is off", () => {
 		// Mirrors the non-Windows / workspace-dev path: same behavior as before
 		// the staging feature was introduced.
-		const versionedDir = "/home/u/.cxn/natives/15.0.1";
+		const versionedDir = "/home/u/.omp/natives/15.0.1";
 		const candidates = resolveLoaderCandidates({
 			addonFilenames: getAddonFilenames({ tag: "linux-x64", arch: "x64", variant: "baseline" }),
 			isCompiledBinary: false,

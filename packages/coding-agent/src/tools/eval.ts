@@ -1,7 +1,12 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { ImageContent, ToolExample } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, ToolExample } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import { jsBackend, juliaBackend, pythonBackend, rubyBackend } from "../eval";
 import type { ExecutorBackend, ExecutorBackendResult } from "../eval/backend";
 import { EVAL_TIMEOUT_PAUSE_OP, EVAL_TIMEOUT_RESUME_OP } from "../eval/bridge-timeout";

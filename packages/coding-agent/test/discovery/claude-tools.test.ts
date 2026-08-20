@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
-import { type CustomTool, toolCapability } from "@cxn/pi-coding-agent/capability/tool";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initializeWithSettings, loadCapability } from "@cxn/pi-coding-agent/discovery";
-import { clearClaudePluginRootsCache } from "@cxn/pi-coding-agent/discovery/helpers";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
+import { type CustomTool, toolCapability } from "@cyberxninja-omp/pi-coding-agent/capability/tool";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initializeWithSettings, loadCapability } from "@cyberxninja-omp/pi-coding-agent/discovery";
+import { clearClaudePluginRootsCache } from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("Claude Code custom tool discovery", () => {
 	let root = "";

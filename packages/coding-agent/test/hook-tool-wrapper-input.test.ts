@@ -5,14 +5,14 @@
 
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { Type } from "@cxn/omptype/typebox";
-import type { AgentTool } from "@cxn/pi-agent-core";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { HookRunner, type LoadedHook } from "@cxn/pi-coding-agent/extensibility/hooks";
-import { HookToolWrapper } from "@cxn/pi-coding-agent/extensibility/hooks/tool-wrapper";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { Type } from "@cyberxninja-omp/omptype/typebox";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { HookRunner, type LoadedHook } from "@cyberxninja-omp/pi-coding-agent/extensibility/hooks";
+import { HookToolWrapper } from "@cyberxninja-omp/pi-coding-agent/extensibility/hooks/tool-wrapper";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 describe("HookToolWrapper tool_call input override", () => {
 	let sharedTempDir: TempDir;

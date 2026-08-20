@@ -2,25 +2,25 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { loadCapability } from "@cxn/pi-coding-agent/capability";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
+import { loadCapability } from "@cyberxninja-omp/pi-coding-agent/capability";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
 import {
 	AGENT_PLUGIN_MANIFEST_SCHEMA,
 	AGENT_PLUGIN_MCP_SCHEMA,
 	clearAgentPluginRootCache,
 	parseAgentPluginManifest,
 	parseAgentPluginMcp,
-} from "@cxn/pi-coding-agent/discovery/agent-plugin-format";
+} from "@cyberxninja-omp/pi-coding-agent/discovery/agent-plugin-format";
 import {
 	clearClaudePluginRootsCache,
 	injectPluginDirRoots,
 	listClaudePluginRoots,
-} from "@cxn/pi-coding-agent/discovery/helpers";
-import { getPluginsDir, removeWithRetries } from "@cxn/pi-utils";
-import "@cxn/pi-coding-agent/discovery/agent-plugins";
-import "@cxn/pi-coding-agent/discovery/claude-plugins";
-import type { MCPServer } from "@cxn/pi-coding-agent/capability/mcp";
-import type { Skill } from "@cxn/pi-coding-agent/capability/skill";
+} from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { getPluginsDir, removeWithRetries } from "@cyberxninja-omp/pi-utils";
+import "@cyberxninja-omp/pi-coding-agent/discovery/agent-plugins";
+import "@cyberxninja-omp/pi-coding-agent/discovery/claude-plugins";
+import type { MCPServer } from "@cyberxninja-omp/pi-coding-agent/capability/mcp";
+import type { Skill } from "@cyberxninja-omp/pi-coding-agent/capability/skill";
 
 // Concatenation avoids the noTemplateCurlyInString lint on literal placeholder names.
 const PLUGIN_ROOT_VAR = "$" + "{PLUGIN_ROOT}";

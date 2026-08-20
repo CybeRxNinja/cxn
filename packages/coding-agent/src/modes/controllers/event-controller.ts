@@ -1,9 +1,9 @@
-import type { AssistantMessage, ImageContent } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { getStreamingPartialJson } from "@cxn/pi-ai/utils/block-symbols";
-import { type Component, Loader, TERMINAL } from "@cxn/pi-tui";
-import { logger, prompt, sanitizeText } from "@cxn/pi-utils";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import type { AssistantMessage, ImageContent } from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { getStreamingPartialJson } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import { type Component, Loader, TERMINAL } from "@cyberxninja-omp/pi-tui";
+import { logger, prompt, sanitizeText } from "@cyberxninja-omp/pi-utils";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import { extractTextContent } from "../../commit/utils";
 import { settings } from "../../config/settings";
 import { getEditClipboard } from "../../edit/edit-clipboard";
@@ -2230,7 +2230,7 @@ export class EventController {
 
 		const sessionName = this.ctx.sessionManager.getSessionName();
 		TERMINAL.sendNotification({
-			title: sessionName || "cxn",
+			title: sessionName || "omp",
 			body: "Stopped with error",
 			type: "error",
 			actions: "focus",
@@ -2255,7 +2255,7 @@ export class EventController {
 
 		const sessionName = this.ctx.sessionManager.getSessionName();
 		TERMINAL.sendNotification({
-			title: sessionName || "cxn",
+			title: sessionName || "omp",
 			body: "Complete",
 			type: "completion",
 			actions: "focus",

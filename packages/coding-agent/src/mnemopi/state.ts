@@ -1,10 +1,10 @@
 import { dirname } from "node:path";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type * as MnemopiNs from "@cxn/pi-mnemopi";
-import type { Mnemopi, RecallResult } from "@cxn/pi-mnemopi";
-import type * as MnemopiCoreNs from "@cxn/pi-mnemopi/core";
-import type { LocalModelInitializer } from "@cxn/pi-mnemopi/core";
-import { logger, toError } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type * as MnemopiNs from "@cyberxninja-omp/pi-mnemopi";
+import type { Mnemopi, RecallResult } from "@cyberxninja-omp/pi-mnemopi";
+import type * as MnemopiCoreNs from "@cyberxninja-omp/pi-mnemopi/core";
+import type { LocalModelInitializer } from "@cyberxninja-omp/pi-mnemopi/core";
+import { logger, toError } from "@cyberxninja-omp/pi-utils";
 import {
 	composeRecallQuery,
 	formatCurrentTime,
@@ -41,7 +41,7 @@ function installLocalModelInitializer(setInitializer: (initializer: LocalModelIn
 }
 
 /**
- * Lazily load `@cxn/pi-mnemopi` (memoized) and route fastembed loads
+ * Lazily load `@cyberxninja-omp/pi-mnemopi` (memoized) and route fastembed loads
  * through the dedicated embeddings subprocess. The override is installed once
  * — before any consumer gets the chance to call `embed()` — so
  * `onnxruntime-node`'s NAPI constructor + finalizer never run inside the
@@ -51,16 +51,16 @@ function installLocalModelInitializer(setInitializer: (initializer: LocalModelIn
  */
 export async function loadMnemopi(): Promise<typeof MnemopiNs> {
 	if (!mnemopiMod) {
-		mnemopiMod = await import("@cxn/pi-mnemopi");
+		mnemopiMod = await import("@cyberxninja-omp/pi-mnemopi");
 		installLocalModelInitializer(mnemopiMod.setLocalModelInitializer);
 	}
 	return mnemopiMod;
 }
 
-/** Lazily load `@cxn/pi-mnemopi/core` (memoized). */
+/** Lazily load `@cyberxninja-omp/pi-mnemopi/core` (memoized). */
 export async function loadMnemopiCore(): Promise<typeof MnemopiCoreNs> {
 	if (!mnemopiCoreMod) {
-		mnemopiCoreMod = await import("@cxn/pi-mnemopi/core");
+		mnemopiCoreMod = await import("@cyberxninja-omp/pi-mnemopi/core");
 		installLocalModelInitializer(mnemopiCoreMod.setLocalModelInitializer);
 	}
 	return mnemopiCoreMod;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 
 describe("SessionManager usage statistics", () => {
 	it("accumulates premium requests from assistant messages and task tool results", () => {

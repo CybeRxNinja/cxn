@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Regression: Errors logged via `logger.error("msg", { err })` previously
@@ -42,7 +42,7 @@ afterAll(() => {
  */
 async function waitForLogEntry(targetMessage: string): Promise<Record<string, unknown>> {
 	for (let i = 0; i < 40; i++) {
-		const files = fs.readdirSync(tempDir).filter(f => f.startsWith("cxn.") && f.endsWith(".log"));
+		const files = fs.readdirSync(tempDir).filter(f => f.startsWith("omp.") && f.endsWith(".log"));
 		for (const f of files) {
 			const text = fs.readFileSync(path.join(tempDir, f), "utf8");
 			for (const line of text.split("\n")) {

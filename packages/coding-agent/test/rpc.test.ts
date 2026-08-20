@@ -2,17 +2,17 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentEvent, AgentMessage } from "@cxn/pi-agent-core";
-import { type AssistantMessage, Effort, type TextContent } from "@cxn/pi-ai";
+import type { AgentEvent, AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { type AssistantMessage, Effort, type TextContent } from "@cyberxninja-omp/pi-ai";
 import {
 	type CompactionEntry,
 	type FileEntry,
 	parseSessionEntries,
 	type SessionMessageEntry,
-} from "@cxn/pi-coding-agent";
-import { RpcClient } from "@cxn/pi-coding-agent/modes/rpc/rpc-client";
-import type { BashExecutionMessage } from "@cxn/pi-coding-agent/session/messages";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent";
+import { RpcClient } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-client";
+import type { BashExecutionMessage } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { e2eApiKey } from "./utilities";
 
 type MessageEndEvent = Extract<AgentEvent, { type: "message_end" }>;

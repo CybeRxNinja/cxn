@@ -1,6 +1,6 @@
 /**
  * RLM bridge — recursive subagents (`rlm()`) and family messaging
- * (`agent_message`), adapted onto cxn's eval-kernel bridge and the
+ * (`agent_message`), adapted onto omp's eval-kernel bridge and the
  * structured-subagent executor.
  *
  * Semantics follow the RLM model:
@@ -25,8 +25,8 @@
 
 import * as os from "node:os";
 import * as path from "node:path";
-import { type GeneratedProvider, getBundledModels, getBundledProviders } from "@cxn/pi-catalog/models";
-import type { Api, Model } from "@cxn/pi-catalog/types";
+import { type GeneratedProvider, getBundledModels, getBundledProviders } from "@cyberxninja-omp/pi-catalog/models";
+import type { Api, Model } from "@cyberxninja-omp/pi-catalog/types";
 import { runStructuredSubagent, type StructuredSubagentResult } from "../../task/structured-subagent";
 import type { ToolSession } from "../../tools";
 import {

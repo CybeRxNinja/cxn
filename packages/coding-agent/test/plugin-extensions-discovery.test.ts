@@ -2,11 +2,14 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { discoverAndLoadExtensions } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { getAgentDir, getPluginsDir, removeSyncWithRetries, setAgentDir, TempDir } from "@cxn/pi-utils";
+import { discoverAndLoadExtensions } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { getAgentDir, getPluginsDir, removeSyncWithRetries, setAgentDir, TempDir } from "@cyberxninja-omp/pi-utils";
 
-const currentPiCodingAgentPath = Bun.resolveSync("@cxn/pi-coding-agent", import.meta.dir);
-const currentPiExtensionsPath = Bun.resolveSync("@cxn/pi-coding-agent/extensibility/extensions", import.meta.dir);
+const currentPiCodingAgentPath = Bun.resolveSync("@cyberxninja-omp/pi-coding-agent", import.meta.dir);
+const currentPiExtensionsPath = Bun.resolveSync(
+	"@cyberxninja-omp/pi-coding-agent/extensibility/extensions",
+	import.meta.dir,
+);
 
 describe("plugin extension discovery", () => {
 	let projectDir: TempDir;
@@ -18,12 +21,12 @@ describe("plugin extension discovery", () => {
 	beforeEach(() => {
 		projectDir = TempDir.createSync("@pi-plugin-ext-");
 		// Redirect the whole config root to an isolated temp home so plugin discovery
-		// resolves into `<tempHome>/.cxn/plugins` on every platform. Two things are needed:
-		//  - mock os.homedir() so configRoot = `<tempHome>/.cxn` (the previous
+		// resolves into `<tempHome>/.omp/plugins` on every platform. Two things are needed:
+		//  - mock os.homedir() so configRoot = `<tempHome>/.omp` (the previous
 		//    XDG_DATA_HOME redirect was a no-op on Windows, where these tests then wrote
-		//    into and rm'd the developer's real `~/.cxn/plugins`);
+		//    into and rm'd the developer's real `~/.omp/plugins`);
 		//  - clear the XDG_* vars, because on Linux/macOS the resolver prefers
-		//    `$XDG_DATA_HOME/cxn` over the home config root when that dir exists, so an
+		//    `$XDG_DATA_HOME/omp` over the home config root when that dir exists, so an
 		//    XDG-migrated environment would otherwise still resolve the real plugins dir.
 		tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "pi-plugin-home-"));
 		for (const key of xdgVars) {
@@ -31,12 +34,12 @@ describe("plugin extension discovery", () => {
 			delete process.env[key];
 		}
 		spyOn(os, "homedir").mockReturnValue(tempHome);
-		setAgentDir(path.join(tempHome, ".cxn", "agent"));
+		setAgentDir(path.join(tempHome, ".omp", "agent"));
 
 		const pluginsDir = getPluginsDir();
 		// Safety gate: never write fixtures outside the temp home. This is the exact
 		// failure mode being fixed — a resolver/mock regression that resolves to the real
-		// ~/.cxn must fail loudly here instead of clobbering the developer's plugins.
+		// ~/.omp must fail loudly here instead of clobbering the developer's plugins.
 		if (!pluginsDir.startsWith(tempHome + path.sep)) {
 			throw new Error(`plugin isolation failed: getPluginsDir() resolved outside the temp home: ${pluginsDir}`);
 		}
@@ -57,7 +60,7 @@ describe("plugin extension discovery", () => {
 			JSON.stringify({
 				name: "@demo/plugin",
 				version: "1.0.0",
-				cxn: {
+				omp: {
 					extensions: ["./dist/extension.ts"],
 				},
 			}),
@@ -462,7 +465,7 @@ describe("plugin extension discovery", () => {
 				// Side-effect imports — no `from`, no dynamic `import()`. The
 				// regex matchers must walk and rewrite both shapes so the legacy
 				// `@earendil-works` import inside `register.ts` resolves to the
-				// host `@cxn` package.
+				// host `@cyberxninja-omp` package.
 				'import "#src/register";',
 				'import "./marker";',
 				"",
@@ -628,7 +631,7 @@ describe("plugin extension discovery", () => {
 		// is a decoy that must NOT win (manifest takes precedence, like the -e scanner).
 		fs.writeFileSync(
 			path.join(featureDir, "package.json"),
-			JSON.stringify({ name: "feature-ext", version: "1.0.0", cxn: { extensions: ["./dist/real-ext.ts"] } }),
+			JSON.stringify({ name: "feature-ext", version: "1.0.0", omp: { extensions: ["./dist/real-ext.ts"] } }),
 		);
 		fs.writeFileSync(
 			realEntry,
@@ -686,7 +689,7 @@ describe("plugin extension discovery", () => {
 		// not exist (e.g. unbuilt). The leftover index.ts must NOT be loaded as a fallback.
 		fs.writeFileSync(
 			path.join(featureDir, "package.json"),
-			JSON.stringify({ name: "feature-ext", version: "1.0.0", cxn: { extensions: ["./dist/real-ext.ts"] } }),
+			JSON.stringify({ name: "feature-ext", version: "1.0.0", omp: { extensions: ["./dist/real-ext.ts"] } }),
 		);
 		fs.writeFileSync(
 			path.join(featureDir, "index.ts"),
@@ -725,7 +728,7 @@ describe("plugin extension discovery", () => {
 			JSON.stringify({
 				name: "dts-plugin",
 				version: "1.0.0",
-				cxn: { extensions: ["./extensions"] },
+				omp: { extensions: ["./extensions"] },
 			}),
 		);
 		fs.writeFileSync(

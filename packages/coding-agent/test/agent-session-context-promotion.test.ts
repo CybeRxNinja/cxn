@@ -1,15 +1,15 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
 import { scheduler } from "node:timers/promises";
-import { Agent } from "@cxn/pi-agent-core";
-import * as compactionModule from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, Model, ProviderSessionState } from "@cxn/pi-ai";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession, type AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import * as compactionModule from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantMessage, Model, ProviderSessionState } from "@cyberxninja-omp/pi-ai";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession, type AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const originalSchedulerWait = scheduler.wait.bind(scheduler);
 

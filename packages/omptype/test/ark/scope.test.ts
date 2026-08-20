@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type ArkErrors, type Module, type Scope, scope, type } from "@cxn/omptype/ark";
+import { type ArkErrors, type Module, type Scope, scope, type } from "@cyberxninja-omp/omptype/ark";
 import type { Eq } from "./type-assert";
 
 it("base definition", () => {

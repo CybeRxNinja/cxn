@@ -195,7 +195,7 @@ export function parseEnvFile(filePath: string): Record<string, string> {
 
 // Defer the one-time `.env` load to {@link markEnvReady} ONLY inside the CLI
 // entry graph. The CLI signals this by setting `process.env.__CXN_ENV_DEFER_LOAD`
-// (see packages/coding-agent/src/cli/env-defer.ts) before any `@cxn/pi-utils`
+// (see packages/coding-agent/src/cli/env-defer.ts) before any `@cyberxninja-omp/pi-utils`
 // module that imports this file is evaluated. Every other entry point — the SDK,
 // tooling probes, and tests such as packages/utils/test/profiles.test.ts — imports
 // `env.ts` directly and keeps the eager load so directory resolvers honor profile
@@ -281,7 +281,7 @@ export function markEnvReady(): void {
 /**
  * Intentional re-export of Bun.env.
  *
- * All users should import this env module (import { $env } from "@cxn/pi-utils")
+ * All users should import this env module (import { $env } from "@cyberxninja-omp/pi-utils")
  * before using environment variables. Inside the deferred (CLI) mode, `$env`
  * triggers the one-time `.env` load lazily on first access AFTER {@link
  * markEnvReady} has been called (the CLI does this right after `setProfile`);
@@ -439,7 +439,7 @@ export function setInteractiveHost(interactive: boolean): boolean {
  * history.db, stats.db).
  *
  * Interactive hosts tolerate a longer synchronous wait on lock contention
- * (SQLITE_BUSY during WAL recovery/checkpoint — see cxn#2421): the
+ * (SQLITE_BUSY during WAL recovery/checkpoint — see omp#2421): the
  * operator sees a brief freeze and the statement eventually completes.
  * Headless hosts (print/RPC/ACP/eval/SDK) run a protocol on the same thread —
  * a multi-second synchronous busy-wait freezes their event loop and stalls

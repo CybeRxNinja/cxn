@@ -7,12 +7,12 @@
  * #applyPlanModeModel() therefore has no thinking level to apply.
  */
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { Agent, ThinkingLevel } from "@cxn/pi-agent-core";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { Agent, ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 
 describe("plan mode thinking level", () => {
 	let session: AgentSession;

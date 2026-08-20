@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@cxn/pi-utils",
+  "name": "@cyberxninja-omp/pi-utils",
   "version": "17.4.2",
   "description": "Shared utilities for pi packages",
-  "homepage": "https://cxn.sh",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "license": "MIT",
   "repository": {
@@ -31,7 +31,7 @@
     "fmt": "biome format --write ."
   },
   "dependencies": {
-    "@cxn/pi-natives": "catalog:"
+    "@cyberxninja-omp/pi-natives": "catalog:"
   },
   "devDependencies": {
     "@types/bun": "catalog:"

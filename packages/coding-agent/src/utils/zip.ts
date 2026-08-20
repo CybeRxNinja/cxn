@@ -10,7 +10,7 @@
 // process (#4774).
 import * as path from "node:path";
 import * as zlib from "node:zlib";
-import { formatBytes } from "@cxn/pi-utils";
+import { formatBytes } from "@cyberxninja-omp/pi-utils";
 import { ToolError } from "../tools/tool-errors";
 
 /** A ZIP archive decoded to a `path → bytes` map of its file members. */

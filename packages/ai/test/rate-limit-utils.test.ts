@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { ProviderHttpError } from "@cxn/pi-ai/error";
-import { classify, Flag, is, isUsageLimit, retriable } from "@cxn/pi-ai/error/flags";
+import { ProviderHttpError } from "@cyberxninja-omp/pi-ai/error";
+import { classify, Flag, is, isUsageLimit, retriable } from "@cyberxninja-omp/pi-ai/error/flags";
 import {
 	calculateRateLimitBackoffMs,
 	isConcurrencyCapExclusion,
@@ -8,7 +8,7 @@ import {
 	isUsageLimitOutcome,
 	isUsageLimitStatus,
 	parseRateLimitReason,
-} from "@cxn/pi-ai/error/rate-limit";
+} from "@cyberxninja-omp/pi-ai/error/rate-limit";
 
 function googleRpc429(reason: string, retryDelay?: string, message = "Resource exhausted"): string {
 	const details: Array<Record<string, string>> = [

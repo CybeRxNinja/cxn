@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import { buildOpenAIResponsesCompat } from "@cxn/pi-catalog/compat/openai";
+import { buildOpenAIResponsesCompat } from "@cyberxninja-omp/pi-catalog/compat/openai";
 
 describe("resolveOpenAIResponsesCompat supportsDeveloperRole", () => {
 	it("returns true for openai provider with official API base URL", () => {

@@ -11,7 +11,7 @@ import type {
 	ClientCapabilities,
 	RequestPermissionRequest,
 	ToolCallUpdate,
-} from "@cxn/pi-utils/acp";
+} from "@cyberxninja-omp/pi-utils/acp";
 import type {
 	ClientBridge,
 	ClientBridgeCapabilities,

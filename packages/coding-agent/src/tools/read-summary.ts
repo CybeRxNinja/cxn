@@ -1,6 +1,6 @@
 import * as path from "node:path";
-import { type SummaryResult, summarizeCode } from "@cxn/pi-natives";
-import { LRUCache } from "@cxn/pi-utils/lru";
+import { type SummaryResult, summarizeCode } from "@cyberxninja-omp/pi-natives";
+import { LRUCache } from "@cyberxninja-omp/pi-utils/lru";
 import { isMarkdownPath } from "../modes/theme/theme";
 import type { ToolSession } from "../sdk";
 import { resolveFileDisplayMode } from "../utils/file-display-mode";

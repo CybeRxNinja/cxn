@@ -3,9 +3,9 @@ import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { extractionRate, normalizeBatch, normalizeChat } from "@cxn/pi-mnemopi/core/chat-normalize";
-import { getCostStats, initCostLog, logCost } from "@cxn/pi-mnemopi/core/cost-log";
-import { estimateCost, estimateTokens } from "@cxn/pi-mnemopi/core/token-counter";
+import { extractionRate, normalizeBatch, normalizeChat } from "@cyberxninja-omp/pi-mnemopi/core/chat-normalize";
+import { getCostStats, initCostLog, logCost } from "@cyberxninja-omp/pi-mnemopi/core/cost-log";
+import { estimateCost, estimateTokens } from "@cyberxninja-omp/pi-mnemopi/core/token-counter";
 
 describe("token counter", () => {
 	it("uses the Python fallback token estimate and pricing table", () => {

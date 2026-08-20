@@ -1,6 +1,6 @@
 # Natives Build, Release, and Debugging Runbook
 
-This runbook describes how `@cxn/pi-natives` produces `.node` addons, generated declarations, and compiled-binary embedded payloads, and how to debug loader/build failures.
+This runbook describes how `@cyberxninja-omp/pi-natives` produces `.node` addons, generated declarations, and compiled-binary embedded payloads, and how to debug loader/build failures.
 
 Addon **artifacts are built by Bazel** (`rules_rust` + `crate_universe` + hermetic cc toolchains); the cargo workspace stays authoritative for local Rust iteration (rust-analyzer, `cargo nextest`) and for napi typedef regeneration. Runtime loading and embedding are unchanged.
 
@@ -138,7 +138,7 @@ build --tls_certificate=infra/bazel-remote/ca.crt
 
 `.github/workflows/ci.yml` separates `rust_validate` from `native_addons`; TypeScript jobs depend only on `native_addons`.
 
-**Pull requests never build or validate Rust.** Native-affecting PRs are rare enough that they don't warrant a PR-side bazel build: `rust_validate` is skipped entirely (`if: github.event_name != 'pull_request'`), and `native_addons` fetches the latest release's Linux x64 addon pair from the `@cxn/pi-natives-linux-x64` npm leaf, smoke-loads both, and uploads them as the `native-addons` workflow artifact. The loader skips its version sentinel for workspace loads, so release-versioned addons load fine under a newer checkout. A PR whose TypeScript tests depend on changed native behavior fails visibly (and CI emits a notice on any native-touching PR); the Rust side is validated post-merge on main and again at release.
+**Pull requests never build or validate Rust.** Native-affecting PRs are rare enough that they don't warrant a PR-side bazel build: `rust_validate` is skipped entirely (`if: github.event_name != 'pull_request'`), and `native_addons` fetches the latest release's Linux x64 addon pair from the `@cyberxninja-omp/pi-natives-linux-x64` npm leaf, smoke-loads both, and uploads them as the `native-addons` workflow artifact. The loader skips its version sentinel for workspace loads, so release-versioned addons load fine under a newer checkout. A PR whose TypeScript tests depend on changed native behavior fails visibly (and CI emits a notice on any native-touching PR); the Rust side is validated post-merge on main and again at release.
 
 On non-PR events both jobs run on `cxn-kata` pods against the cluster remote cache. `rust_validate` runs:
 
@@ -181,7 +181,7 @@ Hosted disk caches use `bazel-disk-v3-<scope>-<os>-<arch>-<config-hash>-<source-
 
 ### Release binary builds and publishing
 
-Binary builds are build-only and run in parallel with the test fan-out. `release_binary` (Linux + Windows matrices) needs only `native_addons`, whose workflow artifact supplies their addons. `release_binary_darwin` needs only `release_metadata` and starts the moment a release run is detected: darwin artifacts cannot be cross-built on Linux, so each macOS leg builds its own architecture through `bazel-natives` with scope `release-<target_id>` (seeded near HEAD by the warm workflow — normally just the version-bump delta), then `bun run ci:release:build-binaries` embeds and compiles the executable. Publishing is held behind `release_gate` (the aggregate of every validation job): `release_native_leaves` downloads all built addons and publishes the five `@cxn/pi-natives-<tag>` leaves from one linux runner, and the GitHub release / verify / core npm chain runs beside it.
+Binary builds are build-only and run in parallel with the test fan-out. `release_binary` (Linux + Windows matrices) needs only `native_addons`, whose workflow artifact supplies their addons. `release_binary_darwin` needs only `release_metadata` and starts the moment a release run is detected: darwin artifacts cannot be cross-built on Linux, so each macOS leg builds its own architecture through `bazel-natives` with scope `release-<target_id>` (seeded near HEAD by the warm workflow — normally just the version-bump delta), then `bun run ci:release:build-binaries` embeds and compiles the executable. Publishing is held behind `release_gate` (the aggregate of every validation job): `release_native_leaves` downloads all built addons and publishes the five `@cyberxninja-omp/pi-natives-<tag>` leaves from one linux runner, and the GitHub release / verify / core npm chain runs beside it.
 
 ## Debugging playbook
 
@@ -278,7 +278,7 @@ Runtime x64 candidate order also includes the unsuffixed default filename after 
 Typical local loop:
 
 1. Build addon: `bun --cwd=packages/natives run build`.
-2. Loader resolves platform npm leaf-package candidates (`@cxn/pi-natives-<platform>-<arch>`, when resolvable), then package-local `native/` and executable-dir fallback candidates.
+2. Loader resolves platform npm leaf-package candidates (`@cyberxninja-omp/pi-natives-<platform>-<arch>`, when resolvable), then package-local `native/` and executable-dir fallback candidates.
 3. Generated declarations in `native/index.d.ts` describe the public TS API (regenerate with `build:bindings` only when the Rust API surface changes).
 4. On Windows package installs, the loader first copies a `node_modules` addon into the versioned cache so a running process does not lock the file Bun must replace during a later global update.
 5. After a successful load, older semver-shaped version cache directories are removed best-effort; cleanup failures never abort startup.
@@ -292,7 +292,7 @@ In compiled mode (`PI_COMPILED`, Bun embedded URL markers, or populated embedded
 3. Runtime candidate order includes:
    - extracted versioned cache path, if available,
    - versioned cache dir,
-   - legacy compiled-binary dir (`%LOCALAPPDATA%/cxn` on Windows, `~/.local/bin` elsewhere),
+   - legacy compiled-binary dir (`%LOCALAPPDATA%/omp` on Windows, `~/.local/bin` elsewhere),
    - package/executable directories.
 4. First successfully loaded addon with the expected version sentinel is returned.
 
@@ -393,7 +393,7 @@ Anything outside this input set (Bazel definition files such as `MODULE.bazel`/`
 
 ### Layout and ownership
 
-- Root: `/data/cache/pi-natives` (provisioned by `entrypoint.sh` alongside the cargo caches, owned `root:cxn`, mode `02770` setgid so cached files inherit `gid=cxn` and stay readable by every slot user).
+- Root: `/data/cache/pi-natives` (provisioned by `entrypoint.sh` alongside the cargo caches, owned `root:omp`, mode `02770` setgid so cached files inherit `gid=omp` and stay readable by every slot user).
 - Per-repo subdirectory: `<root>/<repo-slug>/` where the slug is `owner__repo` (mirrors `SandboxManager.pool_path`).
 - Per-entry directory: `<root>/<repo-slug>/<sha256-key>/` containing the cached files plus `manifest.json`.
 - Per-repo lockfile: `<root>/<repo-slug>/.lock` (advisory `fcntl.flock`, exclusive on capture and GC).
@@ -402,7 +402,7 @@ Anything outside this input set (Bazel definition files such as `MODULE.bazel`/`
 ### Populate and capture semantics
 
 - **Populate** (workspace ← cache) runs inside `ensure_workspace`. On a key hit the `.node` is **hardlinked** into the workspace (zero-copy, shared inode); the companion `index.d.ts` / `index.js` / `embedded-addon.js` are **copied** (independent inodes) because the bindings regeneration flow (`build-bindings.ts`'s `installGeneratedBindings` and `gen-enums.ts`) rewrites those files via `open(..., 'w')` — an in-place truncate that would otherwise propagate through a hardlink and corrupt the cache. Cross-device hardlink failures (`EXDEV`) fall back to copy.
-- **Capture** (cache ← workspace) runs from the post-task success path when the build produced a complete artifact set. Capture uses **copy**, not hardlink: hardlinking a slot-owned workspace file would preserve slot UID ownership on the cached inode and defeat the shared-group model. Copying creates a fresh root-owned, `gid=cxn` inode via the setgid cache root. Capture is idempotent under the per-repo flock: a concurrent capture for the same key returns the existing entry.
+- **Capture** (cache ← workspace) runs from the post-task success path when the build produced a complete artifact set. Capture uses **copy**, not hardlink: hardlinking a slot-owned workspace file would preserve slot UID ownership on the cached inode and defeat the shared-group model. Copying creates a fresh root-owned, `gid=omp` inode via the setgid cache root. Capture is idempotent under the per-repo flock: a concurrent capture for the same key returns the existing entry.
 
 ### Garbage collection
 
@@ -418,7 +418,7 @@ Workspaces that hardlinked a `.node` before GC retain access via the kernel inod
 | Env var                                     | Default                  | Effect                                                                                              |
 | ------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------------------------- |
 | `ROBCXN_NATIVES_CACHE_ENABLED`              | `true`                   | Master switch. When false the populate/capture hooks no-op and every workspace builds from scratch. |
-| `ROBCXN_NATIVES_CACHE_ROOT`                 | `/data/cache/pi-natives` | Cache root directory. Must be `root:cxn 02770` for cross-slot reads.                                |
+| `ROBCXN_NATIVES_CACHE_ROOT`                 | `/data/cache/pi-natives` | Cache root directory. Must be `root:omp 02770` for cross-slot reads.                                |
 | `ROBCXN_NATIVES_CACHE_MAX_ENTRIES_PER_REPO` | `8`                      | LRU entry-count cap, per repo slug.                                                                 |
 | `ROBCXN_NATIVES_CACHE_MAX_BYTES`            | `4294967296` (4 GiB)     | LRU byte cap, per repo slug.                                                                        |
 | `ROBCXN_NATIVES_CACHE_GC_INTERVAL_SECONDS`  | `3600`                   | Period of the background GC loop in `WorkerPool`.                                                   |

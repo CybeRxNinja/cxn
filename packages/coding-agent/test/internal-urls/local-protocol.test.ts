@@ -7,8 +7,8 @@ import {
 	LocalProtocolHandler,
 	resolveLocalRoot,
 	resolveLocalUrlToPath,
-} from "@cxn/pi-coding-agent/internal-urls";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 async function withTempDir<T>(fn: (dir: string) => Promise<T>): Promise<T> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "local-protocol-"));

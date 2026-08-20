@@ -3,8 +3,8 @@ import {
 	collectTerminalState,
 	formatTerminalState,
 	type TerminalStateInfo,
-} from "@cxn/pi-coding-agent/debug/terminal-info";
-import { TERMINAL } from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-coding-agent/debug/terminal-info";
+import { TERMINAL } from "@cyberxninja-omp/pi-tui";
 
 const sample: TerminalStateInfo = {
 	detectedId: "kitty",

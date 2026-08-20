@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { retryTransientCompletion } from "@cxn/pi-ai/oneshot-retry";
-import type { AssistantMessage, Usage } from "@cxn/pi-ai/types";
+import { retryTransientCompletion } from "@cyberxninja-omp/pi-ai/oneshot-retry";
+import type { AssistantMessage, Usage } from "@cyberxninja-omp/pi-ai/types";
 
 /**
  * Defends the contract every oneshot LLM call site now depends on:

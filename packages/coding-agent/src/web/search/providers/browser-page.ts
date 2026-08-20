@@ -1,5 +1,5 @@
-import type { FetchImpl } from "@cxn/pi-ai";
-import { untilAborted } from "@cxn/pi-utils";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai";
+import { untilAborted } from "@cyberxninja-omp/pi-utils";
 import type { Page } from "puppeteer-core";
 import { applyStealthPatches, applyViewport } from "../../../tools/browser/launch";
 import { acquireBrowser, holdBrowser, releaseBrowser } from "../../../tools/browser/registry";

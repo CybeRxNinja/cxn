@@ -1,7 +1,7 @@
 import { vi } from "bun:test";
-import { resetSettingsForTest } from "@cxn/pi-coding-agent/config/settings";
-import { isTuiTight, setTuiTight } from "@cxn/pi-tui";
-import { getAgentDir, getProjectDir, setAgentDir, setProjectDir } from "@cxn/pi-utils";
+import { resetSettingsForTest } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { isTuiTight, setTuiTight } from "@cyberxninja-omp/pi-tui";
+import { getAgentDir, getProjectDir, setAgentDir, setProjectDir } from "@cyberxninja-omp/pi-utils";
 
 export interface SettingsTestState {
 	agentDir: string;

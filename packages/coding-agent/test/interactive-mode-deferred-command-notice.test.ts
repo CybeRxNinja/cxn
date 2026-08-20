@@ -1,11 +1,11 @@
 import { afterAll, afterEach, describe, expect, it, vi } from "bun:test";
-import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { Text } from "@cxn/pi-tui";
-import { TempDir } from "@cxn/pi-utils";
+import { resetSettingsForTest, Settings, settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 type Harness = {
 	mode: InteractiveMode;

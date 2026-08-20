@@ -7,10 +7,10 @@ import {
 	handleServerMessage,
 	processInteractionUpdate,
 	type ToolCallState,
-} from "@cxn/pi-ai/providers/cursor";
-import type { AssistantMessage, CursorExecHandlers, ToolResultMessage } from "@cxn/pi-ai/types";
-import { kCursorExecResolved, setStreamingPartialJson } from "@cxn/pi-ai/utils/block-symbols";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+} from "@cyberxninja-omp/pi-ai/providers/cursor";
+import type { AssistantMessage, CursorExecHandlers, ToolResultMessage } from "@cyberxninja-omp/pi-ai/types";
+import { kCursorExecResolved, setStreamingPartialJson } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
 import {
 	type AgentClientMessage,
 	AgentClientMessageSchema,
@@ -64,7 +64,7 @@ import {
 	SubagentAwaitArgsSchema,
 	ToolCallSchema,
 	WebFetchAllowlistPrecheckArgsSchema,
-} from "@cxn/pi-catalog/discovery/cursor-gen/agent_pb";
+} from "@cyberxninja-omp/pi-catalog/discovery/cursor-gen/agent_pb";
 
 /**
  * Drive one `ExecServerMessage` through the real dispatcher and decode every
@@ -249,7 +249,7 @@ describe("Cursor stream teardown", () => {
 						target: {
 							case: "github",
 							value: create(ConnectScmGithubSchema, {
-								repository: create(ConnectScmGithubRepositorySchema, { owner: "can1357", repo: "cxn" }),
+								repository: create(ConnectScmGithubRepositorySchema, { owner: "can1357", repo: "omp" }),
 							}),
 						},
 					}),
@@ -1443,7 +1443,7 @@ describe("Cursor modern exec frames: server-resolved tool calls leave a paired b
 
 	it("reads the connectScm repository out of the target oneof, not a flat field", async () => {
 		const { output, results } = runConnectScm(
-			{ toolCallId: "call-scm-1", repository: { owner: "can1357", repo: "cxn" } },
+			{ toolCallId: "call-scm-1", repository: { owner: "can1357", repo: "omp" } },
 			{ case: "success", value: {} },
 		);
 
@@ -1451,7 +1451,7 @@ describe("Cursor modern exec frames: server-resolved tool calls leave a paired b
 		expect(block).toMatchObject({
 			id: "call-scm-1",
 			name: "connect_scm",
-			arguments: { owner: "can1357", repo: "cxn" },
+			arguments: { owner: "can1357", repo: "omp" },
 		});
 		// Resolved => agent-loop runs no local tool, so the decoder owes the pair.
 		expect(block[kCursorExecResolved]).toBe(true);

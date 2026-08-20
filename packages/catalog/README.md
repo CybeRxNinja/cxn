@@ -1,6 +1,6 @@
-# @cxn/pi-catalog
+# @cyberxninja-omp/pi-catalog
 
-Model catalog for [cxn](https://github.com/can1357/oh-my-pi): bundled model database, provider discovery, model identity, classification, and equivalence.
+Model catalog for [omp](https://github.com/can1357/oh-my-pi): bundled model database, provider discovery, model identity, classification, and equivalence.
 
 ## What's inside
 
@@ -17,7 +17,7 @@ Model catalog for [cxn](https://github.com/can1357/oh-my-pi): bundled model data
 | `wire`                          | Wire-level helpers: Codex, Gemini headers, GitHub Copilot                                                   |
 | `effort`                        | Reasoning-effort level definitions                                                                          |
 
-Import from subpaths (`@cxn/pi-catalog/<module>`) or the root barrel.
+Import from subpaths (`@cyberxninja-omp/pi-catalog/<module>`) or the root barrel.
 
 ## models.json is generated
 
@@ -32,7 +32,7 @@ To change an entry, fix the source: resolver overrides in `provider-models/opena
 ## Install
 
 ```sh
-bun add @cxn/pi-catalog
+bun add @cyberxninja-omp/pi-catalog
 ```
 
 Ships TypeScript source directly (no build step); requires Bun ≥ 1.3.14.

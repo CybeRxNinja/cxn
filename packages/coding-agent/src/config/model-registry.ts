@@ -1,10 +1,10 @@
 import * as path from "node:path";
-import type { ApiKeyResolver, FetchImpl } from "@cxn/pi-ai";
-import { registerCustomApi, unregisterCustomApis } from "@cxn/pi-ai/api-registry";
-import { registerOAuthProvider, unregisterOAuthProvider, unregisterOAuthProviders } from "@cxn/pi-ai/oauth";
-import type { OAuthCredentials, OAuthLoginCallbacks } from "@cxn/pi-ai/oauth/types";
-import { setCodexAttestationProvider } from "@cxn/pi-ai/providers/openai-codex-responses";
-import { getProviderDefinition } from "@cxn/pi-ai/registry";
+import type { ApiKeyResolver, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import { registerCustomApi, unregisterCustomApis } from "@cyberxninja-omp/pi-ai/api-registry";
+import { registerOAuthProvider, unregisterOAuthProvider, unregisterOAuthProviders } from "@cyberxninja-omp/pi-ai/oauth";
+import type { OAuthCredentials, OAuthLoginCallbacks } from "@cyberxninja-omp/pi-ai/oauth/types";
+import { setCodexAttestationProvider } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { getProviderDefinition } from "@cyberxninja-omp/pi-ai/registry";
 import type {
 	Api,
 	Context,
@@ -13,12 +13,16 @@ import type {
 	RemoteCompactionConfig,
 	SimpleStreamOptions,
 	ThinkingConfig,
-} from "@cxn/pi-ai/types";
-import type { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { readModelCache } from "@cxn/pi-catalog/model-cache";
-import { createModelManager, type ModelManagerOptions, type ModelRefreshStrategy } from "@cxn/pi-catalog/model-manager";
-import { getBundledModels, getBundledProviders } from "@cxn/pi-catalog/models";
+} from "@cyberxninja-omp/pi-ai/types";
+import type { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { readModelCache } from "@cyberxninja-omp/pi-catalog/model-cache";
+import {
+	createModelManager,
+	type ModelManagerOptions,
+	type ModelRefreshStrategy,
+} from "@cyberxninja-omp/pi-catalog/model-manager";
+import { getBundledModels, getBundledProviders } from "@cyberxninja-omp/pi-catalog/models";
 import {
 	googleAntigravityModelManagerOptions,
 	googleGeminiCliModelManagerOptions,
@@ -26,9 +30,9 @@ import {
 	PROVIDER_DESCRIPTORS,
 	resolveModelCacheProviderId,
 	resolveOllamaModelCacheProviderId,
-} from "@cxn/pi-catalog/provider-models";
-import { collapseBuiltModelVariants } from "@cxn/pi-catalog/variant-collapse";
-import { getAgentDir, isBunTestRuntime, logger, wrapFetchForExtraCa } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-catalog/provider-models";
+import { collapseBuiltModelVariants } from "@cyberxninja-omp/pi-catalog/variant-collapse";
+import { getAgentDir, isBunTestRuntime, logger, wrapFetchForExtraCa } from "@cyberxninja-omp/pi-utils";
 import { resolveProviderModelReference } from "../config/model-resolver";
 import { generateCodexAttestation } from "../live/attestation";
 import type { AuthStorage } from "../session/auth-storage";

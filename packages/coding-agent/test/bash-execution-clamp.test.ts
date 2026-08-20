@@ -1,8 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it } from "bun:test";
-import { BashExecutionComponent } from "@cxn/pi-coding-agent/modes/components/bash-execution";
-import { getThemeByName, setThemeInstance, type Theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { TUI } from "@cxn/pi-tui";
-import { visibleWidth } from "@cxn/pi-tui";
+import { BashExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/bash-execution";
+import { getThemeByName, setThemeInstance, type Theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
+import { visibleWidth } from "@cyberxninja-omp/pi-tui";
 
 const MAX_DISPLAY_LINE_CHARS = 4000;
 let darkTheme: Theme;

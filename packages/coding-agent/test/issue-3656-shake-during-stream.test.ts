@@ -1,19 +1,19 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@cxn/pi-agent-core";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AssistantMessageComponent } from "@cxn/pi-coding-agent/modes/components/assistant-message";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { HistoryStorage } from "@cxn/pi-coding-agent/session/history-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AssistantMessageComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/assistant-message";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { HistoryStorage } from "@cyberxninja-omp/pi-coding-agent/session/history-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Regression for issue #3656 — running `/shake` (or any mid-stream rebuild)

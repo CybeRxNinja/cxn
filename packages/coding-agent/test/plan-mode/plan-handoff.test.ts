@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { LocalProtocolOptions } from "@cxn/pi-coding-agent/internal-urls";
-import { loadOverallPlanReference } from "@cxn/pi-coding-agent/plan-mode/plan-handoff";
-import { removeWithRetries } from "@cxn/pi-utils";
+import type { LocalProtocolOptions } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { loadOverallPlanReference } from "@cyberxninja-omp/pi-coding-agent/plan-mode/plan-handoff";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("loadOverallPlanReference", () => {
 	let tmpDir: string;

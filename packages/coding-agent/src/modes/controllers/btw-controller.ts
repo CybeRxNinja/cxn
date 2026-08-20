@@ -1,5 +1,5 @@
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import btwUserPrompt from "../../prompts/system/btw-user.md" with { type: "text" };
 import { copyToClipboard } from "../../utils/clipboard";
 import { BtwPanelComponent } from "../components/btw-panel";

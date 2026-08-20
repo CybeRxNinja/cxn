@@ -7,8 +7,8 @@
  * - Grouped references and symbols
  * - Collapsible/expandable views
  */
-import type { RenderResultOptions } from "@cxn/pi-agent-core";
-import { type Component, Text } from "@cxn/pi-tui";
+import type { RenderResultOptions } from "@cyberxninja-omp/pi-agent-core";
+import { type Component, Text } from "@cyberxninja-omp/pi-tui";
 import { getLanguageFromPath, highlightCode as highlightThemeCode, type Theme } from "../modes/theme/theme";
 import {
 	formatExpandHint,

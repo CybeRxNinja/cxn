@@ -1,10 +1,17 @@
 /** Provider-facing message, image, secret, and stream normalization for a session. */
 
-import type { Agent, AgentMessage } from "@cxn/pi-agent-core";
-import type { CompactionPreparation } from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, ImageContent, Message, Model, SimpleStreamOptions, TextContent } from "@cxn/pi-ai";
-import { isRecord, logger } from "@cxn/pi-utils";
-import * as snapcompact from "@cxn/snapcompact";
+import type { Agent, AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { CompactionPreparation } from "@cyberxninja-omp/pi-agent-core/compaction";
+import type {
+	AssistantMessage,
+	ImageContent,
+	Message,
+	Model,
+	SimpleStreamOptions,
+	TextContent,
+} from "@cyberxninja-omp/pi-ai";
+import { isRecord, logger } from "@cyberxninja-omp/pi-utils";
+import * as snapcompact from "@cyberxninja-omp/snapcompact";
 import type { ModelRegistry } from "../config/model-registry";
 import { formatModelString } from "../config/model-resolver";
 import type { Settings } from "../config/settings";

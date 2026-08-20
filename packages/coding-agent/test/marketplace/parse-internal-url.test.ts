@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { parseInternalUrl } from "@cxn/pi-coding-agent/internal-urls/parse";
+import { parseInternalUrl } from "@cyberxninja-omp/pi-coding-agent/internal-urls/parse";
 
 // ── Basic parsing (URLs that new URL() handles fine) ─────────────────
 

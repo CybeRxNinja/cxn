@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { $which } from "@cxn/pi-utils";
+import { $which } from "@cyberxninja-omp/pi-utils";
 
 interface RunnerFrame {
 	type?: string;

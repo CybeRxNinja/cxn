@@ -1,4 +1,4 @@
-import { Container, Text } from "@cxn/pi-tui";
+import { Container, Text } from "@cyberxninja-omp/pi-tui";
 import { formatDiagnostics } from "../../tools/render-utils";
 import { getLanguageFromPath, theme } from "../theme/theme";
 

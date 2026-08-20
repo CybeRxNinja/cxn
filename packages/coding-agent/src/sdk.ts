@@ -8,7 +8,7 @@ import {
 	AppendOnlyContextManager,
 	filterProviderReplayMessages,
 	type ThinkingLevel,
-} from "@cxn/pi-agent-core";
+} from "@cyberxninja-omp/pi-agent-core";
 import type {
 	Context,
 	CredentialDisabledEvent,
@@ -19,17 +19,26 @@ import type {
 	ProviderSessionState,
 	ServiceTier,
 	SimpleStreamOptions,
-} from "@cxn/pi-ai";
-import { resolveApiKeyOnce } from "@cxn/pi-ai/auth-retry";
-import type { Dialect } from "@cxn/pi-ai/dialect";
+} from "@cyberxninja-omp/pi-ai";
+import { resolveApiKeyOnce } from "@cyberxninja-omp/pi-ai/auth-retry";
+import type { Dialect } from "@cyberxninja-omp/pi-ai/dialect";
 import {
 	getOpenAICodexTransportDetails,
 	prewarmOpenAICodexResponses,
-} from "@cxn/pi-ai/providers/openai-codex-responses";
-import { FALLBACK_DIALECT, preferredDialect } from "@cxn/pi-catalog/identity";
-import type { Component } from "@cxn/pi-tui";
-import { $env, $flag, getAgentDir, getProjectDir, logger, postmortem, prompt, Snowflake } from "@cxn/pi-utils";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { FALLBACK_DIALECT, preferredDialect } from "@cyberxninja-omp/pi-catalog/identity";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import {
+	$env,
+	$flag,
+	getAgentDir,
+	getProjectDir,
+	logger,
+	postmortem,
+	prompt,
+	Snowflake,
+} from "@cyberxninja-omp/pi-utils";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import {
 	discoverAdvisorConfigs,
 	discoverWatchdogFiles,
@@ -353,7 +362,7 @@ export interface CreateAgentSessionOptions {
 	cwd?: string;
 	/** Additional workspace directories beyond cwd (multi-root), absolute or cwd-relative. */
 	additionalDirectories?: string[];
-	/** Global config directory. Default: ~/.cxn/agent */
+	/** Global config directory. Default: ~/.omp/agent */
 	agentDir?: string;
 	/** Spawns to allow. Default: "*" */
 	spawns?: string;
@@ -452,7 +461,7 @@ export interface CreateAgentSessionOptions {
 	 */
 	preloadedExtensionPaths?: string[];
 	/**
-	 * Pre-discovered custom-tool source paths from `.cxn/tools/`, `.claude/tools/`,
+	 * Pre-discovered custom-tool source paths from `.omp/tools/`, `.claude/tools/`,
 	 * plugins, etc. When provided, the filesystem-scan inside
 	 * `discoverCustomToolPaths()` is skipped — subagents inherit the parent's
 	 * scan result and call `loadCustomTools()` themselves so each session binds
@@ -475,7 +484,7 @@ export interface CreateAgentSessionOptions {
 	contextFiles?: Array<{ path: string; content: string }>;
 	/** Pre-built workspace tree (skips re-scanning; passed by parents to subagents). */
 	workspaceTree?: WorkspaceTree;
-	/** Prompt templates. Default: discovered from cwd/.cxn/prompts/ + agentDir/prompts/ */
+	/** Prompt templates. Default: discovered from cwd/.omp/prompts/ + agentDir/prompts/ */
 	promptTemplates?: PromptTemplate[];
 	/** File-based slash commands. Default: discovered from commands/ directories */
 	slashCommands?: FileSlashCommand[];
@@ -741,11 +750,11 @@ export async function loadSessionExtensions(
 /**
  * Load discovered/configured extensions and register their providers into
  * `modelRegistry`, then discover the dynamic provider catalogs. One-shot CLIs
- * (`cxn bench`, dry-balance) build a bare {@link ModelRegistry} that only knows
+ * (`omp bench`, dry-balance) build a bare {@link ModelRegistry} that only knows
  * built-in catalog providers; without this, providers contributed by an
  * extension (e.g. a custom OpenAI-compatible provider under
- * `~/.cxn/agent/extensions/`) never reach model resolution. Mirrors the
- * session / `cxn models` path: drain the queued provider registrations, then
+ * `~/.omp/agent/extensions/`) never reach model resolution. Mirrors the
+ * session / `omp models` path: drain the queued provider registrations, then
  * `refreshRuntimeProviders` so dynamically-discovered models exist before
  * selectors are resolved.
  */
@@ -1205,7 +1214,7 @@ export function createAutoLearnCaptureRunner(
  * const { session } = await createAgentSession();
  *
  * // With explicit model
- * import { getModel } from '@cxn/pi-ai';
+ * import { getModel } from '@cyberxninja-omp/pi-ai';
  * const { session } = await createAgentSession({
  *   model: getModel('anthropic', 'claude-opus-4-5'),
  *   thinkingLevel: 'high',
@@ -1944,7 +1953,7 @@ async function createAgentSessionScoped(options: CreateAgentSessionOptions): Pro
 				customTools.push(...getSearchTools());
 			}
 
-			// Discover custom tools from `.cxn/tools/`, `.claude/tools/`, plugins, etc.
+			// Discover custom tools from `.omp/tools/`, `.claude/tools/`, plugins, etc.
 			// Subagents reuse the parent's scan via `preloadedCustomToolPaths` to skip
 			// the FS walk, but ALWAYS re-call `loadCustomTools` here so factories bind
 			// to THIS session's `CustomToolAPI` (cwd, exec, pushPendingAction, UI).
@@ -2056,7 +2065,7 @@ async function createAgentSessionScoped(options: CreateAgentSessionOptions): Pro
 		// Hydrate cached runtime (extension) provider catalogs before model
 		// resolution. Dynamic-only providers have no synchronous registration side
 		// effect, so a cold --model/provider resume must see the same fresh SQLite
-		// cache that `cxn models find` uses before the online refresh continues in
+		// cache that `omp models find` uses before the online refresh continues in
 		// the background.
 		await modelRegistry.refreshRuntimeProviders("offline");
 		// Continue runtime discovery in the background (cache-aware) so startup is
@@ -2460,7 +2469,7 @@ async function createAgentSessionScoped(options: CreateAgentSessionOptions): Pro
 				// so on a cache-cold boot the configured default stays unresolved
 				// and `pick` silently degrades to an unrelated authed provider's
 				// default (#6162) or "No models available" (#6114) — even though
-				// `cxn models` (which awaits discovery) lists the model. Await one
+				// `omp models` (which awaits discovery) lists the model. Await one
 				// cache-aware discovery pass and retry when a default role is
 				// configured (must win over `pick`) or nothing resolved at all.
 				// The common path — role already resolved, or a `pick` with no
@@ -3722,7 +3731,7 @@ async function createAgentSessionScoped(options: CreateAgentSessionOptions): Pro
 		}
 
 		// Broker-shared language servers: one server per project, multiplexed
-		// across cxn instances by the LSP mux daemon. Session-level because the
+		// across omp instances by the LSP mux daemon. Session-level because the
 		// flag lives in module state consulted on every client cold-start.
 		setSharedLspEnabled(enableLsp && settings.get("lsp.shared"));
 

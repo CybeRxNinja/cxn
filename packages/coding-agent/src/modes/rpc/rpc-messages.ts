@@ -1,5 +1,5 @@
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { isRecord } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 
 const DEFAULT_RPC_MESSAGE_PAGE_LIMIT = 100;
 const MAX_RPC_MESSAGE_PAGE_LIMIT = 256;

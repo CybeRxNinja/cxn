@@ -7,7 +7,7 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { scheduler } from "node:timers/promises";
-import { $env, getAgentDir } from "@cxn/pi-utils";
+import { $env, getAgentDir } from "@cyberxninja-omp/pi-utils";
 import packageJson from "../../../package.json" with { type: "json" };
 import * as AIError from "../../error";
 import { isRecord } from "../../utils";

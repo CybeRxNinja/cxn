@@ -5,11 +5,11 @@
  * by providing authorization URL, token URL, and client credentials.
  */
 
-import type { OAuthCallbackFlowOptions } from "@cxn/pi-ai/oauth/callback-server";
-import { OAuthCallbackFlow } from "@cxn/pi-ai/oauth/callback-server";
-import type { OAuthController, OAuthCredentials } from "@cxn/pi-ai/oauth/types";
-import type { FetchImpl } from "@cxn/pi-ai/types";
-import { getActiveProfile } from "@cxn/pi-utils/dirs";
+import type { OAuthCallbackFlowOptions } from "@cyberxninja-omp/pi-ai/oauth/callback-server";
+import { OAuthCallbackFlow } from "@cyberxninja-omp/pi-ai/oauth/callback-server";
+import type { OAuthController, OAuthCredentials } from "@cyberxninja-omp/pi-ai/oauth/types";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
+import { getActiveProfile } from "@cyberxninja-omp/pi-utils/dirs";
 import type { OAuthCredential } from "../session/auth-storage";
 
 /** Credential-id prefix for CXN-managed MCP OAuth credentials keyed by profile and server URL. */
@@ -585,7 +585,7 @@ export class MCPOAuthFlow extends OAuthCallbackFlow {
 
 		try {
 			const registrationBody: Record<string, unknown> = {
-				client_name: "cxn",
+				client_name: "omp",
 				redirect_uris: [redirectUri],
 				grant_types: ["authorization_code", "refresh_token"],
 				response_types: ["code"],

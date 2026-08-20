@@ -18,8 +18,8 @@ allocates a new inode and leaves the cached file untouched. Cache GC is by
 LRU on ``manifest.json.captured_at``; hardlinked workspaces keep the inode
 alive after the cache directory is rmtree'd.
 
-Ownership: cache root is provisioned ``root:cxn 02770`` by ``entrypoint.sh``
-so slot subprocesses (group ``cxn``) can capture under setgid inheritance.
+Ownership: cache root is provisioned ``root:omp 02770`` by ``entrypoint.sh``
+so slot subprocesses (group ``omp``) can capture under setgid inheritance.
 Same shape as ``/data/cache/cargo``.
 """
 
@@ -365,9 +365,9 @@ class NativesCache:
                 # NOTE: capture uses COPY, not hardlink. Hardlinking a
                 # slot-owned workspace file into the cache would preserve
                 # the slot's ownership on the cached inode — defeating
-                # the setgid `cxn` model that lets other slots read it.
+                # the setgid `omp` model that lets other slots read it.
                 # A copy creates a fresh inode owned by the orchestrator
-                # (root) and inherits gid `cxn` from the setgid 2770
+                # (root) and inherits gid `omp` from the setgid 2770
                 # cache root.
                 for src in node_files:
                     _atomic_copy(src, staging / src.name)

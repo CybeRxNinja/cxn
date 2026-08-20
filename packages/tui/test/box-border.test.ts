@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { Box, type BoxBorder, Text } from "@cxn/pi-tui";
+import { Box, type BoxBorder, Text } from "@cyberxninja-omp/pi-tui";
 
 const CHARS: BoxBorder["chars"] = {
 	topLeft: "+",

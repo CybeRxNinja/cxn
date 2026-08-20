@@ -1,18 +1,18 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent, type StreamFn } from "@cxn/pi-agent-core";
-import type { AssistantMessage, Model } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { type GeneratedProvider, getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { Semaphore } from "@cxn/pi-coding-agent/task/parallel";
-import { wrapStreamFnWithProviderConcurrency } from "@cxn/pi-coding-agent/task/provider-concurrency";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent, type StreamFn } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, Model } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { type GeneratedProvider, getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { Semaphore } from "@cyberxninja-omp/pi-coding-agent/task/parallel";
+import { wrapStreamFnWithProviderConcurrency } from "@cyberxninja-omp/pi-coding-agent/task/provider-concurrency";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 interface Deferred {
 	promise: Promise<void>;

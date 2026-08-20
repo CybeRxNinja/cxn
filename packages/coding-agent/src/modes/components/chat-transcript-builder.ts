@@ -11,9 +11,9 @@
  * entry count, but it cannot duplicate or misorder rows the way incremental
  * component reuse could.
  */
-import type { AgentMessage, AgentTool } from "@cxn/pi-agent-core";
-import type { Usage } from "@cxn/pi-ai";
-import type { TUI } from "@cxn/pi-tui";
+import type { AgentMessage, AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { Usage } from "@cyberxninja-omp/pi-ai";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 import type { AdvisorMessageDetails } from "../../advisor";
 import { COLLAB_PROMPT_MESSAGE_TYPE, type CollabPromptDetails } from "../../collab/protocol";
 import { settings } from "../../config/settings";

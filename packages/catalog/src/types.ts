@@ -1,8 +1,8 @@
 import type { Effort } from "./effort";
 
-// Re-exported from @cxn/pi-utils so the whole workspace shares one
+// Re-exported from @cyberxninja-omp/pi-utils so the whole workspace shares one
 // `fetch`-compatible signature (tls-fetch's wrappers produce/accept it).
-export type { FetchImpl } from "@cxn/pi-utils";
+export type { FetchImpl } from "@cyberxninja-omp/pi-utils";
 export type { KnownProvider } from "./provider-models/descriptors";
 
 export type KnownApi =
@@ -914,11 +914,11 @@ export interface Model<TApi extends Api = Api> {
 	 * Streaming transport override. When `"pi-native"`, `streamSimple` routes
 	 * the request to the model's `baseUrl` via the auth-gateway's
 	 * `POST /v1/pi/stream` endpoint instead of dispatching the per-API
-	 * provider client. The `baseUrl` must point at an `cxn auth-gateway`
+	 * provider client. The `baseUrl` must point at an `omp auth-gateway`
 	 * (or compatible) host; `headers.Authorization` (or `apiKey` resolved by
 	 * the registry) carries the gateway bearer.
 	 *
-	 * Used by containerized cxn installs (e.g. robomp slots) to route every
+	 * Used by containerized omp installs (e.g. robomp slots) to route every
 	 * LLM call through a sidecar gateway that holds the real provider
 	 * credentials. The model's other metadata (pricing, context window,
 	 * thinking config, …) still resolves locally; only the streaming

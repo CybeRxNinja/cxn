@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { __resetVertexTokenCache } from "@cxn/pi-ai/providers/google-auth";
-import { streamGoogleVertex } from "@cxn/pi-ai/providers/google-vertex";
-import type { Model } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { __resetVertexTokenCache } from "@cyberxninja-omp/pi-ai/providers/google-auth";
+import { streamGoogleVertex } from "@cyberxninja-omp/pi-ai/providers/google-vertex";
+import type { Model } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const METADATA_TOKEN_URL = "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token";

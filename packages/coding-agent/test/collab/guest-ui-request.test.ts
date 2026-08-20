@@ -12,24 +12,27 @@
  * frame is observable.
  */
 import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
-import { generateRoomKey, importRoomKey } from "@cxn/pi-coding-agent/collab/crypto";
-import { CollabGuestLink } from "@cxn/pi-coding-agent/collab/guest";
-import { CollabHost } from "@cxn/pi-coding-agent/collab/host";
+import { generateRoomKey, importRoomKey } from "@cyberxninja-omp/pi-coding-agent/collab/crypto";
+import { CollabGuestLink } from "@cyberxninja-omp/pi-coding-agent/collab/guest";
+import { CollabHost } from "@cyberxninja-omp/pi-coding-agent/collab/host";
 import {
 	COLLAB_PROTO,
 	type CollabFrame,
 	type CollabSessionState,
 	formatCollabLink,
 	parseCollabLink,
-} from "@cxn/pi-coding-agent/collab/protocol";
-import { CollabSocket } from "@cxn/pi-coding-agent/collab/relay-client";
+} from "@cyberxninja-omp/pi-coding-agent/collab/protocol";
+import { CollabSocket } from "@cyberxninja-omp/pi-coding-agent/collab/relay-client";
 import type {
 	ExtensionAskDialogQuestion,
 	ExtensionUIDialogOptions,
 	ExtensionUISelectItem,
-} from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import { ExtensionUiController } from "@cxn/pi-coding-agent/modes/controllers/extension-ui-controller";
-import type { InteractiveModeContext, InteractiveSelectorDialogOptions } from "@cxn/pi-coding-agent/modes/types";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import { ExtensionUiController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/extension-ui-controller";
+import type {
+	InteractiveModeContext,
+	InteractiveSelectorDialogOptions,
+} from "@cyberxninja-omp/pi-coding-agent/modes/types";
 import { installInMemoryRelay, uninstallInMemoryRelay } from "./helpers/in-memory-relay";
 
 // In-memory transport: shared FakeWebSocket + InMemoryRelay harness (see

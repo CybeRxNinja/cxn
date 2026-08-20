@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { resetRlmFamilies } from "@cxn/pi-coding-agent/eval/py/family-store";
-import { RlmSpawnLedger } from "@cxn/pi-coding-agent/modes/daemon/rlm-ledger";
+import { resetRlmFamilies } from "@cyberxninja-omp/pi-coding-agent/eval/py/family-store";
+import { RlmSpawnLedger } from "@cyberxninja-omp/pi-coding-agent/modes/daemon/rlm-ledger";
 
 describe("RlmSpawnLedger (topology authority)", () => {
 	afterEach(() => resetRlmFamilies());

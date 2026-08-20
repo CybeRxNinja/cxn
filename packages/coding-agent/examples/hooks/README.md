@@ -6,10 +6,10 @@ Example hooks for cxn-coding-agent.
 
 ```bash
 # Load a hook with --hook flag
-cxn --hook examples/hooks/permission-gate.ts
+omp --hook examples/hooks/permission-gate.ts
 
 # Or copy to hooks directory for auto-discovery
-cp permission-gate.ts ~/.cxn/agent/hooks/
+cp permission-gate.ts ~/.omp/agent/hooks/
 ```
 
 ## Examples
@@ -34,7 +34,7 @@ cp permission-gate.ts ~/.cxn/agent/hooks/
 See [docs/hooks.md](../../docs/hooks.md) for full documentation.
 
 ```typescript
-import type { HookAPI } from "@cxn/pi-coding-agent/hooks";
+import type { HookAPI } from "@cyberxninja-omp/pi-coding-agent/hooks";
 
 export default function (pi: HookAPI) {
 	// Subscribe to events

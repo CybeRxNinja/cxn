@@ -2,8 +2,8 @@
  * Generate and optionally push a commit with changelog updates.
  */
 
-import { postmortem } from "@cxn/pi-utils";
-import { Command, Flags } from "@cxn/pi-utils/cli";
+import { postmortem } from "@cyberxninja-omp/pi-utils";
+import { Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { commitHelp as commandHelp } from "../cli/command-help";
 import { CommitAbortedError, runCommitCommand } from "../commit";
 import type { CommitCommandArgs } from "../commit/types";

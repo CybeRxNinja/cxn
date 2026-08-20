@@ -1,4 +1,4 @@
-import type { ToolChoice } from "@cxn/pi-ai";
+import type { ToolChoice } from "@cyberxninja-omp/pi-ai";
 
 // ── Callback types ──────────────────────────────────────────────────────────
 

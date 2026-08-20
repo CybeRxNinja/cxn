@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { EnhancedPasteController } from "@cxn/pi-coding-agent/utils/enhanced-paste";
+import { EnhancedPasteController } from "@cyberxninja-omp/pi-coding-agent/utils/enhanced-paste";
 
 /**
  * Regression for https://github.com/can1357/oh-my-pi/issues/2127

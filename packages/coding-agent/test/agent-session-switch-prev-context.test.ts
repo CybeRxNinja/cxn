@@ -1,14 +1,17 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "bun:test";
-import { Agent } from "@cxn/pi-agent-core";
-import type { Model } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import type { BuildSessionContextOptions, SessionContext } from "@cxn/pi-coding-agent/session/session-context";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import type {
+	BuildSessionContextOptions,
+	SessionContext,
+} from "@cyberxninja-omp/pi-coding-agent/session/session-context";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Regression for issue #3846: in-TUI `/resume` rebuilt the *previous*

@@ -8,7 +8,7 @@
  * the construction lives in one place rather than being repeated per callsite.
  */
 
-import type { AgentTool } from "@cxn/pi-agent-core";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
 import { EditTool } from "./edit";
 import type { ExtensionRunner } from "./extensibility/extensions";
 import { ExtensionToolWrapper } from "./extensibility/extensions";

@@ -1,4 +1,4 @@
-import type { AssistantMessage, ImageContent } from "@cxn/pi-ai";
+import type { AssistantMessage, ImageContent } from "@cyberxninja-omp/pi-ai";
 import {
 	Container,
 	Image,
@@ -9,9 +9,9 @@ import {
 	Spacer,
 	TERMINAL,
 	Text,
-} from "@cxn/pi-tui";
-import { formatNumber } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+} from "@cyberxninja-omp/pi-tui";
+import { formatNumber } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import type { AssistantThinkingRenderer } from "../../extensibility/extensions/types";
 import { getMarkdownTheme, theme } from "../../modes/theme/theme";
 import { expandKeyHint, getPreviewLines, resolveImageOptions, TRUNCATE_LENGTHS } from "../../tools/render-utils";

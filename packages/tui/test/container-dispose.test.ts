@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type Component, Container } from "@cxn/pi-tui";
+import { type Component, Container } from "@cyberxninja-omp/pi-tui";
 
 function inert(dispose?: () => void): Component {
 	return { render: () => [], invalidate: () => {}, dispose };

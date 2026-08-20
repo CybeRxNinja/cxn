@@ -1,4 +1,4 @@
-import * as stats from "@cxn/cxn-stats";
+import * as stats from "@cyberxninja-omp/omp-stats";
 import * as openUtils from "../../utils/open";
 
 export const DEFAULT_STATS_DASHBOARD_PORT = 3847;

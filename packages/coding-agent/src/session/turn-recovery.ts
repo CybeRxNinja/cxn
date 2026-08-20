@@ -5,7 +5,7 @@ import {
 	type AgentMessage,
 	isSyntheticToolResultMessage,
 	type ThinkingLevel,
-} from "@cxn/pi-agent-core";
+} from "@cyberxninja-omp/pi-agent-core";
 import type {
 	AssistantMessage,
 	AssistantRetryRecovery,
@@ -17,13 +17,13 @@ import type {
 	TextContent,
 	ThinkingContent,
 	ToolChoice,
-} from "@cxn/pi-ai";
-import { calculateRateLimitBackoffMs, parseRateLimitReason } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { kCursorExecResolved } from "@cxn/pi-ai/utils/block-symbols";
-import { isFireworksFastModelId, toFireworksBaseModelId } from "@cxn/pi-catalog/fireworks-model-id";
-import { modelsAreEqual } from "@cxn/pi-catalog/models";
-import { extractRetryHint, logger, prompt } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { calculateRateLimitBackoffMs, parseRateLimitReason } from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { kCursorExecResolved } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import { isFireworksFastModelId, toFireworksBaseModelId } from "@cyberxninja-omp/pi-catalog/fireworks-model-id";
+import { modelsAreEqual } from "@cyberxninja-omp/pi-catalog/models";
+import { extractRetryHint, logger, prompt } from "@cyberxninja-omp/pi-utils";
 import type { ModelRegistry } from "../config/model-registry";
 import { formatModelStringWithRouting, resolveModelOverride } from "../config/model-resolver";
 

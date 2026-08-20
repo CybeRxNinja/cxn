@@ -1,4 +1,4 @@
-import { routeSelectListMouse, type SelectItem, SelectList, type SgrMouseEvent } from "@cxn/pi-tui";
+import { routeSelectListMouse, type SelectItem, SelectList, type SgrMouseEvent } from "@cyberxninja-omp/pi-tui";
 import { getSelectListTheme, type SymbolPreset, setSymbolPreset, theme } from "../../theme/theme";
 import type { SetupScene, SetupSceneController, SetupSceneHost } from "./types";
 

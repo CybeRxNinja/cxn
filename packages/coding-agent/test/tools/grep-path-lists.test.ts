@@ -2,22 +2,25 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it } from "bun:test"
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { canonicalSnapshotKey } from "@cxn/pi-coding-agent/edit/file-snapshot-store";
-import type { RenderResultOptions } from "@cxn/pi-coding-agent/extensibility/custom-tools/types";
-import { AgentTranscriptViewer } from "@cxn/pi-coding-agent/modes/components/agent-transcript-viewer";
-import { TreeSelectorComponent } from "@cxn/pi-coding-agent/modes/components/tree-selector";
-import type { ObservableSession, SessionObserverRegistry } from "@cxn/pi-coding-agent/modes/session-observer-registry";
-import type { Theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { SessionEntry, SessionTreeNode } from "@cxn/pi-coding-agent/session/session-entries";
-import { ToolChoiceQueue } from "@cxn/pi-coding-agent/session/tool-choice-queue";
-import { createTools, type ToolSession } from "@cxn/pi-coding-agent/tools";
-import type { Text } from "@cxn/pi-tui";
-import { removeWithRetries } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { canonicalSnapshotKey } from "@cyberxninja-omp/pi-coding-agent/edit/file-snapshot-store";
+import type { RenderResultOptions } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-tools/types";
+import { AgentTranscriptViewer } from "@cyberxninja-omp/pi-coding-agent/modes/components/agent-transcript-viewer";
+import { TreeSelectorComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tree-selector";
+import type {
+	ObservableSession,
+	SessionObserverRegistry,
+} from "@cyberxninja-omp/pi-coding-agent/modes/session-observer-registry";
+import type { Theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { SessionEntry, SessionTreeNode } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { ToolChoiceQueue } from "@cyberxninja-omp/pi-coding-agent/session/tool-choice-queue";
+import { createTools, type ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import type { Text } from "@cyberxninja-omp/pi-tui";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 import { grepToolRenderer } from "../../src/tools/grep";
 
 function createTestSession(cwd: string, overrides: Partial<ToolSession> = {}): ToolSession {

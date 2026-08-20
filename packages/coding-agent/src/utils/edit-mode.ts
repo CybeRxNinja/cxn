@@ -1,4 +1,4 @@
-import { $env, $flag } from "@cxn/pi-utils";
+import { $env, $flag } from "@cyberxninja-omp/pi-utils";
 
 export type EditMode = "replace" | "patch" | "hashline" | "apply_patch";
 

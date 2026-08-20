@@ -11,7 +11,7 @@ import {
 	parsePatch,
 	parsePatchStreaming,
 	resolveBlockEdits,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 
 const PATH = "x.ts";
 

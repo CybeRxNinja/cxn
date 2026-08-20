@@ -1,10 +1,10 @@
 import { Database } from "bun:sqlite";
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentStorage } from "@cxn/pi-coding-agent/session/agent-storage";
-import { createSubagentSettings } from "@cxn/pi-coding-agent/task/executor";
-import { TempDir } from "@cxn/pi-utils";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentStorage } from "@cyberxninja-omp/pi-coding-agent/session/agent-storage";
+import { createSubagentSettings } from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const MODEL_PERF_FLUSH_DELAY_MS = 100;
 
@@ -151,7 +151,7 @@ describe("AgentStorage model perf aggregates", () => {
 		expect(storage.getModelPerf().get("openai/gpt-5")?.tps).toBeCloseTo(250, 5);
 	});
 
-	it("backfills perf aggregates from an cxn stats database, excluding errored and stale turns", async () => {
+	it("backfills perf aggregates from an omp stats database, excluding errored and stale turns", async () => {
 		const storage = await openStorage();
 
 		// Minimal stats.db fixture: only the columns the backfill query reads.

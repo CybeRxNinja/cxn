@@ -70,7 +70,7 @@ let
   };
 in
 stdenv.mkDerivation {
-  pname = "cxn";
+  pname = "omp";
   inherit (packageJson) version;
   src = source;
 
@@ -167,7 +167,7 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 packages/coding-agent/dist/cxn "$out/bin/cxn"
+    install -Dm755 packages/coding-agent/dist/omp "$out/bin/omp"
 
     # The addon is gzip-compressed inside the compiled binary, so the store
     # paths it links against are invisible to the output reference scanner.
@@ -192,7 +192,7 @@ stdenv.mkDerivation {
   # inert shebang. Remove its hash before Nix scans output references; this
   # runs before Darwin's binary-signing fixup hook.
   preFixup = ''
-    remove-references-to -t ${bun} "$out/bin/cxn"
+    remove-references-to -t ${bun} "$out/bin/omp"
   '';
 
   disallowedReferences = [ bun ];
@@ -200,18 +200,18 @@ stdenv.mkDerivation {
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
-    HOME="$TMPDIR" "$out/bin/cxn" --smoke-test | grep -q "smoke-test: ok"
-    BUN_BE_BUN=1 "$out/bin/cxn" -e \
+    HOME="$TMPDIR" "$out/bin/omp" --smoke-test | grep -q "smoke-test: ok"
+    BUN_BE_BUN=1 "$out/bin/omp" -e \
       'if (Bun.version !== "${bun.version}" || typeof Bun.Image !== "function") process.exit(1)'
     runHook postInstallCheck
   '';
 
   meta = {
     description = "Terminal-based coding agent with multi-model support";
-    homepage = "https://cxn.sh";
+    homepage = "https://omp.sh";
     changelog = "https://github.com/can1357/oh-my-pi/releases/tag/v${packageJson.version}";
     license = lib.licenses.mit;
-    mainProgram = "cxn";
+    mainProgram = "omp";
     platforms = [
       "aarch64-darwin"
       "aarch64-linux"

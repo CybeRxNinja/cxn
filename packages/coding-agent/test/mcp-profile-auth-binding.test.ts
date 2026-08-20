@@ -10,13 +10,13 @@
  */
 import { Database } from "bun:sqlite";
 import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-import { MCPManager } from "@cxn/pi-coding-agent/mcp/manager";
-import { removeManagedMcpOAuthCredential } from "@cxn/pi-coding-agent/mcp/oauth-credentials";
-import * as oauthFlow from "@cxn/pi-coding-agent/mcp/oauth-flow";
-import { mcpOAuthCredentialId } from "@cxn/pi-coding-agent/mcp/oauth-flow";
-import type { MCPServerConfig } from "@cxn/pi-coding-agent/mcp/types";
-import { getActiveProfile, setProfile } from "@cxn/pi-utils/dirs";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+import { MCPManager } from "@cyberxninja-omp/pi-coding-agent/mcp/manager";
+import { removeManagedMcpOAuthCredential } from "@cyberxninja-omp/pi-coding-agent/mcp/oauth-credentials";
+import * as oauthFlow from "@cyberxninja-omp/pi-coding-agent/mcp/oauth-flow";
+import { mcpOAuthCredentialId } from "@cyberxninja-omp/pi-coding-agent/mcp/oauth-flow";
+import type { MCPServerConfig } from "@cyberxninja-omp/pi-coding-agent/mcp/types";
+import { getActiveProfile, setProfile } from "@cyberxninja-omp/pi-utils/dirs";
 
 const SERVER_URL = "https://mcp.example.com/mcp";
 const URL_KEY_ID = mcpOAuthCredentialId(SERVER_URL);

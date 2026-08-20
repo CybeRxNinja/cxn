@@ -1,16 +1,16 @@
 import { afterEach, beforeEach, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentTool } from "@cxn/pi-agent-core";
-import { createMockModel, type MockModel } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { createMockModel, type MockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 let tempDir: TempDir;

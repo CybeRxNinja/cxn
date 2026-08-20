@@ -1,4 +1,4 @@
-import { readLines } from "@cxn/pi-utils";
+import { readLines } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Claims Bun's singleton stdin reader immediately and exposes a separately readable stream.

@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { STREAMING_REVEAL_FRAME_MS } from "@cxn/pi-coding-agent/modes/controllers/streaming-reveal";
+import { STREAMING_REVEAL_FRAME_MS } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/streaming-reveal";
 import {
 	decodeStreamedToolArgs,
 	streamingStringKeysForTool,
 	ToolArgsRevealController,
-} from "@cxn/pi-coding-agent/modes/controllers/tool-args-reveal";
-import { STREAMING_JSON_PARSE_MIN_GROWTH } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/modes/controllers/tool-args-reveal";
+import { STREAMING_JSON_PARSE_MIN_GROWTH } from "@cyberxninja-omp/pi-utils";
 
 class RecordingArgsComponent {
 	frames: Array<Record<string, unknown>> = [];

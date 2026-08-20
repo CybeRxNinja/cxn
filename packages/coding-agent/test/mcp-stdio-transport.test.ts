@@ -2,8 +2,12 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resolveStdioSpawnCommand, StdioTransport, writeFrame } from "@cxn/pi-coding-agent/mcp/transports/stdio";
-import { removeWithRetries } from "@cxn/pi-utils";
+import {
+	resolveStdioSpawnCommand,
+	StdioTransport,
+	writeFrame,
+} from "@cyberxninja-omp/pi-coding-agent/mcp/transports/stdio";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("resolveStdioSpawnCommand", () => {
 	it("resolves bare Windows commands through PATHEXT and wraps .cmd shims with cmd.exe", async () => {

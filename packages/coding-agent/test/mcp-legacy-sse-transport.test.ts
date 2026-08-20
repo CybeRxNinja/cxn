@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { connectToServer, listTools } from "@cxn/pi-coding-agent/mcp/client";
-import { isRetriableConnectionError } from "@cxn/pi-coding-agent/mcp/tool-bridge";
-import type { JsonRpcMessage } from "@cxn/pi-coding-agent/mcp/types";
+import { connectToServer, listTools } from "@cyberxninja-omp/pi-coding-agent/mcp/client";
+import { isRetriableConnectionError } from "@cyberxninja-omp/pi-coding-agent/mcp/tool-bridge";
+import type { JsonRpcMessage } from "@cyberxninja-omp/pi-coding-agent/mcp/types";
 
 const encoder = new TextEncoder();
 let server: Bun.Server<undefined> | null = null;

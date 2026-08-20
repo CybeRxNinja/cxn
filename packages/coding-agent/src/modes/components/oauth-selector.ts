@@ -1,5 +1,5 @@
-import { getOAuthProviders } from "@cxn/pi-ai/oauth";
-import type { OAuthProviderInfo } from "@cxn/pi-ai/oauth/types";
+import { getOAuthProviders } from "@cyberxninja-omp/pi-ai/oauth";
+import type { OAuthProviderInfo } from "@cyberxninja-omp/pi-ai/oauth/types";
 import {
 	Container,
 	extractPrintableText,
@@ -9,7 +9,7 @@ import {
 	type SgrMouseEvent,
 	Spacer,
 	TruncatedText,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import { settings } from "../../config/settings";
 import { theme } from "../../modes/theme/theme";
 import { matchesSelectCancel, matchesSelectDown, matchesSelectUp } from "../../modes/utils/keybinding-matchers";

@@ -1,10 +1,10 @@
-"""Harbor agent that runs the LOCAL cxn (`cxn`) build inside task containers.
+"""Harbor agent that runs the LOCAL omp (`omp`) build inside task containers.
 
 Unlike Harbor's built-in `pi` agent (which `npm i -g @mariozechner/pi-coding-agent`),
 this runs the working tree at `/work/pi`. Install modes (`CXN_BENCH_INSTALL`):
 
   * `source` (default): the runner bind-mounts the repo read-only plus a
-    prebuilt linux `node_modules` tree and a linux `bun` binary; cxn runs
+    prebuilt linux `node_modules` tree and a linux `bun` binary; omp runs
     straight from `packages/coding-agent/src/cli.ts`. Zero-network setup, and
     host TS edits apply to the next trial with no rebuild (Rust natives load
     from the in-tree `packages/natives/native/*.node` prebuilds).
@@ -12,9 +12,9 @@ this runs the working tree at `/work/pi`. Install modes (`CXN_BENCH_INSTALL`):
     (bundles every workspace TS package into `dist/cli.js`) and hands us the
     tarball path; we upload it, install Bun, `bun install` the bundle's
     external deps + the platform native addon, and run `bun .../dist/cli.js`.
-  * binary (`--binary`): a self-contained compiled cxn binary is uploaded.
+  * binary (`--binary`): a self-contained compiled omp binary is uploaded.
 
-Auth never enters the container: a generated `~/.cxn/agent/models.yml` routes the
+Auth never enters the container: a generated `~/.omp/agent/models.yml` routes the
 configured providers' `baseUrl` at the host's pm2 auth-gateway (default
 `http://host.docker.internal:4000`, `transport: pi-native`), so the gateway
 resolves credentials host-side. No provider API keys are passed in.
@@ -120,7 +120,7 @@ _patch_apple_container_dns()
 _TARBALL_DST = "/tmp/cxn-local.tgz"
 _MODELS_DST = "/tmp/cxn-models.yml"
 _CONFIG_DST = "/tmp/cxn-config.yml"
-_OUTPUT_FILENAME = "cxn.txt"
+_OUTPUT_FILENAME = "omp.txt"
 
 # Provider → host env vars used in --no-gateway (direct-auth) mode only.
 _PROVIDER_KEYS: dict[str, list[str]] = {
@@ -215,7 +215,7 @@ class OmpLocal(BaseInstalledAgent):
         ]
         self._thinking = _env("CXN_BENCH_THINKING")
         self._auto_approve = _truthy(_env("CXN_BENCH_AUTO_APPROVE", "1"))
-        # Extra CLI args forwarded verbatim to the in-container cxn invocation,
+        # Extra CLI args forwarded verbatim to the in-container omp invocation,
         # JSON-array-encoded by the runner (CXN_BENCH_AGENT_ARGS) so multi-word
         # values survive without a second layer of shell quoting.
         self._agent_args = self._parse_agent_args()
@@ -226,11 +226,11 @@ class OmpLocal(BaseInstalledAgent):
         # off by default so search-using tasks don't false-negative on 401s.
         self._web_search = _truthy(_env("CXN_BENCH_WEB_SEARCH", "0"))
         # Extra env (PI_* dialect knobs, explicit --env) the runner forwards into
-        # the in-container cxn run, JSON-encoded in CXN_BENCH_FORWARD_ENV.
+        # the in-container omp run, JSON-encoded in CXN_BENCH_FORWARD_ENV.
         self._forward_env = self._parse_forward_env()
         # Source-mount paths (defaults must match the runner's compose overlay).
-        self._source_dir = _env("CXN_BENCH_SOURCE_DIR", "/opt/cxn/src")
-        self._source_bun = _env("CXN_BENCH_SOURCE_BUN", "/opt/cxn/bin/bun")
+        self._source_dir = _env("CXN_BENCH_SOURCE_DIR", "/opt/omp/src")
+        self._source_bun = _env("CXN_BENCH_SOURCE_BUN", "/opt/omp/bin/bun")
         self._source_arch = _env("CXN_BENCH_SOURCE_ARCH")
         # Resolved during install(); reused by version + run commands.
         self._home = "/root"
@@ -243,7 +243,7 @@ class OmpLocal(BaseInstalledAgent):
     @staticmethod
     @override
     def name() -> str:
-        return "cxn"
+        return "omp"
 
     @override
     def version(self) -> str | None:
@@ -266,7 +266,7 @@ class OmpLocal(BaseInstalledAgent):
     def _wrap(self, command: str) -> str:
         """Prefix a command with the Bun runtime on PATH.
 
-        cxn spawns Bun worker subprocesses at runtime, so `bun` must resolve on
+        omp spawns Bun worker subprocesses at runtime, so `bun` must resolve on
         PATH during `run()` too — not just for the entrypoint.
         """
         bun_dir = os.path.dirname(self._bun)
@@ -300,7 +300,7 @@ class OmpLocal(BaseInstalledAgent):
                     "if command -v apt-get >/dev/null 2>&1; then "
                     "  apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip ca-certificates tar; "
                     "elif command -v apk >/dev/null 2>&1; then "
-                    "  echo 'ERROR: Alpine/musl base image; @cxn/pi-natives ships no musl prebuilt' >&2; exit 3; "
+                    "  echo 'ERROR: Alpine/musl base image; @cyberxninja-omp/pi-natives ships no musl prebuilt' >&2; exit 3; "
                     "elif command -v dnf >/dev/null 2>&1; then dnf install -y curl unzip tar; "
                     "elif command -v yum >/dev/null 2>&1; then yum install -y curl unzip tar; "
                     "fi"
@@ -322,14 +322,14 @@ class OmpLocal(BaseInstalledAgent):
             else:
                 self._cli = await self._install_local(environment)
 
-        # 3) Auth + model config under $HOME/.cxn/agent.
+        # 3) Auth + model config under $HOME/.omp/agent.
         if self._gateway_on:
             # Gateway routing — no provider keys ever enter the container.
             await self._write_models_yaml(environment)
         await self._write_config(environment)
 
     async def _install_source(self, environment: BaseEnvironment) -> str:
-        """Verify the read-only repo + linux deps mounts and run cxn from TS source.
+        """Verify the read-only repo + linux deps mounts and run omp from TS source.
 
         The runner mounts the repo at `self._source_dir`, shadows every host
         `node_modules` with a linux tree, and mounts a linux `bun` binary — so
@@ -356,10 +356,10 @@ class OmpLocal(BaseInstalledAgent):
             environment,
             command=(
                 "set -e; "
-                f"test -x {q(self._source_bun)} || {{ echo 'cxn source mode: bun mount missing' >&2; exit 5; }}; "
-                f"test -f {q(cli)} || {{ echo 'cxn source mode: repo mount missing' >&2; exit 5; }}; "
-                f"test -d {q(self._source_dir + '/node_modules/@cxn')} || "
-                "{ echo 'cxn source mode: linux deps mount missing' >&2; exit 5; }; "
+                f"test -x {q(self._source_bun)} || {{ echo 'omp source mode: bun mount missing' >&2; exit 5; }}; "
+                f"test -f {q(cli)} || {{ echo 'omp source mode: repo mount missing' >&2; exit 5; }}; "
+                f"test -d {q(self._source_dir + '/node_modules/@cyberxninja-omp')} || "
+                "{ echo 'omp source mode: linux deps mount missing' >&2; exit 5; }; "
                 f"{q(self._source_bun)} --version"
             ),
         )
@@ -388,15 +388,15 @@ class OmpLocal(BaseInstalledAgent):
                 # Native leaf MUST match the bundle version exactly (loader/API skew
                 # otherwise). Read it straight from the packed package.json.
                 'ver=$(bun -e "process.stdout.write(require(\\"./package.json\\").version)"); '
-                'echo "pinning native @cxn/pi-natives-linux-$na@$ver"; '
-                'bun add --production "@cxn/pi-natives-linux-$na@$ver"'
+                'echo "pinning native @cyberxninja-omp/pi-natives-linux-$na@$ver"; '
+                'bun add --production "@cyberxninja-omp/pi-natives-linux-$na@$ver"'
             ),
             timeout_sec=900,
         )
         return f"{app}/dist/cli.js"
 
     async def _install_binary(self, environment: BaseEnvironment) -> str:
-        """Probe container arch, upload only the matching self-contained cxn binary."""
+        """Probe container arch, upload only the matching self-contained omp binary."""
         arch = (
             await self.exec_as_agent(environment, command="uname -m")
         ).stdout.strip()
@@ -408,10 +408,10 @@ class OmpLocal(BaseInstalledAgent):
             raise RuntimeError(f"binary mode: unsupported container arch {arch!r}")
         if not hostbin:
             raise RuntimeError(
-                f"binary mode: no cxn binary provided for container arch {arch}"
+                f"binary mode: no omp binary provided for container arch {arch}"
             )
         app_dir = f"{self._home}/.cxn-bench"
-        dst = f"{app_dir}/cxn"
+        dst = f"{app_dir}/omp"
         staging = "/tmp/cxn-bin"
         await self.exec_as_agent(
             environment, command=f"mkdir -p {shlex.quote(app_dir)}"
@@ -426,7 +426,7 @@ class OmpLocal(BaseInstalledAgent):
 
     async def _install_published(self, environment: BaseEnvironment) -> str:
         app = f"{self._home}/.cxn-bench/app"
-        spec = f"@cxn/pi-coding-agent@{self._pkg_version}"
+        spec = f"@cyberxninja-omp/pi-coding-agent@{self._pkg_version}"
         await self.exec_as_agent(
             environment,
             command=self._wrap(
@@ -437,7 +437,7 @@ class OmpLocal(BaseInstalledAgent):
             ),
             timeout_sec=900,
         )
-        return f"{app}/node_modules/@cxn/pi-coding-agent/dist/cli.js"
+        return f"{app}/node_modules/@cyberxninja-omp/pi-coding-agent/dist/cli.js"
 
     async def _write_models_yaml(self, environment: BaseEnvironment) -> None:
         if self._models_yaml_path and os.path.isfile(self._models_yaml_path):
@@ -453,8 +453,8 @@ class OmpLocal(BaseInstalledAgent):
         await self.exec_as_agent(
             environment,
             command=(
-                f'mkdir -p "$HOME/.cxn/agent"; '
-                f'cp {shlex.quote(staged)} "$HOME/.cxn/agent/models.yml"'
+                f'mkdir -p "$HOME/.omp/agent"; '
+                f'cp {shlex.quote(staged)} "$HOME/.omp/agent/models.yml"'
             ),
         )
 
@@ -474,7 +474,7 @@ class OmpLocal(BaseInstalledAgent):
         return "\n".join(lines)
 
     async def _write_config(self, environment: BaseEnvironment) -> None:
-        """Write $HOME/.cxn/agent/config.yml: the web_search toggle.
+        """Write $HOME/.omp/agent/config.yml: the web_search toggle.
 
         web_search can't authenticate through the gateway, so it's off by default.
         """
@@ -489,8 +489,8 @@ class OmpLocal(BaseInstalledAgent):
         await self.exec_as_agent(
             environment,
             command=(
-                f'mkdir -p "$HOME/.cxn/agent"; '
-                f'cp {shlex.quote(_CONFIG_DST)} "$HOME/.cxn/agent/config.yml"'
+                f'mkdir -p "$HOME/.omp/agent"; '
+                f'cp {shlex.quote(_CONFIG_DST)} "$HOME/.omp/agent/config.yml"'
             ),
         )
 
@@ -564,14 +564,14 @@ class OmpLocal(BaseInstalledAgent):
             parts.append(f"--thinking {shlex.quote(self._thinking)}")
         parts.extend(shlex.quote(arg) for arg in self._agent_args)
         # POSIX positional separator: some task prompts start with "-" (e.g. a
-        # markdown bullet, as in pytorch-model-recovery). Without this, cxn parses
+        # markdown bullet, as in pytorch-model-recovery). Without this, omp parses
         # the prompt as an unknown flag and exits 2. `--` forces positional mode.
         parts.append("--")
         parts.append(shlex.quote(instruction))
         # No pipes/stdbuf (absent in minimal images): redirect raw JSONL to the
         # mounted agent log dir; populate_context_post_run parses it on the host.
         run = " ".join(parts) + f" > /logs/agent/{_OUTPUT_FILENAME} 2>&1"
-        # Exec env for the cxn run. Direct-auth (no-gateway) mode contributes the
+        # Exec env for the omp run. Direct-auth (no-gateway) mode contributes the
         # selected providers' keys (via exec env, never argv); forwarded PI_* /
         # --env knobs apply last so an explicit --env always wins.
         run_env: dict[str, str] = {}
@@ -600,7 +600,7 @@ class OmpLocal(BaseInstalledAgent):
         }
 
     def _sum_main(self, path: Path, acc: "_Usage") -> None:
-        """Sum assistant `message_end` usage from cxn's stdout JSONL.
+        """Sum assistant `message_end` usage from omp's stdout JSONL.
 
         Streams line-by-line: a runaway transcript must not OOM the host-side
         post-run parse.

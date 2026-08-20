@@ -1,5 +1,5 @@
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { logger } from "@cxn/pi-utils";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { LiveSessionController, type LiveSessionControllerOptions, type LiveTranscript } from "../../live/controller";
 import { LIVE_MODEL } from "../../live/protocol";
 import { LiveVisualizer } from "../../live/visualizer";

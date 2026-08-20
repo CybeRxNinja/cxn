@@ -14,14 +14,14 @@
  *    background ("running") finalizes and untracks it.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { TranscriptContainer } from "@cxn/pi-coding-agent/modes/components/transcript-container";
-import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import type { TaskToolDetails } from "@cxn/pi-coding-agent/task/types";
-import type { BashToolDetails } from "@cxn/pi-coding-agent/tools/bash";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { TranscriptContainer } from "@cyberxninja-omp/pi-coding-agent/modes/components/transcript-container";
+import { EventController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/event-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { TaskToolDetails } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { BashToolDetails } from "@cyberxninja-omp/pi-coding-agent/tools/bash";
 
 function taskResult(asyncState: "running" | "completed" | "failed" | undefined, text: string) {
 	const details: TaskToolDetails = {

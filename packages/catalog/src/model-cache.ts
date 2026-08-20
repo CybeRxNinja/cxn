@@ -3,7 +3,7 @@
  * Replaces per-provider JSON files with a single cache.db.
  */
 import { Database } from "bun:sqlite";
-import { getModelDbPath } from "@cxn/pi-utils";
+import { getModelDbPath } from "@cyberxninja-omp/pi-utils";
 import type { Api, Model, ModelSpec } from "./types";
 
 // Rows persist ModelSpec JSON (sparse `compat`, never the resolved record);

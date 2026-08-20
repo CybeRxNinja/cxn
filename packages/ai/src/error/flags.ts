@@ -1,4 +1,4 @@
-import { isUnexpectedSocketCloseMessage } from "@cxn/pi-utils";
+import { isUnexpectedSocketCloseMessage } from "@cyberxninja-omp/pi-utils";
 import type { Api, AssistantMessage } from "../types";
 import { AwsCredentialsError } from "./aws";
 import {

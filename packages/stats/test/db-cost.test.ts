@@ -1,9 +1,9 @@
 import { Database } from "bun:sqlite";
 import { describe, expect, it } from "bun:test";
-import { closeDb, getOverallStats, getRecentRequests, initDb, insertMessageStats } from "@cxn/cxn-stats/db";
-import type { MessageStats } from "@cxn/cxn-stats/types";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { getStatsDbPath } from "@cxn/pi-utils";
+import { closeDb, getOverallStats, getRecentRequests, initDb, insertMessageStats } from "@cyberxninja-omp/omp-stats/db";
+import type { MessageStats } from "@cyberxninja-omp/omp-stats/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { getStatsDbPath } from "@cyberxninja-omp/pi-utils";
 import { installStatsTestIsolation } from "./helpers/temp-agent";
 
 installStatsTestIsolation("@pi-stats-db-");

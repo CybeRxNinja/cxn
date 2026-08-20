@@ -1,12 +1,12 @@
 /**
  * Custom share script loader.
  *
- * Allows users to define a custom share handler at ~/.cxn/agent/share.ts
+ * Allows users to define a custom share handler at ~/.omp/agent/share.ts
  * that will be used instead of the default GitHub Gist sharing.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { getAgentDir } from "@cxn/pi-utils";
+import { getAgentDir } from "@cyberxninja-omp/pi-utils";
 
 export interface CustomShareResult {
 	/** URL to display/open (optional - script may handle everything itself) */

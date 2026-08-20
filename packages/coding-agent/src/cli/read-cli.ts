@@ -1,12 +1,12 @@
 /**
  * Read CLI command handler.
  *
- * Handles `cxn read` — invokes the `read` agent tool against a path/URL and
+ * Handles `omp read` — invokes the `read` agent tool against a path/URL and
  * prints the resulting content blocks exactly as the model would receive them
  * (including truncation/limit notices appended by the meta-notice wrapper).
  */
-import { getProjectDir } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import { getProjectDir } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { Settings } from "../config/settings";
 import { extractUriScheme } from "../internal-urls/parse";
 import { InternalUrlRouter } from "../internal-urls/router";

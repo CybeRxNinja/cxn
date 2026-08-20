@@ -1,4 +1,4 @@
-import type { Model, ProviderResponseMetadata, RawSseEvent } from "@cxn/pi-ai";
+import type { Model, ProviderResponseMetadata, RawSseEvent } from "@cyberxninja-omp/pi-ai";
 
 const MAX_RAW_SSE_EVENTS = 1_000;
 const MAX_RAW_SSE_CHARS = 512_000;

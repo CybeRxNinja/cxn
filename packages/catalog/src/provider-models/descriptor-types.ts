@@ -54,7 +54,7 @@ export function allowsUnauthenticatedCatalogDiscovery(descriptor: CatalogProvide
 
 /**
  * One model provider's catalog-side description. The auth half of a provider
- * (env keys, OAuth login/refresh flows) lives in `@cxn/pi-ai`'s registry;
+ * (env keys, OAuth login/refresh flows) lives in `@cyberxninja-omp/pi-ai`'s registry;
  * the catalog table below is the single source of truth for ids, default
  * models, and discovery wiring.
  *

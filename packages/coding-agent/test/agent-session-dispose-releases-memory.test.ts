@@ -1,20 +1,23 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent, type AgentMessage, AppendOnlyContextManager } from "@cxn/pi-agent-core";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { AsyncJobManager } from "@cxn/pi-coding-agent/async";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ExtensionRuntime, loadExtensionFromFactory } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { FileSessionStorage } from "@cxn/pi-coding-agent/session/session-storage";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent, type AgentMessage, AppendOnlyContextManager } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { AsyncJobManager } from "@cyberxninja-omp/pi-coding-agent/async";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	ExtensionRuntime,
+	loadExtensionFromFactory,
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { FileSessionStorage } from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 // Regression: a keep-alive subagent's AgentSession is disposed at park() but

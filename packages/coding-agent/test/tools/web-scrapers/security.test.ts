@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { handleNvd } from "@cxn/pi-coding-agent/web/scrapers/nvd";
-import { handleOsv } from "@cxn/pi-coding-agent/web/scrapers/osv";
+import { handleNvd } from "@cyberxninja-omp/pi-coding-agent/web/scrapers/nvd";
+import { handleOsv } from "@cyberxninja-omp/pi-coding-agent/web/scrapers/osv";
 
 const SKIP = !Bun.env.WEB_FETCH_INTEGRATION;
 

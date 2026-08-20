@@ -1,5 +1,5 @@
-import type { AuthStorage } from "@cxn/pi-ai";
-import { parseHTML } from "@cxn/pi-utils/dom";
+import type { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { parseHTML } from "@cyberxninja-omp/pi-utils/dom";
 import type { SearchResponse, SearchSource } from "../../../web/search/types";
 import { SearchProviderError } from "../../../web/search/types";
 import { formatScraperQuery } from "../query";

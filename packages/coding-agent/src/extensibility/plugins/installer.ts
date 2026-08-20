@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { getAgentDir, getProjectDir, isEnoent } from "@cxn/pi-utils";
+import { getAgentDir, getProjectDir, isEnoent } from "@cyberxninja-omp/pi-utils";
 import { extractPackageName } from "./parser";
 import type { InstalledPlugin } from "./types";
 
@@ -80,7 +80,7 @@ export async function installPlugin(packageName: string): Promise<InstalledPlugi
 		name: pkg.name,
 		version: pkg.version,
 		path: path.join(PLUGINS_DIR, "node_modules", actualName),
-		manifest: pkg.cxn || pkg.pi || { version: pkg.version },
+		manifest: pkg.omp || pkg.pi || { version: pkg.version },
 		enabledFeatures: null,
 		enabled: true,
 	};
@@ -129,7 +129,7 @@ export async function listPlugins(): Promise<InstalledPlugin[]> {
 				name,
 				version: pkg.version,
 				path: pluginPath,
-				manifest: pkg.cxn || pkg.pi || { version: pkg.version },
+				manifest: pkg.omp || pkg.pi || { version: pkg.version },
 				enabledFeatures: null,
 				enabled: true,
 			});

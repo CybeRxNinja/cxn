@@ -7,8 +7,8 @@
  * owner instead of a parallel session-id registry.
  */
 
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { logger } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { onHindsightScopeChanged, type Settings } from "../config/settings";
 import type { MemoryBackend, MemoryBackendStartOptions } from "../memory-backend/types";
 import type { AgentSession } from "../session/agent-session";

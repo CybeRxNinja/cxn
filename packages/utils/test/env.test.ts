@@ -2,7 +2,13 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { $envExact, filterProcessEnv, getDbBusyTimeoutMs, parseEnvFile, setInteractiveHost } from "@cxn/pi-utils/env";
+import {
+	$envExact,
+	filterProcessEnv,
+	getDbBusyTimeoutMs,
+	parseEnvFile,
+	setInteractiveHost,
+} from "@cyberxninja-omp/pi-utils/env";
 
 const tempDirs: string[] = [];
 const runtimeProbePath = path.join(import.meta.dir, "fixtures", "test-runtime-probe.ts");

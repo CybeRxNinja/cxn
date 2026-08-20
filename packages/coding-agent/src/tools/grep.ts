@@ -1,19 +1,19 @@
 import { mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import * as path from "node:path";
-import { formatHashlineHeader } from "@cxn/hashline";
-import { type } from "@cxn/omptype";
+import { formatHashlineHeader } from "@cyberxninja-omp/hashline";
+import { type } from "@cyberxninja-omp/omptype";
 import type {
 	AgentTool,
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
 	ToolTier,
-} from "@cxn/pi-agent-core";
-import { type GrepMatch, GrepOutputMode, type GrepResult, grep } from "@cxn/pi-natives";
-import type { Component } from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui";
-import { prompt, untilAborted } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import { type GrepMatch, GrepOutputMode, type GrepResult, grep } from "@cyberxninja-omp/pi-natives";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { prompt, untilAborted } from "@cyberxninja-omp/pi-utils";
 import { recordFileSnapshot, recordSeenLinesFromBody } from "../edit/file-snapshot-store";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import type { LocalProtocolOptions } from "../internal-urls/local-protocol";
@@ -339,7 +339,7 @@ interface IndexedContentLines {
 	starts: number[];
 }
 
-const CXN_ROOT_URL_RE = /^cxn:\/\/(?:\/?|docs\/?)$/i;
+const CXN_ROOT_URL_RE = /^omp:\/\/(?:\/?|docs\/?)$/i;
 
 function normalizeSearchLine(line: string): string {
 	return line.endsWith("\r") ? line.slice(0, -1) : line;
@@ -740,14 +740,14 @@ async function expandVirtualInternalResource(
 	ranges: readonly LineRange[] | undefined,
 ): Promise<VirtualSearchResource[]> {
 	if (CXN_ROOT_URL_RE.test(rawPath)) {
-		const completions = await internalRouter.complete("cxn", "");
+		const completions = await internalRouter.complete("omp", "");
 		if (completions && completions.length > 0) {
 			const resources: VirtualSearchResource[] = [];
 			const seen = new Set<string>();
 			for (const completion of completions) {
 				if (seen.has(completion.value)) continue;
 				seen.add(completion.value);
-				const docUrl = `cxn://${completion.value}`;
+				const docUrl = `omp://${completion.value}`;
 				const doc = await internalRouter.resolve(docUrl, context);
 				if (!doc.sourcePath) {
 					resources.push({ path: docUrl, content: doc.content, ranges });

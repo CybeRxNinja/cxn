@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { buildGoogleGenerateContentParams } from "@cxn/pi-ai/providers/google-shared";
-import { mapGoogleToolChoice } from "@cxn/pi-ai/stream";
-import type { Context, Tool, ToolChoice } from "@cxn/pi-ai/types";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import { buildGoogleGenerateContentParams } from "@cyberxninja-omp/pi-ai/providers/google-shared";
+import { mapGoogleToolChoice } from "@cyberxninja-omp/pi-ai/stream";
+import type { Context, Tool, ToolChoice } from "@cyberxninja-omp/pi-ai/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 describe("mapGoogleToolChoice (F7)", () => {
 	it("returns string passthrough for auto/none/any", () => {

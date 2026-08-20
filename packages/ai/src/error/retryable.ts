@@ -1,4 +1,4 @@
-import { isRetryableError, isUnexpectedSocketCloseMessage } from "@cxn/pi-utils";
+import { isRetryableError, isUnexpectedSocketCloseMessage } from "@cyberxninja-omp/pi-utils";
 import {
 	isRetryableStreamEnvelopeError,
 	isTransientStreamParseError,

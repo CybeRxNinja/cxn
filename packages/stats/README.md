@@ -1,10 +1,10 @@
-# @cxn/cxn-stats
+# @cyberxninja-omp/omp-stats
 
 Local observability dashboard for AI usage statistics.
 
 ## Features
 
-- **Session log parsing**: Reads JSONL session logs from `~/.cxn/agent/sessions/`
+- **Session log parsing**: Reads JSONL session logs from `~/.omp/agent/sessions/`
 - **SQLite aggregation**: Efficient stats storage and querying using `bun:sqlite`
 - **Web dashboard**: Real-time metrics visualization with Chart.js
 - **Incremental sync**: Only processes new/modified log entries
@@ -27,22 +27,22 @@ Local observability dashboard for AI usage statistics.
 
 ```bash
 # Start dashboard server (default: http://localhost:3847)
-cxn stats
+omp stats
 
 # Custom port
-cxn stats --port 8080
+omp stats --port 8080
 
 # Print summary to console
-cxn stats --summary
+omp stats --summary
 
 # Output as JSON (for scripting)
-cxn stats --json
+omp stats --json
 ```
 
 ### Programmatic
 
 ```typescript
-import { getDashboardStats, syncAllSessions } from "@cxn/cxn-stats";
+import { getDashboardStats, syncAllSessions } from "@cyberxninja-omp/omp-stats";
 
 // Sync session logs to database
 const { processed, files } = await syncAllSessions();
@@ -65,8 +65,8 @@ console.log(stats.byModel[0].avgTokensPerSecond);
 
 ## Data Storage
 
-- **Session logs**: `~/.cxn/agent/sessions/` (JSONL files)
-- **Stats database**: `~/.cxn/stats.db` (SQLite)
+- **Session logs**: `~/.omp/agent/sessions/` (JSONL files)
+- **Stats database**: `~/.omp/stats.db` (SQLite)
 
 ## Dashboard
 

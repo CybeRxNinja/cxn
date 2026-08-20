@@ -7,9 +7,9 @@ import {
 	type AgentEvent,
 	type AgentMessage,
 	createToolScopedAbortReason,
-} from "@cxn/pi-agent-core";
-import type { AssistantMessage, ToolCall } from "@cxn/pi-ai";
-import { isRecord, prompt, relativePathWithinRoot } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, ToolCall } from "@cyberxninja-omp/pi-ai";
+import { isRecord, prompt, relativePathWithinRoot } from "@cyberxninja-omp/pi-utils";
 import type { Rule } from "../capability/rule";
 import type { Settings } from "../config/settings";
 import type { TtsrManager, TtsrMatchContext } from "../export/ttsr";

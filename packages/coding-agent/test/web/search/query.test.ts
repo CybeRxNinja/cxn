@@ -8,8 +8,8 @@ import {
 	matchesSite,
 	parseDateValue,
 	parseSearchQuery,
-} from "@cxn/pi-coding-agent/web/search/query";
-import type { SearchSource } from "@cxn/pi-coding-agent/web/search/types";
+} from "@cyberxninja-omp/pi-coding-agent/web/search/query";
+import type { SearchSource } from "@cyberxninja-omp/pi-coding-agent/web/search/types";
 
 describe("parseSearchQuery", () => {
 	it("leaves plain queries untouched", () => {

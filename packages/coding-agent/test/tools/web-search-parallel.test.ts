@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, setSystemTime, vi } from "bun:test";
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
-import type { AgentStorage } from "@cxn/pi-coding-agent/session/agent-storage";
-import { searchWithParallel } from "@cxn/pi-coding-agent/web/parallel";
-import { searchParallel } from "@cxn/pi-coding-agent/web/search/providers/parallel";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import type { AgentStorage } from "@cyberxninja-omp/pi-coding-agent/session/agent-storage";
+import { searchWithParallel } from "@cyberxninja-omp/pi-coding-agent/web/parallel";
+import { searchParallel } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/parallel";
 
 describe("Parallel web search", () => {
 	const fakeStorage = {

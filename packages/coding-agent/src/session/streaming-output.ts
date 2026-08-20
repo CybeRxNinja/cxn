@@ -1,5 +1,5 @@
-import type { AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import { sanitizeText } from "@cxn/pi-utils";
+import type { AgentToolUpdateCallback } from "@cyberxninja-omp/pi-agent-core";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { formatBytes } from "../tools/render-utils";
 import { sanitizeWithOptionalSixelPassthrough } from "../utils/sixel";
 

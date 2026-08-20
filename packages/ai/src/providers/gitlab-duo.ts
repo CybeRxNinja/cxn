@@ -1,4 +1,4 @@
-import { buildModel } from "@cxn/pi-catalog/build";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import * as AIError from "../error";
 import { ANTHROPIC_THINKING, mapAnthropicToolChoice } from "../stream";
 import type { Api, Context, FetchImpl, Model, ModelSpec, SimpleStreamOptions } from "../types";

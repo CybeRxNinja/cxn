@@ -2,8 +2,8 @@ import { afterEach, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getThemeByName } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { getAgentDir, getCustomThemesDir, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { getThemeByName } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { getAgentDir, getCustomThemesDir, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 const DARK_THEME_PATH = path.join(import.meta.dir, "..", "src", "modes", "theme", "dark.json");
 

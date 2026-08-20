@@ -2,12 +2,12 @@
  * Print mode (single-shot): Send prompts, output result, exit.
  *
  * Used for:
- * - `cxn -p "prompt"` - text output
- * - `cxn --mode json "prompt"` - JSON event stream
+ * - `omp -p "prompt"` - text output
+ * - `omp --mode json "prompt"` - JSON event stream
  */
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { ImageContent } from "@cxn/pi-ai";
-import { logger, sanitizeText } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
+import { logger, sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { type AgentSession, type AgentSessionEvent, SHUTDOWN_CONSOLIDATE_BUDGET_MS } from "../session/agent-session";
 import { isSilentAbort } from "../session/messages";
 import { flushTelemetryExport } from "../telemetry-export";

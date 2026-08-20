@@ -20,8 +20,8 @@ import {
 	sleep,
 	sleepAllSessions,
 	update,
-} from "@cxn/pi-mnemopi/core/memory";
-import { openDatabase } from "@cxn/pi-mnemopi/db";
+} from "@cyberxninja-omp/pi-mnemopi/core/memory";
+import { openDatabase } from "@cyberxninja-omp/pi-mnemopi/db";
 
 const roots: string[] = [];
 let previousDataDir: string | undefined;

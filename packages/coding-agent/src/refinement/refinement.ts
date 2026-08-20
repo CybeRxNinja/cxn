@@ -1,6 +1,6 @@
 /**
  * /refine continual harness core, ported from the harness concept and adapted
- * to cxn's AI + memory-backend layers.
+ * to omp's AI + memory-backend layers.
  *
  * The flow is: plan (LLM proposes create/update/delete edits to supplemental
  * harness state) → apply (with before/after snapshots and baseline-conflict
@@ -9,9 +9,9 @@
  * entries are editable.
  */
 
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { completeSimple, Effort, type Model, retryTransientCompletion } from "@cxn/pi-ai";
-import { clampThinkingLevelForModel } from "@cxn/pi-catalog/model-thinking";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { completeSimple, Effort, type Model, retryTransientCompletion } from "@cyberxninja-omp/pi-ai";
+import { clampThinkingLevelForModel } from "@cyberxninja-omp/pi-catalog/model-thinking";
 import { historyForPrompt, overviewForPrompt } from "./state";
 import type {
 	AppliedRefinementEdit,
@@ -28,7 +28,7 @@ import type {
 	RefineOptions,
 } from "./types";
 
-const REFINEMENT_SYSTEM_PROMPT = `You are cxn's /refine continual harness subsystem.
+const REFINEMENT_SYSTEM_PROMPT = `You are omp's /refine continual harness subsystem.
 
 Your job is to improve the editable continual harness state from the current trajectory.
 This is similar in spirit to context compaction, but instead of summarizing the
@@ -78,7 +78,7 @@ JSON only with this exact shape:
   ]
 }`;
 
-const AUTO_REFINE_REVIEW_SYSTEM_PROMPT = `You are cxn's automatic /refine review gate.
+const AUTO_REFINE_REVIEW_SYSTEM_PROMPT = `You are omp's automatic /refine review gate.
 
 Decide whether this checkpoint should run /refine. Auto /refine writes local continual harness state by default, so approve when the trajectory contains evidence useful to this session's future turns.
 Reject one-off noise, unsupported hypotheses, and transient tool outputs. Ask for global refinement only for durable cross-session lessons or explicitly project-qualified lessons likely to be reused in future sessions.

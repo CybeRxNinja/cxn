@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { registerPersistedSubagents } from "@cxn/pi-coding-agent/registry/persisted-agents";
-import { TempDir } from "@cxn/pi-utils";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { registerPersistedSubagents } from "@cyberxninja-omp/pi-coding-agent/registry/persisted-agents";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const SONNET = { provider: "anthropic", model: "claude-sonnet-5" };
 const SOL = { provider: "openai-codex", model: "gpt-5.6-sol" };

@@ -15,8 +15,8 @@
  *   mechanical {@link SpeakableStream} cleanup — speech never blocks on the
  *   model.
  */
-import { type AssistantMessage, completeSimple, retryTransientCompletion } from "@cxn/pi-ai";
-import { logger, prompt } from "@cxn/pi-utils";
+import { type AssistantMessage, completeSimple, retryTransientCompletion } from "@cyberxninja-omp/pi-ai";
+import { logger, prompt } from "@cyberxninja-omp/pi-utils";
 import type { ModelRegistry } from "../config/model-registry";
 import { getModelMatchPreferences, resolveModelRoleValue } from "../config/model-resolver";
 import type { Settings } from "../config/settings";

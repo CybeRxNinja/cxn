@@ -1,8 +1,8 @@
 {
   "name": "my-plugin",
   "version": "0.1.0",
-  "homepage": "https://cxn.sh",
-  "cxn": {
+  "homepage": "https://omp.sh",
+  "omp": {
     "extensions": ["./index.ts"]
   }
 }

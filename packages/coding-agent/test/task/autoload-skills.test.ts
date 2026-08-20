@@ -1,14 +1,18 @@
 import { afterEach, describe, expect, it, type Mock, vi } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { Skill } from "@cxn/pi-coding-agent/extensibility/skills";
-import * as skillsModule from "@cxn/pi-coding-agent/extensibility/skills";
-import type { CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent, PromptOptions } from "@cxn/pi-coding-agent/session/agent-session";
-import { SKILL_PROMPT_MESSAGE_TYPE } from "@cxn/pi-coding-agent/session/messages";
-import { runSubprocess } from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition } from "@cxn/pi-coding-agent/task/types";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { Skill } from "@cyberxninja-omp/pi-coding-agent/extensibility/skills";
+import * as skillsModule from "@cyberxninja-omp/pi-coding-agent/extensibility/skills";
+import type { CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type {
+	AgentSession,
+	AgentSessionEvent,
+	PromptOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SKILL_PROMPT_MESSAGE_TYPE } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { runSubprocess } from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { AgentDefinition } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -64,7 +68,7 @@ function createSessionResult(session: AgentSession): CreateAgentSessionResult {
 	return {
 		session,
 		extensionsResult:
-			{} as unknown as import("@cxn/pi-coding-agent/extensibility/extensions/types").LoadExtensionsResult,
+			{} as unknown as import("@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types").LoadExtensionsResult,
 		setToolUIContext: () => {},
 		eventBus: new EventBus(),
 	};
@@ -93,7 +97,7 @@ describe("autoloadSkills in executor", () => {
 		settings: Settings.isolated(),
 		modelRegistry: {
 			refresh: async () => {},
-		} as unknown as import("@cxn/pi-coding-agent/config/model-registry").ModelRegistry,
+		} as unknown as import("@cyberxninja-omp/pi-coding-agent/config/model-registry").ModelRegistry,
 		enableLsp: false,
 	};
 

@@ -1,12 +1,12 @@
-import type { Api, Model, ModelSpec, RemoteCompactionConfig } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import type { Api, Model, ModelSpec, RemoteCompactionConfig } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import {
 	getBundledModelReferenceIndex,
 	inheritReferenceThinking,
 	resolveModelReference,
-} from "@cxn/pi-catalog/identity";
-import { getVariantAliasSources, resolveVariantAlias } from "@cxn/pi-catalog/variant-collapse";
-import { logger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-catalog/identity";
+import { getVariantAliasSources, resolveVariantAlias } from "@cyberxninja-omp/pi-catalog/variant-collapse";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { createLiveConfigHeaders, type HeaderSource } from "./model-config-values";
 import { type ModelPatch, mergeCompat, mergeRemoteCompactionConfig } from "./model-patch";
 import { parseModelString } from "./model-resolver";

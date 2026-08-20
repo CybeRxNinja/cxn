@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { instrumentedCompleteSimple } from "@cxn/pi-agent-core/telemetry";
-import type { Api, AssistantMessage, Context, Model, SimpleStreamOptions, Usage } from "@cxn/pi-ai/types";
+import { instrumentedCompleteSimple } from "@cyberxninja-omp/pi-agent-core/telemetry";
+import type { Api, AssistantMessage, Context, Model, SimpleStreamOptions, Usage } from "@cyberxninja-omp/pi-ai/types";
 
 /**
  * Defends the opt-in contract of the oneshot retry funnel.

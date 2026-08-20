@@ -1,6 +1,6 @@
 import { describe, expect, it, spyOn } from "bun:test";
-import type { CustomEntry } from "@cxn/pi-coding-agent/session/session-entries";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import type { CustomEntry } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 import { assistantMsg, userMsg } from "../utilities";
 
 describe("SessionManager append and tree traversal", () => {

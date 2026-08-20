@@ -12,7 +12,7 @@ import {
 	parsePatch,
 	Recovery,
 	type SplitOptions,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 
 const repl = (text: string): string => `+${text}`;
 

@@ -12,8 +12,8 @@ import {
 	Text,
 	truncateToWidth,
 	visibleWidth,
-} from "@cxn/pi-tui";
-import { formatBytes } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { formatBytes } from "@cyberxninja-omp/pi-utils";
 import { theme } from "../../modes/theme/theme";
 import { matchesAppInterrupt, matchesSelectDown, matchesSelectUp } from "../../modes/utils/keybinding-matchers";
 import type { SessionInfo, SessionStatus } from "../../session/session-listing";

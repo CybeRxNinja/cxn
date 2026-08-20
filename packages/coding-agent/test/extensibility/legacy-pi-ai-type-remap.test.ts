@@ -9,16 +9,16 @@ import {
 	getBundledModels,
 	getBundledProviders,
 	modelsAreEqual,
-} from "@cxn/pi-catalog/models";
-import { Type as TypeBoxShimType } from "@cxn/pi-coding-agent/extensibility/legacy-typebox";
+} from "@cyberxninja-omp/pi-catalog/models";
+import { Type as TypeBoxShimType } from "@cyberxninja-omp/pi-coding-agent/extensibility/legacy-typebox";
 import {
 	__resetLegacyPiResolutionCache,
 	installLegacyPiSpecifierShim,
 	loadLegacyPiModule,
-} from "@cxn/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
-// pi-ai 15.1.0 removed the runtime `Type` export from `@cxn/pi-ai`'s
+// pi-ai 15.1.0 removed the runtime `Type` export from `@cyberxninja-omp/pi-ai`'s
 // package root. Legacy extensions (and their aliased-scope variants such as
 // `@earendil-works/pi-ai`) still author parameter schemas as
 // `import { Type } from "@earendil-works/pi-ai"` and then `Type.Object(...)`.
@@ -88,22 +88,22 @@ describe("legacy-pi @(scope)/pi-ai root `Type` remap (issue #1437)", () => {
 		expect(loaded.completeType).toBe("function");
 	});
 
-	it('redirects `import { Type } from "@cxn/pi-ai"` for plugins published against the canonical scope', async () => {
+	it('redirects `import { Type } from "@cyberxninja-omp/pi-ai"` for plugins published against the canonical scope', async () => {
 		const entry = await writeFixtureExtension(
-			['import { Type } from "@cxn/pi-ai";', "export const probe = Type;"].join("\n"),
+			['import { Type } from "@cyberxninja-omp/pi-ai";', "export const probe = Type;"].join("\n"),
 		);
 
 		const loaded = (await loadLegacyPiModule(entry)) as { probe: typeof TypeBoxShimType };
 		expect(loaded.probe).toBe(TypeBoxShimType);
 	});
 
-	it("does not redirect subpath imports such as @cxn/pi-ai/utils/schema", async () => {
+	it("does not redirect subpath imports such as @cyberxninja-omp/pi-ai/utils/schema", async () => {
 		const entry = await writeFixtureExtension(
 			[
 				// `arkToWireSchema` is only exported from the subpath, not the root,
 				// so a successful import proves the subpath still resolves directly
 				// against the bundled pi-ai package rather than the shim.
-				'import { arkToWireSchema } from "@cxn/pi-ai/utils/schema";',
+				'import { arkToWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";',
 				"export const fn = arkToWireSchema;",
 			].join("\n"),
 		);
@@ -116,7 +116,7 @@ describe("legacy-pi @(scope)/pi-ai root `Type` remap (issue #1437)", () => {
 		const loaded = (await loadLegacyPiModule(
 			await writeFixtureExtension(
 				[
-					'import { calculateCost, clampThinkingLevel, getBundledModel, getBundledModels, getBundledProviders, getModel, getModels, modelsAreEqual, StringEnum } from "@cxn/pi-ai";',
+					'import { calculateCost, clampThinkingLevel, getBundledModel, getBundledModels, getBundledProviders, getModel, getModels, modelsAreEqual, StringEnum } from "@cyberxninja-omp/pi-ai";',
 					"export const helpers = { calculateCost, getBundledModel, getBundledModels, getBundledProviders, getModel, getModels, modelsAreEqual };",
 					"export const supported = clampThinkingLevel({ reasoning: true, thinking: { efforts: ['low', 'high'] } }, 'high');",
 					"export const disabled = clampThinkingLevel({ reasoning: false }, 'high');",
@@ -180,7 +180,10 @@ describe("legacy pi package root remaps (issue #1474)", () => {
 	it("loads @earendil-works/pi-coding-agent root imports when host package resolution is unavailable", async () => {
 		const realResolveSync = Bun.resolveSync.bind(Bun);
 		vi.spyOn(Bun, "resolveSync").mockImplementation((specifier: string, from: string) => {
-			if (specifier === "@cxn/pi-coding-agent" && from.endsWith(path.join("src", "extensibility", "plugins"))) {
+			if (
+				specifier === "@cyberxninja-omp/pi-coding-agent" &&
+				from.endsWith(path.join("src", "extensibility", "plugins"))
+			) {
 				throw new Error("compiled binary host package resolution unavailable");
 			}
 			return realResolveSync(specifier, from);
@@ -308,7 +311,7 @@ describe("legacy pi package root remaps (issue #1474)", () => {
 	it("falls back to legacy-scoped subpath peers for direct plugin imports", async () => {
 		const realResolveSync = Bun.resolveSync.bind(Bun);
 		vi.spyOn(Bun, "resolveSync").mockImplementation((specifier: string, from: string) => {
-			if (specifier === "@cxn/pi-ai/oauth") {
+			if (specifier === "@cyberxninja-omp/pi-ai/oauth") {
 				throw new Error(`canonical peer unavailable from ${from}`);
 			}
 			return realResolveSync(specifier, from);
@@ -338,9 +341,9 @@ describe("legacy pi package root remaps (issue #1474)", () => {
 	});
 
 	it("routes @earendil-works/pi-utils through canonical Bun.resolveSync in non-compiled mode", async () => {
-		// Regression: when cxn runs from a node_modules install (not the monorepo
+		// Regression: when omp runs from a node_modules install (not the monorepo
 		// and not a compiled binary), the bundled packages live at
-		// `node_modules/@cxn/pi-*`, not next to the source tree. Hardcoding
+		// `node_modules/@cyberxninja-omp/pi-*`, not next to the source tree. Hardcoding
 		// a sibling `packages/<pkg>/src/index.ts` path would miss them, so the
 		// non-compiled branch must delegate to `Bun.resolveSync` against the
 		// canonical specifier.
@@ -351,7 +354,7 @@ describe("legacy pi package root remaps (issue #1474)", () => {
 		const realResolveSync = Bun.resolveSync.bind(Bun);
 		let canonicalLookupSeen = false;
 		vi.spyOn(Bun, "resolveSync").mockImplementation((specifier: string, from: string) => {
-			if (specifier === "@cxn/pi-utils") {
+			if (specifier === "@cyberxninja-omp/pi-utils") {
 				canonicalLookupSeen = true;
 			}
 			return realResolveSync(specifier, from);

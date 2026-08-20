@@ -2,10 +2,14 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCustomApis } from "@cxn/pi-ai/api-registry";
-import { createMockModel, registerMockApi } from "@cxn/pi-ai/providers/mock";
-import { __providerInFlightForTesting, configureProviderMaxInFlightRequests, streamSimple } from "@cxn/pi-ai/stream";
-import type { Context } from "@cxn/pi-ai/types";
+import { clearCustomApis } from "@cyberxninja-omp/pi-ai/api-registry";
+import { createMockModel, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
+import {
+	__providerInFlightForTesting,
+	configureProviderMaxInFlightRequests,
+	streamSimple,
+} from "@cyberxninja-omp/pi-ai/stream";
+import type { Context } from "@cyberxninja-omp/pi-ai/types";
 
 function context(): Context {
 	return {

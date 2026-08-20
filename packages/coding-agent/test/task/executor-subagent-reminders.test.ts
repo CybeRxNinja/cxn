@@ -1,20 +1,27 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { AgentBusyError, type AgentTelemetryConfig, type Tracer } from "@cxn/pi-agent-core";
-import { type AssistantMessage, Effort } from "@cxn/pi-ai";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ExtensionActions, LoadExtensionsResult } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import type { CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent, PromptOptions } from "@cxn/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { AgentBusyError, type AgentTelemetryConfig, type Tracer } from "@cyberxninja-omp/pi-agent-core";
+import { type AssistantMessage, Effort } from "@cyberxninja-omp/pi-ai";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type {
+	ExtensionActions,
+	LoadExtensionsResult,
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import type { CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type {
+	AgentSession,
+	AgentSessionEvent,
+	PromptOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
 import {
 	finalizeSubprocessOutput,
 	runSubprocess,
 	SUBAGENT_WARNING_MISSING_YIELD,
-} from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition } from "@cxn/pi-coding-agent/task/types";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { logger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { AgentDefinition } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 function createAssistantStopMessage(text: string): AssistantMessage {
 	return {
@@ -120,7 +127,7 @@ describe("runSubprocess yield reminders", () => {
 		settings: Settings.isolated(),
 		modelRegistry: {
 			refresh: async () => {},
-		} as unknown as import("@cxn/pi-coding-agent/config/model-registry").ModelRegistry,
+		} as unknown as import("@cyberxninja-omp/pi-coding-agent/config/model-registry").ModelRegistry,
 		enableLsp: false,
 	};
 
@@ -195,7 +202,7 @@ describe("runSubprocess yield reminders", () => {
 		const createAgentSessionSpy = mockCreateAgentSession(session);
 		const modelRegistry = {
 			refresh: async () => {},
-		} as unknown as import("@cxn/pi-coding-agent/config/model-registry").ModelRegistry;
+		} as unknown as import("@cyberxninja-omp/pi-coding-agent/config/model-registry").ModelRegistry;
 		const refreshSpy = vi.spyOn(modelRegistry, "refresh");
 
 		await runSubprocess({ ...baseOptions, id: "subagent-skip-refresh", modelRegistry });
@@ -587,7 +594,7 @@ describe("runSubprocess yield reminders", () => {
 		const modelRegistry = {
 			refresh: async () => {},
 			getAvailable: () => [{ provider: "openai", id: "gpt-4o", name: "GPT-4o" }],
-		} as unknown as import("@cxn/pi-coding-agent/config/model-registry").ModelRegistry;
+		} as unknown as import("@cyberxninja-omp/pi-coding-agent/config/model-registry").ModelRegistry;
 
 		await runSubprocess({
 			...baseOptions,
@@ -710,7 +717,7 @@ describe("runSubprocess yield reminders", () => {
 		const modelRegistry = {
 			authStorage: fakeAuthStorage,
 			refresh: async () => {},
-		} as unknown as import("@cxn/pi-coding-agent/config/model-registry").ModelRegistry;
+		} as unknown as import("@cyberxninja-omp/pi-coding-agent/config/model-registry").ModelRegistry;
 
 		await runSubprocess({ ...baseOptions, id: "subagent-registry-only", modelRegistry });
 
@@ -726,7 +733,7 @@ describe("runSubprocess yield reminders", () => {
 		const modelRegistry = {
 			authStorage: registryStorage,
 			refresh: async () => {},
-		} as unknown as import("@cxn/pi-coding-agent/config/model-registry").ModelRegistry;
+		} as unknown as import("@cyberxninja-omp/pi-coding-agent/config/model-registry").ModelRegistry;
 
 		const result = await runSubprocess({
 			...baseOptions,
@@ -798,7 +805,7 @@ describe("runSubprocess telemetry propagation", () => {
 		settings: Settings.isolated(),
 		modelRegistry: {
 			refresh: async () => {},
-		} as unknown as import("@cxn/pi-coding-agent/config/model-registry").ModelRegistry,
+		} as unknown as import("@cyberxninja-omp/pi-coding-agent/config/model-registry").ModelRegistry,
 		enableLsp: false,
 	};
 

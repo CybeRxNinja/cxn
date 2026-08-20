@@ -13,7 +13,7 @@ import {
 	resetBankForTests,
 	setBank,
 	ValueError,
-} from "@cxn/pi-mnemopi/core/banks";
+} from "@cyberxninja-omp/pi-mnemopi/core/banks";
 
 describe("BankManager", () => {
 	it("creates, lists, renames, stats, and deletes isolated bank directories", () => {

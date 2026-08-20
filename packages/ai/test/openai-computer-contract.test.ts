@@ -1,22 +1,33 @@
 import { describe, expect, test } from "bun:test";
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import {
 	buildTransformedCodexRequestBody,
 	convertCodexResponsesMessages,
 	convertOpenAICodexResponsesTools,
 	normalizeCodexToolChoice,
-} from "@cxn/pi-ai/providers/openai-codex-responses";
-import { buildParams, convertTools, mapOpenAIResponsesToolChoiceForTools } from "@cxn/pi-ai/providers/openai-responses";
-import type { ResponseStreamEvent } from "@cxn/pi-ai/providers/openai-responses-wire";
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import {
+	buildParams,
+	convertTools,
+	mapOpenAIResponsesToolChoiceForTools,
+} from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type { ResponseStreamEvent } from "@cyberxninja-omp/pi-ai/providers/openai-responses-wire";
 import {
 	appendResponsesToolResultMessages,
 	buildResponsesInput,
 	convertResponsesAssistantMessage,
 	processResponsesStream,
-} from "@cxn/pi-ai/providers/openai-shared";
-import type { AssistantMessage, Context, Model, ModelSpec, Tool, ToolResultMessage } from "@cxn/pi-ai/types";
-import { sanitizeOpenAIResponsesHistoryItemsForReplay } from "@cxn/pi-ai/utils";
-import { buildModel } from "@cxn/pi-catalog/build";
+} from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import type {
+	AssistantMessage,
+	Context,
+	Model,
+	ModelSpec,
+	Tool,
+	ToolResultMessage,
+} from "@cyberxninja-omp/pi-ai/types";
+import { sanitizeOpenAIResponsesHistoryItemsForReplay } from "@cyberxninja-omp/pi-ai/utils";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 function model<TApi extends "openai-responses" | "openai-codex-responses">(
 	api: TApi,

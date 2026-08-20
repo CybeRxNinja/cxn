@@ -2,7 +2,7 @@
 /**
  * Phase 1 — RLM kernel spike.
  *
- * Goal: prove an RLM-style turn works through cxn's existing `eval` Python
+ * Goal: prove an RLM-style turn works through omp's existing `eval` Python
  * kernel, without porting any upstream RLM machinery:
  *
  *   1. Persistent kernel — Python state survives across cells.

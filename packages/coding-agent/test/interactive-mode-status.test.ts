@@ -1,11 +1,11 @@
 import { beforeAll, describe, expect, test, vi } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext, RenderSessionContextOptions } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import { buildSessionContext, type SessionContext } from "@cxn/pi-coding-agent/session/session-context";
-import { type Component, Container } from "@cxn/pi-tui";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext, RenderSessionContextOptions } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import { buildSessionContext, type SessionContext } from "@cyberxninja-omp/pi-coding-agent/session/session-context";
+import { type Component, Container } from "@cyberxninja-omp/pi-tui";
 
 function renderLastLine(container: Container, width = 120): string {
 	const last = container.children[container.children.length - 1];

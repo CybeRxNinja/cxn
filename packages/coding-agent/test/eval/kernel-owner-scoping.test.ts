@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { TempDir } from "@cxn/pi-utils";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { Settings } from "../../src/config/settings";
 import { resolveOwnerScopedSessionKey, type SessionOwners } from "../../src/eval/executor-base";
 import { disposeAllVmContexts, disposeVmContextsByOwner } from "../../src/eval/js/context-manager";

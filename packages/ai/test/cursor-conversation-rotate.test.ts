@@ -1,16 +1,16 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import * as http2 from "node:http2";
 import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
-import { streamCursor } from "@cxn/pi-ai/providers/cursor";
-import type { Context, Model } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { streamCursor } from "@cyberxninja-omp/pi-ai/providers/cursor";
+import type { Context, Model } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import {
 	AgentClientMessageSchema,
 	AgentServerMessageSchema,
 	InteractionUpdateSchema,
 	TextDeltaUpdateSchema,
 	TurnEndedUpdateSchema,
-} from "@cxn/pi-catalog/discovery/cursor-gen/agent_pb";
+} from "@cyberxninja-omp/pi-catalog/discovery/cursor-gen/agent_pb";
 
 // #8345: a server-side per-conversation rejection (bare resource_exhausted,
 // zero tokens) poisons the wire conversationId; the next attempt must rotate

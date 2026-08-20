@@ -8,10 +8,10 @@ import type {
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
-} from "@cxn/pi-agent-core";
-import type { CredentialDisabledEvent, ImageContent, Model, ProviderResponseMetadata } from "@cxn/pi-ai";
-import type { KeyId } from "@cxn/pi-tui";
-import { logger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import type { CredentialDisabledEvent, ImageContent, Model, ProviderResponseMetadata } from "@cyberxninja-omp/pi-ai";
+import type { KeyId } from "@cyberxninja-omp/pi-tui";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { ModelRegistry } from "../../config/model-registry";
 import type { Settings } from "../../config/settings";
 import type { LocalProtocolOptions } from "../../internal-urls/local-protocol";

@@ -2,7 +2,7 @@
  * RLM spawn ledger — the daemon's authoritative topology record.
  *
  * Tracks parent→child spawn edges (id, name, session id, status) so family
- * reach, rosters, and `cxn agents` can be computed from a single source
+ * reach, rosters, and `omp agents` can be computed from a single source
  * instead of re-derived from per-session registries. This in-memory form is
  * the Phase 3 authority; Phase 6 adds the durable on-disk JSONL (seeded from
  * `toJSON()`/`loadJSON()` below) so it survives compaction/restart.

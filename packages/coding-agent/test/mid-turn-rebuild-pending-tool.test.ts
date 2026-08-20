@@ -13,15 +13,15 @@
  *    live region with a spinner that can never resolve.
  */
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { TranscriptContainer } from "@cxn/pi-coding-agent/modes/components/transcript-container";
-import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import type { SessionContext } from "@cxn/pi-coding-agent/session/session-context";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { TranscriptContainer } from "@cyberxninja-omp/pi-coding-agent/modes/components/transcript-container";
+import { EventController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/event-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import type { SessionContext } from "@cyberxninja-omp/pi-coding-agent/session/session-context";
 
 const usage = {
 	input: 1,

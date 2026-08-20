@@ -1,4 +1,4 @@
-import { logger, toError } from "@cxn/pi-utils";
+import { logger, toError } from "@cyberxninja-omp/pi-utils";
 import {
 	IndexedSessionStorage,
 	type SessionStorageBackend,
@@ -31,7 +31,7 @@ export interface RedisSessionStorageOptions {
 	/** A connected `bun:redis` RedisClient (or any compatible adapter). */
 	client: RedisSessionStorageClient;
 	/**
-	 * Key prefix applied to every Redis key this storage owns. Default `cxn:sessions:`.
+	 * Key prefix applied to every Redis key this storage owns. Default `omp:sessions:`.
 	 * Trailing colon is preserved verbatim — set to a project-scoped prefix to share
 	 * one Redis instance between multiple agents.
 	 */
@@ -43,7 +43,7 @@ export interface RedisSessionStorageOptions {
 	scanCount?: number;
 }
 
-const DEFAULT_PREFIX = "cxn:sessions:";
+const DEFAULT_PREFIX = "omp:sessions:";
 const DEFAULT_SCAN_COUNT = 500;
 
 const WRITE_FULL_SCRIPT = `-- CXN_WRITE_FULL

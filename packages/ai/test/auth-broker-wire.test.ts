@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, REMOTE_REFRESH_SENTINEL, SqliteAuthCredentialStore } from "@cxn/pi-ai";
+import { AuthStorage, REMOTE_REFRESH_SENTINEL, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
 import {
 	AUTH_BROKER_CAPABILITIES_HEADER,
 	AUTH_BROKER_CAPABILITY_CODEX_METER_BLOCK_SCOPES,
@@ -14,8 +14,8 @@ import {
 	type SnapshotResponse,
 	type SnapshotStreamEvent,
 	startAuthBroker,
-} from "@cxn/pi-ai/auth-broker";
-import * as oauthUtils from "@cxn/pi-ai/registry/oauth";
+} from "@cyberxninja-omp/pi-ai/auth-broker";
+import * as oauthUtils from "@cyberxninja-omp/pi-ai/registry/oauth";
 import { removeWithRetries } from "../../utils/src/temp";
 
 const ANTHROPIC_ENV = ["ANTHROPIC_API_KEY", "ANTHROPIC_OAUTH_TOKEN"] as const;

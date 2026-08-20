@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { HistorySearchComponent } from "@cxn/pi-coding-agent/modes/components/history-search";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { HistoryEntry, HistoryStorage } from "@cxn/pi-coding-agent/session/history-storage";
+import { HistorySearchComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/history-search";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { HistoryEntry, HistoryStorage } from "@cyberxninja-omp/pi-coding-agent/session/history-storage";
 
 beforeAll(async () => {
 	await initTheme();

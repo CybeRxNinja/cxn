@@ -1,20 +1,20 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentMessage, type AgentTool } from "@cxn/pi-agent-core";
-import type { AssistantMessage, TextContent, ToolCall } from "@cxn/pi-ai";
-import * as ai from "@cxn/pi-ai";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession, type AgentSessionConfig } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { TodoTool } from "@cxn/pi-coding-agent/tools";
-import { setInteractiveHost, TempDir } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentMessage, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, TextContent, ToolCall } from "@cyberxninja-omp/pi-ai";
+import * as ai from "@cyberxninja-omp/pi-ai";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession, type AgentSessionConfig } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { TodoTool } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { setInteractiveHost, TempDir } from "@cyberxninja-omp/pi-utils";
 import { createAssistantMessage } from "./helpers/agent-session-setup";
 
 type ObservedPromptCall = {

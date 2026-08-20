@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { resolveWireModelId } from "@cxn/pi-catalog/model-thinking";
-import type { ModelSpec } from "@cxn/pi-catalog/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { resolveWireModelId } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import type { ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 import modelsJson from "../src/models.json";
 
 describe("issue #3067 — bundled Antigravity Claude 4.6 wire-id routing", () => {

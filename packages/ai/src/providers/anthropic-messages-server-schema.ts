@@ -1,10 +1,10 @@
 /**
  * ArkType schemas for the Anthropic Messages API request shape we accept on the
- * gateway. Maps canonical wire variants to our internal normalized cxn Context
+ * gateway. Maps canonical wire variants to our internal normalized omp Context
  * and options.
  */
 
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type {
 	ContentBlockParam,
 	ImageBlockParam,

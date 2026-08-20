@@ -7,8 +7,8 @@ import {
 	type AutocompleteProvider,
 	CombinedAutocompleteProvider,
 	findLeadingSlashCommandStart,
-} from "@cxn/pi-tui/autocomplete";
-import { Editor } from "@cxn/pi-tui/components/editor";
+} from "@cyberxninja-omp/pi-tui/autocomplete";
+import { Editor } from "@cyberxninja-omp/pi-tui/components/editor";
 import { defaultEditorTheme } from "./test-themes";
 
 function onceAutocompleteUpdate(editor: Editor): Promise<void> {

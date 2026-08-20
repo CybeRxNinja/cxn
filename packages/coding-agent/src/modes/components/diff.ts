@@ -1,5 +1,5 @@
-import { diffWords } from "@cxn/pi-natives";
-import { DEFAULT_TAB_WIDTH, sanitizeText } from "@cxn/pi-utils";
+import { diffWords } from "@cyberxninja-omp/pi-natives";
+import { DEFAULT_TAB_WIDTH, sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { getLanguageFromPath, highlightCode, theme } from "../../modes/theme/theme";
 import { type CodeFrameMarker, formatCodeFrameLine, replaceTabs } from "../../tools/render-utils";
 

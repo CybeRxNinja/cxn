@@ -1,4 +1,4 @@
-import type { Component, SgrMouseEvent } from "@cxn/pi-tui";
+import type { Component, SgrMouseEvent } from "@cyberxninja-omp/pi-tui";
 import type { InteractiveModeContext } from "../../types";
 
 export type SetupSceneResult = "done" | "skipped";

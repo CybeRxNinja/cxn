@@ -1,4 +1,4 @@
-import { vectorIndexTopK } from "@cxn/pi-natives";
+import { vectorIndexTopK } from "@cyberxninja-omp/pi-natives";
 
 export interface ExactVectorSearchHit<TId> {
 	id: TId;

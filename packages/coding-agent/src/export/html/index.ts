@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { AgentState } from "@cxn/pi-agent-core";
-import { APP_NAME, isEnoent } from "@cxn/pi-utils";
+import type { AgentState } from "@cyberxninja-omp/pi-agent-core";
+import { APP_NAME, isEnoent } from "@cyberxninja-omp/pi-utils";
 import { getResolvedThemeColors, getThemeExportColors } from "../../modes/theme/theme";
 import type { SessionEntry, SessionHeader } from "../../session/session-entries";
 import { loadEntriesFromFile } from "../../session/session-loader";
@@ -47,7 +47,7 @@ export function getTemplate(): string {
 
 export interface ExportOptions {
 	outputPath?: string;
-	/** `"web"` bundles the cxn web themes; `"theme"` bundles TUI themes. */
+	/** `"web"` bundles the omp web themes; `"theme"` bundles TUI themes. */
 	palette?: "web" | "theme";
 	/** Legacy single TUI theme name. Prefer `themeNames` for dual-theme exports. */
 	themeName?: string;

@@ -2,14 +2,14 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, mock,
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
-import { getAgentDir, setAgentDir } from "@cxn/pi-utils/dirs";
+import { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
+import { getAgentDir, setAgentDir } from "@cyberxninja-omp/pi-utils/dirs";
 import {
 	BOUNDED_GUIDANCE_MODE,
 	CONTEXT_MODE_NO_INSTRUCTIONS_MODE,
@@ -44,7 +44,7 @@ describe("createAgentSession MCP server instructions (deferred UI)", () => {
 	beforeAll(async () => {
 		isolatedHome = path.join(os.tmpdir(), `pi-sdk-mcp-instr-home-${Snowflake.next()}`);
 		fs.mkdirSync(isolatedHome, { recursive: true });
-		isolatedAgentDir = path.join(isolatedHome, ".cxn", "agent");
+		isolatedAgentDir = path.join(isolatedHome, ".omp", "agent");
 		fs.mkdirSync(isolatedAgentDir, { recursive: true });
 		originalAgentDir = getAgentDir();
 		setAgentDir(isolatedAgentDir);

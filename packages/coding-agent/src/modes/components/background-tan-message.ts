@@ -1,4 +1,4 @@
-import { Text } from "@cxn/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
 import type { BackgroundTanDispatchDetails, CustomMessage } from "../../session/messages";
 import { replaceTabs } from "../../tools/render-utils";
 import { theme } from "../theme/theme";

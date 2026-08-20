@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it, type Mock, vi } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import type { AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import { TRUNCATE_LENGTHS } from "@cxn/pi-coding-agent/tools/render-utils";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { EventController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/event-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { TRUNCATE_LENGTHS } from "@cyberxninja-omp/pi-coding-agent/tools/render-utils";
 
 beforeAll(async () => {
 	resetSettingsForTest();

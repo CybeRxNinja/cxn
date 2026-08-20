@@ -4,8 +4,8 @@
  * Model entries switch the current session only; a search beginning with `@`
  * exposes the configured ctrl+p quick roles.
  */
-import type { Model } from "@cxn/pi-ai";
-import type { Component, TUI } from "@cxn/pi-tui";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import type { Component, TUI } from "@cyberxninja-omp/pi-tui";
 import type { ModelRegistry } from "../../config/model-registry";
 import type { Settings } from "../../config/settings";
 import type { ResolvedRoleModel } from "../../session/agent-session";

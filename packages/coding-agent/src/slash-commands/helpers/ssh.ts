@@ -1,4 +1,4 @@
-import { getSSHConfigPath } from "@cxn/pi-utils";
+import { getSSHConfigPath } from "@cyberxninja-omp/pi-utils";
 import { reset as resetCapabilities } from "../../capability";
 import { addSSHHost, readSSHConfigFile, removeSSHHost, type SSHHostConfig } from "../../ssh/config-writer";
 import { parseCommandArgs } from "../../utils/command-args";

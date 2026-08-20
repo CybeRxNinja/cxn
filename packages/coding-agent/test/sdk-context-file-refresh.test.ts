@@ -1,15 +1,15 @@
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { AuthStorage } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initializeWithSettings } from "@cxn/pi-coding-agent/discovery";
-import { createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initializeWithSettings } from "@cyberxninja-omp/pi-coding-agent/discovery";
+import { createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const INITIAL_CONTEXT = "reload-context-initial-marker";
 const UPDATED_CONTEXT = "reload-context-updated-marker";

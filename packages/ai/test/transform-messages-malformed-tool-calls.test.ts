@@ -7,9 +7,9 @@
 // `transformMessages` is the canonical sanitize boundary every provider passes
 // through, so the defensive filter lives there.
 import { describe, expect, it } from "bun:test";
-import { transformMessages } from "@cxn/pi-ai/providers/transform-messages";
-import type { AssistantMessage, Message, Model, ToolCall, ToolResultMessage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { transformMessages } from "@cyberxninja-omp/pi-ai/providers/transform-messages";
+import type { AssistantMessage, Message, Model, ToolCall, ToolResultMessage } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const model: Model<"anthropic-messages"> = buildModel({
 	api: "anthropic-messages",

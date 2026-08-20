@@ -1,8 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { Text } from "@cxn/pi-tui";
-import { formatBytes } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { formatBytes } from "@cyberxninja-omp/pi-utils";
 import { executeBash } from "../../exec/bash-executor";
 import type { ToolDefinition } from "../../extensibility/extensions";
 import type { Theme } from "../../modes/theme/theme";

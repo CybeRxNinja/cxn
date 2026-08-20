@@ -1,5 +1,5 @@
 /**
- * Re-exports from @cxn/pi-ai.
+ * Re-exports from @cyberxninja-omp/pi-ai.
  * All credential storage types and the AuthStorage class now live in the ai package.
  */
 
@@ -20,6 +20,6 @@ export type {
 	ResetCreditTarget,
 	SerializedAuthStorage,
 	StoredAuthCredential,
-} from "@cxn/pi-ai";
-export { AuthStorage, REMOTE_REFRESH_SENTINEL, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-export type { SnapshotResponse } from "@cxn/pi-ai/auth-broker/types";
+} from "@cyberxninja-omp/pi-ai";
+export { AuthStorage, REMOTE_REFRESH_SENTINEL, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+export type { SnapshotResponse } from "@cyberxninja-omp/pi-ai/auth-broker/types";

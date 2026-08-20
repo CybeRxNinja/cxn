@@ -12,18 +12,22 @@
  * helper itself is exercised directly.
  */
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { AgentStorage } from "@cxn/pi-coding-agent/session/agent-storage";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ToolAbortError } from "@cxn/pi-coding-agent/tools/tool-errors";
-import { runSearchQuery, WebSearchTool } from "@cxn/pi-coding-agent/web/search";
-import * as provider from "@cxn/pi-coding-agent/web/search/provider";
-import { searchAnthropic } from "@cxn/pi-coding-agent/web/search/providers/anthropic";
-import type { SearchParams } from "@cxn/pi-coding-agent/web/search/providers/base";
-import { searchBrave } from "@cxn/pi-coding-agent/web/search/providers/brave";
-import { withHardTimeout } from "@cxn/pi-coding-agent/web/search/providers/utils";
-import { SearchProviderError, type SearchProviderId, type SearchResponse } from "@cxn/pi-coding-agent/web/search/types";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { AgentStorage } from "@cyberxninja-omp/pi-coding-agent/session/agent-storage";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ToolAbortError } from "@cyberxninja-omp/pi-coding-agent/tools/tool-errors";
+import { runSearchQuery, WebSearchTool } from "@cyberxninja-omp/pi-coding-agent/web/search";
+import * as provider from "@cyberxninja-omp/pi-coding-agent/web/search/provider";
+import { searchAnthropic } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/anthropic";
+import type { SearchParams } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/base";
+import { searchBrave } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/brave";
+import { withHardTimeout } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/utils";
+import {
+	SearchProviderError,
+	type SearchProviderId,
+	type SearchResponse,
+} from "@cyberxninja-omp/pi-coding-agent/web/search/types";
 
 const FAKE_SESSION = {} as ToolSession;
 const fakeStorage = {

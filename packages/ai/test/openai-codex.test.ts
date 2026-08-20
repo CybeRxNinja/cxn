@@ -1,10 +1,16 @@
 import { describe, expect, it } from "bun:test";
-import { createOpenAICodexAuthorizationUrl, formatOpenAICodexTokenEndpointError } from "@cxn/pi-ai/oauth/openai-codex";
-import { type RequestBody, transformRequestBody } from "@cxn/pi-ai/providers/openai-codex/request-transformer";
-import { CodexApiError, parseCodexError } from "@cxn/pi-ai/providers/openai-codex/response-handler";
-import { convertOpenAICodexResponsesTools } from "@cxn/pi-ai/providers/openai-codex-responses";
-import type { Tool } from "@cxn/pi-ai/types";
-import { OPENAI_HEADER_VALUES } from "@cxn/pi-catalog/wire/codex";
+import {
+	createOpenAICodexAuthorizationUrl,
+	formatOpenAICodexTokenEndpointError,
+} from "@cyberxninja-omp/pi-ai/oauth/openai-codex";
+import {
+	type RequestBody,
+	transformRequestBody,
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex/request-transformer";
+import { CodexApiError, parseCodexError } from "@cyberxninja-omp/pi-ai/providers/openai-codex/response-handler";
+import { convertOpenAICodexResponsesTools } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import type { Tool } from "@cyberxninja-omp/pi-ai/types";
+import { OPENAI_HEADER_VALUES } from "@cyberxninja-omp/pi-catalog/wire/codex";
 import { createCodexModel } from "./helpers";
 
 const DEFAULT_PROMPT_PREFIX =

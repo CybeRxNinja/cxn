@@ -10,7 +10,7 @@ import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 
-import { isEnoent, logger, pathIsWithin } from "@cxn/pi-utils";
+import { isEnoent, logger, pathIsWithin } from "@cyberxninja-omp/pi-utils";
 import { expandTilde } from "../../../tools/path-utils";
 import { normalizePluginRuntimeConfig } from "../runtime-config";
 import type { PluginRuntimeConfig } from "../types";

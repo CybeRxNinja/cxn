@@ -6,24 +6,28 @@
  * behavior they have in the TUI.
  */
 import { afterAll, afterEach, beforeAll, expect, it, spyOn } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentTool } from "@cxn/pi-agent-core";
-import { createMockModel, type MockModelOptions } from "@cxn/pi-ai/providers/mock";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { type SettingPath, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { EditTool } from "@cxn/pi-coding-agent/edit";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { createMockModel, type MockModelOptions } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { type SettingPath, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { EditTool } from "@cyberxninja-omp/pi-coding-agent/edit";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
 import type {
 	ClientBridge,
 	ClientBridgePermissionOutcome,
 	ClientBridgePermissionToolCall,
-} from "@cxn/pi-coding-agent/session/client-bridge";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { dispatchXdevTool, resolveMountedXdevExecutable, type XdevState } from "@cxn/pi-coding-agent/tools/xdev";
-import { TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/session/client-bridge";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import {
+	dispatchXdevTool,
+	resolveMountedXdevExecutable,
+	type XdevState,
+} from "@cyberxninja-omp/pi-coding-agent/tools/xdev";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 // ---------------------------------------------------------------------------
 // Shared setup

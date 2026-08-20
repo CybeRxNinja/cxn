@@ -7,7 +7,7 @@ import {
 } from "../src/cli/profile-alias";
 
 describe("profile alias installer", () => {
-	it("writes a bash-compatible function that forwards subcommands through cxn", async () => {
+	it("writes a bash-compatible function that forwards subcommands through omp", async () => {
 		const files = new Map<string, string>();
 
 		const result = await installProfileAlias({
@@ -23,9 +23,9 @@ describe("profile alias installer", () => {
 		});
 
 		expect(result.configPath).toBe("/home/me/.bashrc");
-		expect(result.command).toBe("cxn --profile=work");
+		expect(result.command).toBe("omp --profile=work");
 		expect(files.get("/home/me/.bashrc")).toContain("cxn-work() {");
-		expect(files.get("/home/me/.bashrc")).toContain('command cxn --profile=work "$@"');
+		expect(files.get("/home/me/.bashrc")).toContain('command omp --profile=work "$@"');
 	});
 
 	it("resolves source invocations without forcing the source checkout as cwd", () => {
@@ -52,10 +52,10 @@ describe("profile alias installer", () => {
 		});
 
 		expect(command).toEqual({
-			display: "cxn",
-			posix: "cxn",
-			fish: "cxn",
-			powerShell: "cxn",
+			display: "omp",
+			posix: "omp",
+			fish: "omp",
+			powerShell: "omp",
 		});
 	});
 
@@ -78,7 +78,7 @@ describe("profile alias installer", () => {
 		expect(command.powerShell).toBe(`'${runtime}' '${expectedScriptPath}'`);
 	});
 
-	it("can target the current source invocation instead of the installed cxn binary", async () => {
+	it("can target the current source invocation instead of the installed omp binary", async () => {
 		const files = new Map<string, string>();
 
 		const result = await installProfileAlias({
@@ -143,8 +143,8 @@ describe("profile alias installer", () => {
 		});
 
 		const content = files.get("/Users/me/.config/fish/conf.d/cxn-profiles.fish") ?? "";
-		expect(content).toContain("function cxn-work --wraps cxn");
-		expect(content).toContain("command cxn --profile=work $argv");
+		expect(content).toContain("function cxn-work --wraps omp");
+		expect(content).toContain("command omp --profile=work $argv");
 	});
 
 	it("installs the fish alias under XDG_CONFIG_HOME when set", async () => {
@@ -164,7 +164,7 @@ describe("profile alias installer", () => {
 		});
 
 		expect(result.configPath).toBe("/home/me/.dotfiles/config/fish/conf.d/cxn-profiles.fish");
-		expect(files.get(result.configPath)).toContain("function cxn-work --wraps cxn");
+		expect(files.get(result.configPath)).toContain("function cxn-work --wraps omp");
 	});
 
 	it("writes a PowerShell function because aliases cannot carry arguments", async () => {
@@ -185,7 +185,7 @@ describe("profile alias installer", () => {
 		const psConfigPath = path.join("C:\\Users\\me", "Documents", "PowerShell", "Microsoft.PowerShell_profile.ps1");
 		const content = files.get(psConfigPath) ?? "";
 		expect(content).toContain("function cxn-work");
-		expect(content).toContain("& cxn --profile=work @args");
+		expect(content).toContain("& omp --profile=work @args");
 	});
 
 	it("detects pwsh from PSModulePath when SHELL is unset on Windows", async () => {
@@ -209,7 +209,7 @@ describe("profile alias installer", () => {
 		expect(result.shell).toBe("pwsh");
 		const psConfigPath = path.join("C:\\Users\\me", "Documents", "PowerShell", "Microsoft.PowerShell_profile.ps1");
 		expect(result.configPath).toBe(psConfigPath);
-		expect(files.get(result.configPath)).toContain("& cxn --profile=work @args");
+		expect(files.get(result.configPath)).toContain("& omp --profile=work @args");
 	});
 
 	it("selects Windows PowerShell when only WindowsPowerShell modules are present", async () => {
@@ -266,9 +266,9 @@ describe("profile alias installer", () => {
 				"/home/me/.zshrc",
 				[
 					"before",
-					"# >>> cxn profile alias: cxn-work >>>",
-					"alias cxn-work='command cxn --profile=old'",
-					"# <<< cxn profile alias: cxn-work <<<",
+					"# >>> omp profile alias: cxn-work >>>",
+					"alias cxn-work='command omp --profile=old'",
+					"# <<< omp profile alias: cxn-work <<<",
 					"after",
 				].join("\n"),
 			],
@@ -289,7 +289,7 @@ describe("profile alias installer", () => {
 		const content = files.get("/home/me/.zshrc") ?? "";
 		expect(content).toContain("before");
 		expect(content).toContain("after");
-		expect(content).toContain('command cxn --profile=work "$@"');
+		expect(content).toContain('command omp --profile=work "$@"');
 		expect(content).not.toContain("--profile=old");
 	});
 
@@ -298,7 +298,7 @@ describe("profile alias installer", () => {
 		// was interrupted or hand-edited. Appending a fresh block would let the
 		// *next* install splice from the stale start through the new end, deleting
 		// the user config in between. Refuse and preserve the file untouched.
-		const original = ["# >>> cxn profile alias: cxn-work >>>", "cxn-work() {", "export SECRET=keepme"].join("\n");
+		const original = ["# >>> omp profile alias: cxn-work >>>", "cxn-work() {", "export SECRET=keepme"].join("\n");
 		const files = new Map<string, string>([["/home/me/.zshrc", original]]);
 		let wrote = false;
 
@@ -321,8 +321,8 @@ describe("profile alias installer", () => {
 		expect(files.get("/home/me/.zshrc")).toBe(original);
 	});
 
-	it("refuses to shadow the base cxn command case-insensitively", async () => {
-		for (const aliasName of ["cxn", "CXN"]) {
+	it("refuses to shadow the base omp command case-insensitively", async () => {
+		for (const aliasName of ["omp", "CXN"]) {
 			await expect(
 				installProfileAlias({
 					profile: "work",

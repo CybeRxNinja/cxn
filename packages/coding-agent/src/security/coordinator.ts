@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { Model } from "@cxn/pi-ai";
-import { logger, prompt } from "@cxn/pi-utils";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { logger, prompt } from "@cyberxninja-omp/pi-utils";
 import type { AsyncJobManager } from "../async/job-manager";
 import type { ModelRegistry } from "../config/model-registry";
 import type { Settings } from "../config/settings";

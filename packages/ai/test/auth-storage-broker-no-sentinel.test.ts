@@ -7,8 +7,8 @@ import {
 	AuthStorage,
 	REMOTE_REFRESH_SENTINEL,
 	SqliteAuthCredentialStore,
-} from "@cxn/pi-ai/auth-storage";
-import * as oauthUtils from "@cxn/pi-ai/registry/oauth";
+} from "@cyberxninja-omp/pi-ai/auth-storage";
+import * as oauthUtils from "@cyberxninja-omp/pi-ai/registry/oauth";
 import { removeWithRetries } from "../../utils/src/temp";
 
 describe("AuthStorage broker sentinel refresh", () => {

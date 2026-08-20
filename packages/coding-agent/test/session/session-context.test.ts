@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import * as snapcompact from "@cxn/snapcompact";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import * as snapcompact from "@cyberxninja-omp/snapcompact";
 import { type CompactionSummaryMessage, INTERRUPTED_THINKING_MESSAGE_TYPE } from "../../src/session/messages";
 import { buildSessionContext, type StrippedToolCallsMarker } from "../../src/session/session-context";
 import type { SessionEntry } from "../../src/session/session-entries";

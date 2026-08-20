@@ -7,24 +7,27 @@
  */
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@cxn/pi-agent-core";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InteractiveMode, renderSubagentHudLines } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { type ObservableSession, SessionObserverRegistry } from "@cxn/pi-coding-agent/modes/session-observer-registry";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InteractiveMode, renderSubagentHudLines } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import {
+	type ObservableSession,
+	SessionObserverRegistry,
+} from "@cyberxninja-omp/pi-coding-agent/modes/session-observer-registry";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 import {
 	type AgentProgress,
 	type SubagentLifecyclePayload,
 	type SubagentProgressPayload,
 	TASK_SUBAGENT_LIFECYCLE_CHANNEL,
 	TASK_SUBAGENT_PROGRESS_CHANNEL,
-} from "@cxn/pi-coding-agent/task";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/task";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function makeSession(overrides: Partial<ObservableSession> & { id: string }): ObservableSession {
 	return {

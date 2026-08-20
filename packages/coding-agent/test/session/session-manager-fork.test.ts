@@ -5,11 +5,17 @@ import {
 	CURRENT_SESSION_VERSION,
 	type SessionHeader,
 	type SessionMessageEntry,
-} from "@cxn/pi-coding-agent/session/session-entries";
-import { loadEntriesFromFile } from "@cxn/pi-coding-agent/session/session-loader";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { getTerminalId } from "@cxn/pi-tui";
-import { getAgentDir, getTerminalSessionsDir, removeWithRetries, setAgentDir, TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { loadEntriesFromFile } from "@cyberxninja-omp/pi-coding-agent/session/session-loader";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { getTerminalId } from "@cyberxninja-omp/pi-tui";
+import {
+	getAgentDir,
+	getTerminalSessionsDir,
+	removeWithRetries,
+	setAgentDir,
+	TempDir,
+} from "@cyberxninja-omp/pi-utils";
 
 interface JsonlMessageEntry {
 	type: "message";

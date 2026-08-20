@@ -9,7 +9,7 @@
  * revival) and are only removed on explicit release/teardown.
  */
 
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { AgentSession } from "../session/agent-session";
 import { oneLineLabel } from "../task/types";
 

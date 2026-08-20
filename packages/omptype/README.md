@@ -1,4 +1,4 @@
-# @cxn/omptype
+# @cyberxninja-omp/omptype
 
 Fast, ArkType-compatible schema validation for JavaScript and TypeScript.
 Schemas start with a small interpreter and lazily compile after repeated use,
@@ -7,9 +7,9 @@ keeping construction cheap without giving up hot-path validation speed.
 ## Installation
 
 ```sh
-npm install @cxn/omptype
+npm install @cyberxninja-omp/omptype
 # or
-bun add @cxn/omptype
+bun add @cyberxninja-omp/omptype
 ```
 
 Runs on Node 20+ (published as compiled ESM with bundled type declarations)
@@ -19,7 +19,7 @@ export condition). No runtime dependencies.
 ## Usage
 
 ```ts
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 
 const Config = type({
   name: "string",
@@ -74,8 +74,8 @@ options.
 TypeBox-style and Zod-style builders produce native omptype schemas:
 
 ```ts
-import { Type, type Static } from "@cxn/omptype/typebox";
-import { z } from "@cxn/omptype/zod";
+import { Type, type Static } from "@cyberxninja-omp/omptype/typebox";
+import { z } from "@cyberxninja-omp/omptype/zod";
 
 const TypeBoxUser = Type.Object({ name: Type.String() });
 type TypeBoxUser = Static<typeof TypeBoxUser>;
@@ -84,7 +84,7 @@ const ZodUser = z.object({ name: z.string() });
 const user = ZodUser.parse({ name: "Ada" });
 ```
 
-`@cxn/omptype/ark` provides the repository's ArkType compatibility facade
+`@cyberxninja-omp/omptype/ark` provides the repository's ArkType compatibility facade
 and re-exports the same `type` and `scope` implementations.
 
 ## Performance

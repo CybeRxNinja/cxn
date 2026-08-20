@@ -1,4 +1,4 @@
-# @cxn/hashline
+# @cyberxninja-omp/hashline
 
 A compact, line-anchored patch language and applier.
 
@@ -16,7 +16,7 @@ import {
 	InMemorySnapshotStore,
 	Patcher,
 	Patch,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 
 const fs = new InMemoryFilesystem();
 const snapshots = new InMemorySnapshotStore();

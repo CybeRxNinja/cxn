@@ -1,5 +1,5 @@
 import { spyOn } from "bun:test";
-import * as arktype from "@cxn/omptype";
+import * as arktype from "@cyberxninja-omp/omptype";
 
 declare global {
 	var __computerSchemaConstructionCount: number;

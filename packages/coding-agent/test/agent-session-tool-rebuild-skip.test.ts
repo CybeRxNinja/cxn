@@ -1,18 +1,25 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentMessage, type AgentTool } from "@cxn/pi-agent-core";
-import type { Message, Model } from "@cxn/pi-ai";
-import { createMockModel, type MockResponseSource } from "@cxn/pi-ai/providers/mock";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { CustomTool } from "@cxn/pi-coding-agent/extensibility/custom-tools/types";
-import type { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { type CustomMessage, convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { collectMountedMCPToolRoutes, projectMountedMCPXdevGuidance } from "@cxn/pi-coding-agent/session/session-tools";
-import { listXdevTools, XDEV_EXTERNAL_DESCRIPTION_CAP, type XdevState } from "@cxn/pi-coding-agent/tools/xdev";
-import { logger } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentMessage, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { Message, Model } from "@cyberxninja-omp/pi-ai";
+import { createMockModel, type MockResponseSource } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { CustomTool } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-tools/types";
+import type { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { type CustomMessage, convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import {
+	collectMountedMCPToolRoutes,
+	projectMountedMCPXdevGuidance,
+} from "@cyberxninja-omp/pi-coding-agent/session/session-tools";
+import {
+	listXdevTools,
+	XDEV_EXTERNAL_DESCRIPTION_CAP,
+	type XdevState,
+} from "@cyberxninja-omp/pi-coding-agent/tools/xdev";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 // Cache-stability invariant: when MCP servers reconnect with byte-identical tool
 // definitions, `refreshMCPTools` must not rebuild the system prompt. A rebuild

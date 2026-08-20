@@ -1,4 +1,4 @@
-import { ensureChromiumExecutable } from "@cxn/pi-coding-agent/tools/browser/launch";
+import { ensureChromiumExecutable } from "@cyberxninja-omp/pi-coding-agent/tools/browser/launch";
 
 const platform = process.env.CXN_BROWSER_PROBE_PLATFORM;
 if (platform) Object.defineProperty(process, "platform", { value: platform });

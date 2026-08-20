@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-import { AuthBrokerRefresher } from "@cxn/pi-ai/auth-broker";
-import * as oauthUtils from "@cxn/pi-ai/registry/oauth";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+import { AuthBrokerRefresher } from "@cyberxninja-omp/pi-ai/auth-broker";
+import * as oauthUtils from "@cyberxninja-omp/pi-ai/registry/oauth";
 import { removeWithRetries } from "../../utils/src/temp";
 
 const ANTHROPIC_ENV = ["ANTHROPIC_API_KEY", "ANTHROPIC_OAUTH_TOKEN"] as const;

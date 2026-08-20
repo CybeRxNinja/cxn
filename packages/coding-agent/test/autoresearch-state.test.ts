@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { createAutoresearchExtension } from "@cxn/pi-coding-agent/autoresearch";
+import { createAutoresearchExtension } from "@cyberxninja-omp/pi-coding-agent/autoresearch";
 import {
 	buildExperimentState,
 	computeConfidence,
@@ -7,16 +7,19 @@ import {
 	findBaselineRunNumber,
 	findBestKeptMetric,
 	reconstructControlState,
-} from "@cxn/pi-coding-agent/autoresearch/state";
-import { AutoresearchStorage, closeAllAutoresearchStorages } from "@cxn/pi-coding-agent/autoresearch/storage";
-import type { ExperimentResult } from "@cxn/pi-coding-agent/autoresearch/types";
+} from "@cyberxninja-omp/pi-coding-agent/autoresearch/state";
+import {
+	AutoresearchStorage,
+	closeAllAutoresearchStorages,
+} from "@cyberxninja-omp/pi-coding-agent/autoresearch/storage";
+import type { ExperimentResult } from "@cyberxninja-omp/pi-coding-agent/autoresearch/types";
 import type {
 	ExtensionAPI,
 	ExtensionCommandContext,
 	RegisteredCommand,
-} from "@cxn/pi-coding-agent/extensibility/extensions";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import { TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 afterEach(() => {
 	vi.restoreAllMocks();

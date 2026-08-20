@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { CompactionCancelledError, type CompactionOutcome } from "@cxn/pi-agent-core/compaction";
+import { CompactionCancelledError, type CompactionOutcome } from "@cyberxninja-omp/pi-agent-core/compaction";
 import {
 	getEnvApiKey,
 	getProviderDetails,
@@ -9,9 +9,9 @@ import {
 	resolveUsedFraction,
 	type UsageLimit,
 	type UsageReport,
-} from "@cxn/pi-ai";
-import { Loader, Markdown, padding, Spacer, Text, visibleWidth } from "@cxn/pi-tui";
-import { formatDuration, logger, Snowflake, sanitizeText } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { Loader, Markdown, padding, Spacer, Text, visibleWidth } from "@cyberxninja-omp/pi-tui";
+import { formatDuration, logger, Snowflake, sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { shouldEnableAppendOnlyContext } from "../../config/append-only-context-mode";
 import { type BashResult, isPersistentShellCdCommand } from "../../exec/bash-executor";
 import { type LoadedCustomShare, loadCustomShare } from "../../export/custom-share";

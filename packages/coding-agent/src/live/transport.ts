@@ -1,7 +1,12 @@
-import { type AuthStorage, isAuthRetryableError, type OAuthAccess, withOAuthAccess } from "@cxn/pi-ai";
-import { getProxyForUrl, wrapFetchForProxy } from "@cxn/pi-ai/utils/proxy";
-import { CODEX_BASE_URL, CODEX_CLIENT_VERSION, getCodexAccountId, OPENAI_HEADERS } from "@cxn/pi-catalog/wire/codex";
-import { LiveWebRtcPeer } from "@cxn/pi-natives";
+import { type AuthStorage, isAuthRetryableError, type OAuthAccess, withOAuthAccess } from "@cyberxninja-omp/pi-ai";
+import { getProxyForUrl, wrapFetchForProxy } from "@cyberxninja-omp/pi-ai/utils/proxy";
+import {
+	CODEX_BASE_URL,
+	CODEX_CLIENT_VERSION,
+	getCodexAccountId,
+	OPENAI_HEADERS,
+} from "@cyberxninja-omp/pi-catalog/wire/codex";
+import { LiveWebRtcPeer } from "@cyberxninja-omp/pi-natives";
 import { generateCodexAttestation } from "./attestation";
 import {
 	buildLiveSessionPayload,

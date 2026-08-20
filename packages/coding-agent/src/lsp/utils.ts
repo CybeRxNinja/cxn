@@ -1,8 +1,8 @@
-export { truncate } from "@cxn/pi-utils";
+export { truncate } from "@cyberxninja-omp/pi-utils";
 
 import * as fs from "node:fs/promises";
 import path from "node:path";
-import { isEnoent } from "@cxn/pi-utils";
+import { isEnoent } from "@cyberxninja-omp/pi-utils";
 import { type Theme, theme } from "../modes/theme/theme";
 import { formatGroupedFiles } from "../tools/grouped-file-output";
 import { formatPathRelativeToCwd, resolveToCwd } from "../tools/path-utils";

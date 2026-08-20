@@ -2,10 +2,10 @@ import type { Database } from "bun:sqlite";
 import type * as fsNode from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { type ApiKey, completeSimple, Effort, type Model, retryTransientCompletion } from "@cxn/pi-ai";
-import { clampThinkingLevelForModel } from "@cxn/pi-catalog/model-thinking";
-import { getAgentDbPath, getMemoriesDir, isEnoent, logger, parseJsonlLenient, prompt } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { type ApiKey, completeSimple, Effort, type Model, retryTransientCompletion } from "@cyberxninja-omp/pi-ai";
+import { clampThinkingLevelForModel } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { getAgentDbPath, getMemoriesDir, isEnoent, logger, parseJsonlLenient, prompt } from "@cyberxninja-omp/pi-utils";
 
 import type { ModelRegistry } from "../config/model-registry";
 import { getModelMatchPreferences, resolveModelRoleValue } from "../config/model-resolver";

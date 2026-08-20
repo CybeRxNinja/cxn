@@ -1,11 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { AssistantMessage, Usage } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
-import { EventController } from "@cxn/pi-coding-agent/modes/controllers/event-controller";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import type { AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import { vocalizer } from "@cxn/pi-coding-agent/tts/vocalizer";
-import type { TUI } from "@cxn/pi-tui";
+import type { AssistantMessage, Usage } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings, settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { EventController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/event-controller";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { vocalizer } from "@cyberxninja-omp/pi-coding-agent/tts/vocalizer";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 
 function zeroUsage(): Usage {
 	return {

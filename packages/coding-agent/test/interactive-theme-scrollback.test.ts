@@ -1,8 +1,8 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Agent } from "@cxn/pi-agent-core";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
 import {
 	enableAutoTheme,
 	getCurrentThemeName,
@@ -11,13 +11,13 @@ import {
 	previewTheme,
 	setTheme,
 	stopThemeWatcher,
-} from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TUI } from "@cxn/pi-tui";
-import type { TerminalAppearance, TerminalAppearanceRequestToken } from "@cxn/pi-tui/terminal";
-import { TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TUI } from "@cyberxninja-omp/pi-tui";
+import type { TerminalAppearance, TerminalAppearanceRequestToken } from "@cyberxninja-omp/pi-tui/terminal";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { VirtualTerminal } from "../../tui/test/virtual-terminal";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 

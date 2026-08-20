@@ -1,9 +1,12 @@
 import { describe, expect, test } from "bun:test";
-import { getOAuthProviders } from "@cxn/pi-ai/registry/oauth";
-import { getEnvApiKey } from "@cxn/pi-ai/stream";
-import { DEFAULT_MODEL_PER_PROVIDER, PROVIDER_DESCRIPTORS } from "@cxn/pi-catalog/provider-models/descriptors";
-import { MODELS_DEV_PROVIDER_DESCRIPTORS } from "@cxn/pi-catalog/provider-models/openai-compat";
-import type { OpenAICompat } from "@cxn/pi-catalog/types";
+import { getOAuthProviders } from "@cyberxninja-omp/pi-ai/registry/oauth";
+import { getEnvApiKey } from "@cyberxninja-omp/pi-ai/stream";
+import {
+	DEFAULT_MODEL_PER_PROVIDER,
+	PROVIDER_DESCRIPTORS,
+} from "@cyberxninja-omp/pi-catalog/provider-models/descriptors";
+import { MODELS_DEV_PROVIDER_DESCRIPTORS } from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
+import type { OpenAICompat } from "@cyberxninja-omp/pi-catalog/types";
 
 describe("deepseek built-in provider (issue #830)", () => {
 	test("registers built-in runtime descriptor with DEEPSEEK_API_KEY env discovery", () => {

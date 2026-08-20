@@ -15,13 +15,13 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { LoadExtensionsResult } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import { createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { LoadExtensionsResult } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import { createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 describe("createAgentSession preloadedExtensions isolation (issue #2190)", () => {

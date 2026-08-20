@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { buildAnthropicClientOptions, streamAnthropic } from "@cxn/pi-ai/providers/anthropic";
-import type { Context, Model, ModelSpec, TJsonSchema, Tool } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { buildAnthropicClientOptions, streamAnthropic } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import type { Context, Model, ModelSpec, TJsonSchema, Tool } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const STRUCTURED_OUTPUTS_BETA = "structured-outputs-2025-12-15";
 

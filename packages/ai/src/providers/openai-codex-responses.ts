@@ -1,13 +1,13 @@
 import { scheduler } from "node:timers/promises";
-import { type } from "@cxn/omptype";
-import { calculateCost } from "@cxn/pi-catalog/models";
+import { type } from "@cyberxninja-omp/omptype";
+import { calculateCost } from "@cyberxninja-omp/pi-catalog/models";
 import {
 	CODEX_BASE_URL,
 	CODEX_CLIENT_VERSION,
 	getCodexAccountId,
 	OPENAI_HEADER_VALUES,
 	OPENAI_HEADERS,
-} from "@cxn/pi-catalog/wire/codex";
+} from "@cyberxninja-omp/pi-catalog/wire/codex";
 import {
 	$env,
 	$flag,
@@ -19,7 +19,7 @@ import {
 	readSseJson,
 	structuredCloneJSON,
 	USER_AGENT,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import * as AIError from "../error";
 import { getEnvApiKey, isOfficialCodexApiUrl } from "../stream";
 import type {

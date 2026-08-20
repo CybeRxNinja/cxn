@@ -1,4 +1,4 @@
-import { bareModelId, parseOpenAIModel, semverEqual } from "@cxn/pi-catalog/identity";
+import { bareModelId, parseOpenAIModel, semverEqual } from "@cyberxninja-omp/pi-catalog/identity";
 
 /** Whether task guidance should follow Codex's GPT-5.6-specific delegation policy. */
 export function usesCodexTaskPrompt(modelId: string | undefined): boolean {

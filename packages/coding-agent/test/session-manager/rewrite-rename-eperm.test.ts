@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fsp from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { recoverOrphanedBackups } from "@cxn/pi-coding-agent/session/session-listing";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { FileSessionStorage, MemorySessionStorage } from "@cxn/pi-coding-agent/session/session-storage";
+import { recoverOrphanedBackups } from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { FileSessionStorage, MemorySessionStorage } from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
 
 class FsCodeError extends Error {
 	code: string;

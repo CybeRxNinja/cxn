@@ -1,5 +1,5 @@
-import { type AgentMessage, ASIDE_MESSAGE_COMMIT, ASIDE_MESSAGE_DISCARD } from "@cxn/pi-agent-core";
-import { logger } from "@cxn/pi-utils";
+import { type AgentMessage, ASIDE_MESSAGE_COMMIT, ASIDE_MESSAGE_DISCARD } from "@cyberxninja-omp/pi-agent-core";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 export interface YieldDispatcher<P> {
 	/** Drop entries already delivered through another path. Called per-entry at flush time. */

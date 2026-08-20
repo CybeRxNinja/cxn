@@ -1,11 +1,11 @@
 /**
- * Session factory for `cxn compress`.
+ * Session factory for `omp compress`.
  *
  * Deliberately minimal: two custom tools, no extensions, no MCP, no IRC, no LSP,
  * no file or shell access. Everything the agent needs arrives in the conversation,
  * so nothing outside the source text can influence the output.
  */
-import { getProjectDir } from "@cxn/pi-utils";
+import { getProjectDir } from "@cyberxninja-omp/pi-utils";
 import { ModelRegistry } from "../config/model-registry";
 import { formatModelString, resolveCliModel } from "../config/model-resolver";
 import { Settings } from "../config/settings";

@@ -1,4 +1,4 @@
-import { parseFrontmatter, prompt } from "@cxn/pi-utils";
+import { parseFrontmatter, prompt } from "@cyberxninja-omp/pi-utils";
 import { slashCommandCapability } from "../capability/slash-command";
 import { appendInlineArgsFallback, templateUsesInlineArgPlaceholders } from "../config/prompt-templates";
 import type { SlashCommand } from "../discovery";

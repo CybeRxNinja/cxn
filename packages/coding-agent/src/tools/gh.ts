@@ -1,12 +1,12 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type {
 	AgentTool,
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
 	ToolApprovalDecision,
-} from "@cxn/pi-agent-core";
-import { prompt, untilAborted } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import { prompt, untilAborted } from "@cyberxninja-omp/pi-utils";
 import githubDescription from "../prompts/tools/github.md" with { type: "text" };
 import * as git from "../utils/git";
 import type { ToolSession } from ".";

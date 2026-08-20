@@ -2,8 +2,8 @@
  * Test grep tool.
  */
 
-import { GrepOutputMode } from "@cxn/pi-natives";
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { GrepOutputMode } from "@cyberxninja-omp/pi-natives";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { grepHelp as commandHelp } from "../cli/command-help";
 import { type GrepCommandArgs, runGrepCommand } from "../cli/grep-cli";
 import { initTheme } from "../modes/theme/theme";

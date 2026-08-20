@@ -4,8 +4,8 @@
  * Note: command execution is async to avoid blocking the TUI.
  */
 
-import { executeShell } from "@cxn/pi-natives";
-import { $envExact } from "@cxn/pi-utils";
+import { executeShell } from "@cyberxninja-omp/pi-natives";
+import { $envExact } from "@cyberxninja-omp/pi-utils";
 
 /** Cache for successful shell command results (persists for process lifetime). */
 const commandResultCache = new Map<string, string>();

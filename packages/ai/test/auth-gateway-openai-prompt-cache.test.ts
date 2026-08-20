@@ -2,10 +2,10 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCustomApis } from "@cxn/pi-ai/api-registry";
-import { startAuthGateway } from "@cxn/pi-ai/auth-gateway";
-import { AuthStorage } from "@cxn/pi-ai/auth-storage";
-import { createMockModel, registerMockApi } from "@cxn/pi-ai/providers/mock";
+import { clearCustomApis } from "@cyberxninja-omp/pi-ai/api-registry";
+import { startAuthGateway } from "@cyberxninja-omp/pi-ai/auth-gateway";
+import { AuthStorage } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { createMockModel, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
 
 describe("auth-gateway explicit OpenAI prompt cache controls", () => {
 	it("rejects raw controls clearly and forwards the pi-native policy", async () => {

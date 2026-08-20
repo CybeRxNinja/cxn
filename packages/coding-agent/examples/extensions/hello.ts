@@ -3,7 +3,7 @@
  *
  * Demonstrates using ExtensionAPI's logger and injected schema builder.
  */
-import type { ExtensionAPI } from "@cxn/pi-coding-agent";
+import type { ExtensionAPI } from "@cyberxninja-omp/pi-coding-agent";
 
 export default function (pi: ExtensionAPI) {
 	const z = pi.zod;

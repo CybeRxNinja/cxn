@@ -1,8 +1,15 @@
-import type { AuthStorage } from "@cxn/pi-ai";
-import { PASTE_CODE_LOGIN_PROVIDERS } from "@cxn/pi-ai";
-import type { OAuthProvider } from "@cxn/pi-ai/oauth/types";
-import { type Component, type Focusable, Input, matchesKey, type SgrMouseEvent, wrapTextWithAnsi } from "@cxn/pi-tui";
-import { getAgentDbPath } from "@cxn/pi-utils";
+import type { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { PASTE_CODE_LOGIN_PROVIDERS } from "@cyberxninja-omp/pi-ai";
+import type { OAuthProvider } from "@cyberxninja-omp/pi-ai/oauth/types";
+import {
+	type Component,
+	type Focusable,
+	Input,
+	matchesKey,
+	type SgrMouseEvent,
+	wrapTextWithAnsi,
+} from "@cyberxninja-omp/pi-tui";
+import { getAgentDbPath } from "@cyberxninja-omp/pi-utils";
 import { copyToClipboard } from "../../../utils/clipboard";
 import { OAuthSelectorComponent } from "../../components/oauth-selector";
 import { theme } from "../../theme/theme";

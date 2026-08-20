@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { getRoleInfo } from "@cxn/pi-coding-agent/config/model-roles";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { getRoleInfo } from "@cyberxninja-omp/pi-coding-agent/config/model-roles";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 
 describe("getRoleInfo", () => {
 	test("returns built-in role info", () => {

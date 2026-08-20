@@ -1,20 +1,20 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@cxn/pi-agent-core";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	formatMCPConnectionStatusMessage,
 	MCP_CONNECTION_STATUS_EVENT_CHANNEL,
 	type McpConnectionStatusEvent,
-} from "@cxn/pi-coding-agent/mcp/startup-events";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { logger, TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/mcp/startup-events";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { logger, TempDir } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Behavioral wiring guard for MCP startup status (mirrors

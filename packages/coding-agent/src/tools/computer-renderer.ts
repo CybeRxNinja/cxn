@@ -1,6 +1,6 @@
-import type { Component } from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui";
-import { sanitizeText } from "@cxn/pi-utils";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import type { Theme } from "../modes/theme/theme";
 import { framedBlock, renderStatusLine } from "../tui";

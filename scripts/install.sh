@@ -2,7 +2,7 @@
 set -e
 
 # CXN Coding Agent Installer
-# Usage: curl -fsSL https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.sh | sh
+# Usage: curl -fsSL https://raw.githubusercontent.com/CybeRxNinja/omp/main/scripts/install.sh | sh
 #
 # Options:
 #   --source       Install via bun (installs bun if needed)
@@ -10,12 +10,12 @@ set -e
 #   --ref <ref>    Install specific tag/commit/branch
 #   -r <ref>       Shorthand for --ref
 #
-# GitHub Packages / private-source installs: set CXN_INSTALL_TOKEN (PAT with
-# read:packages on the repo) when a registry install needs auth. Binary
+# Public npm installs: set CXN_INSTALL_TOKEN (npm token with
+# read access) when a registry install needs auth. Binary
 # downloads from public GitHub Releases need no token.
 
-REPO="${CXN_REPO:-CybeRxNinja/cxn}"
-PACKAGE="@cxn/pi-coding-agent"
+REPO="${CXN_REPO:-CybeRxNinja/omp}"
+PACKAGE="@cyberxninja-omp/pi-coding-agent"
 INSTALL_DIR="${CXN_INSTALL_DIR:-$HOME/.local/bin}"
 MIN_BUN_VERSION="1.3.14"
 
@@ -222,21 +222,21 @@ install_via_bun() {
         if [ -n "${CXN_INSTALL_TOKEN:-}" ]; then
             NPMRC="$(mktemp)"
             trap 'rm -f "$NPMRC"' EXIT
-            printf 'registry=https://registry.npmjs.org/\n@cxn:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=%s\n' "$CXN_INSTALL_TOKEN" > "$NPMRC"
+            printf 'registry=https://registry.npmjs.org/\n@cyberxninja-omp:registry=https://registry.npmjs.org/\n//registry.npmjs.org/:_authToken=%s\n' "$CXN_INSTALL_TOKEN" > "$NPMRC"
             export NPM_CONFIG_USERCONFIG="$NPMRC"
         fi
         bun install -g "$PACKAGE" || {
             echo "Failed to install $PACKAGE"
             if [ -z "${CXN_INSTALL_TOKEN:-}" ]; then
-                echo "Hint: the @cxn packages live on GitHub Packages, which requires auth even for public installs."
-                echo "      Set CXN_INSTALL_TOKEN (PAT with read:packages on ${REPO}) and re-run."
+                echo "Hint: the @cyberxninja-omp packages live on public npm; set CXN_INSTALL_TOKEN (npm token with read access) for an authenticated install."
+                echo "      Re-run the installer after setting it."
             fi
             exit 1
         }
     fi
     echo ""
-    echo "✓ Installed cxn via bun"
-    echo "Run 'cxn' to get started!"
+    echo "✓ Installed omp via bun"
+    echo "Run 'omp' to get started!"
 }
 
 # Install binary from GitHub releases
@@ -289,21 +289,21 @@ install_binary() {
     # Download binary
     BINARY_URL="https://github.com/${REPO}/releases/download/${LATEST}/${BINARY}"
     echo "Downloading ${BINARY}..."
-    curl_auth --connect-timeout 10 --speed-limit 1024 --speed-time 30 "$BINARY_URL" -o "${INSTALL_DIR}/cxn"
-    chmod +x "${INSTALL_DIR}/cxn"
+    curl_auth --connect-timeout 10 --speed-limit 1024 --speed-time 30 "$BINARY_URL" -o "${INSTALL_DIR}/omp"
+    chmod +x "${INSTALL_DIR}/omp"
 
     # Verify the freshly installed binary can actually start before reporting
     # success. Bun's musl-target binaries link libstdc++/libgcc dynamically,
     # which stock Alpine/musl systems do not ship, so the download succeeds while
     # the binary exits 127 with relocation errors. Never claim success for a
     # binary that cannot run.
-    if ! SMOKE_OUTPUT="$("${INSTALL_DIR}/cxn" --version 2>&1)"; then
+    if ! SMOKE_OUTPUT="$("${INSTALL_DIR}/omp" --version 2>&1)"; then
         echo ""
-        echo "✗ cxn was downloaded to ${INSTALL_DIR}/cxn but cannot start:"
+        echo "✗ omp was downloaded to ${INSTALL_DIR}/omp but cannot start:"
         echo "$SMOKE_OUTPUT" | sed 's/^/    /'
         if [ "$PLATFORM" = "linux-musl" ]; then
             echo ""
-            echo "The musl build links libstdc++/libgcc dynamically. Install them, then re-run 'cxn':"
+            echo "The musl build links libstdc++/libgcc dynamically. Install them, then re-run 'omp':"
             if command -v apk >/dev/null 2>&1; then
                 echo "    apk add libstdc++ libgcc"
             else
@@ -314,12 +314,12 @@ install_binary() {
     fi
 
     echo ""
-    echo "✓ Installed cxn to ${INSTALL_DIR}/cxn"
+    echo "✓ Installed omp to ${INSTALL_DIR}/omp"
 
     # Check if in PATH
     case ":$PATH:" in
-        *":$INSTALL_DIR:"*) echo "Run 'cxn' to get started!" ;;
-        *) echo "Add ${INSTALL_DIR} to your PATH, then run 'cxn'" ;;
+        *":$INSTALL_DIR:"*) echo "Run 'omp' to get started!" ;;
+        *) echo "Add ${INSTALL_DIR} to your PATH, then run 'omp'" ;;
     esac
 }
 

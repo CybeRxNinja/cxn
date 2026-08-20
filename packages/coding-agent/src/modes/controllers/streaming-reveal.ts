@@ -1,6 +1,6 @@
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { type Component, getSegmenter } from "@cxn/pi-tui";
-import { LRUCache } from "@cxn/pi-utils/lru";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { type Component, getSegmenter } from "@cyberxninja-omp/pi-tui";
+import { LRUCache } from "@cyberxninja-omp/pi-utils/lru";
 import { formatThinkingForDisplay, hasDisplayableThinking } from "../../utils/thinking-display";
 import type { AssistantMessageComponent } from "../components/assistant-message";
 

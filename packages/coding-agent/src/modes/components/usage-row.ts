@@ -1,6 +1,6 @@
-import type { Usage } from "@cxn/pi-ai";
-import { Container, Spacer, Text } from "@cxn/pi-tui";
-import { formatNumber } from "@cxn/pi-utils";
+import type { Usage } from "@cyberxninja-omp/pi-ai";
+import { Container, Spacer, Text } from "@cyberxninja-omp/pi-tui";
+import { formatNumber } from "@cyberxninja-omp/pi-utils";
 import { theme } from "../../modes/theme/theme";
 
 /** Below this the rate is nonsense (cached/instant responses yield absurd tok/s). */

@@ -169,7 +169,7 @@ async function collectTargets(): Promise<{ names: string[]; repoFromManifest: st
 		// own published package and needs its own trusted-publisher link.
 		if (pkg.kind === "native") {
 			for (const target of LEAF_TARGETS) {
-				const leaf = `@cxn/pi-natives-${target.tag}`;
+				const leaf = `@cyberxninja-omp/pi-natives-${target.tag}`;
 				if (!seen.has(leaf)) {
 					seen.add(leaf);
 					names.push(leaf);
@@ -236,7 +236,7 @@ async function waitForPackageExists(name: string): Promise<boolean> {
 }
 
 function nativeLeafName(tag: string): string {
-	return `@cxn/pi-natives-${tag}`;
+	return `@cyberxninja-omp/pi-natives-${tag}`;
 }
 
 function nativeLeafTargetForPackage(name: string): NativeLeafTarget | null {
@@ -254,7 +254,7 @@ function placeholderManifest(name: string, target: NativeLeafTarget, repo: strin
 	return {
 		name,
 		version: PLACEHOLDER_VERSION,
-		description: `Placeholder for the ${target.tag} native addon of @cxn/pi-natives. The real binary is published during release.`,
+		description: `Placeholder for the ${target.tag} native addon of @cyberxninja-omp/pi-natives. The real binary is published during release.`,
 		license: "MIT",
 		os: [target.os],
 		cpu: [target.cpu],
@@ -276,7 +276,7 @@ function placeholderReadme(name: string, target: NativeLeafTarget): string {
 	return [
 		`# ${name}`,
 		"",
-		`Placeholder package reserving the npm name for the \`${target.tag}\` native addon of \`@cxn/pi-natives\`.`,
+		`Placeholder package reserving the npm name for the \`${target.tag}\` native addon of \`@cyberxninja-omp/pi-natives\`.`,
 		"",
 		`This \`${PLACEHOLDER_VERSION}\` release ships no binary. The real, versioned platform addon is generated during release and installed as an optional dependency of the core package.`,
 		"",

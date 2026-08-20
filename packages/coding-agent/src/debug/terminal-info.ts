@@ -6,7 +6,14 @@
  * scrollback/erase strategy, and the live geometry — the details that decide
  * which escape sequences the renderer emits.
  */
-import { getCellDimensions, ImageProtocol, isOsc99Supported, NotifyProtocol, TERMINAL, TERMINAL_ID } from "@cxn/pi-tui";
+import {
+	getCellDimensions,
+	ImageProtocol,
+	isOsc99Supported,
+	NotifyProtocol,
+	TERMINAL,
+	TERMINAL_ID,
+} from "@cyberxninja-omp/pi-tui";
 
 /** Live values the debug view reads off the running TUI, not the static capability table. */
 export interface TerminalRuntimeState {

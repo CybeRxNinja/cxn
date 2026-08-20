@@ -1,7 +1,7 @@
 /**
  * Regression test for issue #1234.
  *
- * `cxn acp` must not auto-discover host `.mcp.json` servers when creating a
+ * `omp acp` must not auto-discover host `.mcp.json` servers when creating a
  * session for an ACP client. MCP server ownership belongs entirely to the ACP
  * client (`session/new.mcpServers` → `AcpAgent#configureMcpServers`); letting
  * `createAgentSession` run on-disk discovery in parallel registers host MCP
@@ -13,12 +13,12 @@
  */
 
 import { afterAll, describe, expect, it } from "bun:test";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createAcpSessionFactory } from "@cxn/pi-coding-agent/main";
-import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { TempDir } from "@cxn/pi-utils";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { createAcpSessionFactory } from "@cyberxninja-omp/pi-coding-agent/main";
+import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 const authStorage = createInMemoryAuthStorage();
@@ -112,7 +112,7 @@ describe("createAcpSessionFactory MCP isolation (issue #1234)", () => {
 			const firedPath = tempDir.join("trusted-event-fired");
 			const ambientFiredPath = tempDir.join("ambient-extension-loaded");
 			await Bun.write(
-				tempDir.join(".cxn/extensions/ambient.ts"),
+				tempDir.join(".omp/extensions/ambient.ts"),
 				`import { writeFileSync } from "node:fs"; writeFileSync(${JSON.stringify(ambientFiredPath)}, "loaded"); export default function () {}`,
 			);
 			await Bun.write(
@@ -194,7 +194,7 @@ describe("createAcpSessionFactory TITLE_SYSTEM.md per-cwd resolution (PR #3736)"
 			const settings = Settings.isolated({});
 
 			const projectDir = tempDir.join("project");
-			await Bun.write(`${projectDir}/.cxn/TITLE_SYSTEM.md`, "Project-specific title policy.");
+			await Bun.write(`${projectDir}/.omp/TITLE_SYSTEM.md`, "Project-specific title policy.");
 
 			const fakeSession = {} as AgentSession;
 			const captured: CreateAgentSessionOptions[] = [];

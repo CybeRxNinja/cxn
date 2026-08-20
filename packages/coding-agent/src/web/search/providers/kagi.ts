@@ -3,7 +3,7 @@
  *
  * Thin wrapper that adapts shared Kagi API utilities to SearchResponse shape.
  */
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
 import type { SearchResponse } from "../../../web/search/types";
 import { SearchProviderError } from "../../../web/search/types";
 import { KagiApiError, searchWithKagi } from "../../kagi";

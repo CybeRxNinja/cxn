@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { getSecurityProjectDir, isEnoent } from "@cxn/pi-utils";
-import { withFileLock } from "@cxn/pi-utils/file-lock";
+import { getSecurityProjectDir, isEnoent } from "@cyberxninja-omp/pi-utils";
+import { withFileLock } from "@cyberxninja-omp/pi-utils/file-lock";
 import * as git from "../utils/git";
 import { compareSecurityLineage } from "./comparison";
 import type {

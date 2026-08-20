@@ -2,14 +2,14 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AssistantMessage, completeSimple, Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { AssistantMessage, completeSimple, Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	type DescribeAttachedImagesDeps,
 	describeAttachedImagesForTextModel,
-} from "@cxn/pi-coding-agent/utils/image-vision-fallback";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/utils/image-vision-fallback";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // 1x1 transparent PNG.
 const TINY_PNG_BASE64 =

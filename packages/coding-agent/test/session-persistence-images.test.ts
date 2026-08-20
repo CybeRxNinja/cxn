@@ -1,11 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import { BlobStore, isBlobRef } from "@cxn/pi-coding-agent/session/blob-store";
-import type { FileEntry, SessionMessageEntry } from "@cxn/pi-coding-agent/session/session-entries";
-import { resolveBlobRefsInEntries } from "@cxn/pi-coding-agent/session/session-loader";
-import { prepareEntryForPersistence } from "@cxn/pi-coding-agent/session/session-persistence";
-import { TempDir } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { BlobStore, isBlobRef } from "@cyberxninja-omp/pi-coding-agent/session/blob-store";
+import type { FileEntry, SessionMessageEntry } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { resolveBlobRefsInEntries } from "@cyberxninja-omp/pi-coding-agent/session/session-loader";
+import { prepareEntryForPersistence } from "@cyberxninja-omp/pi-coding-agent/session/session-persistence";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 type ImagePayload = { data: string; mimeType: string; type?: "image" };
 type ToolResultMessage = Extract<AgentMessage, { role: "toolResult" }>;

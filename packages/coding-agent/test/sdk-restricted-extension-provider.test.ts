@@ -2,13 +2,17 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { createAssistantMessageEventStream, getCustomApi } from "@cxn/pi-ai";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { type CreateAgentSessionOptions, createAgentSession, type ExtensionFactory } from "@cxn/pi-coding-agent/sdk";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import { createAssistantMessageEventStream, getCustomApi } from "@cyberxninja-omp/pi-ai";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	type CreateAgentSessionOptions,
+	createAgentSession,
+	type ExtensionFactory,
+} from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 const providerName = "restricted-session-provider";

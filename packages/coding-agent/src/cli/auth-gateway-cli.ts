@@ -1,5 +1,5 @@
 /**
- * `cxn auth-gateway` command handlers.
+ * `omp auth-gateway` command handlers.
  *
  * Boots a forward-proxy server that lets less-trusted clients (the macOS
  * usage widget, robomp containers, …) make provider API calls without ever
@@ -23,17 +23,17 @@ import {
 	type CredentialCompletionResult,
 	completeSimple,
 	type Model,
-} from "@cxn/pi-ai";
+} from "@cyberxninja-omp/pi-ai";
 import {
 	AuthBrokerClient,
 	loadAuthBrokerAccountPool,
 	RemoteAuthCredentialStore,
 	type SnapshotResponse,
-} from "@cxn/pi-ai/auth-broker";
-import { DEFAULT_AUTH_GATEWAY_BIND, startAuthGateway } from "@cxn/pi-ai/auth-gateway";
-import { type GeneratedProvider, getBundledModels } from "@cxn/pi-catalog/models";
-import { getConfigRootDir, isEnoent, logger, VERSION } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+} from "@cyberxninja-omp/pi-ai/auth-broker";
+import { DEFAULT_AUTH_GATEWAY_BIND, startAuthGateway } from "@cyberxninja-omp/pi-ai/auth-gateway";
+import { type GeneratedProvider, getBundledModels } from "@cyberxninja-omp/pi-catalog/models";
+import { getConfigRootDir, isEnoent, logger, VERSION } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { ModelRegistry } from "../config/model-registry";
 import { type AuthBrokerClientConfig, resolveAuthBrokerConfig } from "../session/auth-broker-config";
 
@@ -172,7 +172,7 @@ async function runServe(flags: AuthGatewayCommandArgs["flags"]): Promise<void> {
 	const brokerConfig = await resolveAuthBrokerConfig();
 	if (!brokerConfig) {
 		throw new Error(
-			"`cxn auth-gateway serve` requires CXN_AUTH_BROKER_URL (or `auth.broker.url`/`auth.broker.token` in config.yml). The gateway is itself a broker client.",
+			"`omp auth-gateway serve` requires CXN_AUTH_BROKER_URL (or `auth.broker.url`/`auth.broker.token` in config.yml). The gateway is itself a broker client.",
 		);
 	}
 	const bind = flags.bind ?? DEFAULT_AUTH_GATEWAY_BIND;
@@ -200,7 +200,7 @@ async function runServe(flags: AuthGatewayCommandArgs["flags"]): Promise<void> {
 	// Build the model resolver + catalog from the ModelRegistry — the same
 	// component the TUI/CLI use — scoped to providers we hold credentials for.
 	// `getAll()` is a superset of the bundled catalog (bundled first, then
-	// cached + broker-discovered), so the discovery-only models cxn itself
+	// cached + broker-discovered), so the discovery-only models omp itself
 	// reaches become routable through the gateway instead of freezing on the
 	// compiled snapshot. `ignoreLocalModelConfig` keeps the host's `models.yml`
 	// out of the picture: client-side provider overrides (baseUrl/apiKey/headers/
@@ -357,7 +357,7 @@ async function runStatus(flags: AuthGatewayCommandArgs["flags"]): Promise<void> 
 			);
 			if (!tokenPresent) {
 				process.stdout.write(
-					"Run `cxn auth-gateway token` or `cxn auth-gateway serve` to create a bearer token.\n",
+					"Run `omp auth-gateway token` or `omp auth-gateway serve` to create a bearer token.\n",
 				);
 			}
 		}
@@ -576,7 +576,7 @@ function formatCompletionStatus(completion: CredentialCompletionResult | undefin
 }
 
 /**
- * `cxn auth-gateway check` — probe each broker-supplied credential and print
+ * `omp auth-gateway check` — probe each broker-supplied credential and print
  * per-credential auth health. Use this when the gateway is returning 401s and
  * you need to find which row in a multi-account pool is the bad one. The
  * aggregate `/v1/usage` endpoint silently drops failed credentials, so a
@@ -591,7 +591,7 @@ async function runCheck(flags: AuthGatewayCommandArgs["flags"]): Promise<void> {
 	const brokerConfig = await resolveAuthBrokerConfig();
 	if (!brokerConfig) {
 		throw new Error(
-			"`cxn auth-gateway check` requires CXN_AUTH_BROKER_URL (or `auth.broker.url`/`auth.broker.token` in config.yml). It probes the same credentials the gateway would serve.",
+			"`omp auth-gateway check` requires CXN_AUTH_BROKER_URL (or `auth.broker.url`/`auth.broker.token` in config.yml). It probes the same credentials the gateway would serve.",
 		);
 	}
 

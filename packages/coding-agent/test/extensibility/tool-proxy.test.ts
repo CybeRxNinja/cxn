@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { isArkSchema } from "@cxn/pi-ai/utils/schema";
+import { type } from "@cyberxninja-omp/omptype";
+import { isArkSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
 import { applyToolProxy } from "../../src/extensibility/tool-proxy";
 
 describe("applyToolProxy", () => {

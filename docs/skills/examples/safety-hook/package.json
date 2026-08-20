@@ -1,9 +1,9 @@
 {
   "name": "safety-hook",
   "version": "1.0.0",
-  "description": "cxn extension example: block rm -rf / via tool_call hook",
-  "homepage": "https://cxn.sh",
-  "cxn": {
+  "description": "omp extension example: block rm -rf / via tool_call hook",
+  "homepage": "https://omp.sh",
+  "omp": {
     "extensions": ["./index.ts"]
   }
 }

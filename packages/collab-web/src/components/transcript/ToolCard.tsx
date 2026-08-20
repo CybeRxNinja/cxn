@@ -1,4 +1,4 @@
-import type { ToolResultMessage } from "@cxn/pi-wire";
+import type { ToolResultMessage } from "@cyberxninja-omp/pi-wire";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { messageText } from "../../lib/format";

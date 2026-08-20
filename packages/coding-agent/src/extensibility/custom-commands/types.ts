@@ -5,9 +5,9 @@
  * Unlike markdown commands which expand to prompts, custom commands can execute
  * arbitrary logic with full access to the hook context.
  */
-import type { type as ArkType } from "@cxn/omptype";
-import type * as TypeBox from "@cxn/omptype/typebox";
-import type * as zod from "@cxn/omptype/zod";
+import type { type as ArkType } from "@cyberxninja-omp/omptype";
+import type * as TypeBox from "@cyberxninja-omp/omptype/typebox";
+import type * as zod from "@cyberxninja-omp/omptype/zod";
 import type { ExecOptions, ExecResult, HookCommandContext } from "../../extensibility/hooks/types";
 import type * as PiCodingAgent from "../../index";
 

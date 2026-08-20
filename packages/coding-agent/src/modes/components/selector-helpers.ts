@@ -5,7 +5,7 @@
  * padding. Behaviour is identical to the per-component copies these helpers
  * replace.
  */
-import { extractPrintableText, matchesKey, ScrollView } from "@cxn/pi-tui";
+import { extractPrintableText, matchesKey, ScrollView } from "@cyberxninja-omp/pi-tui";
 import { theme } from "../theme/theme";
 
 /**

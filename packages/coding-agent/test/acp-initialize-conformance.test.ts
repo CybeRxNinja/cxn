@@ -7,15 +7,18 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { AcpAgent } from "@cxn/pi-coding-agent/modes/acp/acp-agent";
-import { ACP_TERMINAL_AUTH_FLAG, prepareAcpTerminalAuthArgs } from "@cxn/pi-coding-agent/modes/acp/terminal-auth";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { getConfigRootDir, setAgentDir, VERSION } from "@cxn/pi-utils";
-import type { AgentSideConnection, InitializeRequest } from "@cxn/pi-utils/acp";
+import { type } from "@cyberxninja-omp/omptype";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { AcpAgent } from "@cyberxninja-omp/pi-coding-agent/modes/acp/acp-agent";
+import {
+	ACP_TERMINAL_AUTH_FLAG,
+	prepareAcpTerminalAuthArgs,
+} from "@cyberxninja-omp/pi-coding-agent/modes/acp/terminal-auth";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { getConfigRootDir, setAgentDir, VERSION } from "@cyberxninja-omp/pi-utils";
+import type { AgentSideConnection, InitializeRequest } from "@cyberxninja-omp/pi-utils/acp";
 import { expectAcpStructure } from "./helpers/acp-schema";
 
 const arkInitializeResponse = type({
@@ -228,8 +231,8 @@ describe("ACP initialize conformance", () => {
 		const pkg = (await Bun.file(pkgPath).json()) as { version: string };
 		expect(response.agentInfo).toEqual(
 			expect.objectContaining({
-				name: "cxn",
-				title: "cxn",
+				name: "omp",
+				title: "omp",
 				version: VERSION,
 			}),
 		);

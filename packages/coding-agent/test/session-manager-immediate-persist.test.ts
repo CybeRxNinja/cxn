@@ -1,10 +1,13 @@
 import { afterEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { MemorySessionStorage, type WriteTextAtomicOptions } from "@cxn/pi-coding-agent/session/session-storage";
-import { parseJsonlLenient, TempDir } from "@cxn/pi-utils";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import {
+	MemorySessionStorage,
+	type WriteTextAtomicOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
+import { parseJsonlLenient, TempDir } from "@cyberxninja-omp/pi-utils";
 
 const tempDirs: TempDir[] = [];
 

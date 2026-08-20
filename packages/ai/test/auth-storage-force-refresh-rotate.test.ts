@@ -2,11 +2,11 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { withAuth } from "@cxn/pi-ai";
-import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
-import { ProviderHttpError } from "@cxn/pi-ai/error";
-import { registerOAuthProvider, unregisterOAuthProviders } from "@cxn/pi-ai/registry/oauth";
-import type { CredentialRankingStrategy, UsageProvider } from "@cxn/pi-ai/usage";
+import { withAuth } from "@cyberxninja-omp/pi-ai";
+import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { ProviderHttpError } from "@cyberxninja-omp/pi-ai/error";
+import { registerOAuthProvider, unregisterOAuthProviders } from "@cyberxninja-omp/pi-ai/registry/oauth";
+import type { CredentialRankingStrategy, UsageProvider } from "@cyberxninja-omp/pi-ai/usage";
 import { removeWithRetries } from "../../utils/src/temp";
 
 const PROVIDER = "unit-rotate-oauth";

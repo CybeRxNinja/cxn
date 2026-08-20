@@ -6,7 +6,7 @@ import {
 	MONTH_MAP,
 	NAMED_TIMES,
 	parseNlDate,
-} from "@cxn/pi-mnemopi/core/temporal-parser";
+} from "@cyberxninja-omp/pi-mnemopi/core/temporal-parser";
 
 const REF = new Date("2026-05-20T15:30:00Z"); // Wednesday
 

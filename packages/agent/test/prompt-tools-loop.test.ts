@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { agentLoop } from "@cxn/pi-agent-core/agent-loop";
-import type { AgentContext, AgentLoopConfig, AgentMessage, AgentTool } from "@cxn/pi-agent-core/types";
-import type { AssistantMessage, Context, Message, TextContent, ToolResultMessage } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
+import { type } from "@cyberxninja-omp/omptype";
+import { agentLoop } from "@cyberxninja-omp/pi-agent-core/agent-loop";
+import type { AgentContext, AgentLoopConfig, AgentMessage, AgentTool } from "@cyberxninja-omp/pi-agent-core/types";
+import type { AssistantMessage, Context, Message, TextContent, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
 import { createUserMessage } from "./helpers";
 
 function identityConverter(messages: AgentMessage[]): Message[] {

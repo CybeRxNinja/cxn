@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, mock, vi } from "bun:test";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { runOnboardingSetup } from "@cxn/pi-coding-agent/commands/setup";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { runOnboardingSetup } from "@cyberxninja-omp/pi-coding-agent/commands/setup";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	ALL_SCENES,
 	CURRENT_SETUP_VERSION,
@@ -11,14 +11,14 @@ import {
 	type SetupScene,
 	type SetupSceneHost,
 	selectSetupScenes,
-} from "@cxn/pi-coding-agent/modes/setup-wizard";
-import { providersSetupScene } from "@cxn/pi-coding-agent/modes/setup-wizard/scenes/providers";
-import { themeSetupScene } from "@cxn/pi-coding-agent/modes/setup-wizard/scenes/theme";
-import { WebSearchTab } from "@cxn/pi-coding-agent/modes/setup-wizard/scenes/web-search";
-import { SetupWizardComponent } from "@cxn/pi-coding-agent/modes/setup-wizard/wizard-overlay";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { SEARCH_PROVIDER_OPTIONS, SEARCH_PROVIDER_ORDER } from "@cxn/pi-coding-agent/web/search/types";
+} from "@cyberxninja-omp/pi-coding-agent/modes/setup-wizard";
+import { providersSetupScene } from "@cyberxninja-omp/pi-coding-agent/modes/setup-wizard/scenes/providers";
+import { themeSetupScene } from "@cyberxninja-omp/pi-coding-agent/modes/setup-wizard/scenes/theme";
+import { WebSearchTab } from "@cyberxninja-omp/pi-coding-agent/modes/setup-wizard/scenes/web-search";
+import { SetupWizardComponent } from "@cyberxninja-omp/pi-coding-agent/modes/setup-wizard/wizard-overlay";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { SEARCH_PROVIDER_OPTIONS, SEARCH_PROVIDER_ORDER } from "@cyberxninja-omp/pi-coding-agent/web/search/types";
 
 function fakeContextWithConfiguredModel(): InteractiveModeContext {
 	return {
@@ -547,7 +547,7 @@ describe("setup wizard web search tab", () => {
 	});
 });
 
-describe("cxn setup onboarding trigger", () => {
+describe("omp setup onboarding trigger", () => {
 	it("starts the normal interactive command with forced setup wizard", async () => {
 		let forceSetupWizard: boolean | undefined;
 		await runOnboardingSetup({

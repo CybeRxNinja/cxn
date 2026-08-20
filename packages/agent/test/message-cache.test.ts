@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { SessionMessageEntry } from "@cxn/pi-agent-core/compaction";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { SessionMessageEntry } from "@cyberxninja-omp/pi-agent-core/compaction";
 import {
 	applyShakeRegion,
 	collectShakeRegions,
@@ -9,8 +9,8 @@ import {
 	invalidateMessageCache,
 	isEstimateCacheable,
 	pruneToolOutputs,
-} from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, ToolResultMessage, Usage } from "@cxn/pi-ai";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantMessage, ToolResultMessage, Usage } from "@cyberxninja-omp/pi-ai";
 
 let idCounter = 0;
 function nextId(): string {

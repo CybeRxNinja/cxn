@@ -4,10 +4,17 @@ import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 import { gunzipSync, gzipSync } from "node:zlib";
-import { withStatsSyncLock } from "@cxn/cxn-stats/aggregator";
-import { type GcResult, runGcCommand } from "@cxn/pi-coding-agent/cli/gc-cli";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { getAgentDir, getBlobsDir, getHistoryDbPath, getSessionsDir, setAgentDir, setProjectDir } from "@cxn/pi-utils";
+import { withStatsSyncLock } from "@cyberxninja-omp/omp-stats/aggregator";
+import { type GcResult, runGcCommand } from "@cyberxninja-omp/pi-coding-agent/cli/gc-cli";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	getAgentDir,
+	getBlobsDir,
+	getHistoryDbPath,
+	getSessionsDir,
+	setAgentDir,
+	setProjectDir,
+} from "@cyberxninja-omp/pi-utils";
 import { runCli } from "../src/cli";
 import { beginSettingsTest, restoreSettingsTestState, type SettingsTestState } from "./helpers/settings-test-state";
 
@@ -104,7 +111,7 @@ async function writeConfig(agentDir: string, body: string): Promise<void> {
 }
 
 async function writeProjectConfig(projectDir: string, body: string): Promise<void> {
-	const configDir = path.join(projectDir, ".cxn");
+	const configDir = path.join(projectDir, ".omp");
 	await fs.mkdir(configDir, { recursive: true });
 	await Bun.write(path.join(configDir, "config.yml"), body);
 }

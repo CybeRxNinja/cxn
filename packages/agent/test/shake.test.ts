@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { SessionEntry, SessionMessageEntry, ShakeConfig } from "@cxn/pi-agent-core/compaction";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { SessionEntry, SessionMessageEntry, ShakeConfig } from "@cyberxninja-omp/pi-agent-core/compaction";
 import {
 	AGGRESSIVE_SHAKE_CONFIG,
 	applyShakeRegion,
@@ -9,8 +9,8 @@ import {
 	DEFAULT_SHAKE_CONFIG,
 	estimateTokens,
 	RESCUE_SHAKE_CONFIG,
-} from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, TextContent, ToolCall, ToolResultMessage } from "@cxn/pi-ai";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantMessage, TextContent, ToolCall, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
 
 let idCounter = 0;
 function nextId(): string {

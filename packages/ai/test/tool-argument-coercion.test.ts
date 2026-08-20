@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { Tool, ToolCall } from "@cxn/pi-ai/types";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
+import { type } from "@cyberxninja-omp/omptype";
+import type { Tool, ToolCall } from "@cyberxninja-omp/pi-ai/types";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
 
 describe("Tool argument coercion", () => {
 	it("coerces numeric strings when schema expects number", () => {

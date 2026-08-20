@@ -1,4 +1,4 @@
-import { tryParseJson } from "@cxn/pi-utils";
+import { tryParseJson } from "@cyberxninja-omp/pi-utils";
 import { formatBytes } from "../../tools/render-utils";
 import type { RenderResult, SpecialHandler } from "./types";
 import { buildResult, decodeHtmlEntities, loadPage } from "./types";

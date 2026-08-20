@@ -10,9 +10,9 @@ import { afterEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { removeUserDataDir } from "@cxn/pi-coding-agent/tools/browser/launch";
-import { type BrowserHandle, releaseBrowser } from "@cxn/pi-coding-agent/tools/browser/registry";
-import * as piUtils from "@cxn/pi-utils";
+import { removeUserDataDir } from "@cyberxninja-omp/pi-coding-agent/tools/browser/launch";
+import { type BrowserHandle, releaseBrowser } from "@cyberxninja-omp/pi-coding-agent/tools/browser/registry";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
 
 async function makeProfileDir(): Promise<string> {
 	const dir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "cxn-chrome-profile-test-"));

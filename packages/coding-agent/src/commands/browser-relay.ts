@@ -1,7 +1,7 @@
 /**
- * `cxn browser-relay` — drive the user's own Chrome tabs.
+ * `omp browser-relay` — drive the user's own Chrome tabs.
  */
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import {
 	BROWSER_RELAY_ACTIONS,
 	type BrowserRelayAction,
@@ -24,19 +24,19 @@ export default class BrowserRelay extends Command {
 		port: Flags.integer({ char: "p", description: "Port to listen on", default: DEFAULT_RELAY_PORT }),
 		token: Flags.string({ description: "Require the extension to present this token" }),
 		dir: Flags.string({
-			description: "Extension install directory (install; default ~/.cxn/browser-relay/extension)",
+			description: "Extension install directory (install; default ~/.omp/browser-relay/extension)",
 		}),
 		"no-group": Flags.boolean({
-			description: "Don't gather controllable tabs into an 'cxn' tab group",
+			description: "Don't gather controllable tabs into an 'omp' tab group",
 			default: false,
 		}),
 		verbose: Flags.boolean({ char: "v", description: "Log relay traffic summaries to stderr", default: false }),
 	};
 
 	static examples = [
-		"cxn browser-relay install    # write the Chrome extension to disk + setup steps",
-		"cxn browser-relay            # serve the relay on the default port",
-		"cxn browser-relay -p 9333 --token s3cret",
+		"omp browser-relay install    # write the Chrome extension to disk + setup steps",
+		"omp browser-relay            # serve the relay on the default port",
+		"omp browser-relay -p 9333 --token s3cret",
 	];
 
 	async run(): Promise<void> {

@@ -1,4 +1,4 @@
-import { prompt } from "@cxn/pi-utils";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import workflowNoticeTemplate from "../prompts/system/workflow-notice.md" with { type: "text" };
 import { createGradientHighlighter, type KeywordHighlighter } from "./gradient-highlight";
 import { magicKeywordRegex } from "./magic-keyword-boundary";

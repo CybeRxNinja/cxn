@@ -5,20 +5,20 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, expectTypeOf, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { Type } from "@cxn/omptype/typebox";
-import type { AgentMessage, AgentTool } from "@cxn/pi-agent-core";
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ExtensionRuntime, loadExtensions } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
+import { Type } from "@cyberxninja-omp/omptype/typebox";
+import type { AgentMessage, AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { ExtensionRuntime, loadExtensions } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
 import {
 	EXTENSION_HANDLER_TIMEOUT_MS,
 	ExtensionRunner,
 	SESSION_SHUTDOWN_HANDLER_TIMEOUT_MS,
 	testSetExtensionHandlerTimeoutMs,
 	testSetSessionShutdownHandlerTimeoutMs,
-} from "@cxn/pi-coding-agent/extensibility/extensions/runner";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
 import type {
 	Extension,
 	ExtensionError,
@@ -26,11 +26,11 @@ import type {
 	ExtensionUIContext,
 	InputEvent,
 	InputEventResult,
-} from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import { ExtensionToolWrapper } from "@cxn/pi-coding-agent/extensibility/extensions/wrapper";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { getProjectAgentDir, logger, TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import { ExtensionToolWrapper } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/wrapper";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { getProjectAgentDir, logger, TempDir } from "@cyberxninja-omp/pi-utils";
 
 describe("ExtensionRunner", () => {
 	let tempDir: TempDir;

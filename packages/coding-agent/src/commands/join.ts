@@ -3,8 +3,8 @@
  * immediately runs `/join <link>`.
  */
 
-import { APP_NAME } from "@cxn/pi-utils";
-import { Args, Command } from "@cxn/pi-utils/cli";
+import { APP_NAME } from "@cyberxninja-omp/pi-utils";
+import { Args, Command } from "@cyberxninja-omp/pi-utils/cli";
 import { parseArgs } from "../cli/args";
 import { joinHelp as commandHelp } from "../cli/command-help";
 import { runRootCommand } from "../main";

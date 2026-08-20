@@ -1,6 +1,6 @@
 // Adapted from markit-ai (MIT). See ../NOTICE.
 import * as path from "node:path";
-import mammoth from "@cxn/pi-utils/docx";
+import mammoth from "@cyberxninja-omp/pi-utils/docx";
 import { createTurndown, normalizeTablesHtml } from "../../utils/turndown";
 import type { ConversionResult, Converter, StreamInfo } from "../types";
 

@@ -1,4 +1,4 @@
-import { extractHttpStatusFromError } from "@cxn/pi-utils";
+import { extractHttpStatusFromError } from "@cyberxninja-omp/pi-utils";
 import type { CapturedHttpErrorResponse } from "../utils/http-inspector";
 
 /** @internal */

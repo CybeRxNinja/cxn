@@ -22,16 +22,16 @@ import {
 	type Tool,
 	type Usage,
 	withAuth,
-} from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { createOpenAICodexCompactionRequestContext } from "@cxn/pi-ai/providers/openai-codex-responses";
-import { convertTools } from "@cxn/pi-ai/providers/openai-responses";
-import { buildResponsesInput, resolveOpenAICompatPolicy } from "@cxn/pi-ai/providers/openai-shared";
-import { stripOpenAIResponsesOutputOnlyStatusesForReplay } from "@cxn/pi-ai/utils";
-import { preferredDialect } from "@cxn/pi-catalog/identity";
-import { clampThinkingLevelForModel } from "@cxn/pi-catalog/model-thinking";
-import { isRecord, logger, prompt, stringifyJson } from "@cxn/pi-utils";
-import * as snapcompact from "@cxn/snapcompact";
+} from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { createOpenAICodexCompactionRequestContext } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { convertTools } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import { buildResponsesInput, resolveOpenAICompatPolicy } from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import { stripOpenAIResponsesOutputOnlyStatusesForReplay } from "@cyberxninja-omp/pi-ai/utils";
+import { preferredDialect } from "@cyberxninja-omp/pi-catalog/identity";
+import { clampThinkingLevelForModel } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { isRecord, logger, prompt, stringifyJson } from "@cyberxninja-omp/pi-utils";
+import * as snapcompact from "@cyberxninja-omp/snapcompact";
 import { type AgentTelemetry, instrumentedCompleteSimple } from "../telemetry";
 import { ThinkingLevel } from "../thinking";
 import { countTokens } from "../tokenizer";

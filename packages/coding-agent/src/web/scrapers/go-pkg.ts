@@ -1,4 +1,4 @@
-import { tryParseJson } from "@cxn/pi-utils";
+import { tryParseJson } from "@cyberxninja-omp/pi-utils";
 import type { RenderResult, SpecialHandler } from "./types";
 import { buildResult, htmlToBasicMarkdown, loadPage } from "./types";
 
@@ -96,7 +96,7 @@ export const handleGoPkg: SpecialHandler = async (
 			});
 		}
 
-		const { parseHTML } = await import("@cxn/pi-utils/dom");
+		const { parseHTML } = await import("@cyberxninja-omp/pi-utils/dom");
 		const doc = parseHTML(pageResult.content).document;
 
 		// Extract actual module path from breadcrumb or header

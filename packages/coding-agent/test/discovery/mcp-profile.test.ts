@@ -1,14 +1,14 @@
 /**
  * Regression: user-level MCP discovery must follow the active profile.
  *
- * A named profile relocates the agent directory to ~/.cxn/profiles/<name>/agent.
+ * A named profile relocates the agent directory to ~/.omp/profiles/<name>/agent.
  * The native config provider used to read user-scope mcp.json from the literal
- * home (~/.cxn/agent/mcp.json) via `ctx.home`, so a profile never saw its own
+ * home (~/.omp/agent/mcp.json) via `ctx.home`, so a profile never saw its own
  * user-level servers while the default profile's servers leaked into every
  * profile. Discovery now resolves the user scope through getAgentDir(), matching
  * the /mcp config writer and getMCPConfigPath("user").
  *
- * `os.homedir()` is mocked so the *old* code path (ctx.home + ".cxn/agent")
+ * `os.homedir()` is mocked so the *old* code path (ctx.home + ".omp/agent")
  * points at the tempdir decoy below; without the fix the profile case fails
  * because it would load the decoy default server instead of the profile server.
  */
@@ -16,10 +16,10 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
-import { type MCPServer, mcpCapability } from "@cxn/pi-coding-agent/capability/mcp";
-import { loadCapability } from "@cxn/pi-coding-agent/discovery";
-import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
+import { type MCPServer, mcpCapability } from "@cyberxninja-omp/pi-coding-agent/capability/mcp";
+import { loadCapability } from "@cyberxninja-omp/pi-coding-agent/discovery";
+import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 const originalAgentDirEnv = process.env.PI_CODING_AGENT_DIR;
 const fallbackAgentDir = path.join(getConfigRootDir(), "agent");
@@ -65,13 +65,13 @@ describe("native user-level MCP discovery follows the active profile", () => {
 	});
 
 	test("active profile loads its own user server, not the default profile's", async () => {
-		// Active profile's agent dir (stand-in for ~/.cxn/profiles/<name>/agent).
+		// Active profile's agent dir (stand-in for ~/.omp/profiles/<name>/agent).
 		const profileAgentDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-mcp-profile-agent-"));
 		setAgentDir(profileAgentDir);
 
 		// Decoy: the default profile's user file at the literal-home path the old
 		// (buggy) loader read. It must NOT leak into the active profile.
-		await writeMcpJson(path.join(tempHome, ".cxn", "agent"), {
+		await writeMcpJson(path.join(tempHome, ".omp", "agent"), {
 			"default-only": { command: "default-cmd" },
 		});
 		await writeMcpJson(profileAgentDir, {
@@ -92,8 +92,8 @@ describe("native user-level MCP discovery follows the active profile", () => {
 		await removeWithRetries(profileAgentDir);
 	});
 
-	test("default profile loads the user server from ~/.cxn/agent", async () => {
-		const defaultAgentDir = path.join(tempHome, ".cxn", "agent");
+	test("default profile loads the user server from ~/.omp/agent", async () => {
+		const defaultAgentDir = path.join(tempHome, ".omp", "agent");
 		setAgentDir(defaultAgentDir);
 		await writeMcpJson(defaultAgentDir, {
 			"default-only": { command: "default-cmd" },

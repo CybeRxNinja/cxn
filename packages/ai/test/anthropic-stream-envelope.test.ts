@@ -1,18 +1,24 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
 import { scheduler } from "node:timers/promises";
-import { convertAnthropicMessages, streamAnthropic } from "@cxn/pi-ai/providers/anthropic";
+import { convertAnthropicMessages, streamAnthropic } from "@cyberxninja-omp/pi-ai/providers/anthropic";
 import {
 	AnthropicMessages,
 	type AnthropicMessagesClientLike,
 	type AnthropicRequestOptions,
-} from "@cxn/pi-ai/providers/anthropic-client";
+} from "@cyberxninja-omp/pi-ai/providers/anthropic-client";
 import type {
 	ToolSearchToolResultBlockParam,
 	WebSearchToolResultBlockParam,
-} from "@cxn/pi-ai/providers/anthropic-wire";
-import type { AssistantMessageEvent, Context, Model, ModelSpec, ProviderSessionState } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { structuredCloneJSON } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/providers/anthropic-wire";
+import type {
+	AssistantMessageEvent,
+	Context,
+	Model,
+	ModelSpec,
+	ProviderSessionState,
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { structuredCloneJSON } from "@cyberxninja-omp/pi-utils";
 import { withEnv } from "./helpers";
 
 const model: Model<"anthropic-messages"> = buildModel({

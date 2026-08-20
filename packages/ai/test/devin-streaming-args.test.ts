@@ -1,14 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import { create, toBinary } from "@bufbuild/protobuf";
-import { streamDevin } from "@cxn/pi-ai/providers/devin";
-import type { Context, Model, ToolCall } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { GetChatMessageResponseSchema } from "@cxn/pi-catalog/discovery/devin-gen/exa/api_server_pb/api_server_pb";
-import { GetUserJwtResponseSchema } from "@cxn/pi-catalog/discovery/devin-gen/exa/auth_pb/auth_pb";
+import { streamDevin } from "@cyberxninja-omp/pi-ai/providers/devin";
+import type { Context, Model, ToolCall } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { GetChatMessageResponseSchema } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/api_server_pb/api_server_pb";
+import { GetUserJwtResponseSchema } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/auth_pb/auth_pb";
 import {
 	ChatToolCallSchema,
 	StopReason,
-} from "@cxn/pi-catalog/discovery/devin-gen/exa/codeium_common_pb/codeium_common_pb";
+} from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/codeium_common_pb/codeium_common_pb";
 
 function frameConnectMessage(payload: Uint8Array): Uint8Array {
 	const out = new Uint8Array(5 + payload.length);

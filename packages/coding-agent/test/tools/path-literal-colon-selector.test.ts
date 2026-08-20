@@ -2,19 +2,19 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { EditTool } from "@cxn/pi-coding-agent/edit";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { EditTool } from "@cyberxninja-omp/pi-coding-agent/edit";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 import {
 	expandPath,
 	probeLiteralPathExists,
 	resolveToCwd,
 	splitPathAndSel,
 	splitPathAndSelPreferringLiteral,
-} from "@cxn/pi-coding-agent/tools/path-utils";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import { GrepOutputMode } from "@cxn/pi-natives";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/tools/path-utils";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { GrepOutputMode } from "@cyberxninja-omp/pi-natives";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 import { runGrepCommand } from "../../src/cli/grep-cli";
 import { initTheme } from "../../src/modes/theme/theme";
 import { GrepTool } from "../../src/tools/grep";
@@ -445,7 +445,7 @@ describe("leading-colon path recovery (issue #5508)", () => {
 	});
 });
 
-// Regression: the `cxn grep` CLI subcommand resolved its path argument with a
+// Regression: the `omp grep` CLI subcommand resolved its path argument with a
 // bare `path.resolve`, bypassing `expandPath`, so the leading-colon strip from
 // #5529 never reached it — see issue #5624.
 describe("grep CLI subcommand leading-colon path (issue #5624)", () => {

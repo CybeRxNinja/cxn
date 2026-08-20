@@ -10,9 +10,9 @@ import type {
 	AgentToolExecFn,
 	AgentToolResult,
 	AgentToolUpdateCallback,
-} from "@cxn/pi-agent-core";
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import { logger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { getDefault, type Settings } from "../config/settings";
 import { formatGroupedDiagnosticMessages } from "../lsp/utils";
 import type { Theme } from "../modes/theme/theme";

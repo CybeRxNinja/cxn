@@ -7,7 +7,7 @@ import {
 	canonicalSessionPath,
 	SessionAlreadyActiveError,
 	SessionLeaseRegistry,
-} from "@cxn/pi-coding-agent/modes/daemon/session-lease";
+} from "@cyberxninja-omp/pi-coding-agent/modes/daemon/session-lease";
 
 let tmp: string;
 afterEach(() => {

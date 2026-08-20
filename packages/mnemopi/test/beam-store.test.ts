@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { recallEnhanced } from "@cxn/pi-mnemopi/core/beam/recall";
-import { initBeam } from "@cxn/pi-mnemopi/core/beam/schema";
+import { recallEnhanced } from "@cyberxninja-omp/pi-mnemopi/core/beam/recall";
+import { initBeam } from "@cyberxninja-omp/pi-mnemopi/core/beam/schema";
 import {
 	exportToDict,
 	forgetWorking,
@@ -16,10 +16,10 @@ import {
 	scratchpadRead,
 	scratchpadWrite,
 	updateWorking,
-} from "@cxn/pi-mnemopi/core/beam/store";
-import type { BeamEvent, BeamMemoryState } from "@cxn/pi-mnemopi/core/beam/types";
-import { EpisodicGraph } from "@cxn/pi-mnemopi/core/episodic-graph";
-import { openDatabase } from "@cxn/pi-mnemopi/db";
+} from "@cyberxninja-omp/pi-mnemopi/core/beam/store";
+import type { BeamEvent, BeamMemoryState } from "@cyberxninja-omp/pi-mnemopi/core/beam/types";
+import { EpisodicGraph } from "@cyberxninja-omp/pi-mnemopi/core/episodic-graph";
+import { openDatabase } from "@cyberxninja-omp/pi-mnemopi/db";
 
 const states: BeamMemoryState[] = [];
 

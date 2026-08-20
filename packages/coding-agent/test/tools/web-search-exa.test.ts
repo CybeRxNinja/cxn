@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { FetchImpl } from "@cxn/pi-ai/types";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
 import {
 	buildExaRequestBody,
 	ExaProvider,
@@ -12,8 +12,8 @@ import {
 	resetExaSearchThrottleForTest,
 	searchExa,
 	synthesizeAnswer,
-} from "@cxn/pi-coding-agent/web/search/providers/exa";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/web/search/providers/exa";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 async function withLocalAuthStorage<T>(run: (authStorage: AuthStorage) => Promise<T>): Promise<T> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "web-search-exa-auth-"));
@@ -572,7 +572,7 @@ describe("searchExa", () => {
 			fetch: fetchMock,
 		});
 
-		expect(headers?.["x-exa-source"]).toBe("cxn");
+		expect(headers?.["x-exa-source"]).toBe("omp");
 		expect(capturedRequestBody?.params).toEqual({
 			name: "web_search_exa",
 			arguments: {

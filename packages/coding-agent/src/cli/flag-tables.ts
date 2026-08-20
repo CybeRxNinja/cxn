@@ -20,7 +20,7 @@
  * up automatically, so the two cannot drift out of sync.
  *
  * IMPORT RULE: this module MUST NOT import any runtime value from
- * `@cxn/pi-utils` (or anything that transitively does). That package's
+ * `@cyberxninja-omp/pi-utils` (or anything that transitively does). That package's
  * `env.ts` eagerly loads `.env` files from `getAgentDir()` during module
  * initialization, which would race the profile bootstrap. Type-only imports
  * are erased at runtime and are therefore safe.
@@ -41,7 +41,7 @@ import { CliUsageError } from "./usage-error";
  * passes it to each {@link STRING_SETTERS} call.
  *
  * Keeping these out of the setter closures means this module stays free of
- * runtime imports from `@cxn/pi-utils`, which is the whole reason it can
+ * runtime imports from `@cyberxninja-omp/pi-utils`, which is the whole reason it can
  * be safely imported by `profile-bootstrap.ts` before `setProfile` runs.
  */
 export interface ParseDeps {
@@ -281,7 +281,7 @@ export const PROFILE_BOOTSTRAP_BOUNDARY_ARG = "--cxn-profile-boundary";
 /**
  * Long-form launch flags that take NO value (booleans). The bootstrap pre-parser
  * needs this to tell a known value-less flag (whose successor is a fresh
- * argument — `cxn --print --profile work` still selects a profile) apart from an
+ * argument — `omp --print --profile work` still selects a profile) apart from an
  * UNKNOWN long option that might be an extension string flag consuming the next
  * token as its value (so the bootstrap must not steal that token as a global
  * `--profile`/`--alias`). MUST mirror the value-less flag arms of `parseArgs`
@@ -338,7 +338,7 @@ export function isUnknownLongValueCandidate(arg: string): boolean {
  * Whether a leading option `flag` consumes the following argv token `next` as
  * its value, applying the same contract as `extractProfileFlags` / `parseArgs`.
  * Single source of truth so subcommand detection ({@link resolveCliArgv}) skips
- * a flag's value instead of mistaking it for the subcommand — `cxn --model acp`
+ * a flag's value instead of mistaking it for the subcommand — `omp --model acp`
  * means model `acp`, not the `acp` subcommand, exactly as the launch parser
  * reads it.
  */

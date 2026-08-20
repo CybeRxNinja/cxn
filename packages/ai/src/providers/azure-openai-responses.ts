@@ -1,4 +1,4 @@
-import { $env } from "@cxn/pi-utils";
+import { $env } from "@cyberxninja-omp/pi-utils";
 import * as AIError from "../error";
 import { getEnvApiKey } from "../stream";
 import type {

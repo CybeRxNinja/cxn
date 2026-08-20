@@ -1,5 +1,12 @@
-import { type Component, matchesKey, parseSgrMouse, replaceTabs, ScrollView, truncateToWidth } from "@cxn/pi-tui";
-import { sanitizeText } from "@cxn/pi-utils";
+import {
+	type Component,
+	matchesKey,
+	parseSgrMouse,
+	replaceTabs,
+	ScrollView,
+	truncateToWidth,
+} from "@cyberxninja-omp/pi-tui";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { bottomBorder, divider, row, topBorder } from "../modes/components/overlay-box";
 import { theme } from "../modes/theme/theme";
 import { copyToClipboard } from "../utils/clipboard";

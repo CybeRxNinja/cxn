@@ -13,7 +13,7 @@
  * candidates to that kind. Anything that is not a standalone `#<number>` token
  * keeps falling through to the existing prompt-action menu.
  */
-import type { AutocompleteItem } from "@cxn/pi-tui";
+import type { AutocompleteItem } from "@cyberxninja-omp/pi-tui";
 
 /** Candidate kinds, in default display order. */
 const GITHUB_REF_KINDS = [

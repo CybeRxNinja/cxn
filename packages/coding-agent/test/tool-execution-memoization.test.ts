@@ -1,9 +1,9 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import type { AgentTool } from "@cxn/pi-agent-core";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { Text, type TUI } from "@cxn/pi-tui";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { Text, type TUI } from "@cyberxninja-omp/pi-tui";
 
 /**
  * Contract under test (tool-result render memoization):

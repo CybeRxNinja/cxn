@@ -3,8 +3,8 @@
  * Shares the same kernel session as the agent's eval tool.
  */
 
-import { Container, type Loader, Text, type TUI } from "@cxn/pi-tui";
-import { sanitizeText } from "@cxn/pi-utils";
+import { Container, type Loader, Text, type TUI } from "@cyberxninja-omp/pi-tui";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { highlightCode, theme } from "../../modes/theme/theme";
 import type { TruncationMeta } from "../../tools/output-meta";
 import {

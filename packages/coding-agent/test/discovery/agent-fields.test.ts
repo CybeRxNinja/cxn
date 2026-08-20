@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import { Effort } from "@cxn/pi-ai";
-import { parseAgentFields } from "@cxn/pi-coding-agent/discovery/helpers";
-import { AUTO_THINKING } from "@cxn/pi-coding-agent/thinking";
+import { Effort } from "@cyberxninja-omp/pi-ai";
+import { parseAgentFields } from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { AUTO_THINKING } from "@cyberxninja-omp/pi-coding-agent/thinking";
 
 describe("parseAgentFields", () => {
 	test("parses blocking from boolean frontmatter", () => {

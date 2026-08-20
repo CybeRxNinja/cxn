@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "bun:test";
-import type { ImageContent } from "@cxn/pi-ai";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { executeBuiltinSlashCommand } from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { executeBuiltinSlashCommand } from "@cyberxninja-omp/pi-coding-agent/slash-commands/builtin-registry";
 
 function createRuntime(handler: () => Promise<boolean>) {
 	const handleGuidedGoalCommand = vi.fn(handler);

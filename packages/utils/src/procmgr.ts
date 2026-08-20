@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { Process, ProcessStatus } from "@cxn/pi-natives";
+import { Process, ProcessStatus } from "@cyberxninja-omp/pi-natives";
 import type { Subprocess } from "bun";
 import { getAgentDir, MAIN_CONFIG_FILENAMES } from "./dirs";
 import { $env, filterChildShellEnv } from "./env";

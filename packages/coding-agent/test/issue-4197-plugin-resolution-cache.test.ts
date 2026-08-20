@@ -2,13 +2,13 @@ import { afterEach, expect, mock, spyOn, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearClaudePluginRootsCache } from "@cxn/pi-coding-agent/discovery/helpers";
+import { clearClaudePluginRootsCache } from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
 import {
 	__resetLegacyPiResolutionCache,
 	__rewriteLegacyExtensionSourceForTests,
-} from "@cxn/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
-import { getEnabledPlugins } from "@cxn/pi-coding-agent/extensibility/plugins/loader";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
+import { getEnabledPlugins } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/loader";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const tempRoots: string[] = [];
 
@@ -30,7 +30,7 @@ test("getEnabledPlugins caches repeated discovery for the same cwd and home unti
 	tempRoots.push(root);
 	const home = path.join(root, "home");
 	const cwd = path.join(root, "project");
-	const pluginsDir = path.join(home, ".cxn", "plugins");
+	const pluginsDir = path.join(home, ".omp", "plugins");
 	const pluginPackageJson = path.join(pluginsDir, "node_modules", "cxn-cache-repro", "package.json");
 	await fs.mkdir(path.dirname(pluginPackageJson), { recursive: true });
 	await fs.mkdir(cwd, { recursive: true });
@@ -42,14 +42,14 @@ test("getEnabledPlugins caches repeated discovery for the same cwd and home unti
 	await writeJson(pluginPackageJson, {
 		name: "cxn-cache-repro",
 		version: "1.0.0",
-		cxn: { tools: "tools" },
+		omp: { tools: "tools" },
 	});
 
 	const [firstPlugin] = await getEnabledPlugins(cwd, { home });
 	await writeJson(pluginPackageJson, {
 		name: "cxn-cache-repro",
 		version: "2.0.0",
-		cxn: { tools: "tools" },
+		omp: { tools: "tools" },
 	});
 	const [cachedPlugin] = await getEnabledPlugins(cwd, { home });
 

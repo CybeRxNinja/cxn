@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { syncAllSessions } from "@cxn/cxn-stats/aggregator";
-import { getOverallStats } from "@cxn/cxn-stats/db";
-import { getSessionsDir } from "@cxn/pi-utils";
+import { syncAllSessions } from "@cyberxninja-omp/omp-stats/aggregator";
+import { getOverallStats } from "@cyberxninja-omp/omp-stats/db";
+import { getSessionsDir } from "@cyberxninja-omp/pi-utils";
 import { installStatsTestIsolation } from "./helpers/temp-agent";
 
 installStatsTestIsolation("@pi-stats-sync-serial-");

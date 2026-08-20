@@ -234,7 +234,7 @@ def _process_group_id(process: subprocess.Popen[Any]) -> int | None:
 def _terminate_process_group(process: subprocess.Popen[Any], pgid: int | None) -> None:
     """Terminate the subprocess *and* every descendant sharing its group.
 
-    cxn is spawned with `start_new_session=True`, so it leads a session/group
+    omp is spawned with `start_new_session=True`, so it leads a session/group
     that also contains children spawned by the agent's `bash` tool (e.g. a
     `bun test` run). Signalling only the leader pid would orphan those
     grandchildren: they reparent to the container init and keep running
@@ -443,7 +443,7 @@ class RpcClient:
         self,
         *,
         command: Sequence[str] | None = None,
-        executable: str = "cxn",
+        executable: str = "omp",
         provider: str | None = None,
         model: str | None = None,
         session_dir: str | Path | None = None,
@@ -1430,7 +1430,7 @@ class RpcClient:
     def _normalize_host_tool_event(self, payload: JsonObject) -> None:
         """Rename transport tool events for in-flight host-tool dispatches.
 
-        With `tools.xdev` enabled, cxn mounts custom tools as `xd://` devices
+        With `tools.xdev` enabled, omp mounts custom tools as `xd://` devices
         and the agent invokes them through the `write` tool, so
         `tool_execution_update`/`tool_execution_end` events report the
         transport tool (`write`) rather than the host tool that actually ran.

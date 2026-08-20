@@ -1,7 +1,7 @@
-export * from "@cxn/pi-catalog/effort";
-export * from "@cxn/pi-catalog/types";
+export * from "@cyberxninja-omp/pi-catalog/effort";
+export * from "@cyberxninja-omp/pi-catalog/types";
 
-import type { Type } from "@cxn/omptype";
+import type { Type } from "@cyberxninja-omp/omptype";
 import type {
 	DeleteArgs,
 	DeleteResult,
@@ -32,10 +32,18 @@ import type {
 	ShellResult,
 	WriteArgs,
 	WriteResult,
-} from "@cxn/pi-catalog/discovery/cursor-gen/agent_pb";
-import type { Effort } from "@cxn/pi-catalog/effort";
-import { isOpenAIModelId } from "@cxn/pi-catalog/identity/family";
-import type { Api, FetchImpl, KnownApi, Model, Provider, ThinkingBudgets, Usage } from "@cxn/pi-catalog/types";
+} from "@cyberxninja-omp/pi-catalog/discovery/cursor-gen/agent_pb";
+import type { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { isOpenAIModelId } from "@cyberxninja-omp/pi-catalog/identity/family";
+import type {
+	Api,
+	FetchImpl,
+	KnownApi,
+	Model,
+	Provider,
+	ThinkingBudgets,
+	Usage,
+} from "@cyberxninja-omp/pi-catalog/types";
 import type { ApiKey } from "./auth-retry";
 import type { BedrockOptions } from "./providers/amazon-bedrock";
 import type { AnthropicOptions } from "./providers/anthropic";
@@ -58,7 +66,7 @@ export type { StopDetails } from "./providers/anthropic-wire";
 export type { AssistantMessageEventStream } from "./utils/event-stream";
 
 /**
- * Ceiling on the output-token count cxn requests from any OpenAI-family endpoint
+ * Ceiling on the output-token count omp requests from any OpenAI-family endpoint
  * (openai-responses, azure/xai responses, and openai-completions). Mirrors
  * Anthropic's {@link CLAUDE_CODE_MAX_OUTPUT_TOKENS}.
  *

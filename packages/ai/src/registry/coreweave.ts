@@ -1,5 +1,5 @@
-import { coreWeaveProjectHeaders } from "@cxn/pi-catalog/wire/coreweave";
-import { $env } from "@cxn/pi-utils";
+import { coreWeaveProjectHeaders } from "@cyberxninja-omp/pi-catalog/wire/coreweave";
+import { $env } from "@cyberxninja-omp/pi-utils";
 import * as AIError from "../error";
 import { createApiKeyLogin } from "./api-key-login";
 import type { OAuthLoginCallbacks } from "./oauth/types";

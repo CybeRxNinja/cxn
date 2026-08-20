@@ -9,7 +9,7 @@
  * (or `options: "runtime"` for runtime-injected lists like themes).
  */
 
-import { TERMINAL } from "@cxn/pi-tui";
+import { TERMINAL } from "@cyberxninja-omp/pi-tui";
 import { Settings } from "../../config/settings";
 import {
 	type AnyUiMetadata,

@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import * as ai from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import * as ai from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 import {
 	classifyUnexpectedStop,
 	isUnexpectedStopCandidate,
 	parseUnexpectedStopClassification,
-} from "@cxn/pi-coding-agent/session/unexpected-stop-classifier";
+} from "@cyberxninja-omp/pi-coding-agent/session/unexpected-stop-classifier";
 
 function makeAssistantMessage(options: {
 	stopReason: AssistantMessage["stopReason"];

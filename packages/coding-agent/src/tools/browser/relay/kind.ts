@@ -1,14 +1,14 @@
 /**
  * Browser relay mode: drive the user's own Chrome tabs through the local CDP
- * relay served by `cxn browser-relay` (sibling `server.ts`/`bridge.ts`) plus
+ * relay served by `omp browser-relay` (sibling `server.ts`/`bridge.ts`) plus
  * its companion extension (`packages/browser-relay`, installed via
- * `cxn browser-relay install`). The relay impersonates Chrome's CDP discovery
+ * `omp browser-relay install`). The relay impersonates Chrome's CDP discovery
  * endpoint, so beyond kind resolution the entire connected-browser machinery
  * (registry, tab supervisor, tab workers) applies unchanged.
  */
-import { parseFlag } from "@cxn/pi-utils";
+import { parseFlag } from "@cyberxninja-omp/pi-utils";
 
-/** Browser kind selecting the cxn browser relay. */
+/** Browser kind selecting the omp browser relay. */
 export interface RelayKind {
 	kind: "relay";
 	cdpUrl: string;

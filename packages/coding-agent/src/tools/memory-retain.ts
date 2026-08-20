@@ -1,5 +1,5 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
 import retainDescription from "../prompts/tools/retain.md" with { type: "text" };
 import type { ToolSession } from ".";
 

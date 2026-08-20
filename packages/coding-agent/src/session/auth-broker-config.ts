@@ -1,16 +1,16 @@
 /**
- * Resolve auth-broker connection configuration for the local cxn client.
+ * Resolve auth-broker connection configuration for the local omp client.
  *
  * This is a thin coding-agent wrapper around the shared resolver in
- * `@cxn/pi-ai/auth-broker/discover` that preserves the process-lifetime
+ * `@cyberxninja-omp/pi-ai/auth-broker/discover` that preserves the process-lifetime
  * memoization expected by the CLI and injects the full `resolveConfigValue`
  * (including `!command` config indirection) from coding-agent's config layer.
  *
  * Precedence (highest first):
  *   1. `CXN_AUTH_BROKER_URL` / `CXN_AUTH_BROKER_TOKEN` env vars.
- *   2. `auth.broker.url` / `auth.broker.token` in `~/.cxn/agent/config.yml`
+ *   2. `auth.broker.url` / `auth.broker.token` in `~/.omp/agent/config.yml`
  *      (hidden from the settings UI; `!command` resolution supported).
- *   3. Token file `~/.cxn/auth-broker.token` (paired with URL from env or config).
+ *   3. Token file `~/.omp/auth-broker.token` (paired with URL from env or config).
  *
  * Returns null when no broker URL is configured — caller falls back to the
  * local SQLite store.
@@ -21,16 +21,16 @@
  * boot without forcing a startup reorder.
  */
 
-import { AuthBrokerError } from "@cxn/pi-ai/auth-broker";
+import { AuthBrokerError } from "@cyberxninja-omp/pi-ai/auth-broker";
 import {
 	type AuthBrokerClientConfig,
 	type DiscoverAuthStorageOptions,
 	discoverAuthStorage as discoverAuthStorageShared,
 	getAuthBrokerTokenFilePath,
 	resolveAuthBrokerConfig as resolveAuthBrokerConfigShared,
-} from "@cxn/pi-ai/auth-broker/discover";
-import { MissingApiKeyError } from "@cxn/pi-ai/error";
-import { getAgentDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/auth-broker/discover";
+import { MissingApiKeyError } from "@cyberxninja-omp/pi-ai/error";
+import { getAgentDir } from "@cyberxninja-omp/pi-utils";
 import { resolveConfigValue } from "../config/resolve-config-value";
 import type { AuthStorage } from "./auth-storage";
 
@@ -122,9 +122,9 @@ export async function describeAuthBrokerStartupError(error: unknown): Promise<st
 	const target = url ? ` at ${url}` : "";
 	return (
 		`Auth broker${target} is unreachable (${error.message}). ` +
-		"cxn is configured to use this broker for credentials and will not fall back to local credentials automatically.\n" +
-		"Start the broker with `cxn auth-broker serve`, or disable it with " +
-		"`cxn config reset auth.broker.url` and `cxn config reset auth.broker.token` " +
+		"omp is configured to use this broker for credentials and will not fall back to local credentials automatically.\n" +
+		"Start the broker with `omp auth-broker serve`, or disable it with " +
+		"`omp config reset auth.broker.url` and `omp config reset auth.broker.token` " +
 		"(or unset CXN_AUTH_BROKER_URL / CXN_AUTH_BROKER_TOKEN)."
 	);
 }

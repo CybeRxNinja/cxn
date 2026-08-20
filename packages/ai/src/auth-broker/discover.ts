@@ -14,7 +14,7 @@ import {
 	isEnoent,
 	logger,
 	MAIN_CONFIG_FILENAMES,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import { YAML } from "bun";
 import { AuthStorage } from "../auth-storage";
 import * as AIError from "../error";
@@ -44,7 +44,7 @@ export interface DiscoverAuthStorageOptions {
 
 const SNAPSHOT_CACHE_REVALIDATION_TIMEOUT_MS = 500;
 
-/** Path to the local bearer token file. Created by `cxn auth-broker token`. */
+/** Path to the local bearer token file. Created by `omp auth-broker token`. */
 export function getAuthBrokerTokenFilePath(): string {
 	return path.join(getConfigRootDir(), "auth-broker.token");
 }

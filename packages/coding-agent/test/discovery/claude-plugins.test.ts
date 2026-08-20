@@ -2,20 +2,20 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { loadCapability } from "@cxn/pi-coding-agent/capability";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
+import { loadCapability } from "@cyberxninja-omp/pi-coding-agent/capability";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
 import {
 	clearClaudePluginRootsCache,
 	listClaudePluginRoots,
 	parseClaudePluginsRegistry,
-} from "@cxn/pi-coding-agent/discovery/helpers";
-import { loadSlashCommands } from "@cxn/pi-coding-agent/extensibility/slash-commands";
-import { discoverAgents } from "@cxn/pi-coding-agent/task/discovery";
-import { __resetDirsFromEnvForTests, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
-import "@cxn/pi-coding-agent/discovery/claude-plugins";
-import { type MCPServer, mcpCapability } from "@cxn/pi-coding-agent/capability/mcp";
-import type { Skill } from "@cxn/pi-coding-agent/capability/skill";
-import type { SlashCommand } from "@cxn/pi-coding-agent/capability/slash-command";
+} from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { loadSlashCommands } from "@cyberxninja-omp/pi-coding-agent/extensibility/slash-commands";
+import { discoverAgents } from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import { __resetDirsFromEnvForTests, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
+import "@cyberxninja-omp/pi-coding-agent/discovery/claude-plugins";
+import { type MCPServer, mcpCapability } from "@cyberxninja-omp/pi-coding-agent/capability/mcp";
+import type { Skill } from "@cyberxninja-omp/pi-coding-agent/capability/skill";
+import type { SlashCommand } from "@cyberxninja-omp/pi-coding-agent/capability/slash-command";
 
 describe("parseClaudePluginsRegistry", () => {
 	test("parses valid registry", () => {
@@ -92,7 +92,7 @@ describe("listClaudePluginRoots", () => {
 		process.env.HOME = tempDir;
 		vi.spyOn(os, "homedir").mockReturnValue(tempDir);
 		// Point the agent dir at a temp dir so user-scope discovery (native MCP
-		// config, skills, etc.) cannot read the real ~/.cxn/agent profile.
+		// config, skills, etc.) cannot read the real ~/.omp/agent profile.
 		setAgentDir(testAgentDir);
 	});
 
@@ -403,7 +403,7 @@ describe("listClaudePluginRoots", () => {
 			[firstHome, "first@market"],
 			[secondHome, "second@market"],
 		] as const) {
-			const pluginsDir = path.join(home, ".cxn", "plugins");
+			const pluginsDir = path.join(home, ".omp", "plugins");
 			await fs.mkdir(pluginsDir, { recursive: true });
 			await fs.writeFile(
 				path.join(pluginsDir, "installed_plugins.json"),
@@ -624,13 +624,13 @@ describe("listClaudePluginRoots", () => {
 		await Promise.all([
 			fs.writeFile(
 				path.join(ompPluginPath, ".cxn-plugin", "plugin.json"),
-				JSON.stringify({ mcpServers: "./mcp-cxn.json" }),
+				JSON.stringify({ mcpServers: "./mcp-omp.json" }),
 			),
 			fs.writeFile(
 				path.join(ompPluginPath, ".claude-plugin", "plugin.json"),
 				JSON.stringify({ mcpServers: "./mcp-claude.json" }),
 			),
-			fs.writeFile(path.join(ompPluginPath, "mcp-cxn.json"), JSON.stringify({ "from-cxn": { command: "cxn" } })),
+			fs.writeFile(path.join(ompPluginPath, "mcp-omp.json"), JSON.stringify({ "from-omp": { command: "omp" } })),
 			fs.writeFile(
 				path.join(ompPluginPath, "mcp-claude.json"),
 				JSON.stringify({ "from-claude": { command: "claude" } }),
@@ -655,7 +655,7 @@ describe("listClaudePluginRoots", () => {
 		expect(result.warnings).toEqual([]);
 		expect(result.all.map(server => server.name).sort()).toEqual([
 			"claude-pointer:from-claude",
-			"cxn-pointer:from-cxn",
+			"cxn-pointer:from-omp",
 		]);
 	});
 
@@ -725,7 +725,7 @@ describe("listClaudePluginRoots", () => {
 		// instead of silently registering nothing.
 		await fs.writeFile(
 			path.join(pluginPath, ".cxn-plugin", "plugin.json"),
-			JSON.stringify({ mcpServers: "./mcp-cxn.json" }),
+			JSON.stringify({ mcpServers: "./mcp-omp.json" }),
 		);
 		await fs.writeFile(path.join(pluginPath, ".mcp.json"), JSON.stringify({ "from-root": { command: "root" } }));
 
@@ -736,14 +736,14 @@ describe("listClaudePluginRoots", () => {
 
 		expect(result.all.map(server => server.name)).toEqual([]);
 		expect(result.warnings).toEqual([
-			`[Claude Code Marketplace] [claude-plugins] Missing mcpServers file declared by broken-pointer@market: ${path.join(pluginPath, "mcp-cxn.json")}`,
+			`[Claude Code Marketplace] [claude-plugins] Missing mcpServers file declared by broken-pointer@market: ${path.join(pluginPath, "mcp-omp.json")}`,
 		]);
 	});
 
 	test("deduplicates a plugin alias of a directly configured MCP connection", async () => {
 		const pluginsDir = path.join(tempDir, ".claude", "plugins");
 		const pluginPath = path.join(tempDir, "plugins", "context7");
-		const directConfigPath = path.join(tempDir, ".cxn", "mcp.json");
+		const directConfigPath = path.join(tempDir, ".omp", "mcp.json");
 		const connection = {
 			type: "http",
 			url: "https://mcp.context7.example/mcp",

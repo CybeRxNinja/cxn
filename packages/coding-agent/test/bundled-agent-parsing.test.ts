@@ -1,14 +1,14 @@
 import { describe, expect, it } from "bun:test";
-import { Effort } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import {
 	resolveAgentModelPatterns,
 	resolveAgentModelSelection,
 	resolveModelOverride,
-} from "@cxn/pi-coding-agent/config/model-resolver";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { getBundledAgent } from "@cxn/pi-coding-agent/task/agents";
-import { AUTO_THINKING } from "@cxn/pi-coding-agent/thinking";
+} from "@cyberxninja-omp/pi-coding-agent/config/model-resolver";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { getBundledAgent } from "@cyberxninja-omp/pi-coding-agent/task/agents";
+import { AUTO_THINKING } from "@cyberxninja-omp/pi-coding-agent/thinking";
 
 describe("bundled agent parsing", () => {
 	it("lets reviewer inherit thinking effort from its model role", () => {

@@ -10,8 +10,8 @@ import {
 	isCached,
 	isValidVersionForCache,
 	removeCachedPlugin,
-} from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
 

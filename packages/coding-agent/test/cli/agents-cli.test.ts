@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type RlmSubagentRegistryEntry, resetRlmFamilies } from "@cxn/pi-coding-agent/eval/py/family-store";
+import { type RlmSubagentRegistryEntry, resetRlmFamilies } from "@cyberxninja-omp/pi-coding-agent/eval/py/family-store";
 import {
 	type DaemonClient,
 	ensureDaemonRunning,
@@ -10,7 +10,7 @@ import {
 	resetDaemonState,
 	setupDaemonState,
 	udsServer,
-} from "@cxn/pi-coding-agent/modes/daemon/index";
+} from "@cyberxninja-omp/pi-coding-agent/modes/daemon/index";
 import { type AgentsCommandArgs, DEFAULT_AGENTS_FAMILY_ID, runAgentsCommand } from "../../src/cli/agents-cli";
 
 const FAMILY = DEFAULT_AGENTS_FAMILY_ID;
@@ -26,7 +26,7 @@ function childEntry(id: string, name: string, dir: string): RlmSubagentRegistryE
 	};
 }
 
-describe("cxn agents daemon subcommands", () => {
+describe("omp agents daemon subcommands", () => {
 	let tmp: string;
 	let daemon: { socketPath: string; client: DaemonClient; stop: () => Promise<void> };
 	let out: string[];

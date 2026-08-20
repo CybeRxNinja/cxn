@@ -3,14 +3,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import { zip } from "@cxn/pi-coding-agent/utils/zip";
-import * as scrapers from "@cxn/pi-coding-agent/web/scrapers/types";
-import * as scraperUtils from "@cxn/pi-coding-agent/web/scrapers/utils";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { zip } from "@cyberxninja-omp/pi-coding-agent/utils/zip";
+import * as scrapers from "@cyberxninja-omp/pi-coding-agent/web/scrapers/types";
+import * as scraperUtils from "@cyberxninja-omp/pi-coding-agent/web/scrapers/utils";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 function makeSession(testDir: string): ToolSession {
 	const sessionFile = path.join(testDir, "session.jsonl");

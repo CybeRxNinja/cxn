@@ -2,19 +2,19 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi 
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Effort, type FetchImpl } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { writeModelCache } from "@cxn/pi-catalog/model-cache";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { ModelRegistry, type ProviderConfigInput } from "@cxn/pi-coding-agent/config/model-registry";
-import { getModelMatchPreferences, resolveModelScope } from "@cxn/pi-coding-agent/config/model-resolver";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { buildSessionOptions as buildCliSessionOptions } from "@cxn/pi-coding-agent/main";
-import { createAgentSession, type ExtensionFactory } from "@cxn/pi-coding-agent/sdk";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import { Effort, type FetchImpl } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { writeModelCache } from "@cyberxninja-omp/pi-catalog/model-cache";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { ModelRegistry, type ProviderConfigInput } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { getModelMatchPreferences, resolveModelScope } from "@cyberxninja-omp/pi-coding-agent/config/model-resolver";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { buildSessionOptions as buildCliSessionOptions } from "@cyberxninja-omp/pi-coding-agent/main";
+import { createAgentSession, type ExtensionFactory } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 describe("createAgentSession deferred model pattern resolution", () => {

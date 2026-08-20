@@ -1,4 +1,4 @@
-import { isRecord } from "@cxn/pi-utils/type-guards";
+import { isRecord } from "@cyberxninja-omp/pi-utils/type-guards";
 import type {
 	UsageAmount,
 	UsageFetchContext,

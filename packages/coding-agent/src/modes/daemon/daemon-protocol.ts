@@ -1,5 +1,5 @@
 /**
- * Daemon protocol — the wire contract between `cxn agents` (and future
+ * Daemon protocol — the wire contract between `omp agents` (and future
  * daemon-backed child kernels) and the supervisor daemon.
  *
  * Framing: newline-delimited JSON (one `DaemonRequestEnvelope` per line, one

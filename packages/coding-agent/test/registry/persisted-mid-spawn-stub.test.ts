@@ -1,10 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { registerPersistedSubagents } from "@cxn/pi-coding-agent/registry/persisted-agents";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { CURRENT_SESSION_VERSION } from "@cxn/pi-coding-agent/session/session-entries";
-import { TempDir } from "@cxn/pi-utils";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { registerPersistedSubagents } from "@cyberxninja-omp/pi-coding-agent/registry/persisted-agents";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { CURRENT_SESSION_VERSION } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function sessionHeader(id: string): string {
 	return JSON.stringify({

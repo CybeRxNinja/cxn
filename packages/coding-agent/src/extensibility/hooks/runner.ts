@@ -1,8 +1,8 @@
 /**
  * Hook runner - executes hooks and manages their lifecycle.
  */
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { Model } from "@cxn/pi-ai";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { Model } from "@cyberxninja-omp/pi-ai";
 import type { ModelRegistry } from "../../config/model-registry";
 import type { SessionManager } from "../../session/session-manager";
 import { createNoOpUIContext } from "../utils";
@@ -391,7 +391,7 @@ export class HookRunner {
 	 */
 	async emitBeforeAgentStart(
 		prompt: string,
-		images?: import("@cxn/pi-ai").ImageContent[],
+		images?: import("@cyberxninja-omp/pi-ai").ImageContent[],
 	): Promise<BeforeAgentStartEventResult | undefined> {
 		const ctx = this.#createContext();
 		let result: BeforeAgentStartEventResult | undefined;

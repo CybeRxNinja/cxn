@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import * as prompt from "@cxn/pi-utils/prompt";
+import * as prompt from "@cyberxninja-omp/pi-utils/prompt";
 
 const FULL = { renderPhase: "pre-render", replaceAsciiSymbols: true, normalizeRfc2119: true } as const;
 

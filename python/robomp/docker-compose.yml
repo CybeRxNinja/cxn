@@ -20,7 +20,7 @@ services:
       args:
         # Tag of the pre-built pi-base image produced by `bun run pi:image`
         # (sources: pi root /Dockerfile). Override per-environment as needed.
-        PI_BASE: cxn/pi:dev
+        PI_BASE: omp/pi:dev
     image: robomp:dev
     container_name: robomp
     # Phase B (graceful shutdown): gives the orchestrator at least
@@ -67,7 +67,7 @@ services:
       ROBCXN_REPLAY_TOKEN: ${ROBCXN_REPLAY_TOKEN:-}
 
       # --- container-fixed paths ---
-      ROBCXN_CXN_COMMAND: cxn
+      ROBCXN_CXN_COMMAND: omp
       ROBCXN_WORKSPACE_ROOT: /data/workspaces
       ROBCXN_SQLITE_PATH: /data/robomp.sqlite
       ROBCXN_LOG_DIR: /data/logs
@@ -77,7 +77,7 @@ services:
     depends_on:
       gh-proxy:
         condition: service_started
-    # Resolve `llm-gateway.internal` (used in /srv/agent-home/.cxn/agent/models.yml) to the
+    # Resolve `llm-gateway.internal` (used in /srv/agent-home/.omp/agent/models.yml) to the
     # Docker host. The actual gateway listens on 127.0.0.1:4000 on the host;
     # `host-gateway` is Docker's alias for the host bridge IP.
     extra_hosts:
@@ -91,9 +91,9 @@ services:
       # Host agent config is mounted read-only under /srv/agent-home-stage
       # with host-controlled permissions. The entrypoint copies it into
       # root-owned, world-readable files under /srv/agent-home; the agent
-      # subprocess runs with HOME=/srv/agent-home, so ~/.cxn and ~/.agent
+      # subprocess runs with HOME=/srv/agent-home, so ~/.omp and ~/.agent
       # resolve there without exposing mutable host mounts.
-      - ${HOME}/.cxn/agent/models.container.yml:/srv/agent-home-stage/.cxn/agent/models.yml:ro
+      - ${HOME}/.omp/agent/models.container.yml:/srv/agent-home-stage/.omp/agent/models.yml:ro
       - ${HOME}/.agent/AGENT.md:/srv/agent-home-stage/.agent/AGENTS.md:ro
       - ${HOME}/.agent/rules:/srv/agent-home-stage/.agent/rules:ro
     ports:

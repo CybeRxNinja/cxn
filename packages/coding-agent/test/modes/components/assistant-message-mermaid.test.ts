@@ -1,12 +1,12 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { AssistantThinkingRenderer } from "@cxn/pi-coding-agent/extensibility/extensions";
-import { AssistantMessageComponent } from "@cxn/pi-coding-agent/modes/components/assistant-message";
-import { clearMermaidCache } from "@cxn/pi-coding-agent/modes/theme/mermaid-cache";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { ImageProtocol, setTerminalImageProtocol, TERMINAL, Text } from "@cxn/pi-tui";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { AssistantThinkingRenderer } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import { AssistantMessageComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/assistant-message";
+import { clearMermaidCache } from "@cyberxninja-omp/pi-coding-agent/modes/theme/mermaid-cache";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { ImageProtocol, setTerminalImageProtocol, TERMINAL, Text } from "@cyberxninja-omp/pi-tui";
 
 const originalImageProtocol = TERMINAL.imageProtocol;
 

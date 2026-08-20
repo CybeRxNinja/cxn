@@ -11,11 +11,11 @@
  * (K3 does NOT accept the K2.x binary `thinking: { type }` block).
  */
 import { describe, expect, it } from "bun:test";
-import { streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import type { Context } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { moonshotModelManagerOptions } from "@cxn/pi-catalog/provider-models/openai-compat";
-import type { ModelSpec } from "@cxn/pi-catalog/types";
+import { streamOpenAICompletions } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import type { Context } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { moonshotModelManagerOptions } from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
+import type { ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 
 function moonshotModelsResponse(): Response {
 	const body = {

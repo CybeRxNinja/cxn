@@ -2,14 +2,14 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { disableProvider, enableProvider } from "@cxn/pi-coding-agent/capability";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
+import { disableProvider, enableProvider } from "@cyberxninja-omp/pi-coding-agent/capability";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
 import {
 	clearOmpExtensionCliRoots,
 	injectOmpExtensionCliRoots,
-} from "@cxn/pi-coding-agent/discovery/cxn-extension-roots";
-import { discoverAgents } from "@cxn/pi-coding-agent/task/discovery";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/discovery/cxn-extension-roots";
+import { discoverAgents } from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const CXN_AGENT_MD = [
 	"---",
@@ -39,12 +39,12 @@ const CLAUDE_AGENT_MD = [
 ].join("\n");
 
 async function writeOmpPluginAgent(home: string): Promise<void> {
-	const userPluginsRoot = path.join(home, ".cxn", "plugins");
+	const userPluginsRoot = path.join(home, ".omp", "plugins");
 	const pluginRoot = path.join(userPluginsRoot, "node_modules", "loom");
 	await fs.mkdir(path.join(pluginRoot, "agents"), { recursive: true });
 	await fs.writeFile(
 		path.join(pluginRoot, "package.json"),
-		JSON.stringify({ name: "loom", version: "1.0.0", cxn: { version: "1.0.0" } }),
+		JSON.stringify({ name: "loom", version: "1.0.0", omp: { version: "1.0.0" } }),
 	);
 	await fs.writeFile(
 		path.join(userPluginsRoot, "package.json"),
@@ -75,8 +75,8 @@ describe("discoverAgents", () => {
 	});
 
 	test("loads CXN agents but skips Claude Code custom agents", async () => {
-		await fs.mkdir(path.join(projectDir, ".cxn", "agents"), { recursive: true });
-		await fs.writeFile(path.join(projectDir, ".cxn", "agents", "cxn-test-agent.md"), CXN_AGENT_MD);
+		await fs.mkdir(path.join(projectDir, ".omp", "agents"), { recursive: true });
+		await fs.writeFile(path.join(projectDir, ".omp", "agents", "cxn-test-agent.md"), CXN_AGENT_MD);
 
 		await fs.mkdir(path.join(tempHome, ".claude", "agents"), { recursive: true });
 		await fs.writeFile(path.join(tempHome, ".claude", "agents", "user-cc-test-agent.md"), CLAUDE_AGENT_MD);
@@ -88,10 +88,10 @@ describe("discoverAgents", () => {
 
 		expect(names).toContain("cxn-test-agent");
 		expect(names).not.toContain("cc-test-agent");
-		expect(projectAgentsDir).toBe(path.join(projectDir, ".cxn", "agents"));
+		expect(projectAgentsDir).toBe(path.join(projectDir, ".omp", "agents"));
 	});
 
-	test("loads agents from CXN npm plugins under <home>/.cxn/plugins/node_modules", async () => {
+	test("loads agents from CXN npm plugins under <home>/.omp/plugins/node_modules", async () => {
 		await writeOmpPluginAgent(tempHome);
 
 		const { agents } = await discoverAgents(projectDir, tempHome);
@@ -128,8 +128,8 @@ describe("discoverAgents", () => {
 			["---", "name: collide", "description: from-project-settings", "---", "project body"].join("\n"),
 		);
 
-		await fs.mkdir(path.join(projectDir, ".cxn"), { recursive: true });
-		await fs.writeFile(path.join(projectDir, ".cxn", "settings.json"), JSON.stringify({ extensions: [projectExt] }));
+		await fs.mkdir(path.join(projectDir, ".omp"), { recursive: true });
+		await fs.writeFile(path.join(projectDir, ".omp", "settings.json"), JSON.stringify({ extensions: [projectExt] }));
 		injectOmpExtensionCliRoots([cliExt], tempHome, projectDir);
 
 		const { agents } = await discoverAgents(projectDir, tempHome);
@@ -155,8 +155,8 @@ describe("discoverAgents", () => {
 				["---", `name: ${name}`, `description: ${name}`, "---", `${name} body`].join("\n"),
 			);
 		}
-		await fs.mkdir(path.join(projectDir, ".cxn"), { recursive: true });
-		await fs.writeFile(path.join(projectDir, ".cxn", "settings.json"), JSON.stringify({ extensions: [settingsExt] }));
+		await fs.mkdir(path.join(projectDir, ".omp"), { recursive: true });
+		await fs.writeFile(path.join(projectDir, ".omp", "settings.json"), JSON.stringify({ extensions: [settingsExt] }));
 		await writeOmpPluginAgent(tempHome);
 
 		injectOmpExtensionCliRoots([staleExt], tempHome, projectDir);

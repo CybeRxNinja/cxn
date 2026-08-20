@@ -1,7 +1,7 @@
-import type { Agent, AgentMessage, AgentToolResult, AgentTurnEndContext } from "@cxn/pi-agent-core";
-import { invalidateMessageCache } from "@cxn/pi-agent-core/compaction";
-import type { Model, ToolResultMessage } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import type { Agent, AgentMessage, AgentToolResult, AgentTurnEndContext } from "@cyberxninja-omp/pi-agent-core";
+import { invalidateMessageCache } from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { Model, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import type { LocalProtocolOptions } from "../internal-urls";
 import { resolveApprovedPlan } from "../plan-mode/approved-plan";
 import { listPlanFiles, readPlanFile } from "../plan-mode/plan-files";

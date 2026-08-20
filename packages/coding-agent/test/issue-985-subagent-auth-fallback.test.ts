@@ -1,11 +1,11 @@
 import { describe, expect, test } from "bun:test";
-import type { Api, Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { kNoAuth } from "@cxn/pi-coding-agent/config/model-registry";
+import type { Api, Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { kNoAuth } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
 import {
 	type ModelLookupRegistry,
 	resolveModelOverrideWithAuthFallback,
-} from "@cxn/pi-coding-agent/config/model-resolver";
+} from "@cyberxninja-omp/pi-coding-agent/config/model-resolver";
 
 /**
  * Regression test for #985.

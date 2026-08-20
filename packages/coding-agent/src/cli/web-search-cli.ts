@@ -1,11 +1,11 @@
 /**
  * Web search CLI command handlers.
  *
- * Handles `cxn q`/`cxn web-search` subcommands for testing web search providers.
+ * Handles `omp q`/`omp web-search` subcommands for testing web search providers.
  */
 
-import { APP_NAME, getProjectDir } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import { APP_NAME, getProjectDir } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { applyProviderGlobalsFromSettings } from "../config/provider-globals";
 import { Settings } from "../config/settings";
 import { initTheme, theme } from "../modes/theme/theme";

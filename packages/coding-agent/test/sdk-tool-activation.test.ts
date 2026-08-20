@@ -2,31 +2,31 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:te
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import type { AgentTool, StreamFn } from "@cxn/pi-agent-core";
-import type { Model, ToolResultMessage } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { CursorExecHandlers } from "@cxn/pi-coding-agent/cursor";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, StreamFn } from "@cyberxninja-omp/pi-agent-core";
+import type { Model, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { CursorExecHandlers } from "@cyberxninja-omp/pi-coding-agent/cursor";
 import {
 	EXTENSION_HANDLER_TIMEOUT_MS,
 	testSetExtensionHandlerTimeoutMs,
-} from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import type { MCPManager } from "@cxn/pi-coding-agent/mcp/manager";
-import { initializeExtensions } from "@cxn/pi-coding-agent/modes/runtime-init";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import type { MCPManager } from "@cyberxninja-omp/pi-coding-agent/mcp/manager";
+import { initializeExtensions } from "@cyberxninja-omp/pi-coding-agent/modes/runtime-init";
 import {
 	type CreateAgentSessionOptions,
 	type CustomTool,
 	createAgentSession,
 	discoverAuthStorage,
 	type ExtensionFactory,
-} from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { VIBE_TOOL_NAMES } from "@cxn/pi-coding-agent/tools/vibe";
-import { logger, removeSyncWithRetries, Snowflake, untilAborted } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { VIBE_TOOL_NAMES } from "@cyberxninja-omp/pi-coding-agent/tools/vibe";
+import { logger, removeSyncWithRetries, Snowflake, untilAborted } from "@cyberxninja-omp/pi-utils";
 
 const toolActivationExtension: ExtensionFactory = pi => {
 	pi.registerTool({

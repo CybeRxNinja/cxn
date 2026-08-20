@@ -1,4 +1,4 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import { TOOL_TIMEOUTS } from "../tools/tool-timeouts";
 
 // =============================================================================

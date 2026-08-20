@@ -1,4 +1,4 @@
-import { ensureChromiumExecutable } from "@cxn/pi-coding-agent/tools/browser/launch";
+import { ensureChromiumExecutable } from "@cyberxninja-omp/pi-coding-agent/tools/browser/launch";
 
 /**
  * Whether the Chromium puppeteer resolves can actually execute on this host.

@@ -18,19 +18,19 @@
  *     follow-up stays queued for the next explicit resume rather than auto-running.
  */
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentMessage, type AgentTool } from "@cxn/pi-agent-core";
-import type { ToolCall } from "@cxn/pi-ai";
-import { createMockModel, type MockModel, type MockResponse } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { IrcMessage } from "@cxn/pi-coding-agent/irc/bus";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { USER_INTERRUPT_LABEL } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { Snowflake, TempDir } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentMessage, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { ToolCall } from "@cyberxninja-omp/pi-ai";
+import { createMockModel, type MockModel, type MockResponse } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { IrcMessage } from "@cyberxninja-omp/pi-coding-agent/irc/bus";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { USER_INTERRUPT_LABEL } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { Snowflake, TempDir } from "@cyberxninja-omp/pi-utils";
 
 interface MockYieldDetails {
 	status: "success";

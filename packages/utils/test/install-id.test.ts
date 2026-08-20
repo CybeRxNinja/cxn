@@ -9,8 +9,8 @@ import {
 	getInstallId,
 	setAgentDir,
 	setProfile,
-} from "@cxn/pi-utils/dirs";
-import { Snowflake } from "@cxn/pi-utils/snowflake";
+} from "@cyberxninja-omp/pi-utils/dirs";
+import { Snowflake } from "@cyberxninja-omp/pi-utils/snowflake";
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 

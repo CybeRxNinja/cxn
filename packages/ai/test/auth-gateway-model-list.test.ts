@@ -2,9 +2,9 @@ import { expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { startAuthGateway } from "@cxn/pi-ai/auth-gateway";
-import { AuthStorage } from "@cxn/pi-ai/auth-storage";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
+import { startAuthGateway } from "@cyberxninja-omp/pi-ai/auth-gateway";
+import { AuthStorage } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
 
 test("model listing exposes one provider-qualified route per upstream model", async () => {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "gw-model-list-"));

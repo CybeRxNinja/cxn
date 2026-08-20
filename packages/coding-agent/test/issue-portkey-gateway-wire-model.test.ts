@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { resolveWireModelId } from "@cxn/pi-catalog/model-thinking";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest } from "@cxn/pi-coding-agent/config/settings";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { resolveWireModelId } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 describe("Portkey gateway custom models", () => {
 	let tempDir: string;

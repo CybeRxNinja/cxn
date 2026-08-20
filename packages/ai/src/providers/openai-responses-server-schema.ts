@@ -8,7 +8,7 @@
  * is a worse outcome than dropping them on the floor.
  */
 
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type {
 	EasyInputMessage,
 	ResponseCreateParams,

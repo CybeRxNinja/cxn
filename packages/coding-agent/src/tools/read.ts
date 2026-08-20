@@ -1,16 +1,16 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { splitAddressableFileLines } from "@cxn/hashline";
-import { type } from "@cxn/omptype";
+import { splitAddressableFileLines } from "@cyberxninja-omp/hashline";
+import { type } from "@cyberxninja-omp/omptype";
 import type {
 	AgentTool,
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
 	ToolTier,
-} from "@cxn/pi-agent-core";
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import { type ImageMetadata, isProbablyBinary, logger, prompt, readImageMetadata } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { type ImageMetadata, isProbablyBinary, logger, prompt, readImageMetadata } from "@cyberxninja-omp/pi-utils";
 import {
 	canonicalSnapshotKey,
 	getFileSnapshotStore,

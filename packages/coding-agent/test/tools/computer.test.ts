@@ -1,16 +1,19 @@
 import { describe, expect, it } from "bun:test";
-import { type as arkType } from "@cxn/omptype";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ComputerTool, computerApproval } from "@cxn/pi-coding-agent/tools/computer";
+import { type as arkType } from "@cyberxninja-omp/omptype";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ComputerTool, computerApproval } from "@cyberxninja-omp/pi-coding-agent/tools/computer";
 import type {
 	ComputerSessionSnapshot,
 	ComputerWorkerInbound,
 	ComputerWorkerOutbound,
 	ComputerWorkerTransport,
-} from "@cxn/pi-coding-agent/tools/computer/protocol";
-import { ComputerSupervisor, type ComputerWorkerHandle } from "@cxn/pi-coding-agent/tools/computer/supervisor";
-import { ComputerWorkerCore, type NativeDesktopSession } from "@cxn/pi-coding-agent/tools/computer/worker";
+} from "@cyberxninja-omp/pi-coding-agent/tools/computer/protocol";
+import {
+	ComputerSupervisor,
+	type ComputerWorkerHandle,
+} from "@cyberxninja-omp/pi-coding-agent/tools/computer/supervisor";
+import { ComputerWorkerCore, type NativeDesktopSession } from "@cyberxninja-omp/pi-coding-agent/tools/computer/worker";
 import type {
 	AxNode,
 	AxQuery,
@@ -20,7 +23,7 @@ import type {
 	DesktopPoint,
 	DesktopWindow,
 	PointerOptions,
-} from "@cxn/pi-natives";
+} from "@cyberxninja-omp/pi-natives";
 
 const capabilities: DesktopCapabilities = {
 	backend: "fake",

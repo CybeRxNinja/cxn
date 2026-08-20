@@ -518,7 +518,7 @@ def test_chown_workspace_runs_chown_and_chmod_as_root_on_linux(tmp_path: Path, m
 
     _chown_workspace(tmp_path, 2001)
 
-    # 2001 is the slot-private GID matching the slot UID, not the shared cxn group.
+    # 2001 is the slot-private GID matching the slot UID, not the shared omp group.
     assert calls == [
         (["chown", "-R", "2001:2001", str(tmp_path)], True),
         (["chmod", "-R", "u=rwX,g=rwX,o=", str(tmp_path)], True),
@@ -674,7 +674,7 @@ def test_provision_runtime_dirs_replaces_tmpdir_symlink_and_creates_xdg_tree(tmp
     assert stat.S_IMODE(tmpdir.stat().st_mode) == 0o700
     for base in (tmp_path / ".cxn-xdg" / "data", tmp_path / ".cxn-xdg" / "state", tmp_path / ".cxn-xdg" / "cache"):
         assert base.is_dir()
-        assert (base / "cxn").is_dir()
+        assert (base / "omp").is_dir()
     assert (tmp_path / ".cxn-xdg" / "cache" / "bun-install").is_dir()
 
 
@@ -743,7 +743,7 @@ def test_prepare_slot_runtime_env_returns_workspace_private_paths_without_chown(
     assert env["BUN_INSTALL_CACHE_DIR"] == str(bun_cache)
     for base in (ws.root / ".cxn-xdg" / "data", ws.root / ".cxn-xdg" / "state", ws.root / ".cxn-xdg" / "cache"):
         assert base.is_dir()
-        assert (base / "cxn").is_dir()
+        assert (base / "omp").is_dir()
     assert bun_cache.is_dir()
     assert chowns == []
     assert calls == []
@@ -986,11 +986,11 @@ def test_ensure_workspace_provisions_and_slot_owns_runtime_dirs(
         paths = [
             ws_root / ".cxn-tmp",
             ws_root / ".cxn-xdg" / "data",
-            ws_root / ".cxn-xdg" / "data" / "cxn",
+            ws_root / ".cxn-xdg" / "data" / "omp",
             ws_root / ".cxn-xdg" / "state",
-            ws_root / ".cxn-xdg" / "state" / "cxn",
+            ws_root / ".cxn-xdg" / "state" / "omp",
             ws_root / ".cxn-xdg" / "cache",
-            ws_root / ".cxn-xdg" / "cache" / "cxn",
+            ws_root / ".cxn-xdg" / "cache" / "omp",
             ws_root / ".cxn-xdg" / "cache" / "bun-install",
         ]
         runtime_paths.extend(paths)
@@ -1020,11 +1020,11 @@ def test_ensure_workspace_provisions_and_slot_owns_runtime_dirs(
     assert set(runtime_paths) == {
         ws.root / ".cxn-tmp",
         ws.root / ".cxn-xdg" / "data",
-        ws.root / ".cxn-xdg" / "data" / "cxn",
+        ws.root / ".cxn-xdg" / "data" / "omp",
         ws.root / ".cxn-xdg" / "state",
-        ws.root / ".cxn-xdg" / "state" / "cxn",
+        ws.root / ".cxn-xdg" / "state" / "omp",
         ws.root / ".cxn-xdg" / "cache",
-        ws.root / ".cxn-xdg" / "cache" / "cxn",
+        ws.root / ".cxn-xdg" / "cache" / "omp",
         ws.root / ".cxn-xdg" / "cache" / "bun-install",
     }
     assert set(owned.values()) == {(2001, 2001)}
@@ -1451,7 +1451,7 @@ def test_run_git_kills_hung_child(tmp_path: Path, monkeypatch: pytest.MonkeyPatc
 
 
 # ---------------------------------------------------------------------------
-# Partial-clone blob backfill (cxn#1818)
+# Partial-clone blob backfill (omp#1818)
 # ---------------------------------------------------------------------------
 
 
@@ -1528,7 +1528,7 @@ def _missing_object_oids(repo: Path, rev: str) -> list[str]:
 
 
 def test_fetch_ref_backfills_missing_blobs_into_partial_clone(tmp_path: Path) -> None:
-    """Regression for cxn#1818: ``fetch_ref`` is called immediately before
+    """Regression for omp#1818: ``fetch_ref`` is called immediately before
     ``git worktree add origin/<ref>``. On a ``--filter=blob:none`` pool whose
     periodic ``fetch --prune`` inherited that filter, the ref's blobs are
     absent and the worktree-add triggers a promisor lazy fetch that — under
@@ -2324,7 +2324,7 @@ def _seed_reclaimable_workspace(mgr: SandboxManager, repo: str, number: int) -> 
         "repo/src",
         ".cxn-session",
         ".cxn-xdg/cache/bun-install",
-        ".cxn-xdg/state/cxn",
+        ".cxn-xdg/state/omp",
         ".cxn-tmp",
         "artifacts",
     ):
@@ -2334,7 +2334,7 @@ def _seed_reclaimable_workspace(mgr: SandboxManager, repo: str, number: int) -> 
     (ws_root / "repo/src/keep.ts").write_text("keep", encoding="utf-8")
     (ws_root / ".cxn-session/session.jsonl").write_text("{}", encoding="utf-8")
     (ws_root / ".cxn-xdg/cache/bun-install/pkg.tgz").write_text("x", encoding="utf-8")
-    (ws_root / ".cxn-xdg/state/cxn/state.json").write_text("{}", encoding="utf-8")
+    (ws_root / ".cxn-xdg/state/omp/state.json").write_text("{}", encoding="utf-8")
     (ws_root / ".cxn-tmp/scratch").write_text("x", encoding="utf-8")
     (ws_root / "artifacts/run.log").write_text("x", encoding="utf-8")
     return ws_root
@@ -2355,7 +2355,7 @@ def test_reclaim_workspace_caches_strips_dep_caches_and_preserves_state(tmp_path
     assert not (ws_root / ".cxn-tmp").exists()
     assert (ws_root / "repo/src/keep.ts").read_text(encoding="utf-8") == "keep"
     assert (ws_root / ".cxn-session/session.jsonl").exists()
-    assert (ws_root / ".cxn-xdg/state/cxn/state.json").exists()
+    assert (ws_root / ".cxn-xdg/state/omp/state.json").exists()
     assert (ws_root / "artifacts/run.log").exists()
     assert not list(ws_root.glob(".trash-*"))
 

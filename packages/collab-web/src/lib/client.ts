@@ -19,7 +19,7 @@ import type {
 	SessionState,
 	SubagentLifecyclePayload,
 	SubagentProgressPayload,
-} from "@cxn/pi-wire";
+} from "@cyberxninja-omp/pi-wire";
 import { importRoomKey } from "./codec";
 import { COLLAB_PROTO, encodeBase64Url, parseCollabLink } from "./link";
 import { CollabSocket } from "./socket";

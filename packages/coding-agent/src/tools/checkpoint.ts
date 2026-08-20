@@ -1,6 +1,11 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import { prompt } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import checkpointDescription from "../prompts/tools/checkpoint.md" with { type: "text" };
 import rewindDescription from "../prompts/tools/rewind.md" with { type: "text" };
 import type { ToolSession } from ".";

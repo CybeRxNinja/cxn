@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import CommitCommand from "@cxn/pi-coding-agent/commands/commit";
-import * as commitModule from "@cxn/pi-coding-agent/commit";
-import * as themeModule from "@cxn/pi-coding-agent/modes/theme/theme";
-import { postmortem } from "@cxn/pi-utils";
+import CommitCommand from "@cyberxninja-omp/pi-coding-agent/commands/commit";
+import * as commitModule from "@cyberxninja-omp/pi-coding-agent/commit";
+import * as themeModule from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { postmortem } from "@cyberxninja-omp/pi-utils";
 
-describe("cxn commit command lifecycle (issue #1041)", () => {
+describe("omp commit command lifecycle (issue #1041)", () => {
 	afterEach(() => {
 		vi.restoreAllMocks();
 	});
@@ -19,7 +19,7 @@ describe("cxn commit command lifecycle (issue #1041)", () => {
 		const quitSpy = vi.spyOn(postmortem, "quit").mockResolvedValue(undefined);
 
 		const command = new CommitCommand([], {
-			bin: "cxn",
+			bin: "omp",
 			version: "0.0.0-test",
 			commands: new Map(),
 		});
@@ -39,7 +39,7 @@ describe("cxn commit command lifecycle (issue #1041)", () => {
 		const quitSpy = vi.spyOn(postmortem, "quit").mockResolvedValue(undefined);
 
 		const command = new CommitCommand([], {
-			bin: "cxn",
+			bin: "omp",
 			version: "0.0.0-test",
 			commands: new Map(),
 		});
@@ -59,7 +59,7 @@ describe("cxn commit command lifecycle (issue #1041)", () => {
 		const quitSpy = vi.spyOn(postmortem, "quit").mockResolvedValue(undefined);
 
 		const command = new CommitCommand([], {
-			bin: "cxn",
+			bin: "omp",
 			version: "0.0.0-test",
 			commands: new Map(),
 		});
@@ -77,7 +77,7 @@ describe("cxn commit command lifecycle (issue #1041)", () => {
 		const quitSpy = vi.spyOn(postmortem, "quit").mockResolvedValue(undefined);
 
 		const command = new CommitCommand([], {
-			bin: "cxn",
+			bin: "omp",
 			version: "0.0.0-test",
 			commands: new Map(),
 		});

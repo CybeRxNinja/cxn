@@ -5,10 +5,10 @@ import {
 	processInteractionUpdate,
 	type ToolCallState,
 	type UsageState,
-} from "@cxn/pi-ai/providers/cursor";
-import type { AssistantMessage, CursorTodoSnapshot, ToolResultMessage } from "@cxn/pi-ai/types";
-import { kCursorExecResolved } from "@cxn/pi-ai/utils/block-symbols";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+} from "@cyberxninja-omp/pi-ai/providers/cursor";
+import type { AssistantMessage, CursorTodoSnapshot, ToolResultMessage } from "@cyberxninja-omp/pi-ai/types";
+import { kCursorExecResolved } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
 import {
 	AgentServerMessageSchema,
 	InteractionUpdateSchema,
@@ -29,7 +29,7 @@ import {
 	UpdateTodosResultSchema,
 	UpdateTodosSuccessSchema,
 	UpdateTodosToolCallSchema,
-} from "@cxn/pi-catalog/discovery/cursor-gen/agent_pb";
+} from "@cyberxninja-omp/pi-catalog/discovery/cursor-gen/agent_pb";
 
 /** One `todoSync` invocation, recorded verbatim. */
 interface SyncCall {

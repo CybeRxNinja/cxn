@@ -1,5 +1,5 @@
 import { describe, expect, it, spyOn } from "bun:test";
-import { sanitizeText } from "@cxn/pi-utils/sanitize-text";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils/sanitize-text";
 import {
 	parseJsonlLenient,
 	readJsonl,
@@ -7,7 +7,7 @@ import {
 	readSseEvents,
 	readSseJson,
 	type ServerSentEvent,
-} from "@cxn/pi-utils/stream";
+} from "@cyberxninja-omp/pi-utils/stream";
 
 const encoder = new TextEncoder();
 

@@ -11,15 +11,15 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import * as AIError from "@cxn/pi-ai/error";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentTranscriptViewer } from "@cxn/pi-coding-agent/modes/components/agent-transcript-viewer";
-import type { ObservableSession } from "@cxn/pi-coding-agent/modes/session-observer-registry";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { SILENT_ABORT_MARKER } from "@cxn/pi-coding-agent/session/messages";
-import type { TUI } from "@cxn/pi-tui";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentTranscriptViewer } from "@cyberxninja-omp/pi-coding-agent/modes/components/agent-transcript-viewer";
+import type { ObservableSession } from "@cyberxninja-omp/pi-coding-agent/modes/session-observer-registry";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { SILENT_ABORT_MARKER } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const SESSION_ID = "test-session-1";
 
@@ -37,7 +37,7 @@ function makeSubagentRegistry(sessions: ObservableSession[]) {
 		onChange: () => () => {},
 		setMainSession: () => {},
 		getActiveSubagentCount: () => sessions.filter(s => s.status === "active").length,
-	} as unknown as import("@cxn/pi-coding-agent/modes/session-observer-registry").SessionObserverRegistry;
+	} as unknown as import("@cyberxninja-omp/pi-coding-agent/modes/session-observer-registry").SessionObserverRegistry;
 }
 
 function makeViewer(sessionFile: string, observed: ObservableSession[]): AgentTranscriptViewer {

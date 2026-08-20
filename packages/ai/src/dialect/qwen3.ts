@@ -1,4 +1,4 @@
-import { parseJsonWithRepair } from "@cxn/pi-utils";
+import { parseJsonWithRepair } from "@cyberxninja-omp/pi-utils";
 import type { Message, ToolCall } from "../types";
 import { asRecord, mintToolCallId, partialSuffixOverlapAny } from "./coercion";
 import dialectPrompt from "./qwen3.md" with { type: "text" };

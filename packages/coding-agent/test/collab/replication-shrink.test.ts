@@ -20,19 +20,22 @@
  *      marker present.
  */
 import { afterEach, describe, expect, it } from "bun:test";
-import { importRoomKey } from "@cxn/pi-coding-agent/collab/crypto";
-import { CollabHost } from "@cxn/pi-coding-agent/collab/host";
+import { importRoomKey } from "@cyberxninja-omp/pi-coding-agent/collab/crypto";
+import { CollabHost } from "@cyberxninja-omp/pi-coding-agent/collab/host";
 import {
 	COLLAB_PROTO,
 	type CollabFrame,
 	parseCollabLink,
 	rewriteEnvelopePeer,
 	unpackEnvelope,
-} from "@cxn/pi-coding-agent/collab/protocol";
-import { CollabSocket } from "@cxn/pi-coding-agent/collab/relay-client";
-import { MAX_REPLICATED_PAYLOAD_BYTES, shrinkForReplication } from "@cxn/pi-coding-agent/collab/replication-shrink";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import type { SessionEntry } from "@cxn/pi-coding-agent/session/session-entries";
+} from "@cyberxninja-omp/pi-coding-agent/collab/protocol";
+import { CollabSocket } from "@cyberxninja-omp/pi-coding-agent/collab/relay-client";
+import {
+	MAX_REPLICATED_PAYLOAD_BYTES,
+	shrinkForReplication,
+} from "@cyberxninja-omp/pi-coding-agent/collab/replication-shrink";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { SessionEntry } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
 
 interface RelayData {
 	role: "host" | "guest";

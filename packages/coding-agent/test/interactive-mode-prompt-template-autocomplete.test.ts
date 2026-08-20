@@ -1,5 +1,5 @@
 /**
- * Issue #2462: prompt templates discovered from `cwd/.cxn/prompts/` were never
+ * Issue #2462: prompt templates discovered from `cwd/.omp/prompts/` were never
  * surfaced in the slash-command autocomplete picker. The runtime expansion in
  * `AgentSession.prompt()` worked, but `InteractiveMode.refreshSlashCommandState`
  * never passed `session.promptTemplates` into the autocomplete provider.
@@ -8,19 +8,19 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentTool } from "@cxn/pi-agent-core";
-import { type Api, Effort, type Model } from "@cxn/pi-ai";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import type { PromptTemplate } from "@cxn/pi-coding-agent/config/prompt-templates";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import type { AutocompleteProvider } from "@cxn/pi-tui";
-import { TempDir } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { type Api, Effort, type Model } from "@cyberxninja-omp/pi-ai";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import type { PromptTemplate } from "@cyberxninja-omp/pi-coding-agent/config/prompt-templates";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import type { AutocompleteProvider } from "@cyberxninja-omp/pi-tui";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function makeTool(name: string): AgentTool {
 	return {

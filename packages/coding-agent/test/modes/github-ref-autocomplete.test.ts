@@ -1,8 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import { KeybindingsManager as AppKeybindingsManager } from "@cxn/pi-coding-agent/config/keybindings";
-import { getGithubRefContext, getGithubRefSuggestions } from "@cxn/pi-coding-agent/modes/github-ref-autocomplete";
-import { createPromptActionAutocompleteProvider } from "@cxn/pi-coding-agent/modes/prompt-action-autocomplete";
-import type { SlashCommand } from "@cxn/pi-tui";
+import { KeybindingsManager as AppKeybindingsManager } from "@cyberxninja-omp/pi-coding-agent/config/keybindings";
+import {
+	getGithubRefContext,
+	getGithubRefSuggestions,
+} from "@cyberxninja-omp/pi-coding-agent/modes/github-ref-autocomplete";
+import { createPromptActionAutocompleteProvider } from "@cyberxninja-omp/pi-coding-agent/modes/prompt-action-autocomplete";
+import type { SlashCommand } from "@cyberxninja-omp/pi-tui";
 
 function makeProvider(commands: SlashCommand[] = []) {
 	return createPromptActionAutocompleteProvider({

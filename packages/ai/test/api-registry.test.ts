@@ -5,8 +5,8 @@ import {
 	getCustomApi,
 	registerCustomApi,
 	unregisterCustomApis,
-} from "@cxn/pi-ai/api-registry";
-import type { AssistantMessageEventStream } from "@cxn/pi-ai/types";
+} from "@cyberxninja-omp/pi-ai/api-registry";
+import type { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/types";
 
 afterEach(() => {
 	clearCustomApis();

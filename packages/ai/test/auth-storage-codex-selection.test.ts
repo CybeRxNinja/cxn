@@ -3,17 +3,17 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { parseCodexRateLimitHeaders } from "@cxn/pi-ai";
+import { parseCodexRateLimitHeaders } from "@cyberxninja-omp/pi-ai";
 import {
 	AuthBrokerClient,
 	RemoteAuthCredentialStore,
 	type SnapshotResponse,
 	startAuthBroker,
-} from "@cxn/pi-ai/auth-broker";
-import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
-import * as oauthUtils from "@cxn/pi-ai/registry/oauth";
-import type { OAuthCredentials } from "@cxn/pi-ai/registry/oauth/types";
-import type { UsageLimit, UsageProvider, UsageReport } from "@cxn/pi-ai/usage";
+} from "@cyberxninja-omp/pi-ai/auth-broker";
+import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai/auth-storage";
+import * as oauthUtils from "@cyberxninja-omp/pi-ai/registry/oauth";
+import type { OAuthCredentials } from "@cyberxninja-omp/pi-ai/registry/oauth/types";
+import type { UsageLimit, UsageProvider, UsageReport } from "@cyberxninja-omp/pi-ai/usage";
 import { removeWithRetries } from "../../utils/src/temp";
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;

@@ -1,6 +1,6 @@
-import type { AuthStorage } from "@cxn/pi-ai";
-import { untilAborted } from "@cxn/pi-utils";
-import { parseHTML } from "@cxn/pi-utils/dom";
+import type { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { untilAborted } from "@cyberxninja-omp/pi-utils";
+import { parseHTML } from "@cyberxninja-omp/pi-utils/dom";
 import type { Page } from "puppeteer-core";
 import type { SearchResponse, SearchSource } from "../../../web/search/types";
 import { SearchProviderError } from "../../../web/search/types";

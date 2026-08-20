@@ -1,12 +1,12 @@
 /**
  * Stats CLI command handlers.
  *
- * Handles `cxn stats` subcommand for viewing AI usage statistics.
+ * Handles `omp stats` subcommand for viewing AI usage statistics.
  */
 
-import { truncateToWidth } from "@cxn/pi-tui/utils";
-import { formatDuration, formatNumber, formatPercent } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import { truncateToWidth } from "@cyberxninja-omp/pi-tui/utils";
+import { formatDuration, formatNumber, formatPercent } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { openPath } from "../utils/open";
 
 /**
@@ -79,7 +79,7 @@ function normalizePremiumRequests(n: number): number {
 export async function runStatsCommand(cmd: StatsCommandArgs): Promise<void> {
 	// Lazy import to avoid loading stats module when not needed
 	const { closeDb, formatStatsDashboardUrl, getDashboardStats, getTotalMessageCount, startServer, syncAllSessions } =
-		await import("@cxn/cxn-stats");
+		await import("@cyberxninja-omp/omp-stats");
 
 	// Sync session files first
 	const progress = createSyncProgressReporter();
@@ -122,7 +122,7 @@ export async function runStatsCommand(cmd: StatsCommandArgs): Promise<void> {
 }
 
 async function printStatsSummary(): Promise<void> {
-	const { getDashboardStats } = await import("@cxn/cxn-stats");
+	const { getDashboardStats } = await import("@cyberxninja-omp/omp-stats");
 	const stats = await getDashboardStats();
 	const { overall, byModel, byFolder } = stats;
 

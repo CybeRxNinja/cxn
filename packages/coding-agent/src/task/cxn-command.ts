@@ -1,6 +1,6 @@
 import process from "node:process";
 
-import { $env } from "@cxn/pi-utils";
+import { $env } from "@cyberxninja-omp/pi-utils";
 
 interface OmpCommand {
 	cmd: string;
@@ -8,7 +8,7 @@ interface OmpCommand {
 	shell: boolean;
 }
 
-const DEFAULT_CMD = process.platform === "win32" ? "cxn.cmd" : "cxn";
+const DEFAULT_CMD = process.platform === "win32" ? "omp.cmd" : "omp";
 const DEFAULT_SHELL = process.platform === "win32";
 
 export function resolveOmpCommand(): OmpCommand {

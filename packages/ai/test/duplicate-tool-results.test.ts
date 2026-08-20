@@ -3,9 +3,9 @@ import type {
 	ChatCompletionAssistantMessageParam,
 	ChatCompletionMessageParam,
 	ChatCompletionToolMessageParam,
-} from "@cxn/pi-ai/providers/openai-chat-wire";
-import { convertMessages } from "@cxn/pi-ai/providers/openai-completions";
-import { transformMessages } from "@cxn/pi-ai/providers/transform-messages";
+} from "@cyberxninja-omp/pi-ai/providers/openai-chat-wire";
+import { convertMessages } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import { transformMessages } from "@cyberxninja-omp/pi-ai/providers/transform-messages";
 import type {
 	Api,
 	AssistantMessage,
@@ -16,8 +16,8 @@ import type {
 	ToolCall,
 	ToolResultMessage,
 	UserMessage,
-} from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 /**
  * Regression test for: "each tool_use must have a single result. Found multiple tool_result blocks with id"
@@ -633,7 +633,7 @@ describe("Duplicate Tool Results Regression", () => {
  * `tool_result` blocks ... Each `tool_result` block must have a corresponding
  * `tool_use` block in the previous message."
  *
- * Reproduces the shape captured in `~/.cxn/logs/http-400-requests/*.json` after
+ * Reproduces the shape captured in `~/.omp/logs/http-400-requests/*.json` after
  * handoff/compaction folds an assistant `tool_use` into the handoff summary string
  * while leaving the matching user-side `tool_result` message untouched. The orphan
  * `tool_result` then sits next to the handoff-context user message, gets merged by

@@ -1,4 +1,4 @@
-import { matchesKittySequence as nativeMatchesKittySequence } from "@cxn/pi-natives";
+import { matchesKittySequence as nativeMatchesKittySequence } from "@cyberxninja-omp/pi-natives";
 import { parseKittySequence } from "../src/keys";
 
 const ITERATIONS = 2000;

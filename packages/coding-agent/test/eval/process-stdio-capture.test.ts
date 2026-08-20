@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { JsRuntime, type RuntimeHooks } from "@cxn/pi-coding-agent/eval/js/shared/runtime";
-import type { JsDisplayOutput } from "@cxn/pi-coding-agent/eval/js/shared/types";
+import { JsRuntime, type RuntimeHooks } from "@cyberxninja-omp/pi-coding-agent/eval/js/shared/runtime";
+import type { JsDisplayOutput } from "@cyberxninja-omp/pi-coding-agent/eval/js/shared/types";
 
 function makeRuntime(): { runtime: JsRuntime; hooks: RuntimeHooks; texts: string[] } {
 	const texts: string[] = [];

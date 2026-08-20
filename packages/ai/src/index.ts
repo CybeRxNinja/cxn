@@ -1,4 +1,4 @@
-export { type Type, type } from "@cxn/omptype";
+export { type Type, type } from "@cyberxninja-omp/omptype";
 export * from "./api-registry";
 export type * from "./auth-broker";
 export type { AuthGatewayBootOptions, ModelResolver } from "./auth-gateway/server";

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { Model } from "@cxn/pi-ai";
+import type { Model } from "@cyberxninja-omp/pi-ai";
 import {
 	applyRefinementProposal,
 	emptyHarnessState,

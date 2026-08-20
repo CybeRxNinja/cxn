@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { getThemeByName } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { sanitizeText } from "@cxn/pi-utils";
+import { getThemeByName } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { globToolRenderer } from "../../src/tools/glob";
 
 describe("globToolRenderer", () => {

@@ -1,16 +1,16 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import type { AssistantMessage, Model } from "@cxn/pi-ai";
-import type { AsyncJobRegisterOptions } from "@cxn/pi-coding-agent/async/job-manager";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { resolveLocalRoot } from "@cxn/pi-coding-agent/internal-urls/local-protocol";
-import { TanCommandController } from "@cxn/pi-coding-agent/modes/controllers/tan-command-controller";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { AgentRegistry, MAIN_AGENT_ID } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import type { AssistantMessage, Model } from "@cyberxninja-omp/pi-ai";
+import type { AsyncJobRegisterOptions } from "@cyberxninja-omp/pi-coding-agent/async/job-manager";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { resolveLocalRoot } from "@cyberxninja-omp/pi-coding-agent/internal-urls/local-protocol";
+import { TanCommandController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/tan-command-controller";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { AgentRegistry, MAIN_AGENT_ID } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 interface CapturedJobRunContext {
 	jobId: string;

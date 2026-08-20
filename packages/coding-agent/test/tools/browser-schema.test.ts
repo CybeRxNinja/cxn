@@ -1,17 +1,17 @@
 import { describe, expect, it } from "bun:test";
-import { normalizeTools } from "@cxn/pi-agent-core/agent-loop";
-import type { ToolCall, TSchema } from "@cxn/pi-ai";
+import { normalizeTools } from "@cyberxninja-omp/pi-agent-core/agent-loop";
+import type { ToolCall, TSchema } from "@cyberxninja-omp/pi-ai";
 import {
 	adaptSchemaForStrict,
 	toolWireSchema,
 	validateJsonSchemaValue,
 	validateStrictSchemaEnforcement,
-} from "@cxn/pi-ai/utils/schema";
-import { validateToolCall } from "@cxn/pi-ai/utils/validation";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/sdk";
-import { type BrowserParams, BrowserTool } from "@cxn/pi-coding-agent/tools/browser";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+} from "@cyberxninja-omp/pi-ai/utils/schema";
+import { validateToolCall } from "@cyberxninja-omp/pi-ai/utils/validation";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { type BrowserParams, BrowserTool } from "@cyberxninja-omp/pi-coding-agent/tools/browser";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 
 function makeSession(): ToolSession {
 	return {

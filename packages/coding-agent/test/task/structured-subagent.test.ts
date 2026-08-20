@@ -2,24 +2,24 @@ import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	artifactsDirsFromRegistry,
 	resetRegisteredArtifactDirsForTests,
-} from "@cxn/pi-coding-agent/internal-urls/registry-helpers";
-import * as planHandoff from "@cxn/pi-coding-agent/plan-mode/plan-handoff";
-import * as discoveryModule from "@cxn/pi-coding-agent/task/discovery";
-import * as executorModule from "@cxn/pi-coding-agent/task/executor";
-import * as isolationRunner from "@cxn/pi-coding-agent/task/isolation-runner";
+} from "@cyberxninja-omp/pi-coding-agent/internal-urls/registry-helpers";
+import * as planHandoff from "@cyberxninja-omp/pi-coding-agent/plan-mode/plan-handoff";
+import * as discoveryModule from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import * as executorModule from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import * as isolationRunner from "@cyberxninja-omp/pi-coding-agent/task/isolation-runner";
 import {
 	buildStructuredSubagentRecoveryHint,
 	resolveEffectiveSubagentPolicy,
 	runStructuredSubagent,
 	StructuredSubagentError,
 	type StructuredSubagentRequest,
-} from "@cxn/pi-coding-agent/task/structured-subagent";
-import type { AgentDefinition, SingleResult } from "@cxn/pi-coding-agent/task/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+} from "@cyberxninja-omp/pi-coding-agent/task/structured-subagent";
+import type { AgentDefinition, SingleResult } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 
 const AGENT: AgentDefinition = {
 	name: "worker",
@@ -354,7 +354,7 @@ describe("structured subagent primitive", () => {
 		const artifactsDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-structured-subagent-"));
 		const completed = result();
 		completed.patchPath = "/recovery/Worker.patch";
-		completed.branchName = "cxn/task/Worker";
+		completed.branchName = "omp/task/Worker";
 		completed.nestedPatches = [{ relativePath: "sub/nested", patch: "diff --git a/file b/file\n" }];
 
 		const hint = await buildStructuredSubagentRecoveryHint(completed, artifactsDir);
@@ -362,7 +362,7 @@ describe("structured subagent primitive", () => {
 
 		expect(hint).toContain("Captured patch preserved at /recovery/Worker.patch.");
 		expect(hint).toContain(`Captured nested patch preserved at ${nestedPath}.`);
-		expect(hint).toContain("Captured branch preserved as cxn/task/Worker.");
+		expect(hint).toContain("Captured branch preserved as omp/task/Worker.");
 		expect(await fs.readFile(nestedPath, "utf8")).toBe("diff --git a/file b/file\n");
 		await fs.rm(artifactsDir, { recursive: true, force: true });
 	});

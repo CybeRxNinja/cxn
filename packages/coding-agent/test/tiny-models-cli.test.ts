@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, spyOn, vi } from "bun:test";
-import { resolveModels, runTinyModelsCommand } from "@cxn/pi-coding-agent/cli/tiny-models-cli";
-import { TINY_LOCAL_MODELS } from "@cxn/pi-coding-agent/tiny/models";
-import { tinyTitleClient } from "@cxn/pi-coding-agent/tiny/title-client";
+import { resolveModels, runTinyModelsCommand } from "@cyberxninja-omp/pi-coding-agent/cli/tiny-models-cli";
+import { TINY_LOCAL_MODELS } from "@cyberxninja-omp/pi-coding-agent/tiny/models";
+import { tinyTitleClient } from "@cyberxninja-omp/pi-coding-agent/tiny/title-client";
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -83,7 +83,7 @@ describe("tiny-models download model resolution", () => {
 			"Error: Failed to load ONNX Runtime CUDA execution provider",
 			"ONNX Runtime CUDA diagnostics:",
 			"  PI_TINY_DEVICE=cuda requested CUDAExecutionProvider",
-			"  side runtime: /home/user/.cxn/cache/tiny-title-runtime/transformers-test/node_modules",
+			"  side runtime: /home/user/.omp/cache/tiny-title-runtime/transformers-test/node_modules",
 			"  cause: libcudnn.so.9: cannot open shared object file",
 		].join("\n");
 		Object.defineProperty(process.stdout, "isTTY", { configurable: true, value: false });

@@ -3,7 +3,7 @@
  * deliberately permissive (allows extra keys) so providers can attach extra
  * keys without rejection; only `input` is required.
  */
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 
 export const hashlineEditParamsSchema = type({
 	input: "string",

@@ -2,7 +2,7 @@
  * Manage plugins (install, uninstall, list, etc.).
  */
 
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { pluginHelp as commandHelp } from "../cli/command-help";
 import { type PluginAction, type PluginCommandArgs, runPluginCommand } from "../cli/plugin-cli";
 import { initTheme } from "../modes/theme/theme";

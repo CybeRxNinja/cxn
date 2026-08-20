@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { prompt } from "@cxn/pi-utils";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import { parseInternalUrl } from "../../internal-urls/parse";
 import { SecurityProtocolHandler } from "../../internal-urls/security-protocol";
 import validationRequestPrompt from "../../prompts/security/validate-request.md" with { type: "text" };

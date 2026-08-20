@@ -1,7 +1,7 @@
 import { scheduler } from "node:timers/promises";
-import { hostMatchesUrl } from "@cxn/pi-catalog/hosts";
-import { bareModelId, parseOpenAIModel, semverGte } from "@cxn/pi-catalog/identity";
-import { $flag, logger, structuredCloneJSON } from "@cxn/pi-utils";
+import { hostMatchesUrl } from "@cyberxninja-omp/pi-catalog/hosts";
+import { bareModelId, parseOpenAIModel, semverGte } from "@cyberxninja-omp/pi-catalog/identity";
+import { $flag, logger, structuredCloneJSON } from "@cyberxninja-omp/pi-utils";
 import * as AIError from "../error";
 import { getEnvApiKey } from "../stream";
 import type {

@@ -1,4 +1,4 @@
-import type { ImageContent, MessageAttribution, ServiceTierByFamily, TextContent } from "@cxn/pi-ai";
+import type { ImageContent, MessageAttribution, ServiceTierByFamily, TextContent } from "@cyberxninja-omp/pi-ai";
 import type { AgentMessage } from "../types";
 
 export interface SessionEntryBase {

@@ -1,8 +1,8 @@
 /**
  * Update CLI command handler.
  *
- * Handles `cxn update` to check for and install updates.
- * Uses the installer that owns the active cxn executable when it can be detected.
+ * Handles `omp update` to check for and install updates.
+ * Uses the installer that owns the active omp executable when it can be detected.
  */
 import { createHash } from "node:crypto";
 import * as fs from "node:fs";
@@ -10,25 +10,25 @@ import * as os from "node:os";
 import * as path from "node:path";
 import { Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import { $env, $which, APP_NAME, compareVersions, isEnoent, VERSION } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
-import { withFileLock } from "@cxn/pi-utils/file-lock";
+import { $env, $which, APP_NAME, compareVersions, isEnoent, VERSION } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
+import { withFileLock } from "@cyberxninja-omp/pi-utils/file-lock";
 import { $ } from "bun";
 import { theme } from "../modes/theme/theme";
 import { isTimeoutError, withTimeoutSignal } from "../utils/fetch-timeout";
 
 // Release source, overridable (CXN_REPO) so a fork can point updates at its
-// own repo without a code change; defaults to the cxn repo itself.
-const REPO = process.env.CXN_REPO || "CybeRxNinja/cxn";
-const PACKAGE = "@cxn/pi-coding-agent";
-// Homebrew tap for cxn; the tap is published from this repo's release flow
-// (CybeRxNinja/homebrew-tap). Until it exists, `brew upgrade cxn` reports the
+// own repo without a code change; defaults to the omp repo itself.
+const REPO = process.env.CXN_REPO || "CybeRxNinja/omp";
+const PACKAGE = "@cyberxninja-omp/pi-coding-agent";
+// Homebrew tap for omp; the tap is published from this repo's release flow
+// (CybeRxNinja/homebrew-tap). Until it exists, `brew upgrade omp` reports the
 // formula as missing rather than silently upgrading from an unrelated tap.
-const HOMEBREW_FORMULA = "CybeRxNinja/tap/cxn";
+const HOMEBREW_FORMULA = "CybeRxNinja/tap/omp";
 const MISE_TOOL = `github:${REPO}`;
 const NIX_STORE_DIR = "/nix/store";
 /**
- * Registry the @cxn/* packages are published to (GitHub Packages by default;
+ * Registry the @cyberxninja-omp/* packages are published to (public npm by default;
  * override with CXN_NPM_REGISTRY).
  *
  * Pinned across both the version check and the bun install step so the two
@@ -39,13 +39,13 @@ const NIX_STORE_DIR = "/nix/store";
  * `No version matching "X" found for specifier "<pkg>" (but package exists)`.
  * See #1686.
  */
-const NPM_REGISTRY = process.env.CXN_NPM_REGISTRY || "https://npm.pkg.github.com/";
+const NPM_REGISTRY = process.env.CXN_NPM_REGISTRY || "https://registry.npmjs.org/";
 
 /**
- * Credentials for the GitHub Packages registry. GitHub Packages requires
- * authentication even for public packages, so the version check and any
- * bun/npm install against it need a token (CXN_INSTALL_TOKEN, GITHUB_TOKEN,
- * or GH_TOKEN). Binary installs from public GitHub Releases need none.
+ * Credentials for the public npm registry. Public npm packages are readable
+ * anonymously, but an authenticated token (CXN_INSTALL_TOKEN, GITHUB_TOKEN, or
+ * GH_TOKEN) avoids rate limits and enables installs of restricted packages.
+ * Binary installs from public GitHub Releases need none.
  */
 const NPM_TOKEN = process.env.CXN_INSTALL_TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 const GITHUB_API = "https://api.github.com";
@@ -58,11 +58,11 @@ const BINARY_DOWNLOAD_TIMEOUT_MS = 15 * 60_000;
  * disk; see {@link buildBunInstallArgs} for why this must be installed
  * explicitly rather than inherited as a transitive dependency.
  */
-const NATIVES_PACKAGE = "@cxn/pi-natives";
+const NATIVES_PACKAGE = "@cyberxninja-omp/pi-natives";
 
 /**
  * Platform tags the release pipeline publishes as
- * `@cxn/pi-natives-<tag>` leaves. Mirrors `SUPPORTED_PLATFORMS` in
+ * `@cyberxninja-omp/pi-natives-<tag>` leaves. Mirrors `SUPPORTED_PLATFORMS` in
  * `packages/natives/native/loader-state.js` and `LEAF_TARGETS` in
  * `packages/natives/scripts/gen-npm-packages.ts`; kept here as the local
  * source of truth so the update path stays free of cross-package imports.
@@ -88,7 +88,7 @@ export interface ReleasePackages {
 	natives: string;
 }
 
-/** Parsed `cxn.rename` pointer: the new agent package name and optional new natives name. */
+/** Parsed `omp.rename` pointer: the new agent package name and optional new natives name. */
 export interface ReleaseRename {
 	pkg: string;
 	natives?: string;
@@ -99,9 +99,9 @@ const CURRENT_PACKAGES: ReleasePackages = { pkg: PACKAGE, natives: NATIVES_PACKA
 export interface ReleaseInfo {
 	tag: string;
 	version: string;
-	/** Parsed `cxn.dist` from the registry manifest; undefined when absent. */
+	/** Parsed `omp.dist` from the registry manifest; undefined when absent. */
 	dist?: ReleaseDist;
-	/** npm names to install, resolved after following any `cxn.rename` pointers. */
+	/** npm names to install, resolved after following any `omp.rename` pointers. */
 	packages: ReleasePackages;
 }
 
@@ -118,28 +118,28 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /**
- * Parse the `cxn.dist` field from a published package manifest.
+ * Parse the `omp.dist` field from a published package manifest.
  *
  * Forward-compatibility contract with future releases: a release that is not
  * installable as an npm package (e.g. a native rewrite) publishes
- * `"cxn": { "dist": "binary" }` in its package.json. Any value other than
+ * `"omp": { "dist": "binary" }` in its package.json. Any value other than
  * "npm" — including values this updater does not know yet — maps to "binary"
  * so already-deployed updaters never run a package-manager install against a
  * release that no longer supports it.
  */
 export function resolveReleaseDist(manifest: unknown): ReleaseDist | undefined {
-	if (!isRecord(manifest) || !isRecord(manifest.cxn)) return undefined;
-	const dist = manifest.cxn.dist;
+	if (!isRecord(manifest) || !isRecord(manifest.omp)) return undefined;
+	const dist = manifest.omp.dist;
 	if (dist === undefined) return undefined;
 	return dist === "npm" ? "npm" : "binary";
 }
 
 /**
- * Parse the `cxn.rename` pointer from a published package manifest.
+ * Parse the `omp.rename` pointer from a published package manifest.
  *
  * Forward-compatibility contract for renaming the npm package: the final
  * version published under an old name is a stub whose manifest carries
- * `"cxn": { "rename": { "package": "<new-agent-pkg>", "natives": "<new-natives-pkg>" }, "dist": "binary" }`.
+ * `"omp": { "rename": { "package": "<new-agent-pkg>", "natives": "<new-natives-pkg>" }, "dist": "binary" }`.
  * Updaters that understand `rename` follow the pointer and resolve the
  * release from the renamed package instead ({@link getLatestRelease});
  * older deployed updaters ignore it and take the `dist: "binary"` escape
@@ -152,8 +152,8 @@ export function resolveReleaseDist(manifest: unknown): ReleaseDist | undefined {
  * "already up to date" against the running build).
  */
 export function resolveReleaseRename(manifest: unknown): ReleaseRename | undefined {
-	if (!isRecord(manifest) || !isRecord(manifest.cxn)) return undefined;
-	const rename = manifest.cxn.rename;
+	if (!isRecord(manifest) || !isRecord(manifest.omp)) return undefined;
+	const rename = manifest.omp.rename;
 	if (!isRecord(rename) || typeof rename.package !== "string" || rename.package.length === 0) return undefined;
 	const natives = rename.natives;
 	return {
@@ -170,10 +170,10 @@ function majorVersion(version: string): number {
 /**
  * Whether the update must bypass bun/npm and install the release binary.
  *
- * An explicit `cxn.dist` wins in both directions. Without one, a release with
+ * An explicit `omp.dist` wins in both directions. Without one, a release with
  * a higher major than the running build is assumed not npm-installable: the
  * runtime may have changed out from under the package layout, and the pinned
- * `@cxn/pi-natives*` companions ({@link buildBunInstallArgs}) may not
+ * `@cyberxninja-omp/pi-natives*` companions ({@link buildBunInstallArgs}) may not
  * exist at that version, which would strand bun/npm-managed installs behind a
  * hard install failure. Homebrew and mise installs are unaffected — both
  * already pull GitHub release binaries.
@@ -466,10 +466,10 @@ function isPathInDirectory(filePath: string, directoryPath: string): boolean {
 	if (isPathInDirectoryLexical(filePath, directoryPath)) return true;
 	// Layer realpath resolution on top of the lexical guard. On Windows, ~/.bun
 	// is a junction when Bun is installed via Scoop, so `bun pm bin -g` and the
-	// PATH-resolved cxn path can refer to the same directory through different
+	// PATH-resolved omp path can refer to the same directory through different
 	// strings. path.resolve does not traverse junctions/symlinks; realpath does.
 	// Resolve both the file and its parent directory: the file catches manager
-	// links like Homebrew's `bin/cxn -> Cellar/.../bin/cxn`; the parent fallback
+	// links like Homebrew's `bin/omp -> Cellar/.../bin/omp`; the parent fallback
 	// still tolerates fresh install paths where the file does not exist yet.
 	const dirReal = tryRealpath(path.resolve(directoryPath));
 	if (!dirReal) return false;
@@ -512,7 +512,7 @@ interface UpdateMethodResolutionOptions {
 	/** Bun's configured global package directory, independent of its bin directory. */
 	bunGlobalDir?: string;
 	/**
-	 * Whether the resolved cxn path is a plain file (the standalone binary)
+	 * Whether the resolved omp path is a plain file (the standalone binary)
 	 * rather than a package-manager symlink. Stops a binary install from being
 	 * misrouted to npm/bun when the global bin dir overlaps the installer's
 	 * target directory.
@@ -668,7 +668,7 @@ async function resolveUpdateTarget(options: { allowPackageManagers: boolean }): 
 	throw new Error(`Could not resolve ${APP_NAME} binary path in PATH`);
 }
 
-/** Bound on `cxn.rename` hops so a broken pointer chain cannot loop forever. */
+/** Bound on `omp.rename` hops so a broken pointer chain cannot loop forever. */
 const MAX_RENAME_HOPS = 3;
 
 async function fetchLatestManifest(
@@ -676,8 +676,8 @@ async function fetchLatestManifest(
 	timeoutMs: number,
 ): Promise<{ version: string; manifest: Record<string, unknown> }> {
 	const headers: Record<string, string> = {};
-	// GitHub Packages (the default registry) requires auth even for public
-	// packages; without a token the manifest fetch 401s.
+	// Public npm allows anonymous manifest fetches; a token is only needed for
+	// authenticated or rate-limited installs.
 	if (NPM_TOKEN) headers.Authorization = `Bearer ${NPM_TOKEN}`;
 	let response: Response;
 	try {
@@ -710,7 +710,7 @@ async function fetchLatestManifest(
 }
 
 /**
- * Get the latest release info from the npm registry, following `cxn.rename`
+ * Get the latest release info from the npm registry, following `omp.rename`
  * pointers ({@link resolveReleaseRename}) when the package has moved to a new
  * npm name. Version, dist, and install names all come from the final manifest
  * in the chain. Uses npm instead of GitHub API to avoid unauthenticated rate
@@ -859,7 +859,7 @@ async function removeCacheEntries(paths: string[]): Promise<number> {
  *
  * Bun stores package cache entries as both a package marker directory
  * (`react/19.2.6@@@1`) and a materialized package directory
- * (`react@19.2.6@@@1`). Global `cxn` updates can leave one full copy per
+ * (`react@19.2.6@@@1`). Global `omp` updates can leave one full copy per
  * release. The marker and materialized entries are removed together so the
  * cache stays internally consistent.
  */
@@ -960,7 +960,7 @@ async function pruneBunCacheAfterGlobalInstall(): Promise<BunInstallCachePruneRe
 	const packageNames = globalNodeModulesDir
 		? await collectInstalledPackageNames(globalNodeModulesDir)
 		: new Set<string>();
-	if (packageNames.size === 0 && !path.basename(cacheDir).toLowerCase().includes("cxn")) return undefined;
+	if (packageNames.size === 0 && !path.basename(cacheDir).toLowerCase().includes("omp")) return undefined;
 	return await pruneBunInstallCache(cacheDir, packageNames.size === 0 ? undefined : packageNames);
 }
 
@@ -1037,7 +1037,7 @@ function getBinaryName(): string {
 }
 
 /**
- * Resolve the path that `cxn` maps to in the user's PATH.
+ * Resolve the path that `omp` maps to in the user's PATH.
  */
 function resolveOmpPath(): string | undefined {
 	return $which(APP_NAME) ?? undefined;
@@ -1051,7 +1051,7 @@ async function verifyBinaryAtPath(binaryPath: string, expectedVersion: string): 
 		const result = await $`${binaryPath} --version`.quiet().nothrow();
 		if (result.exitCode !== 0) return { ok: false, path: binaryPath };
 		const output = result.text().trim();
-		// Output format: "cxn/X.Y.Z"
+		// Output format: "omp/X.Y.Z"
 		const match = output.match(/\/(\d+\.\d+\.\d+)/);
 		const actual = match?.[1];
 		return { ok: actual === expectedVersion, actual, path: binaryPath };
@@ -1061,7 +1061,7 @@ async function verifyBinaryAtPath(binaryPath: string, expectedVersion: string): 
 }
 
 /**
- * Run the PATH-resolved cxn binary and check if it reports the expected version.
+ * Run the PATH-resolved omp binary and check if it reports the expected version.
  */
 async function verifyInstalledVersion(expectedVersion: string): Promise<InstalledVersionVerification> {
 	const ompPath = resolveOmpPath();
@@ -1090,7 +1090,7 @@ async function printVerification(expectedVersion: string): Promise<void> {
 		return;
 	}
 	console.log(chalk.yellow(`\nWarning: ${formatVerificationFailure(result, expectedVersion)}`));
-	console.log(chalk.yellow(`You may need to reinstall: curl -fsSL https://cxn.sh/install | sh`));
+	console.log(chalk.yellow(`You may need to reinstall: curl -fsSL https://omp.sh/install | sh`));
 }
 
 async function unlinkIfExists(filePath: string): Promise<void> {
@@ -1219,7 +1219,7 @@ function buildVersionedPackageInstallArgs(
 }
 
 /**
- * Build the bun argv used to globally install a specific cxn version.
+ * Build the bun argv used to globally install a specific omp version.
  *
  * The version is selected by hitting {@link NPM_REGISTRY} directly in
  * {@link getLatestRelease}, so the install MUST observe the same catalog:
@@ -1231,15 +1231,15 @@ function buildVersionedPackageInstallArgs(
  * - `--no-cache` tells bun to ignore its on-disk manifest snapshot so it
  *   re-fetches metadata from that registry on every invocation.
  *
- * Together these two flags make `cxn update` produce exactly the registry
+ * Together these two flags make `omp update` produce exactly the registry
  * lookup the version check just performed. See #1686.
  *
  * Also pins {@link NATIVES_PACKAGE} and the platform-specific
- * `@cxn/pi-natives-<tag>` leaf to `expectedVersion`. `bun install -g`
+ * `@cyberxninja-omp/pi-natives-<tag>` leaf to `expectedVersion`. `bun install -g`
  * does not reliably refresh transitive `optionalDependencies` when the
  * top-level package is the only one bumped, so the native addon and its
  * version sentinel can drift out of sync with the freshly installed
- * `@cxn/pi-coding-agent` and the loader aborts at
+ * `@cyberxninja-omp/pi-coding-agent` and the loader aborts at
  * `validateLoadedBindings` on the next launch
  * (`The .node file on disk is from a different release than this loader`).
  * Listing the natives explicitly forces bun to replace them in lock-step.
@@ -1265,10 +1265,10 @@ export function buildBunInstallArgs(
 /**
  * Build the npm argv used to update npm-managed global installs.
  *
- * `force` is set only for rename migrations: npm refuses to write the `cxn`
+ * `force` is set only for rename migrations: npm refuses to write the `omp`
  * bin while the old package still owns it (`EEXIST`), and the migration
  * installs the new package BEFORE removing the old one so a failed install
- * never leaves the user without a working `cxn`.
+ * never leaves the user without a working `omp`.
  */
 export function buildNpmInstallArgs(
 	expectedVersion: string,
@@ -1318,8 +1318,8 @@ export function buildRenameCleanupPackages(
 }
 
 /**
- * Env to hand child bun/npm processes so they can authenticate to GitHub
- * Packages: a temp userconfig pointing the @cxn scope at npm.pkg.github.com
+ * Env to hand child bun/npm processes so they can authenticate to the public npm registry:
+ * a temp userconfig pointing the @cyberxninja-omp scope at registry.npmjs.org
  * with the token. Writes nothing when no token is set, so public-registry
  * installs (or public npm overrides) stay unauthenticated.
  */
@@ -1330,8 +1330,8 @@ function registryAuthEnv(): Record<string, string> {
 		npmrcPath,
 		[
 			"registry=https://registry.npmjs.org/",
-			"@cxn:registry=https://npm.pkg.github.com/",
-			`//npm.pkg.github.com/:_authToken=${NPM_TOKEN}`,
+			"@cyberxninja-omp:registry=https://registry.npmjs.org/",
+			`//registry.npmjs.org/:_authToken=${NPM_TOKEN}`,
 			"",
 		].join("\n"),
 		{ mode: 0o600 },
@@ -1341,11 +1341,11 @@ function registryAuthEnv(): Record<string, string> {
 
 /** Injectable shell steps for {@link migrateRenamedInstall}; commands return process exit codes. */
 export interface RenameMigrationSteps {
-	/** Globally install the new package names. MUST be idempotent: re-running re-links the `cxn` bin. */
+	/** Globally install the new package names. MUST be idempotent: re-running re-links the `omp` bin. */
 	install(): Promise<number>;
 	/** Remove the old-name globals. */
 	removeOld(): Promise<number>;
-	/** Check the PATH-resolved `cxn` against the expected version. */
+	/** Check the PATH-resolved `omp` against the expected version. */
 	verify(): Promise<InstalledVersionVerification>;
 }
 
@@ -1380,14 +1380,14 @@ function packageManagerMigrationSteps(manager: "bun" | "npm", release: ReleaseIn
 }
 
 /**
- * Migrate a package-manager install across an `cxn.rename` hop without a
- * window where no working `cxn` exists:
+ * Migrate a package-manager install across an `omp.rename` hop without a
+ * window where no working `omp` exists:
  *
  * 1. Install the new package FIRST. Nothing has been removed yet, so a
  *    failure here leaves the old install fully functional.
  * 2. Remove the old-name globals. Failure is non-fatal: a stale package
  *    wastes disk, but the bin already points at the new install.
- * 3. Verify the PATH-resolved `cxn`. If the removal deleted the shared bin
+ * 3. Verify the PATH-resolved `omp`. If the removal deleted the shared bin
  *    link (manager-dependent), re-run the idempotent install to restore it
  *    and verify again; only a repeated failure aborts, with a recovery hint.
  */
@@ -1415,7 +1415,7 @@ export async function migrateRenamedInstall(release: ReleaseInfo, steps: RenameM
 	}
 	if (!verification.ok) {
 		throw new Error(
-			`${formatVerificationFailure(verification, release.version)}; reinstall with: curl -fsSL https://cxn.sh/install | sh`,
+			`${formatVerificationFailure(verification, release.version)}; reinstall with: curl -fsSL https://omp.sh/install | sh`,
 		);
 	}
 	printVerifiedVersion(release.version);
@@ -1516,7 +1516,7 @@ export async function updateViaBinaryAt(
 	} = {},
 ): Promise<void> {
 	const binaryName = options.binaryName ?? getBinaryName();
-	// Unique per attempt so two overlapping `cxn update` runs never share a temp
+	// Unique per attempt so two overlapping `omp update` runs never share a temp
 	// or backup path. A fixed temp name (`<binary>.new`) let the second run's
 	// pre-download unlink delete the first run's still-downloading temp file; the
 	// first kept writing to its open fd (size + digest still passed), then chmod
@@ -1540,7 +1540,7 @@ export async function updateViaBinaryAt(
 	console.log(chalk.dim(`Verified ${asset.digest}`));
 
 	// Serialize the target swap and stale-artifact sweep per target so two
-	// overlapping `cxn update` runs never replace the same binary concurrently
+	// overlapping `omp update` runs never replace the same binary concurrently
 	// or reclaim each other's live backup/temp files. The download above writes
 	// to a unique temp path and is safe to overlap; only the swap is shared.
 	await withFileLock(targetPath, async () => {
@@ -1562,7 +1562,7 @@ export async function updateViaBinaryAt(
 /**
  * In-place forwarder bodies, by shim extension, for launchers that cannot be
  * renamed aside during a script-shim takeover; each execs the sibling
- * `cxn.exe`. Rewriting matters for the shims that outrank `.exe` at command
+ * `omp.exe`. Rewriting matters for the shims that outrank `.exe` at command
  * resolution: PowerShell prefers `.ps1` and Git Bash resolves the
  * extensionless sh shim first, so leaving the old body behind would keep
  * launching the replaced install.
@@ -1578,8 +1578,8 @@ const SHIM_FORWARDERS: Record<string, string> = {
  * Take over a Windows script-launcher install for a binary-only release.
  *
  * npm-managed Windows installs are launched through script shims
- * (`cxn`/`cxn.cmd`/`cxn.ps1`) that cannot be overwritten with a native
- * executable. The release binary is installed as `cxn.exe` beside them and
+ * (`omp`/`omp.cmd`/`omp.ps1`) that cannot be overwritten with a native
+ * executable. The release binary is installed as `omp.exe` beside them and
  * the shims are then renamed aside: cmd.exe would already prefer `.exe` via
  * PATHEXT, but PowerShell resolves `.ps1` first, so the takeover only sticks
  * once the shims are out of the way. A working launcher exists at every
@@ -1699,8 +1699,8 @@ export async function updateViaShimTakeover(
  */
 function installerHint(): string {
 	return process.platform === "win32"
-		? "& ([scriptblock]::Create((irm https://cxn.sh/install.ps1))) -Binary"
-		: "curl -fsSL https://cxn.sh/install | sh -s -- --binary";
+		? "& ([scriptblock]::Create((irm https://omp.sh/install.ps1))) -Binary"
+		: "curl -fsSL https://omp.sh/install | sh -s -- --binary";
 }
 
 /**
@@ -1739,7 +1739,7 @@ export async function runUpdateCommand(opts: { force: boolean; check: boolean })
 		return;
 	}
 
-	// Choose update method based on the prioritized cxn binary in PATH. For
+	// Choose update method based on the prioritized omp binary in PATH. For
 	// binary-only releases the package managers are never consulted: a bun/npm
 	// symlink resolves to method "binary" and is replaced in place, keeping the
 	// same PATH entry live.
@@ -1748,7 +1748,7 @@ export async function runUpdateCommand(opts: { force: boolean; check: boolean })
 		const target = await resolveUpdateTarget({ allowPackageManagers: !forceBinary });
 		if (target.method === "nix") {
 			console.log(chalk.yellow("This installation is managed by Nix and cannot update itself."));
-			console.log(chalk.dim("Update the flake input or profile that provides cxn, then rebuild."));
+			console.log(chalk.dim("Update the flake input or profile that provides omp, then rebuild."));
 		} else if (target.method === "brew") {
 			await updateViaHomebrew(release.version, opts.force);
 		} else if (target.method === "mise") {

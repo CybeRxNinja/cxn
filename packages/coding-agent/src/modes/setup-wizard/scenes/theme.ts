@@ -6,7 +6,7 @@ import {
 	type SgrMouseEvent,
 	truncateToWidth,
 	visibleWidth,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import {
 	enableAutoTheme,
 	getAvailableThemes,

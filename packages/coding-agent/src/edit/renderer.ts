@@ -2,10 +2,10 @@
  * Edit tool renderer and LSP batching helpers.
  */
 
-import { HL_FILE_PREFIX, HL_FILE_SUFFIX, HL_MOVE_KEYWORD, HL_REM_KEYWORD } from "@cxn/hashline";
-import type { Component } from "@cxn/pi-tui";
-import { sliceWithWidth, visibleWidth, wrapTextWithAnsi } from "@cxn/pi-tui";
-import { sanitizeText } from "@cxn/pi-utils";
+import { HL_FILE_PREFIX, HL_FILE_SUFFIX, HL_MOVE_KEYWORD, HL_REM_KEYWORD } from "@cyberxninja-omp/hashline";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { sliceWithWidth, visibleWidth, wrapTextWithAnsi } from "@cyberxninja-omp/pi-tui";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import type { FileDiagnosticsResult } from "../lsp";
 import { renderDiff as renderDiffColored } from "../modes/components/diff";

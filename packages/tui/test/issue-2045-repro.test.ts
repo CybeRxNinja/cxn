@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { type Component, TUI } from "@cxn/pi-tui";
-import type { Terminal, TerminalAppearance } from "@cxn/pi-tui/terminal";
+import { type Component, TUI } from "@cyberxninja-omp/pi-tui";
+import type { Terminal, TerminalAppearance } from "@cyberxninja-omp/pi-tui/terminal";
 
 class CaptureTerminal implements Terminal {
 	writes: string[] = [];

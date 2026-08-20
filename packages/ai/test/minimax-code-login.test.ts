@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { loginMiniMaxCode, loginMiniMaxCodeCn } from "@cxn/pi-ai/registry/oauth/minimax-code";
-import type { FetchImpl } from "@cxn/pi-ai/types";
+import { loginMiniMaxCode, loginMiniMaxCodeCn } from "@cyberxninja-omp/pi-ai/registry/oauth/minimax-code";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 
 describe("MiniMax Token Plan login", () => {
 	it("opens the international platform and validates against the international API", async () => {

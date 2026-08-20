@@ -1,4 +1,4 @@
-import { toNumber } from "@cxn/pi-catalog/utils";
+import { toNumber } from "@cyberxninja-omp/pi-catalog/utils";
 import type { UsageStatus } from "../usage";
 
 /** Milliseconds in one hour. */

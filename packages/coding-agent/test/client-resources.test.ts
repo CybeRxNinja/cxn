@@ -7,7 +7,7 @@ import {
 	serverSupportsResources,
 	subscribeToResources,
 	unsubscribeFromResources,
-} from "@cxn/pi-coding-agent/mcp/client";
+} from "@cyberxninja-omp/pi-coding-agent/mcp/client";
 import type {
 	MCPResource,
 	MCPResourceReadResult,
@@ -15,7 +15,7 @@ import type {
 	MCPResourceTemplate,
 	MCPResourceTemplatesListResult,
 	MCPTransport,
-} from "@cxn/pi-coding-agent/mcp/types";
+} from "@cyberxninja-omp/pi-coding-agent/mcp/types";
 import { createMockConnection, createMockTransport } from "./mcp-test-utils";
 
 describe("listResources", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { Api, ModelSpec, Provider } from "@cxn/pi-catalog/types";
+import type { Api, ModelSpec, Provider } from "@cyberxninja-omp/pi-catalog/types";
 import { applyCanonicalLimitFallback } from "../scripts/generated-policies";
 
 function spec(overrides: {

@@ -17,9 +17,9 @@ import {
 	type AgentTelemetryConfig,
 	instrumentedCompleteSimple,
 	resolveTelemetry,
-} from "@cxn/pi-agent-core";
-import type { Api, completeSimple, ImageContent, Model, TextContent } from "@cxn/pi-ai";
-import { logger, prompt, toError } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import type { Api, completeSimple, ImageContent, Model, TextContent } from "@cyberxninja-omp/pi-ai";
+import { logger, prompt, toError } from "@cyberxninja-omp/pi-utils";
 import { extractTextContent } from "../commit/utils";
 import type { ModelRegistry } from "../config/model-registry";
 import { expandRoleAlias, getModelMatchPreferences, resolveModelFromString } from "../config/model-resolver";

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
-import { clearCustomApis, getCustomApi } from "@cxn/pi-ai/api-registry";
+import { clearCustomApis, getCustomApi } from "@cyberxninja-omp/pi-ai/api-registry";
 import {
 	createMockModel,
 	isMockModel,
@@ -8,8 +8,8 @@ import {
 	type MockModel,
 	registerMockApi,
 	streamMock,
-} from "@cxn/pi-ai/providers/mock";
-import type { AssistantMessage, AssistantMessageEvent, Context, ToolCall } from "@cxn/pi-ai/types";
+} from "@cyberxninja-omp/pi-ai/providers/mock";
+import type { AssistantMessage, AssistantMessageEvent, Context, ToolCall } from "@cyberxninja-omp/pi-ai/types";
 
 afterEach(() => {
 	clearCustomApis();

@@ -3,8 +3,8 @@
  */
 
 import { scheduler } from "node:timers/promises";
-import { calculateCost } from "@cxn/pi-catalog/models";
-import { readSseJson } from "@cxn/pi-utils";
+import { calculateCost } from "@cyberxninja-omp/pi-catalog/models";
+import { readSseJson } from "@cyberxninja-omp/pi-utils";
 import { renderDemotedThinking } from "../dialect/demotion";
 import * as AIError from "../error";
 import type {

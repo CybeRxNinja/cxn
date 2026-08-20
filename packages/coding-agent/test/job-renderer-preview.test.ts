@@ -5,9 +5,9 @@
  * passes through unchanged.
  */
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { prompt } from "@cxn/pi-utils";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import taskSummaryTemplate from "../src/prompts/tools/task-summary.md" with { type: "text" };
 import { hubToolRenderer } from "../src/tools/hub";
 

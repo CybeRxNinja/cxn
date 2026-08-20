@@ -7,13 +7,13 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { executeBuiltinSlashCommand } from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
-import type { TuiSlashCommandRuntime } from "@cxn/pi-coding-agent/slash-commands/types";
-import { TaskTool } from "@cxn/pi-coding-agent/task";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { getProjectDir, removeWithRetries, setProjectDir } from "@cxn/pi-utils";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { executeBuiltinSlashCommand } from "@cyberxninja-omp/pi-coding-agent/slash-commands/builtin-registry";
+import type { TuiSlashCommandRuntime } from "@cyberxninja-omp/pi-coding-agent/slash-commands/types";
+import { TaskTool } from "@cyberxninja-omp/pi-coding-agent/task";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { getProjectDir, removeWithRetries, setProjectDir } from "@cyberxninja-omp/pi-utils";
 
 const originalProjectDir = getProjectDir();
 
@@ -96,7 +96,7 @@ describe("/reload-plugins runtime refresh", () => {
 	});
 
 	test("republishes edited agents to an existing task tool", async () => {
-		const agentDir = path.join(projectDir, ".cxn", "agents");
+		const agentDir = path.join(projectDir, ".omp", "agents");
 		const agentFile = path.join(agentDir, "reload-agent.md");
 		await fs.mkdir(agentDir, { recursive: true });
 		await Bun.write(agentFile, agentDefinition("VERSION_ONE"));

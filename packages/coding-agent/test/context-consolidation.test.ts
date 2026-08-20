@@ -1,18 +1,18 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent, type AgentMessage } from "@cxn/pi-agent-core";
-import { estimateTokens } from "@cxn/pi-agent-core/compaction/compaction";
-import type { AssistantMessage, Message, Model } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { StatusLineComponent } from "@cxn/pi-coding-agent/modes/components/status-line";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { computeContextBreakdown } from "@cxn/pi-coding-agent/modes/utils/context-usage";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent, type AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { estimateTokens } from "@cyberxninja-omp/pi-agent-core/compaction/compaction";
+import type { AssistantMessage, Message, Model } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { StatusLineComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { computeContextBreakdown } from "@cyberxninja-omp/pi-coding-agent/modes/utils/context-usage";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 describe("Context usage consolidation", () => {
 	let sharedDir: TempDir;

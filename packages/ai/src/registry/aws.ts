@@ -1,5 +1,5 @@
 import * as fs from "node:fs";
-import { $env, $flag } from "@cxn/pi-utils";
+import { $env, $flag } from "@cyberxninja-omp/pi-utils";
 import { hasConfiguredAwsProfile } from "../utils/aws-profile";
 import { AUTHENTICATED_SENTINEL } from "./types";
 

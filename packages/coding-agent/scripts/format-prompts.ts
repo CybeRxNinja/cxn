@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-import { prompt } from "@cxn/pi-utils";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 /**
  * Format prompt files (mixed XML + Markdown + Handlebars).
  *

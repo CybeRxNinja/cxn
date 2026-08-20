@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { computeFileHash, InMemorySnapshotStore } from "@cxn/hashline";
+import { computeFileHash, InMemorySnapshotStore } from "@cyberxninja-omp/hashline";
 
 const PATH = "/tmp/__hashline-snapshots__.ts";
 const OTHER = "/tmp/__hashline-other__.ts";

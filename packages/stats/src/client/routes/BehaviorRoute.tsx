@@ -1,4 +1,4 @@
-import { format } from "@cxn/pi-utils/dates";
+import { format } from "@cyberxninja-omp/pi-utils/dates";
 import { useMemo, useState } from "react";
 import { Bar, Line } from "react-chartjs-2";
 import { getBehaviorDashboardStats } from "../api";

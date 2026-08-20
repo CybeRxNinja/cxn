@@ -10,7 +10,7 @@
 import type { Stats } from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { getStatsDbPath, isEnoent, logger } from "@cxn/pi-utils";
+import { getStatsDbPath, isEnoent, logger } from "@cyberxninja-omp/pi-utils";
 import { getTimeRangeConfig } from "./aggregator";
 import { initDb } from "./db";
 import type { GainDashboardStats, GainSourceTotals, GainTimeSeriesPoint } from "./shared-types";
@@ -59,7 +59,7 @@ function matchesProject(cwd: string | undefined, project: string): boolean {
 /**
  * Collapse conventional worktree sub-paths to their logical project root.
  *
- * Rules are generic: cxn internal wt paths are dropped; conventional worktree
+ * Rules are generic: omp internal wt paths are dropped; conventional worktree
  * suffixes (`.wt/`, `-wt/`, `.worktrees/`, `-worktrees/`) are stripped. No
  * author-specific IDE or tool paths are baked in.
  *
@@ -68,7 +68,7 @@ function matchesProject(cwd: string | undefined, project: string): boolean {
 export function normalizeProjectPath(p: string): string | null {
 	const clean = canonicalProjectPath(p);
 	if (TEMP_PATH_RE.test(clean)) return null;
-	if (/\/\.cxn\/wt\//u.test(clean)) return null;
+	if (/\/\.omp\/wt\//u.test(clean)) return null;
 
 	const worktreePatterns = [
 		/^(.+)\/\.wt\/[^/]+(?:\/.*)?$/u,

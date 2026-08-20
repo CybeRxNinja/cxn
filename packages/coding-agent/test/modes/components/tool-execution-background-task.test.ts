@@ -1,10 +1,10 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { AgentProgress, SingleResult, TaskToolDetails } from "@cxn/pi-coding-agent/task/types";
-import type { TUI } from "@cxn/pi-tui";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { AgentProgress, SingleResult, TaskToolDetails } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 
 function progressEntry(description: string): AgentProgress {
 	return {

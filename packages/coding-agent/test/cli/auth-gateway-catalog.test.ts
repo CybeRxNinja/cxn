@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import type { AuthStorage } from "@cxn/pi-ai";
-import { getBundledModels } from "@cxn/pi-catalog/models";
-import { TempDir } from "@cxn/pi-utils";
+import type { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { getBundledModels } from "@cyberxninja-omp/pi-catalog/models";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { indexModelsByRequestId } from "../../src/cli/auth-gateway-cli";
 import { ModelRegistry } from "../../src/config/model-registry";
 

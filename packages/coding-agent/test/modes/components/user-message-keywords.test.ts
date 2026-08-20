@@ -1,14 +1,14 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as path from "node:path";
 import * as url from "node:url";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { CustomEditor } from "@cxn/pi-coding-agent/modes/components/custom-editor";
-import { UserMessageComponent } from "@cxn/pi-coding-agent/modes/components/user-message";
-import { getEditorTheme, initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import { Container } from "@cxn/pi-tui";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { CustomEditor } from "@cyberxninja-omp/pi-coding-agent/modes/components/custom-editor";
+import { UserMessageComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/user-message";
+import { getEditorTheme, initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import { Container } from "@cyberxninja-omp/pi-tui";
 
 beforeAll(async () => {
 	resetSettingsForTest();

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { buildMcpToolDefinitions } from "@cxn/pi-ai/providers/cursor";
-import type { Tool } from "@cxn/pi-ai/types";
+import { buildMcpToolDefinitions } from "@cyberxninja-omp/pi-ai/providers/cursor";
+import type { Tool } from "@cyberxninja-omp/pi-ai/types";
 
 const tool = (name: string): Tool => ({
 	name,

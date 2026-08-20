@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { Usage } from "@cxn/pi-ai/types";
-import { calculateCost, getBundledModel } from "@cxn/pi-catalog/models";
+import type { Usage } from "@cyberxninja-omp/pi-ai/types";
+import { calculateCost, getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 describe("calculateCost", () => {
 	it("keeps token-based calculation for GitHub Copilot models", () => {

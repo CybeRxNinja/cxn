@@ -1,6 +1,6 @@
 import * as path from "node:path";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
-import { untilAborted } from "@cxn/pi-utils";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { untilAborted } from "@cyberxninja-omp/pi-utils";
 import * as git from "../utils/git";
 import type { ToolSession } from ".";
 import type { GhToolDetails } from "./gh";

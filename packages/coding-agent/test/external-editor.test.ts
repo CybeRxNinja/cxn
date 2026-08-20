@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { TempDir } from "@cxn/pi-utils";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { getEditorCommand, openInEditor, resolveEditorSpawnCommand } from "../src/utils/external-editor";
 
 interface MutableProcess {
@@ -67,7 +67,7 @@ describe("getEditorCommand", () => {
 
 describe("openInEditor", () => {
 	it("passes the cmd.exe command line verbatim on Windows", () => {
-		const tmpFile = String.raw`C:\Users\Example User\AppData\Local\Temp\cxn-editor-123.cxn.md`;
+		const tmpFile = String.raw`C:\Users\Example User\AppData\Local\Temp\cxn-editor-123.omp.md`;
 
 		expect(resolveEditorSpawnCommand('"C:\\Program Files\\Code.exe" --wait', tmpFile, "win32")).toEqual({
 			cmd: [
@@ -75,7 +75,7 @@ describe("openInEditor", () => {
 				"/d",
 				"/s",
 				"/c",
-				String.raw`""C:\Program Files\Code.exe" --wait "C:\Users\Example User\AppData\Local\Temp\cxn-editor-123.cxn.md""`,
+				String.raw`""C:\Program Files\Code.exe" --wait "C:\Users\Example User\AppData\Local\Temp\cxn-editor-123.omp.md""`,
 			],
 			windowsVerbatimArguments: true,
 		});

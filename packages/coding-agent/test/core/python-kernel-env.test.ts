@@ -7,8 +7,8 @@ import {
 	filterEnv,
 	resolveExplicitPythonRuntime,
 	resolvePythonRuntime,
-} from "@cxn/pi-coding-agent/eval/py/runtime";
-import * as piUtils from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/eval/py/runtime";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
 
 describe("Python gateway environment filtering", () => {
 	it("filters sensitive and unknown variables from shell env", () => {
@@ -57,7 +57,7 @@ describe("enumeratePythonRuntimes", () => {
 		vi.restoreAllMocks();
 	});
 
-	const managedDir = path.join(path.sep, "fake", ".cxn", "python-env");
+	const managedDir = path.join(path.sep, "fake", ".omp", "python-env");
 	const managedBin = path.join(managedDir, process.platform === "win32" ? "Scripts" : "bin");
 	const managedPy = path.join(managedBin, process.platform === "win32" ? "python.exe" : "python");
 	const systemPy = path.join(path.sep, "usr", "bin", "python3");

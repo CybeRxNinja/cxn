@@ -16,18 +16,18 @@ import {
 	generateBranchSummary,
 	generateHandoff,
 	generateSummary,
-} from "@cxn/pi-agent-core/compaction";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
 import {
 	type AgentTelemetryConfig,
 	GenAIAttr,
 	GenAIOperation,
 	PiGenAIAttr,
 	resolveTelemetry,
-} from "@cxn/pi-agent-core/telemetry";
-import type { AgentMessage } from "@cxn/pi-agent-core/types";
-import type { AssistantMessage, Model, Usage } from "@cxn/pi-ai";
-import * as ai from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
+} from "@cyberxninja-omp/pi-agent-core/telemetry";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core/types";
+import type { AssistantMessage, Model, Usage } from "@cyberxninja-omp/pi-ai";
+import * as ai from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import { SpanStatusCode } from "@opentelemetry/api";
 import {
 	BasicTracerProvider,

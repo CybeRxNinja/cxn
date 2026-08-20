@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import { convertToLlm, normalizeCustomMessagePayload } from "@cxn/pi-coding-agent/session/messages";
-import { buildSessionContext } from "@cxn/pi-coding-agent/session/session-context";
-import type { CustomMessageEntry, SessionEntry } from "@cxn/pi-coding-agent/session/session-entries";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import { convertToLlm, normalizeCustomMessagePayload } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { buildSessionContext } from "@cyberxninja-omp/pi-coding-agent/session/session-context";
+import type { CustomMessageEntry, SessionEntry } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 
 describe("bare custom_message recovery", () => {
 	it("drops poisoned custom messages before LLM conversion", () => {

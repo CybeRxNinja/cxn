@@ -4,7 +4,7 @@
  */
 import * as os from "node:os";
 import * as path from "node:path";
-import { $which } from "@cxn/pi-utils";
+import { $which } from "@cyberxninja-omp/pi-utils";
 
 export const CASE_INSENSITIVE_ENV = process.platform === "win32";
 

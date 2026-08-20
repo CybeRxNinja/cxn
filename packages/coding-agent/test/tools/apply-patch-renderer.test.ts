@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import * as themeModule from "@cxn/pi-coding-agent/modes/theme/theme";
-import { toolRenderers } from "@cxn/pi-coding-agent/tools/renderers";
-import type { TUI } from "@cxn/pi-tui";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import * as themeModule from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { toolRenderers } from "@cyberxninja-omp/pi-coding-agent/tools/renderers";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 async function getUiTheme() {
 	await themeModule.initTheme(false, undefined, undefined, "dark", "light");
@@ -200,7 +200,7 @@ describe("apply_patch rendering", () => {
 					op: "update",
 					diff: [
 						" 10|}",
-						'+11|import { CODEX_INSTRUCTIONS } from "@cxn/pi-ai/providers/openai-codex-responses";',
+						'+11|import { CODEX_INSTRUCTIONS } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";',
 						" 12|\t$env,",
 						" 228|\toutput_format: typeof OPENAI_IMAGE_OUTPUT_FORMAT;",
 						"+235|\tinstructions?: string;",

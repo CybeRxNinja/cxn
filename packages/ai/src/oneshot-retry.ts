@@ -1,4 +1,4 @@
-import { extractRetryHint } from "@cxn/pi-utils";
+import { extractRetryHint } from "@cyberxninja-omp/pi-utils";
 import * as AIError from "./error";
 import type { AssistantMessage } from "./types";
 import { getHeadersFromError, getRetryAfterMsFromHeaders, type HeadersLike } from "./utils/retry-after";

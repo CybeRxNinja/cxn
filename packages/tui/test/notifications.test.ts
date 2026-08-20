@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import * as desktopNotify from "@cxn/pi-tui/desktop-notify";
-import { ProcessTerminal } from "@cxn/pi-tui/terminal";
+import * as desktopNotify from "@cyberxninja-omp/pi-tui/desktop-notify";
+import { ProcessTerminal } from "@cyberxninja-omp/pi-tui/terminal";
 import {
 	getTerminalInfo,
 	isInsideTmux,
@@ -10,8 +10,8 @@ import {
 	setOsc99Supported,
 	TERMINAL,
 	wrapTmuxPassthrough,
-} from "@cxn/pi-tui/terminal-capabilities";
-import { setTerminalHeadless } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui/terminal-capabilities";
+import { setTerminalHeadless } from "@cyberxninja-omp/pi-utils";
 
 const stdinIsTtyDescriptor = Object.getOwnPropertyDescriptor(process.stdin, "isTTY");
 const stdoutIsTtyDescriptor = Object.getOwnPropertyDescriptor(process.stdout, "isTTY");

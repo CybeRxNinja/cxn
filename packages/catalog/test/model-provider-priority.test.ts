@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { buildModelProviderPriorityRank } from "@cxn/pi-catalog/identity/priority";
+import { buildModelProviderPriorityRank } from "@cyberxninja-omp/pi-catalog/identity/priority";
 
 describe("model provider priority", () => {
 	test("ranks AIML API with hosted aggregators", () => {

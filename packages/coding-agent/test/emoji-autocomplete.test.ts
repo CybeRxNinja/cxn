@@ -3,7 +3,7 @@ import {
 	applyEmojiCompletion,
 	getEmojiSuggestions,
 	tryEmojiInlineReplace,
-} from "@cxn/pi-coding-agent/modes/emoji-autocomplete";
+} from "@cyberxninja-omp/pi-coding-agent/modes/emoji-autocomplete";
 
 describe("emoji autocomplete", () => {
 	describe("getEmojiSuggestions", () => {

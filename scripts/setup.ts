@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 /**
  * `bun setup` entrypoint. Chains the four setup steps (install → native
- * addon build → coding-agent link → cxn link) and forwards a single UX flag:
+ * addon build → coding-agent link → omp link) and forwards a single UX flag:
  *
  *   --cargo   Build the host native addon via the local Cargo/N-API path
  *             instead of bazel. Equivalent to
@@ -43,7 +43,7 @@ const steps: Step[] = [
 	{ label: "bun install", cmd: ["bun", "install"] },
 	{ label: "build:native", cmd: ["bun", "run", "build:native", ...passthrough], env: nativeBackendEnv },
 	{ label: "coding-agent link", cmd: ["bun", "--cwd=packages/coding-agent", "link"] },
-	{ label: "link cxn", cmd: ["sh", "scripts/link-cxn.sh"] },
+	{ label: "link omp", cmd: ["sh", "scripts/link-omp.sh"] },
 ];
 
 for (const step of steps) {

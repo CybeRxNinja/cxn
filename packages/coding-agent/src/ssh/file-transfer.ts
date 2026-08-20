@@ -6,7 +6,7 @@
  * `ssh://` reads/writes round-trip exactly — leading/trailing whitespace, tabs,
  * and final newlines are preserved.
  */
-import { ptree } from "@cxn/pi-utils";
+import { ptree } from "@cyberxninja-omp/pi-utils";
 import { buildRemoteCommand, ensureConnection, ensureHostInfo, type SSHConnectionTarget } from "./connection-manager";
 import { quotePosixPath, wrapInPosixShell } from "./utils";
 

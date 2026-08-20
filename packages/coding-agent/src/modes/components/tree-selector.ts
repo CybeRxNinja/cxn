@@ -1,4 +1,4 @@
-import { ThinkingLevel } from "@cxn/pi-agent-core";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
 import {
 	type Component,
 	Container,
@@ -10,7 +10,7 @@ import {
 	Text,
 	TruncatedText,
 	truncateToWidth,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import type { TreeFilterMode } from "../../config/settings-schema";
 import { theme } from "../../modes/theme/theme";
 import {

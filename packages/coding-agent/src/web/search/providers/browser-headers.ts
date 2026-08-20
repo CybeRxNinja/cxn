@@ -1,4 +1,4 @@
-import { HeaderGenerator } from "@cxn/pi-utils/headers";
+import { HeaderGenerator } from "@cyberxninja-omp/pi-utils/headers";
 
 const generator = new HeaderGenerator({
 	browserListQuery: "last 3 versions",

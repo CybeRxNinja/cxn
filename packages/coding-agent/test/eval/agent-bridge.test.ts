@@ -1,12 +1,16 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { runEvalAgent } from "@cxn/pi-coding-agent/eval/agent-bridge";
-import type { LocalProtocolOptions } from "@cxn/pi-coding-agent/internal-urls";
-import type { MCPManager } from "@cxn/pi-coding-agent/mcp";
-import * as taskDiscovery from "@cxn/pi-coding-agent/task/discovery";
-import * as taskExecutor from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition, SingleResult, StructuredSubagentOutput } from "@cxn/pi-coding-agent/task/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { runEvalAgent } from "@cyberxninja-omp/pi-coding-agent/eval/agent-bridge";
+import type { LocalProtocolOptions } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import type { MCPManager } from "@cyberxninja-omp/pi-coding-agent/mcp";
+import * as taskDiscovery from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import * as taskExecutor from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type {
+	AgentDefinition,
+	SingleResult,
+	StructuredSubagentOutput,
+} from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 
 function createResult(overrides: Partial<SingleResult> = {}): SingleResult {
 	return {

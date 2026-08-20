@@ -1,15 +1,22 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import type { FetchImpl } from "@cxn/pi-ai";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai";
 import {
 	buildExtractionPrompt,
 	extractFacts,
 	extractFactsSafe,
 	heuristicExtractFacts,
 	parseFacts,
-} from "@cxn/pi-mnemopi/core/extraction";
-import { getExtractionStats, resetExtractionStats } from "@cxn/pi-mnemopi/core/extraction/diagnostics";
-import { CallableLlmBackend, resetHostLlmBackendForTests, setHostLlmBackend } from "@cxn/pi-mnemopi/core/llm-backends";
-import { type ResolvedMnemopiRuntimeOptions, withMnemopiRuntimeOptions } from "@cxn/pi-mnemopi/core/runtime-options";
+} from "@cyberxninja-omp/pi-mnemopi/core/extraction";
+import { getExtractionStats, resetExtractionStats } from "@cyberxninja-omp/pi-mnemopi/core/extraction/diagnostics";
+import {
+	CallableLlmBackend,
+	resetHostLlmBackendForTests,
+	setHostLlmBackend,
+} from "@cyberxninja-omp/pi-mnemopi/core/llm-backends";
+import {
+	type ResolvedMnemopiRuntimeOptions,
+	withMnemopiRuntimeOptions,
+} from "@cyberxninja-omp/pi-mnemopi/core/runtime-options";
 
 const OLD_ENV = { ...process.env };
 function restoreEnv(): void {

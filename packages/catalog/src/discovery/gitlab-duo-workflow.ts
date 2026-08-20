@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type { FetchImpl, ModelSpec } from "../types";
 import { discoveryFetch, isRecord } from "../utils";
 

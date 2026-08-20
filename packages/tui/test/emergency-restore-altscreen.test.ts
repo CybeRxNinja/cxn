@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { emergencyTerminalRestore, ProcessTerminal, setAltScreenActive } from "@cxn/pi-tui/terminal";
-import { setTerminalHeadless } from "@cxn/pi-utils";
+import { emergencyTerminalRestore, ProcessTerminal, setAltScreenActive } from "@cyberxninja-omp/pi-tui/terminal";
+import { setTerminalHeadless } from "@cyberxninja-omp/pi-utils";
 
 // Regression coverage for the Windows shell-handoff corruption on exit:
 // `emergencyTerminalRestore()` used to write DECRST 1049 ("leave alternate

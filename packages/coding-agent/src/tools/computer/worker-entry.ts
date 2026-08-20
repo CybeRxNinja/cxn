@@ -1,5 +1,5 @@
 import { parentPort } from "node:worker_threads";
-import { consumeWorkerInbox, isWorkerHostSelector } from "@cxn/pi-utils/worker-host";
+import { consumeWorkerInbox, isWorkerHostSelector } from "@cyberxninja-omp/pi-utils/worker-host";
 import type { ComputerWorkerInbound, ComputerWorkerTransport } from "./protocol";
 import { ComputerWorkerCore } from "./worker";
 

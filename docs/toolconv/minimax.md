@@ -6,7 +6,7 @@ This reference describes CXN's implemented converter, not MiniMax's provider-nat
 
 ## Selection and request conversion
 
-Set the format explicitly in `~/.cxn/agent/config.yml` or a project/overlay config:
+Set the format explicitly in `~/.omp/agent/config.yml` or a project/overlay config:
 
 ```yaml
 tools:

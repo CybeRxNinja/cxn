@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { renderTreeList } from "@cxn/pi-coding-agent/tui/tree-list";
+import { renderTreeList } from "@cyberxninja-omp/pi-coding-agent/tui/tree-list";
 
 const stubTheme = {
 	fg: (_color: string, text: string) => text,

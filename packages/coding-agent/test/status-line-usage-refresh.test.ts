@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { CodexResetFireworksEvent } from "@cxn/pi-coding-agent/modes/components/codex-reset-fireworks";
-import { StatusLineComponent } from "@cxn/pi-coding-agent/modes/components/status-line";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { CodexResetFireworksEvent } from "@cyberxninja-omp/pi-coding-agent/modes/components/codex-reset-fireworks";
+import { StatusLineComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
 
 async function flushMicrotasks(): Promise<void> {
 	await Promise.resolve();

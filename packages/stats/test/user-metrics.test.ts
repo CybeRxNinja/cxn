@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { computeUserMessageMetrics, EMPTY_USER_METRICS } from "@cxn/cxn-stats/user-metrics";
+import { computeUserMessageMetrics, EMPTY_USER_METRICS } from "@cyberxninja-omp/omp-stats/user-metrics";
 
 describe("computeUserMessageMetrics", () => {
 	it("returns zeros for empty / whitespace-only text", () => {

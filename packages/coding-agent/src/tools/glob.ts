@@ -1,12 +1,17 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { ToolExample } from "@cxn/pi-ai";
-import * as natives from "@cxn/pi-natives";
-import type { Component } from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui";
-import { formatGroupedPaths, hasFsCode, isEnoent, prompt, untilAborted } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ToolExample } from "@cyberxninja-omp/pi-ai";
+import * as natives from "@cyberxninja-omp/pi-natives";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { formatGroupedPaths, hasFsCode, isEnoent, prompt, untilAborted } from "@cyberxninja-omp/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import { InternalUrlRouter } from "../internal-urls";
 import { splitMemoryGlobPattern } from "../internal-urls/memory-protocol";

@@ -1,4 +1,4 @@
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { tinyModelsHelp as commandHelp } from "../cli/command-help";
 import { runTinyModelsCommand, type TinyModelsAction, type TinyModelsCommandArgs } from "../cli/tiny-models-cli";
 

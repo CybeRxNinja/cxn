@@ -2,7 +2,7 @@
 /**
  * Publish workspace packages.
  *
- * The default mode publishes public JS packages and the `@cxn/pi-natives`
+ * The default mode publishes public JS packages and the `@cyberxninja-omp/pi-natives`
  * core package. Generated native leaf packages are published separately with
  * `--native-leaf <tag>` from the release_binary matrix after that matrix entry
  * downloads the matching `.node` artifacts.
@@ -114,7 +114,7 @@ export const packages: PublishPackage[] = [
 		extraTypeConfigs: ["tsconfig.publish.client.json"],
 	},
 	{ dir: "packages/agent", kind: "typescript" },
-	{ dir: "packages/coding-agent", kind: "typescript", publishBin: { cxn: "dist/cli.js" } },
+	{ dir: "packages/coding-agent", kind: "typescript", publishBin: { omp: "dist/cli.js" } },
 ];
 
 function rewriteSrcToTypes(value: string): string {
@@ -230,7 +230,7 @@ export async function applyPublishBin(pkgRelDir: string, write: boolean): Promis
 function buildNativeOptionalDependencies(version: string): JsonObject {
 	const optionalDependencies: JsonObject = {};
 	for (const target of LEAF_TARGETS) {
-		optionalDependencies[`@cxn/pi-natives-${target.tag}`] = version;
+		optionalDependencies[`@cyberxninja-omp/pi-natives-${target.tag}`] = version;
 	}
 	return optionalDependencies;
 }

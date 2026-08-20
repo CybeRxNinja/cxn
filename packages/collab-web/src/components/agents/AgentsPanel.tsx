@@ -1,4 +1,9 @@
-import type { AgentProgress, AgentSnapshot, SubagentLifecyclePayload, SubagentProgressPayload } from "@cxn/pi-wire";
+import type {
+	AgentProgress,
+	AgentSnapshot,
+	SubagentLifecyclePayload,
+	SubagentProgressPayload,
+} from "@cyberxninja-omp/pi-wire";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { fmtCost, fmtDuration, fmtTokens, relTime } from "../../lib/format";

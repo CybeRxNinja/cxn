@@ -1,9 +1,9 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { ImageContent } from "@cxn/pi-ai";
-import { type AutocompleteProvider, matchesKey, type SlashCommand } from "@cxn/pi-tui";
-import { isEnoent, logger, sanitizeText } from "@cxn/pi-utils";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
+import { type AutocompleteProvider, matchesKey, type SlashCommand } from "@cyberxninja-omp/pi-tui";
+import { isEnoent, logger, sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { isSettingsInitialized, settings } from "../../config/settings";
 import { resolveLocalRoot } from "../../internal-urls";
 import { AssistantMessageComponent } from "../../modes/components/assistant-message";
@@ -1098,15 +1098,15 @@ export class InputController {
 			// for a given SignalKind permanently replaces the kernel-default
 			// handler for the lifetime of the process. So once the user has
 			// issued even one bash command — e.g. `/usr/bin/true` — SIGTSTP no
-			// longer stops cxn: tokio swallows it and the TUI ends up torn down
+			// longer stops omp: tokio swallows it and the TUI ends up torn down
 			// while the process keeps running with no live terminal (issue
 			// [#3461]). SIGSTOP cannot be caught, blocked, or ignored, so the
 			// kernel stops the process regardless of installed handlers.
 			//
-			// pid=0 (foreground process group, not just our PID): cxn is not
+			// pid=0 (foreground process group, not just our PID): omp is not
 			// always the shell's direct child. Package-manager launchers (`npx`,
 			// `pnpm exec`, `bunx`, …) wait on the real CLI from a parent shim
-			// that shares cxn's process group, and a `cxn … | tee log` style
+			// that shares omp's process group, and a `omp … | tee log` style
 			// pipeline puts a sibling foreground job member in the same group
 			// too. The shell sees the job as stopped only when its direct
 			// child / pipeline leader is stopped, so suspending only our PID
@@ -2032,7 +2032,7 @@ export class InputController {
 				? [ttyHandle.fd, ttyHandle.fd, ttyHandle.fd]
 				: ["inherit", "inherit", "inherit"];
 
-			const result = await openInEditor(editorCmd, currentText, { extension: ".cxn.md", stdio });
+			const result = await openInEditor(editorCmd, currentText, { extension: ".omp.md", stdio });
 			if (result !== null) {
 				this.ctx.editor.setText(result);
 			}

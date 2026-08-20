@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { scope, type } from "@cxn/omptype/ark";
+import { scope, type } from "@cyberxninja-omp/omptype/ark";
 import type { Eq } from "../type-assert";
 
 describe("parsing and traversal", () => {

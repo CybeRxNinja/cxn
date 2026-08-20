@@ -2,17 +2,17 @@ import { beforeAll, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type Skill as CapabilitySkill, skillCapability } from "@cxn/pi-coding-agent/capability/skill";
-import { getCapability } from "@cxn/pi-coding-agent/discovery";
-import { getWslWindowsHomeCandidate, runHostProbe } from "@cxn/pi-coding-agent/discovery/agents";
+import { type Skill as CapabilitySkill, skillCapability } from "@cyberxninja-omp/pi-coding-agent/capability/skill";
+import { getCapability } from "@cyberxninja-omp/pi-coding-agent/discovery";
+import { getWslWindowsHomeCandidate, runHostProbe } from "@cyberxninja-omp/pi-coding-agent/discovery/agents";
 import {
 	type LoadSkillsResult,
 	loadSkills,
 	loadSkillsFromDir,
 	parseSkillInvocation,
 	type Skill,
-} from "@cxn/pi-coding-agent/extensibility/skills";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/skills";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const fixturesDir = path.resolve(import.meta.dirname, "fixtures/skills");
 const collisionFixturesDir = path.resolve(import.meta.dirname, "fixtures/skills-collision");

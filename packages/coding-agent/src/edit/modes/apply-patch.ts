@@ -8,7 +8,7 @@
  * the `patch` mode.
  */
 
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import { parseApplyPatch, parseApplyPatchStreaming } from "../apply-patch/parser";
 import { ApplyPatchError } from "../diff";
 import type { PatchEditEntry } from "./patch";

@@ -10,7 +10,7 @@
 import type * as fsTypes from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { isEnoent } from "@cxn/pi-utils";
+import { isEnoent } from "@cyberxninja-omp/pi-utils";
 import { resolveContainedPath } from "../discovery/contained-path";
 import { getActiveSkills } from "../extensibility/skills";
 import { isMarkdownPath } from "../utils/lang-from-path";

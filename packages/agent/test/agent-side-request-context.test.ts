@@ -1,9 +1,9 @@
 import { describe, expect, it, mock } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { AssistantMessage, Context } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AssistantMessage, Context } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import { Agent } from "../src/agent";
 import type { AgentTool } from "../src/types";
 

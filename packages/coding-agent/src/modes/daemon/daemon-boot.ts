@@ -1,7 +1,7 @@
 /**
  * Daemon boot — the real, long-running supervisor process.
  *
- * `cxn` spawns this via `cli.ts --mode daemon --daemon-socket <path>`
+ * `omp` spawns this via `cli.ts --mode daemon --daemon-socket <path>`
  * (see daemon-supervisor.ts `spawnCliDaemon`). It:
  *   - initializes the authoritative family store + lease tables,
  *   - serves the JSONL protocol over a Unix-domain socket,
@@ -11,7 +11,7 @@
 
 import * as os from "node:os";
 import * as path from "node:path";
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import {
 	handleDaemonRequest,
 	setupDaemonState,
@@ -26,7 +26,7 @@ const DEFAULT_HEARTBEAT_TTL_MS = 120_000;
 
 function defaultAgentDir(): string {
 	const base = process.env.XDG_RUNTIME_DIR ?? os.tmpdir();
-	return path.join(base, "cxn", "daemon");
+	return path.join(base, "omp", "daemon");
 }
 
 function parseSocketArg(argv: string[]): string {

@@ -1,4 +1,4 @@
-import type { Api, Model, ToolChoice } from "@cxn/pi-ai";
+import type { Api, Model, ToolChoice } from "@cyberxninja-omp/pi-ai";
 
 /**
  * Build a provider-aware tool choice that targets one specific tool when supported.

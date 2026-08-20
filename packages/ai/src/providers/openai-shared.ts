@@ -1,8 +1,8 @@
-import type { Effort } from "@cxn/pi-catalog/effort";
-import { toFirepassWireModelId, toFireworksWireModelId } from "@cxn/pi-catalog/fireworks-model-id";
-import { isGlm52ReasoningEffortModelId, isKimiK3ModelId } from "@cxn/pi-catalog/identity";
-import { getSupportedEfforts } from "@cxn/pi-catalog/model-thinking";
-import { calculateCost } from "@cxn/pi-catalog/models";
+import type { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { toFirepassWireModelId, toFireworksWireModelId } from "@cyberxninja-omp/pi-catalog/fireworks-model-id";
+import { isGlm52ReasoningEffortModelId, isKimiK3ModelId } from "@cyberxninja-omp/pi-catalog/identity";
+import { getSupportedEfforts } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { calculateCost } from "@cyberxninja-omp/pi-catalog/models";
 import type {
 	OpenAICompat,
 	OpenAIReasoningDisableMode,
@@ -12,15 +12,15 @@ import type {
 	ResolvedOpenAIResponsesCompat,
 	ResolvedOpenAISharedCompat,
 	VercelGatewayRouting,
-} from "@cxn/pi-catalog/types";
-import { parseAlibabaTokenPlanCredential } from "@cxn/pi-catalog/wire/alibaba-token-plan";
+} from "@cyberxninja-omp/pi-catalog/types";
+import { parseAlibabaTokenPlanCredential } from "@cyberxninja-omp/pi-catalog/wire/alibaba-token-plan";
 import {
 	COREWEAVE_PROJECT_HEADER,
 	coreWeaveProjectHeaders,
 	hasCoreWeaveProjectHeader,
 	removeBlankCoreWeaveProjectHeaders,
-} from "@cxn/pi-catalog/wire/coreweave";
-import { parseGitHubCopilotApiKey } from "@cxn/pi-catalog/wire/github-copilot";
+} from "@cyberxninja-omp/pi-catalog/wire/coreweave";
+import { parseGitHubCopilotApiKey } from "@cyberxninja-omp/pi-catalog/wire/github-copilot";
 import {
 	$env,
 	classifyJsonPrefix,
@@ -32,7 +32,7 @@ import {
 	stringifyJson,
 	structuredCloneJSON,
 	USER_AGENT,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import * as AIError from "../error";
 import {
 	type Api,
@@ -316,7 +316,7 @@ export function resolveOpenAIRequestSetup(
 	if (options.defaultBaseUrl !== undefined) {
 		baseUrl = baseUrl ?? ($env.OPENAI_BASE_URL?.trim() || options.defaultBaseUrl);
 	}
-	// Attribute xAI traffic as cxn unless a User-Agent is already set.
+	// Attribute xAI traffic as omp unless a User-Agent is already set.
 	if (model.provider === "xai" || model.provider === "xai-oauth") {
 		setHeaderIfAbsent(headers, "User-Agent", USER_AGENT);
 	}

@@ -14,7 +14,7 @@
  */
 
 import * as path from "node:path";
-import { USER_AGENT } from "@cxn/pi-utils";
+import { USER_AGENT } from "@cyberxninja-omp/pi-utils";
 
 const PROVIDER_FILE = path.join(import.meta.dir, "../packages/catalog/src/wire/gemini-headers.ts");
 

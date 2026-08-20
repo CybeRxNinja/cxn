@@ -7,7 +7,7 @@ import type {
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
-} from "@cxn/pi-agent-core";
+} from "@cyberxninja-omp/pi-agent-core";
 import type {
 	CursorMcpCall,
 	CursorMcpResource,
@@ -16,7 +16,7 @@ import type {
 	CursorTodoSnapshot,
 	CursorExecHandlers as ICursorExecHandlers,
 	ToolResultMessage,
-} from "@cxn/pi-ai";
+} from "@cyberxninja-omp/pi-ai";
 import {
 	omitUndefinedArgs,
 	piEscapeRegexLiteral,
@@ -26,8 +26,8 @@ import {
 	piLsPath,
 	piReadPath,
 	piTimeout,
-} from "@cxn/pi-ai/providers/cursor/exec-modern";
-import { sanitizeText } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/providers/cursor/exec-modern";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import type { MCPResourceReadResult } from "./mcp/types";
 import type { ApprovalMode } from "./tools/approval";
 import { resolveApproval } from "./tools/approval";

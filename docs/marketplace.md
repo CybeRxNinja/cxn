@@ -15,16 +15,16 @@ In the TUI, `/marketplace` with no arguments opens the interactive plugin browse
 
 A **marketplace** is a Git repository (or local directory) containing a catalog file at `.cxn-plugin/marketplace.json` (preferred) or `.claude-plugin/marketplace.json` (Claude Code-compatible fallback). The catalog lists available plugins with their sources, descriptions, and metadata.
 
-A **plugin** is a directory containing Claude/CXN plugin content such as skills, commands, agents, hooks, tools, MCP servers, or LSP servers. Marketplace installs also load extension modules declared by `package.json` `cxn.extensions`: installation symlinks the cached plugin into the scope's `node_modules` tree and records it in `cxn-plugins.lock.json`, the same runtime surfaces used by npm-installed and `cxn plugin link`ed plugins. Plugins are identified by `name@marketplace` (e.g. `code-review@claude-plugins-official`).
+A **plugin** is a directory containing Claude/CXN plugin content such as skills, commands, agents, hooks, tools, MCP servers, or LSP servers. Marketplace installs also load extension modules declared by `package.json` `omp.extensions`: installation symlinks the cached plugin into the scope's `node_modules` tree and records it in `cxn-plugins.lock.json`, the same runtime surfaces used by npm-installed and `omp plugin link`ed plugins. Plugins are identified by `name@marketplace` (e.g. `code-review@claude-plugins-official`).
 
 **Scopes**: marketplace plugins can be installed at two scopes:
 
-- **user** (default) -- available in all projects, stored in the user plugins data root's `installed_plugins.json` (`~/.cxn/plugins/installed_plugins.json` by default)
-- **project** -- available only in the active project, stored in the nearest project `.cxn/plugins/installed_plugins.json`
+- **user** (default) -- available in all projects, stored in the user plugins data root's `installed_plugins.json` (`~/.omp/plugins/installed_plugins.json` by default)
+- **project** -- available only in the active project, stored in the nearest project `.omp/plugins/installed_plugins.json`
 
 Enabled project-scoped installs shadow enabled user-scoped installs of the same plugin. A disabled project install does not shadow the user install.
 
-On Linux and macOS, `cxn config init-xdg` creates the XDG data, state, and cache roots; it does not move existing data. Once the relevant roots exist and `XDG_DATA_HOME`, `XDG_STATE_HOME`, and `XDG_CACHE_HOME` are set, new user marketplace/plugin state resolves under `$XDG_DATA_HOME/cxn` (including `marketplaces.json` and `plugins/`). The `~/.cxn` paths below are the non-XDG defaults.
+On Linux and macOS, `omp config init-xdg` creates the XDG data, state, and cache roots; it does not move existing data. Once the relevant roots exist and `XDG_DATA_HOME`, `XDG_STATE_HOME`, and `XDG_CACHE_HOME` are set, new user marketplace/plugin state resolves under `$XDG_DATA_HOME/omp` (including `marketplaces.json` and `plugins/`). The `~/.omp` paths below are the non-XDG defaults.
 
 ## Commands
 
@@ -61,17 +61,17 @@ On Linux and macOS, `cxn config init-xdg` creates the XDG data, state, and cache
 The same operations are available from the command line:
 
 ```
-cxn plugin marketplace add <source>
-cxn plugin marketplace remove <name>
-cxn plugin marketplace update [name]
-cxn plugin marketplace list
-cxn plugin discover [marketplace]
-cxn plugin install [--force] [--scope user|project] name@marketplace
-cxn plugin uninstall [--scope user|project] name@marketplace
-cxn plugin upgrade [--scope user|project] [name@marketplace]
-cxn plugin enable [--scope user|project] name@marketplace
-cxn plugin disable [--scope user|project] name@marketplace
-cxn plugin list
+omp plugin marketplace add <source>
+omp plugin marketplace remove <name>
+omp plugin marketplace update [name]
+omp plugin marketplace list
+omp plugin discover [marketplace]
+omp plugin install [--force] [--scope user|project] name@marketplace
+omp plugin uninstall [--scope user|project] name@marketplace
+omp plugin upgrade [--scope user|project] [name@marketplace]
+omp plugin enable [--scope user|project] name@marketplace
+omp plugin disable [--scope user|project] name@marketplace
+omp plugin list
 
 ```
 
@@ -93,7 +93,7 @@ Git and local sources must contain a catalog at `.cxn-plugin/marketplace.json` (
 
 ## Catalog format (marketplace.json)
 
-A marketplace catalog lives at `.cxn-plugin/marketplace.json` in the repository root. When cxn is the only intended consumer, prefer this path. To remain Claude Code-compatible (cxn loads the same shape from either path), publish at `.claude-plugin/marketplace.json` instead — cxn uses it as a fallback when `.cxn-plugin/marketplace.json` is absent. A repository may ship both: cxn reads the `.cxn-plugin/` copy, Claude Code reads the `.claude-plugin/` copy. Same catalog format either way:
+A marketplace catalog lives at `.cxn-plugin/marketplace.json` in the repository root. When omp is the only intended consumer, prefer this path. To remain Claude Code-compatible (omp loads the same shape from either path), publish at `.claude-plugin/marketplace.json` instead — omp uses it as a fallback when `.cxn-plugin/marketplace.json` is absent. A repository may ship both: omp reads the `.cxn-plugin/` copy, Claude Code reads the `.claude-plugin/` copy. Same catalog format either way:
 
 ```json
 {
@@ -213,7 +213,7 @@ Invalid catalog JSON or invalid required top-level fields reject the catalog. An
 ## Updates, removal, and scope
 
 - `/marketplace update [name]` refreshes catalogs only; it does not reinstall plugins.
-- `cxn plugin upgrade name@marketplace` reinstalls every installed scope when `--scope` is omitted. `/marketplace upgrade name@marketplace`, uninstall, and enable/disable require `--scope user|project` when the plugin exists in both scopes.
+- `omp plugin upgrade name@marketplace` reinstalls every installed scope when `--scope` is omitted. `/marketplace upgrade name@marketplace`, uninstall, and enable/disable require `--scope user|project` when the plugin exists in both scopes.
 - Upgrading all plugins compares only catalog entries that declare `version`. Semver versions must be newer; non-semver versions are treated as changed when unequal. Per-plugin failures are skipped, so an all-plugin upgrade can partially succeed.
 - `marketplace.autoUpdate` controls startup checks: `off`, `notify` (default), or `auto`. Catalogs older than 24 hours are refreshed best-effort before version checks. Despite its name, current `notify` mode writes update availability only to the debug log; it does not show a user-facing notification.
 - Removing a marketplace removes its registry entry and catalog cache; it does not uninstall plugins already cached and registered.
@@ -221,7 +221,7 @@ Invalid catalog JSON or invalid required top-level fields reject the catalog. An
 ## On-disk layout
 
 ```
-~/.cxn/
+~/.omp/
   marketplaces.json              # Registry of added marketplaces
   plugins/
     installed_plugins.json       # User-scoped marketplace plugins (version: 2)
@@ -231,7 +231,7 @@ Invalid catalog JSON or invalid required top-level fields reject the catalog. An
       marketplaces/<name>/       # Cached marketplace clone/catalog
       plugins/<marketplace>___<plugin>___<version>/  # Cached plugin directories
 
-<project>/.cxn/
+<project>/.omp/
   plugins/
     installed_plugins.json       # Project-scoped marketplace plugins (version: 2)
     cxn-plugins.lock.json         # Project runtime enable/feature state

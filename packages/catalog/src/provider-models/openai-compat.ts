@@ -1,5 +1,5 @@
-import { USER_AGENT } from "@cxn/pi-utils";
-import * as logger from "@cxn/pi-utils/logger";
+import { USER_AGENT } from "@cyberxninja-omp/pi-utils";
+import * as logger from "@cyberxninja-omp/pi-utils/logger";
 import { xaiResponsesReasoningEffortMap } from "../compat/openai";
 import {
 	DEFAULT_OPENAI_COMPATIBLE_DISCOVERY_TIMEOUT_MS,

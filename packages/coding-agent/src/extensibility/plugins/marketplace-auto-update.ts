@@ -1,4 +1,4 @@
-import { getProjectDir, logger } from "@cxn/pi-utils";
+import { getProjectDir, logger } from "@cyberxninja-omp/pi-utils";
 
 type MarketplaceAutoUpdateMode = "off" | "notify" | "auto";
 

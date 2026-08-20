@@ -9,10 +9,10 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { loadExtensions } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { loadHooks } from "@cxn/pi-coding-agent/extensibility/hooks/loader";
-import { ExtensionExitError, withHostGuard } from "@cxn/pi-coding-agent/extensibility/utils";
-import { TempDir } from "@cxn/pi-utils";
+import { loadExtensions } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { loadHooks } from "@cyberxninja-omp/pi-coding-agent/extensibility/hooks/loader";
+import { ExtensionExitError, withHostGuard } from "@cyberxninja-omp/pi-coding-agent/extensibility/utils";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 describe("extension/hook loader process.exit guard (#3680)", () => {
 	let project: TempDir | undefined;
@@ -66,8 +66,8 @@ describe("extension/hook loader process.exit guard (#3680)", () => {
 				? 'process.kill(process.pid, "SIGINT");'
 				: 'void Promise.reject(new Error("probe fatal"));';
 		return runProbe(`
-import { postmortem } from "@cxn/pi-utils";
-import { withHostGuard } from "@cxn/pi-coding-agent/extensibility/utils";
+import { postmortem } from "@cyberxninja-omp/pi-utils";
+import { withHostGuard } from "@cyberxninja-omp/pi-coding-agent/extensibility/utils";
 
 postmortem.register("probe-cleanup", reason => {
 	process.stdout.write(\`cleanup:\${reason}\\n\`);
@@ -151,8 +151,8 @@ void withHostGuard(async () => {
 
 	it("keeps postmortem.quit behind the extension exit guard", async () => {
 		const { exitCode, stdout, stderr } = await runProbe(`
-import { postmortem } from "@cxn/pi-utils";
-import { withHostGuard } from "@cxn/pi-coding-agent/extensibility/utils";
+import { postmortem } from "@cyberxninja-omp/pi-utils";
+import { withHostGuard } from "@cyberxninja-omp/pi-coding-agent/extensibility/utils";
 
 try {
 	await withHostGuard(() => postmortem.quit(37));
@@ -200,7 +200,7 @@ try {
 		);
 		const { exitCode, stdout, stderr } = await runProbe(
 			`
-import { postmortem } from "@cxn/pi-utils";
+import { postmortem } from "@cyberxninja-omp/pi-utils";
 postmortem.register("probe", reason => process.stdout.write(\`cleanup:\${reason}\\n\`));
 process.reallyExit = globalThis.__ompNativeReallyExit;
 process.stdout.write("armed\\n");

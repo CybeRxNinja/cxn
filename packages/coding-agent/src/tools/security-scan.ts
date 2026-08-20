@@ -1,5 +1,5 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolResult, ToolTier } from "@cxn/pi-agent-core";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, AgentToolResult, ToolTier } from "@cyberxninja-omp/pi-agent-core";
 import securityScanDescription from "../prompts/tools/security-scan.md" with { type: "text" };
 import { selectSecurityAccount } from "../security/auth";
 import {

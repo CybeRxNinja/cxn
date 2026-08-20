@@ -3,7 +3,7 @@ import * as path from "node:path";
 import {
 	discoverGitLabDuoWorkflowRuntimeNamespace,
 	type GitLabDuoWorkflowNamespaceSelection,
-} from "@cxn/pi-catalog/discovery/gitlab-duo-workflow";
+} from "@cyberxninja-omp/pi-catalog/discovery/gitlab-duo-workflow";
 import * as AIError from "../error";
 import type {
 	Api,
@@ -2231,7 +2231,7 @@ function buildGitLabMcpToolDefinition(tool: Tool): GitLabMcpToolDefinition {
 	return {
 		name: tool.name,
 		originalToolName: tool.name,
-		serverName: "cxn",
+		serverName: "omp",
 		description: tool.description || "",
 		inputSchema: JSON.stringify(
 			schema && typeof schema === "object" ? schema : { type: "object", properties: {}, required: [] },

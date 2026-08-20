@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import { renderToolExamples } from "../src/dialect/examples";
 import type { InbandTool } from "../src/dialect/types";
 

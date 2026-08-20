@@ -1,5 +1,5 @@
-import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import type { AgentTool, AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import type { ToolSession } from "../../tools";
 import { ToolError } from "../../tools/tool-errors";
 import { EVAL_AGENT_BRIDGE_NAME, runEvalAgent } from "../agent-bridge";

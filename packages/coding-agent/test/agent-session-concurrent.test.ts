@@ -7,26 +7,29 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 import { scheduler } from "node:timers/promises";
-import { type } from "@cxn/omptype";
-import { Agent, AgentBusyError, type AgentMessage, type AgentTool } from "@cxn/pi-agent-core";
-import type { AssistantMessage, Message, ToolCall } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { AsyncJobManager } from "@cxn/pi-coding-agent/async";
-import type { Rule } from "@cxn/pi-coding-agent/capability/rule";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { type SettingPath, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { TtsrManager } from "@cxn/pi-coding-agent/export/ttsr";
-import { ExtensionRuntime, loadExtensionFromFactory } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import { GoalRuntime } from "@cxn/pi-coding-agent/goals/runtime";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, AgentBusyError, type AgentMessage, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, Message, ToolCall } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { AsyncJobManager } from "@cyberxninja-omp/pi-coding-agent/async";
+import type { Rule } from "@cyberxninja-omp/pi-coding-agent/capability/rule";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { type SettingPath, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { TtsrManager } from "@cyberxninja-omp/pi-coding-agent/export/ttsr";
+import {
+	ExtensionRuntime,
+	loadExtensionFromFactory,
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import { GoalRuntime } from "@cyberxninja-omp/pi-coding-agent/goals/runtime";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { createAssistantMessage } from "./helpers/agent-session-setup";
 
 // Mock stream that mimics AssistantMessageEventStream
@@ -1665,7 +1668,7 @@ describe("AgentSession TTSR resume gate", () => {
 
 		const sessionManager = SessionManager.inMemory();
 		const cwd = sessionManager.getCwd();
-		const ruleAbsPath = path.join(cwd, ".cxn", "rules", "no-unwrap.md");
+		const ruleAbsPath = path.join(cwd, ".omp", "rules", "no-unwrap.md");
 		const expectedRel = path.relative(cwd, ruleAbsPath);
 		const rule: Rule = {
 			name: "no-unwrap",

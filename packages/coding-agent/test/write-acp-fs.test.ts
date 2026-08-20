@@ -2,15 +2,15 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { computeFileHash } from "@cxn/hashline";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { resolveLocalUrlToPath } from "@cxn/pi-coding-agent/internal-urls";
-import type { PlanModeState } from "@cxn/pi-coding-agent/plan-mode/state";
-import type { ClientBridge } from "@cxn/pi-coding-agent/session/client-bridge";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { WriteTool } from "@cxn/pi-coding-agent/tools/write";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { computeFileHash } from "@cyberxninja-omp/hashline";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { resolveLocalUrlToPath } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import type { PlanModeState } from "@cyberxninja-omp/pi-coding-agent/plan-mode/state";
+import type { ClientBridge } from "@cyberxninja-omp/pi-coding-agent/session/client-bridge";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { WriteTool } from "@cyberxninja-omp/pi-coding-agent/tools/write";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const FILE_CONTENT = "bridge write content\n";
 

@@ -24,7 +24,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { parseArgs } from "node:util";
-import { prompt, TempDir } from "@cxn/pi-utils";
+import { prompt, TempDir } from "@cyberxninja-omp/pi-utils";
 import { $ } from "bun";
 import { diffLines } from "diff";
 import { formatContent } from "./formatter";

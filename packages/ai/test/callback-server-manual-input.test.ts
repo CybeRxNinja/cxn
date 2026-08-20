@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { OAuthCallbackFlow } from "@cxn/pi-ai/registry/oauth/callback-server";
-import type { OAuthCredentials } from "@cxn/pi-ai/registry/oauth/types";
+import { OAuthCallbackFlow } from "@cyberxninja-omp/pi-ai/registry/oauth/callback-server";
+import type { OAuthCredentials } from "@cyberxninja-omp/pi-ai/registry/oauth/types";
 
 class TestCallbackFlow extends OAuthCallbackFlow {
 	async generateAuthUrl(_state: string, redirectUri: string): Promise<{ url: string; instructions?: string }> {

@@ -10,8 +10,8 @@
  * in the session), deterministic per `(date, cwd)`, so the bytes are stable
  * for the lifetime of a session/day and refresh automatically at midnight.
  */
-import type { Context, Message } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import type { Context, Message } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import dateCwdReminderTemplate from "../prompts/system/date-cwd-reminder.md" with { type: "text" };
 
 /** Renders the reminder text for the given local calendar date and cwd. */

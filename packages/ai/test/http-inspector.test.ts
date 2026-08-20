@@ -3,7 +3,7 @@ import {
 	buildHttp400DumpPayload,
 	type RawHttpRequestDump,
 	shouldDumpRejectedRequest,
-} from "@cxn/pi-ai/utils/http-inspector";
+} from "@cyberxninja-omp/pi-ai/utils/http-inspector";
 
 class HttpError extends Error {
 	constructor(

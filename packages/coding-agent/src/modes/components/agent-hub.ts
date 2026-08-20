@@ -13,7 +13,7 @@
  *
  * Replaces the old SessionObserverOverlayComponent (ctrl+s observer).
  */
-import type { AgentTool } from "@cxn/pi-agent-core";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
 import {
 	Container,
 	matchesKey,
@@ -25,8 +25,8 @@ import {
 	type TUI,
 	visibleWidth,
 	wrapTextWithAnsi,
-} from "@cxn/pi-tui";
-import { formatAge, formatNumber, getProjectDir, logger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { formatAge, formatNumber, getProjectDir, logger } from "@cyberxninja-omp/pi-utils";
 import type { KeyId } from "../../config/keybindings";
 import type { Settings } from "../../config/settings";
 import type { MessageRenderer } from "../../extensibility/extensions/types";

@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import * as evalIndex from "@cxn/pi-coding-agent/eval";
-import * as pyKernel from "@cxn/pi-coding-agent/eval/py/kernel";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { EvalTool } from "@cxn/pi-coding-agent/tools/eval";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import * as evalIndex from "@cyberxninja-omp/pi-coding-agent/eval";
+import * as pyKernel from "@cyberxninja-omp/pi-coding-agent/eval/py/kernel";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { EvalTool } from "@cyberxninja-omp/pi-coding-agent/tools/eval";
 
 function makeSession(): ToolSession {
 	return {

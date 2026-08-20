@@ -1,12 +1,17 @@
 import * as path from "node:path";
-import { formatHashlineHeader } from "@cxn/hashline";
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { ToolExample } from "@cxn/pi-ai";
-import { type AstFindMatch, astGrep } from "@cxn/pi-natives";
-import type { Component } from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui";
-import { prompt, untilAborted } from "@cxn/pi-utils";
+import { formatHashlineHeader } from "@cyberxninja-omp/hashline";
+import { type } from "@cyberxninja-omp/omptype";
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ToolExample } from "@cyberxninja-omp/pi-ai";
+import { type AstFindMatch, astGrep } from "@cyberxninja-omp/pi-natives";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { prompt, untilAborted } from "@cyberxninja-omp/pi-utils";
 import { recordFileSnapshot, recordSeenLinesFromBody } from "../edit/file-snapshot-store";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import type { Theme } from "../modes/theme/theme";

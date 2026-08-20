@@ -7,9 +7,13 @@ import type {
 	AssistantMessageEventStream,
 	Model,
 	SimpleStreamOptions,
-} from "@cxn/pi-ai";
-import { type BenchModelRegistry, type BenchSummary, runBenchCommand } from "@cxn/pi-coding-agent/cli/bench-cli";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+} from "@cyberxninja-omp/pi-ai";
+import {
+	type BenchModelRegistry,
+	type BenchSummary,
+	runBenchCommand,
+} from "@cyberxninja-omp/pi-coding-agent/cli/bench-cli";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 
 function fakeModel(provider: string, id: string): Model<Api> {
 	return {

@@ -1,9 +1,9 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test";
 import * as path from "node:path";
 import * as url from "node:url";
-import { resetSettingsForTest, Settings, settings } from "@cxn/pi-coding-agent/config/settings";
-import { LocalProtocolHandler } from "@cxn/pi-coding-agent/internal-urls/local-protocol";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
+import { resetSettingsForTest, Settings, settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { LocalProtocolHandler } from "@cyberxninja-omp/pi-coding-agent/internal-urls/local-protocol";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
 import {
 	fileHyperlink,
 	isHyperlinkEnabled,
@@ -11,8 +11,8 @@ import {
 	uriHyperlink,
 	urlHyperlink,
 	urlHyperlinkAlways,
-} from "@cxn/pi-coding-agent/tui/hyperlink";
-import * as terminalCaps from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-coding-agent/tui/hyperlink";
+import * as terminalCaps from "@cyberxninja-omp/pi-tui";
 
 // OSC 8 sequence markers
 const OSC = "\x1b]";
@@ -299,7 +299,7 @@ describe("tryResolveInternalUrlSync", () => {
 		expect(tryResolveInternalUrlSync("artifact://123")).toBeUndefined();
 		expect(tryResolveInternalUrlSync("agent://abc")).toBeUndefined();
 		expect(tryResolveInternalUrlSync("skill://foo")).toBeUndefined();
-		expect(tryResolveInternalUrlSync("cxn://docs.md")).toBeUndefined();
+		expect(tryResolveInternalUrlSync("omp://docs.md")).toBeUndefined();
 	});
 
 	it("returns undefined when local:// resolution has no session options", () => {

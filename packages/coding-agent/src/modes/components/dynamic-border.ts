@@ -1,4 +1,4 @@
-import type { Component } from "@cxn/pi-tui";
+import type { Component } from "@cyberxninja-omp/pi-tui";
 import { fgOrPlain, theme } from "../../modes/theme/theme";
 
 /**

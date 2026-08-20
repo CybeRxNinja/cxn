@@ -12,11 +12,11 @@
  */
 import { describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { runRootCommand } from "@cxn/pi-coding-agent/main";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { TempDir } from "@cxn/pi-utils";
+import { parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { runRootCommand } from "@cyberxninja-omp/pi-coding-agent/main";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 class ProcessExitSignal extends Error {
 	constructor(readonly code: number) {

@@ -2,8 +2,8 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 
-import { postmortem, Snowflake, untilAborted, withTimeout } from "@cxn/pi-utils";
-import type { HTMLElement } from "@cxn/pi-utils/dom";
+import { postmortem, Snowflake, untilAborted, withTimeout } from "@cyberxninja-omp/pi-utils";
+import type { HTMLElement } from "@cyberxninja-omp/pi-utils/dom";
 import type {
 	Browser,
 	CDPSession,
@@ -922,8 +922,8 @@ export class WorkerCore {
 	}
 
 	/**
-	 * Tell the cxn browser relay this worker drives the adopted page, so the
-	 * relay adds it to the per-window "cxn" tab group. Best-effort: plain CDP
+	 * Tell the omp browser relay this worker drives the adopted page, so the
+	 * relay adds it to the per-window "omp" tab group. Best-effort: plain CDP
 	 * backends (real Chrome, cmux) reject the relay-private method.
 	 */
 	async #claimRelayTarget(page: Page): Promise<void> {
@@ -935,7 +935,7 @@ export class WorkerCore {
 			const raw = session as unknown as { send(method: string): Promise<unknown> };
 			await raw.send("CXN.claimTarget");
 		} catch {
-			// Not the cxn relay; nothing to claim.
+			// Not the omp relay; nothing to claim.
 		} finally {
 			await session?.detach().catch(() => undefined);
 		}

@@ -1,4 +1,4 @@
-import { mmrRerankIndices } from "@cxn/pi-natives";
+import { mmrRerankIndices } from "@cyberxninja-omp/pi-natives";
 
 export interface MmrResult {
 	readonly content?: string;

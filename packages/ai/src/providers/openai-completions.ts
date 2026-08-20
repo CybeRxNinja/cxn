@@ -1,9 +1,9 @@
-import type { Effort } from "@cxn/pi-catalog/effort";
-import { isKimiModelId } from "@cxn/pi-catalog/identity";
-import { resolveWireModelId } from "@cxn/pi-catalog/model-thinking";
-import { calculateCost } from "@cxn/pi-catalog/models";
-import type { ResolvedOpenAICompat } from "@cxn/pi-catalog/types";
-import { $env, logger, parseStreamingJson, parseStreamingJsonThrottled } from "@cxn/pi-utils";
+import type { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { isKimiModelId } from "@cyberxninja-omp/pi-catalog/identity";
+import { resolveWireModelId } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { calculateCost } from "@cyberxninja-omp/pi-catalog/models";
+import type { ResolvedOpenAICompat } from "@cyberxninja-omp/pi-catalog/types";
+import { $env, logger, parseStreamingJson, parseStreamingJsonThrottled } from "@cyberxninja-omp/pi-utils";
 import { renderDemotedThinking } from "../dialect/demotion";
 import * as AIError from "../error";
 import { getKimiCommonHeaders } from "../registry/oauth/kimi";

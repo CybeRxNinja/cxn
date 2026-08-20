@@ -1,9 +1,19 @@
 import { describe, expect, it } from "bun:test";
-import { type OpenAICompletionsOptions, streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import { streamSimple } from "@cxn/pi-ai/stream";
-import type { AssistantMessage, Context, FetchImpl, Model, SimpleStreamOptions, Usage } from "@cxn/pi-ai/types";
-import { buildOpenAICompat } from "@cxn/pi-catalog/compat/openai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import {
+	type OpenAICompletionsOptions,
+	streamOpenAICompletions,
+} from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import { streamSimple } from "@cyberxninja-omp/pi-ai/stream";
+import type {
+	AssistantMessage,
+	Context,
+	FetchImpl,
+	Model,
+	SimpleStreamOptions,
+	Usage,
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildOpenAICompat } from "@cyberxninja-omp/pi-catalog/compat/openai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 const context: Context = { messages: [{ role: "user", content: "hello", timestamp: 0 }] };
 

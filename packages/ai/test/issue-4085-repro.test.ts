@@ -1,7 +1,7 @@
 import { describe, expect, it, spyOn } from "bun:test";
-import * as AIError from "@cxn/pi-ai/error";
-import { POLL_MAX_ATTEMPTS, pollOperation } from "@cxn/pi-ai/registry/oauth/google-gemini-cli";
-import { oauthFetch } from "@cxn/pi-ai/registry/oauth/google-oauth-shared";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { POLL_MAX_ATTEMPTS, pollOperation } from "@cyberxninja-omp/pi-ai/registry/oauth/google-gemini-cli";
+import { oauthFetch } from "@cyberxninja-omp/pi-ai/registry/oauth/google-oauth-shared";
 
 /**
  * A loopback server whose handler never resolves — models a stalled Cloud Code

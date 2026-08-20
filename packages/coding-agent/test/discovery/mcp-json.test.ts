@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type MCPServer, mcpCapability } from "@cxn/pi-coding-agent/capability/mcp";
-import { loadCapability } from "@cxn/pi-coding-agent/discovery";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { type MCPServer, mcpCapability } from "@cyberxninja-omp/pi-coding-agent/capability/mcp";
+import { loadCapability } from "@cyberxninja-omp/pi-coding-agent/discovery";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 async function loadStandaloneMcpConfig(cwd: string): Promise<MCPServer[]> {
 	const result = await loadCapability<MCPServer>(mcpCapability.id, {

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { postmortem } from "@cxn/pi-utils";
+import { postmortem } from "@cyberxninja-omp/pi-utils";
 import {
 	createProcessTerminalRenderHarness,
 	type ProcessTerminalRenderHarness,

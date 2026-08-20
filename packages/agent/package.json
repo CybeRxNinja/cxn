@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@cxn/pi-agent-core",
+  "name": "@cyberxninja-omp/pi-agent-core",
   "version": "17.4.2",
   "description": "General-purpose agent with transport abstraction, state management, and attachment support",
-  "homepage": "https://cxn.sh",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "contributors": [
     "Mario Zechner"
@@ -35,16 +35,16 @@
     "fmt": "biome format --write ."
   },
   "dependencies": {
-    "@cxn/pi-ai": "catalog:",
-    "@cxn/pi-catalog": "catalog:",
-    "@cxn/pi-natives": "catalog:",
-    "@cxn/pi-utils": "catalog:",
-    "@cxn/pi-wire": "catalog:",
-    "@cxn/snapcompact": "catalog:",
+    "@cyberxninja-omp/pi-ai": "catalog:",
+    "@cyberxninja-omp/pi-catalog": "catalog:",
+    "@cyberxninja-omp/pi-natives": "catalog:",
+    "@cyberxninja-omp/pi-utils": "catalog:",
+    "@cyberxninja-omp/pi-wire": "catalog:",
+    "@cyberxninja-omp/snapcompact": "catalog:",
     "@opentelemetry/api": "catalog:"
   },
   "devDependencies": {
-    "@cxn/omptype": "catalog:",
+    "@cyberxninja-omp/omptype": "catalog:",
     "@opentelemetry/context-async-hooks": "catalog:",
     "@opentelemetry/sdk-trace-base": "catalog:",
     "@types/bun": "catalog:"

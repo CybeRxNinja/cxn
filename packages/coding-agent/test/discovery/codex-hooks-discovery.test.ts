@@ -11,10 +11,10 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type Hook, hookCapability } from "@cxn/pi-coding-agent/capability/hook";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initializeWithSettings, loadCapability } from "@cxn/pi-coding-agent/discovery";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { type Hook, hookCapability } from "@cyberxninja-omp/pi-coding-agent/capability/hook";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initializeWithSettings, loadCapability } from "@cyberxninja-omp/pi-coding-agent/discovery";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("codex hook discovery", () => {
 	let tempHome = "";

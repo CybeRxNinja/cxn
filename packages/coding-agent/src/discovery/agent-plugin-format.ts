@@ -12,7 +12,7 @@
  * double-loaded through legacy conventions.
  */
 import * as path from "node:path";
-import { isRecord } from "@cxn/pi-utils";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 import { readFile } from "../capability/fs";
 import { isContainedResolved, realpathIfExists, resolveContainedPath } from "./contained-path";
 import { registerPluginCacheInvalidator } from "./helpers";

@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { streamAnthropic } from "@cxn/pi-ai/providers/anthropic";
-import type { AnthropicMessagesClientLike } from "@cxn/pi-ai/providers/anthropic-client";
-import type { RawMessageStreamEvent } from "@cxn/pi-ai/providers/anthropic-wire";
-import { streamAzureOpenAIResponses } from "@cxn/pi-ai/providers/azure-openai-responses";
-import { streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import { streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
-import type { Context, FetchImpl, Model, RawSseEvent } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import { streamAnthropic } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import type { AnthropicMessagesClientLike } from "@cyberxninja-omp/pi-ai/providers/anthropic-client";
+import type { RawMessageStreamEvent } from "@cyberxninja-omp/pi-ai/providers/anthropic-wire";
+import { streamAzureOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/azure-openai-responses";
+import { streamOpenAICompletions } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import { streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type { Context, FetchImpl, Model, RawSseEvent } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 const context: Context = {
 	messages: [{ role: "user", content: "Say hello", timestamp: Date.now() }],

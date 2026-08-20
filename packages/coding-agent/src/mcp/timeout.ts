@@ -1,4 +1,4 @@
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 const DEFAULT_MCP_TIMEOUT_MS = 30_000;
 const MCP_TIMEOUT_ENV = "CXN_MCP_TIMEOUT_MS";

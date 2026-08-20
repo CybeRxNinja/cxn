@@ -1,4 +1,4 @@
-import type { CustomToolFactory } from "@cxn/pi-coding-agent";
+import type { CustomToolFactory } from "@cyberxninja-omp/pi-coding-agent";
 
 const factory: CustomToolFactory = pi => ({
 	name: "hello",

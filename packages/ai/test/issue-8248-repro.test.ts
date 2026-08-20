@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
-import type { AssistantMessage, Context, Model } from "@cxn/pi-ai/types";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import { streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type { AssistantMessage, Context, Model } from "@cyberxninja-omp/pi-ai/types";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 // Issue #8248: with prewalk enabled, CXN switches into a DeepSeek Responses
 // target (opencode-go) after mid-run compaction. The replayed assistant turns

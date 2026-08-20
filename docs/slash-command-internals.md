@@ -68,10 +68,10 @@ So hidden files/directories are not loaded, ignored paths are skipped, and file 
 
 ## `native` provider (`builtin.ts`)
 
-Search roots come from `.cxn` directories:
+Search roots come from `.omp` directories:
 
-- project: `<cwd>/.cxn/commands/*.md`
-- user: active profile agent directory `commands/*.md` (`~/.cxn/agent/commands/*.md` for the default profile; `~/.cxn/profiles/<name>/agent/commands/*.md` for a named profile)
+- project: `<cwd>/.omp/commands/*.md`
+- user: active profile agent directory `commands/*.md` (`~/.omp/agent/commands/*.md` for the default profile; `~/.omp/profiles/<name>/agent/commands/*.md` for a named profile)
 
 `getConfigDirs()` returns project first, then user, so **project native commands beat user native commands** when names collide.
 
@@ -112,7 +112,7 @@ Both sides are loaded then flattened in user-first order, so **user OpenCode com
 
 ## `claude-plugins` provider (`claude-plugins.ts`)
 
-Loads plugin command roots via `listClaudePluginRoots(...)`, which reads `~/.claude/plugins/installed_plugins.json`, `~/.cxn/plugins/installed_plugins.json`, and the nearest project-scoped registry resolved from cwd. For each root it scans `<pluginRoot>/commands/*.md` (the directory can be remapped by plugin config keys `commands`/`slash-commands`), and command names are prefixed with the plugin name: `<plugin>:<command>`.
+Loads plugin command roots via `listClaudePluginRoots(...)`, which reads `~/.claude/plugins/installed_plugins.json`, `~/.omp/plugins/installed_plugins.json`, and the nearest project-scoped registry resolved from cwd. For each root it scans `<pluginRoot>/commands/*.md` (the directory can be remapped by plugin config keys `commands`/`slash-commands`), and command names are prefixed with the plugin name: `<plugin>:<command>`.
 
 Across the three registries, roots are merged by precedence rather than sorted: `--plugin-dir` injected roots come first, then project-scoped entries (which shadow user entries for the same plugin id), then user entries, with the CXN registry authoritative over Claude's for the same plugin id. Within each registry, per-plugin entry order from the JSON data is preserved; there is no additional sort step.
 

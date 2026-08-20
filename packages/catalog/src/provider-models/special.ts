@@ -1,4 +1,4 @@
-import { once } from "@cxn/pi-utils";
+import { once } from "@cyberxninja-omp/pi-utils";
 import { type CodexModelDiscoveryResult, fetchCodexModels } from "../discovery/codex";
 import type { DevinModelDiscoveryOptions } from "../discovery/devin";
 import { buildGitLabDuoWorkflowFallbackModel, fetchGitLabDuoWorkflowModels } from "../discovery/gitlab-duo-workflow";

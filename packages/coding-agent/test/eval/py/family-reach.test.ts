@@ -3,7 +3,7 @@ import {
 	type AgentFamilyCatalogEntry,
 	assertAgentFamilyReach,
 	buildAgentFamilyRoster,
-} from "@cxn/pi-coding-agent/eval/py/family-reach";
+} from "@cyberxninja-omp/pi-coding-agent/eval/py/family-reach";
 
 const parent: AgentFamilyCatalogEntry = {
 	id: "main",

@@ -9,7 +9,7 @@ import {
 	resolveTelemetry,
 	type StreamFn,
 	type ThinkingLevel,
-} from "@cxn/pi-agent-core";
+} from "@cyberxninja-omp/pi-agent-core";
 import {
 	AGGRESSIVE_SHAKE_CONFIG,
 	AUTO_HANDOFF_THRESHOLD_FOCUS,
@@ -38,20 +38,26 @@ import {
 	shouldCompact,
 	shouldUseOpenAiRemoteCompaction,
 	shouldUseProviderNativeCompaction,
-} from "@cxn/pi-agent-core/compaction";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
 import {
 	DEFAULT_PRUNE_CONFIG,
 	pruneSupersededToolResults,
 	pruneToolOutputs,
 	readToolSupersedeKey,
-} from "@cxn/pi-agent-core/compaction/pruning";
-import type { ProtectedToolMatcher } from "@cxn/pi-agent-core/compaction/tool-protection";
-import type { AssistantMessage, CodexCompactionContext, Message, Model, ProviderSessionState } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { preferredDialect } from "@cxn/pi-catalog/identity";
-import { modelsAreEqual } from "@cxn/pi-catalog/models";
-import { logger } from "@cxn/pi-utils";
-import * as snapcompact from "@cxn/snapcompact";
+} from "@cyberxninja-omp/pi-agent-core/compaction/pruning";
+import type { ProtectedToolMatcher } from "@cyberxninja-omp/pi-agent-core/compaction/tool-protection";
+import type {
+	AssistantMessage,
+	CodexCompactionContext,
+	Message,
+	Model,
+	ProviderSessionState,
+} from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { preferredDialect } from "@cyberxninja-omp/pi-catalog/identity";
+import { modelsAreEqual } from "@cyberxninja-omp/pi-catalog/models";
+import { logger } from "@cyberxninja-omp/pi-utils";
+import * as snapcompact from "@cyberxninja-omp/snapcompact";
 import type { ModelRegistry } from "../config/model-registry";
 import { MODEL_ROLE_IDS } from "../config/model-roles";
 import type { Settings } from "../config/settings";

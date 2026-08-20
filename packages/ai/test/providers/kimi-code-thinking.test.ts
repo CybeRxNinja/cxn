@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { getBundledModel } from "@cxn/pi-catalog";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
-import type { ModelSpec } from "@cxn/pi-catalog/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import type { ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 import type { MessageCreateParamsStreaming } from "../../src/providers/anthropic-wire";
 import { type KimiApiFormat, type KimiOptions, streamKimi } from "../../src/providers/kimi";
 import { streamOpenAIAnthropicShim } from "../../src/providers/openai-anthropic-shim";

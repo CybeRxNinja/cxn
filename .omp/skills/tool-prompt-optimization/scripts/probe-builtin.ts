@@ -18,9 +18,9 @@
  * The heavy coding-agent import lives here; probe.ts stays pi-ai-only.
  */
 import { parseArgs } from "node:util";
-import { toolWireSchema } from "@cxn/pi-ai";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { BUILTIN_TOOLS, GithubTool, HIDDEN_TOOLS, IrcTool, type Tool, type ToolFactory, type ToolSession } from "@cxn/pi-coding-agent/tools";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { BUILTIN_TOOLS, GithubTool, HIDDEN_TOOLS, IrcTool, type Tool, type ToolFactory, type ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 import { probe } from "./probe.ts";
 
 const OPEN_TAG = /^<[a-z_][\w-]*>$/i;

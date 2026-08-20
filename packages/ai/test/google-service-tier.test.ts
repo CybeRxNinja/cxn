@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { streamGoogle } from "@cxn/pi-ai/providers/google";
-import { streamGoogleVertex } from "@cxn/pi-ai/providers/google-vertex";
-import type { AssistantMessageEvent, Context, FetchImpl, Model } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { streamGoogle } from "@cyberxninja-omp/pi-ai/providers/google";
+import { streamGoogleVertex } from "@cyberxninja-omp/pi-ai/providers/google-vertex";
+import type { AssistantMessageEvent, Context, FetchImpl, Model } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const context: Context = { messages: [{ role: "user", content: "hi", timestamp: 1 }] };
 

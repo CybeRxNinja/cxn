@@ -2,11 +2,11 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getManagedSkillsDir } from "@cxn/pi-coding-agent/autolearn/managed-skills";
-import "@cxn/pi-coding-agent/discovery";
-import { loadSkills } from "@cxn/pi-coding-agent/extensibility/skills";
-import { removeWithRetries } from "@cxn/pi-utils";
-import { getAgentDir, setAgentDir } from "@cxn/pi-utils/dirs";
+import { getManagedSkillsDir } from "@cyberxninja-omp/pi-coding-agent/autolearn/managed-skills";
+import "@cyberxninja-omp/pi-coding-agent/discovery";
+import { loadSkills } from "@cyberxninja-omp/pi-coding-agent/extensibility/skills";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
+import { getAgentDir, setAgentDir } from "@cyberxninja-omp/pi-utils/dirs";
 
 async function writeSkill(dir: string, name: string, description: string): Promise<void> {
 	const file = path.join(dir, name, "SKILL.md");
@@ -25,11 +25,11 @@ describe("managed-skills discovery", () => {
 		originalAgentDir = getAgentDir();
 		tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-managed-disco-home-"));
 		// cwd MUST live under the fake home so loadSkills' ancestor walk is bounded
-		// and cannot pick up ambient /tmp/.cxn or /.cxn fixtures (full-suite-safe).
+		// and cannot pick up ambient /tmp/.omp or /.omp fixtures (full-suite-safe).
 		tempCwd = path.join(tempHome, "work");
 		await fs.mkdir(tempCwd, { recursive: true });
 		spyOn(os, "homedir").mockReturnValue(tempHome);
-		setAgentDir(path.join(tempHome, ".cxn", "agent"));
+		setAgentDir(path.join(tempHome, ".omp", "agent"));
 		managedDir = getManagedSkillsDir();
 		// Authored user skills live in the sibling `skills/` dir under .../agent.
 		authoredDir = path.join(path.dirname(managedDir), "skills");

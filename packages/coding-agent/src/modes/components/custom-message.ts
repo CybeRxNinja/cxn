@@ -1,5 +1,5 @@
-import type { Component } from "@cxn/pi-tui";
-import { Box, Container } from "@cxn/pi-tui";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Box, Container } from "@cyberxninja-omp/pi-tui";
 import type { MessageRenderer } from "../../extensibility/extensions/types";
 import { theme } from "../../modes/theme/theme";
 import { type CustomMessage, LIVE_DELEGATION_MESSAGE_TYPE } from "../../session/messages";

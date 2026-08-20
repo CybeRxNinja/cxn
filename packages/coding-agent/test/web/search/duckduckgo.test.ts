@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
-import { localeToKl, searchDuckDuckGo } from "@cxn/pi-coding-agent/web/search/providers/duckduckgo";
-import { parseSearchQuery } from "@cxn/pi-coding-agent/web/search/query";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import { localeToKl, searchDuckDuckGo } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/duckduckgo";
+import { parseSearchQuery } from "@cyberxninja-omp/pi-coding-agent/web/search/query";
 
 describe("localeToKl", () => {
 	it("maps standard region-qualified locales to documented DDG codes", () => {

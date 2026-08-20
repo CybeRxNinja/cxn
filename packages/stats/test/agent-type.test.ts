@@ -2,11 +2,11 @@ import { Database } from "bun:sqlite";
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { getOverviewStats } from "@cxn/cxn-stats/aggregator";
-import { getStatsByAgentType, initDb, insertMessageStats } from "@cxn/cxn-stats/db";
-import { classifyAgentType } from "@cxn/cxn-stats/parser";
-import type { AgentType, MessageStats } from "@cxn/cxn-stats/types";
-import { getConfigRootDir, getSessionsDir, getStatsDbPath } from "@cxn/pi-utils";
+import { getOverviewStats } from "@cyberxninja-omp/omp-stats/aggregator";
+import { getStatsByAgentType, initDb, insertMessageStats } from "@cyberxninja-omp/omp-stats/db";
+import { classifyAgentType } from "@cyberxninja-omp/omp-stats/parser";
+import type { AgentType, MessageStats } from "@cyberxninja-omp/omp-stats/types";
+import { getConfigRootDir, getSessionsDir, getStatsDbPath } from "@cyberxninja-omp/pi-utils";
 import { installStatsTestIsolation } from "./helpers/temp-agent";
 
 installStatsTestIsolation("@pi-stats-agent-type-");

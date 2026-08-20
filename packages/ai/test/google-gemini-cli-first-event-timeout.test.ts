@@ -1,7 +1,7 @@
 import { afterEach, expect, test, vi } from "bun:test";
-import { streamGoogleGeminiCli } from "@cxn/pi-ai/providers/google-gemini-cli";
-import type { Context, FetchImpl, Model } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { streamGoogleGeminiCli } from "@cyberxninja-omp/pi-ai/providers/google-gemini-cli";
+import type { Context, FetchImpl, Model } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const ANTIGRAVITY_DAILY_ENDPOINT = "https://daily-cloudcode-pa.googleapis.com";
 const ANTIGRAVITY_SANDBOX_ENDPOINT = "https://daily-cloudcode-pa.sandbox.googleapis.com";

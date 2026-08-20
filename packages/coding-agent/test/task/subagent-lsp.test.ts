@@ -2,23 +2,27 @@ import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { LoadExtensionsResult } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import type { PlanModeState } from "@cxn/pi-coding-agent/plan-mode/state";
-import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent, PromptOptions } from "@cxn/pi-coding-agent/session/agent-session";
-import { TaskTool } from "@cxn/pi-coding-agent/task";
-import * as discoveryModule from "@cxn/pi-coding-agent/task/discovery";
-import type { AgentDefinition, TaskParams } from "@cxn/pi-coding-agent/task/types";
-import type { IsolationHandle, WorktreeBaseline } from "@cxn/pi-coding-agent/task/worktree";
-import * as worktreeModule from "@cxn/pi-coding-agent/task/worktree";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { removeWithRetries } from "@cxn/pi-utils";
-import "@cxn/pi-coding-agent/tools/yield";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { LoadExtensionsResult } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import type { PlanModeState } from "@cyberxninja-omp/pi-coding-agent/plan-mode/state";
+import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type {
+	AgentSession,
+	AgentSessionEvent,
+	PromptOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { TaskTool } from "@cyberxninja-omp/pi-coding-agent/task";
+import * as discoveryModule from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import type { AgentDefinition, TaskParams } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { IsolationHandle, WorktreeBaseline } from "@cyberxninja-omp/pi-coding-agent/task/worktree";
+import * as worktreeModule from "@cyberxninja-omp/pi-coding-agent/task/worktree";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
+import "@cyberxninja-omp/pi-coding-agent/tools/yield";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
 
 const TEST_TASK: TaskParams = { agent: "task", name: "CheckLsp", task: "Inspect LSP tools." };
 

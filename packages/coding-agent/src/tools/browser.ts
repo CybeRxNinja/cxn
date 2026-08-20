@@ -1,7 +1,12 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { ToolExample } from "@cxn/pi-ai";
-import { prompt, untilAborted } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ToolExample } from "@cyberxninja-omp/pi-ai";
+import { prompt, untilAborted } from "@cyberxninja-omp/pi-utils";
 import browserDescription from "../prompts/tools/browser.md" with { type: "text" };
 import type { ToolSession } from "../sdk";
 import { enforceInlineByteCap } from "../session/streaming-output";
@@ -48,7 +53,7 @@ const DEFAULT_TAB_NAME = "main";
 const appSchema = type({
 	"path?": type("string").describe("binary path to spawn"),
 	"cdp_url?": type("string").describe("existing cdp endpoint"),
-	"relay?": type("boolean").describe("drive the user's own tabs via the cxn browser relay"),
+	"relay?": type("boolean").describe("drive the user's own tabs via the omp browser relay"),
 	"args?": type("string[]").describe("extra cli args"),
 	"target?": type("string").describe("substring to pick a window"),
 });

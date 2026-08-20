@@ -23,7 +23,7 @@ import {
 	type PatchSection as HashlineInputSection,
 	Patch as HashlinePatch,
 	type SnapshotStore,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 import type { Theme } from "../modes/theme/theme";
 import { type EditMode, resolveEditMode } from "../utils/edit-mode";
 import { computeEditDiff, type DiffError, type DiffResult } from "./diff";

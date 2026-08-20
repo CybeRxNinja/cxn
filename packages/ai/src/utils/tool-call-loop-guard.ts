@@ -1,4 +1,4 @@
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import type { AssistantMessage, ToolCall, ToolResultMessage } from "../types";
 
 const LEGACY_INTENT_FIELD = "__intent";

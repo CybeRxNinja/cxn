@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getEnvApiKey } from "@cxn/pi-ai/stream";
+import { getEnvApiKey } from "@cyberxninja-omp/pi-ai/stream";
 import { removeWithRetries } from "../../utils/src/temp";
 import { withEnv } from "./helpers";
 

@@ -5,7 +5,7 @@
  */
 import * as path from "node:path";
 import * as url from "node:url";
-import { getProjectDir, logger, withTimeout } from "@cxn/pi-utils";
+import { getProjectDir, logger, withTimeout } from "@cyberxninja-omp/pi-utils";
 import { describeMCPTimeout, isMCPTimeoutEnabled, resolveMCPTimeoutMs } from "./timeout";
 import { createHttpTransport } from "./transports/http";
 import { createSseTransport } from "./transports/sse";

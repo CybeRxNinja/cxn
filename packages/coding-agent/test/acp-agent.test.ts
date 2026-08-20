@@ -2,33 +2,33 @@ import { afterEach, describe, expect, it, spyOn, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { resolveLocalUrlToPath } from "@cxn/pi-coding-agent/internal-urls";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { resolveLocalUrlToPath } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
 import {
 	ACP_BOOTSTRAP_RACE_GUARD_MS,
 	AcpAgent,
 	createAcpExtensionUiContext,
-} from "@cxn/pi-coding-agent/modes/acp/acp-agent";
-import type { PlanModeState } from "@cxn/pi-coding-agent/plan-mode/state";
+} from "@cyberxninja-omp/pi-coding-agent/modes/acp/acp-agent";
+import type { PlanModeState } from "@cyberxninja-omp/pi-coding-agent/plan-mode/state";
 import type {
 	AgentSession,
 	AgentSessionEvent,
 	UsageFallbackConfirmation,
-} from "@cxn/pi-coding-agent/session/agent-session";
-import { SILENT_ABORT_MARKER } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { DEFAULT_STT_MODEL_KEY, STT_MODEL_OPTIONS } from "@cxn/pi-coding-agent/stt/models";
-import { TaskTool } from "@cxn/pi-coding-agent/task";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+} from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SILENT_ABORT_MARKER } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { DEFAULT_STT_MODEL_KEY, STT_MODEL_OPTIONS } from "@cyberxninja-omp/pi-coding-agent/stt/models";
+import { TaskTool } from "@cyberxninja-omp/pi-coding-agent/task";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 import {
 	DEFAULT_TTS_LOCAL_MODEL_KEY,
 	DEFAULT_TTS_VOICE,
 	TTS_LOCAL_MODELS,
 	TTS_LOCAL_VOICE_OPTIONS,
-} from "@cxn/pi-coding-agent/tts/models";
-import { getConfigRootDir, setAgentDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/tts/models";
+import { getConfigRootDir, setAgentDir } from "@cyberxninja-omp/pi-utils";
 import type {
 	AgentSideConnection,
 	ClientCapabilities,
@@ -37,14 +37,14 @@ import type {
 	PromptRequest,
 	SessionNotification,
 	Validator,
-} from "@cxn/pi-utils/acp";
+} from "@cyberxninja-omp/pi-utils/acp";
 import {
 	zForkSessionResponse,
 	zLoadSessionResponse,
 	zNewSessionResponse,
 	zPromptResponse,
 	zSessionNotification,
-} from "@cxn/pi-utils/acp";
+} from "@cyberxninja-omp/pi-utils/acp";
 import { TOOL_NAME as DELAYED_MCP_TOOL_NAME } from "./fixtures/delayed-tool-mcp";
 
 /** Validates an ACP wire payload against the in-house protocol schemas. */
@@ -1045,7 +1045,7 @@ describe("ACP agent", () => {
 
 		expect(Array.isArray(result.sessions)).toBe(true);
 		expect(typeof result.total).toBe("number");
-		await expect(harness.agent.extMethod("cxn/sessions/listAll", { limit: 2 })).rejects.toThrow(
+		await expect(harness.agent.extMethod("omp/sessions/listAll", { limit: 2 })).rejects.toThrow(
 			"Unknown ACP ext method",
 		);
 
@@ -1690,7 +1690,7 @@ describe("ACP agent", () => {
 
 	it("refreshes task agent descriptions on ACP /reload-plugins", async () => {
 		const harness = await createHarness();
-		const agentDir = path.join(harness.cwdA, ".cxn", "agents");
+		const agentDir = path.join(harness.cwdA, ".omp", "agents");
 		const agentFile = path.join(agentDir, "acp-reload-agent.md");
 		await fs.promises.mkdir(agentDir, { recursive: true });
 		await fs.promises.writeFile(

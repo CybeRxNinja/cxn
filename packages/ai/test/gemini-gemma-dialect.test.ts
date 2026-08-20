@@ -1,6 +1,11 @@
 import { describe, expect, it } from "bun:test";
-import type { ToolCall } from "@cxn/pi-ai";
-import { createInbandScanner, type Dialect, getDialectDefinition, type InbandScanEvent } from "@cxn/pi-ai/dialect";
+import type { ToolCall } from "@cyberxninja-omp/pi-ai";
+import {
+	createInbandScanner,
+	type Dialect,
+	getDialectDefinition,
+	type InbandScanEvent,
+} from "@cyberxninja-omp/pi-ai/dialect";
 
 function scan(dialect: Dialect, text: string, charByChar = false): InbandScanEvent[] {
 	const scanner = createInbandScanner(dialect);

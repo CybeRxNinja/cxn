@@ -1,13 +1,13 @@
 /**
  * Shell CLI command handlers.
  *
- * Handles `cxn shell` subcommand for testing the native brush-core shell.
+ * Handles `omp shell` subcommand for testing the native brush-core shell.
  */
 import * as path from "node:path";
 import { createInterface } from "node:readline/promises";
-import { Shell } from "@cxn/pi-natives";
-import { APP_NAME, getProjectDir } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import { Shell } from "@cyberxninja-omp/pi-natives";
+import { APP_NAME, getProjectDir } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { Settings } from "../config/settings";
 import { buildMinimizerOptions } from "../exec/bash-executor";
 import { getOrCreateSnapshot } from "../utils/shell-snapshot";

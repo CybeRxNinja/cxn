@@ -1,12 +1,12 @@
 /**
- * `cxn completions <bash|zsh|fish>` — print a shell completion script.
+ * `omp completions <bash|zsh|fish>` — print a shell completion script.
  *
  * The script is derived entirely from the declarative command/flag metadata
  * (see `cli/completion-gen.ts`), so it never drifts from the actual CLI surface.
  */
 
-import { APP_NAME, VERSION } from "@cxn/pi-utils";
-import { Args, type CliConfig, Command, type CommandCtor } from "@cxn/pi-utils/cli";
+import { APP_NAME, VERSION } from "@cyberxninja-omp/pi-utils";
+import { Args, type CliConfig, Command, type CommandCtor } from "@cyberxninja-omp/pi-utils/cli";
 import { completionsHelp as commandHelp } from "../cli/command-help";
 import { buildSpec, generateCompletion, type Shell } from "../cli/completion-gen";
 import { commands } from "../cli-commands";

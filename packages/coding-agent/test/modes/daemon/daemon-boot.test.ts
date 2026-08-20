@@ -1,15 +1,15 @@
 /**
- * Exercises the REAL daemon process boot path: `cxn --mode daemon` launched as a
+ * Exercises the REAL daemon process boot path: `omp --mode daemon` launched as a
  * subprocess via the default supervisor spawn (spawnCliDaemon -> cli.ts). This is
- * the production path that `cxn agents` relies on; earlier tests only used the
+ * the production path that `omp agents` relies on; earlier tests only used the
  * in-process udsServer injection.
  */
 import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resetRlmFamilies } from "@cxn/pi-coding-agent/eval/py/family-store";
-import { ensureDaemonRunning, resetDaemonState } from "@cxn/pi-coding-agent/modes/daemon/index";
+import { resetRlmFamilies } from "@cyberxninja-omp/pi-coding-agent/eval/py/family-store";
+import { ensureDaemonRunning, resetDaemonState } from "@cyberxninja-omp/pi-coding-agent/modes/daemon/index";
 
 type Handle = Awaited<ReturnType<typeof ensureDaemonRunning>>;
 
@@ -29,7 +29,7 @@ describe("real daemon process boot (cli.ts --mode daemon)", () => {
 		}
 	});
 
-	it("spawns the cxn CLI in daemon mode and serves catalog + family requests over UDS", async () => {
+	it("spawns the omp CLI in daemon mode and serves catalog + family requests over UDS", async () => {
 		// Isolate the spawned daemon's durable state (ledger/leases/mailboxes). The
 		// child inherits this via spawnCliDaemon's env passthrough (runDaemonMode honors it).
 		process.env.CXN_DAEMON_AGENT_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-boot-agentdir-"));

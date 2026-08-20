@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import { renderToolInventory } from "../src/dialect/inventory";
 import type { InbandTool } from "../src/dialect/types";
 

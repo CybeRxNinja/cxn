@@ -16,8 +16,8 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type CustomToolAPI, loadCustomTools } from "@cxn/pi-coding-agent/extensibility/custom-tools";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { type CustomToolAPI, loadCustomTools } from "@cyberxninja-omp/pi-coding-agent/extensibility/custom-tools";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("loadCustomTools per-session binding (#2190 review fix)", () => {
 	let tmp: string;

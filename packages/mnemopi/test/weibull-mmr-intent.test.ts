@@ -1,7 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import { mmrRerank } from "@cxn/pi-mnemopi/core/mmr";
-import { adjustWeights, classifyIntent } from "@cxn/pi-mnemopi/core/query-intent";
-import { DEFAULT_HALFLIFE_HOURS, WEIBULL_PARAMS, weibullBoost, weibullDecayFactor } from "@cxn/pi-mnemopi/core/weibull";
+import { mmrRerank } from "@cyberxninja-omp/pi-mnemopi/core/mmr";
+import { adjustWeights, classifyIntent } from "@cyberxninja-omp/pi-mnemopi/core/query-intent";
+import {
+	DEFAULT_HALFLIFE_HOURS,
+	WEIBULL_PARAMS,
+	weibullBoost,
+	weibullDecayFactor,
+} from "@cyberxninja-omp/pi-mnemopi/core/weibull";
 
 describe("Weibull decay", () => {
 	it("exposes parameters for memory types used by recall", () => {

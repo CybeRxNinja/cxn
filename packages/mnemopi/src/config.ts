@@ -1,6 +1,6 @@
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { hostMatchesUrl } from "@cxn/pi-catalog/hosts";
+import { hostMatchesUrl } from "@cyberxninja-omp/pi-catalog/hosts";
 import {
 	type Env,
 	envBool,

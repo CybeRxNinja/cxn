@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { AssistantMessage, Context, ToolCall, ToolResultMessage, Usage } from "@cxn/pi-ai";
+import type { AssistantMessage, Context, ToolCall, ToolResultMessage, Usage } from "@cyberxninja-omp/pi-ai";
 import {
 	createInbandScanner,
 	type Dialect,
@@ -9,7 +9,7 @@ import {
 	type InbandScanEvent,
 	parseInbandToolMessage,
 	renderInbandToolPrompt,
-} from "@cxn/pi-ai/dialect";
+} from "@cyberxninja-omp/pi-ai/dialect";
 
 const TOOLS = [
 	{

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { JsRuntime, type RuntimeHooks } from "@cxn/pi-coding-agent/eval/js/shared/runtime";
+import { JsRuntime, type RuntimeHooks } from "@cyberxninja-omp/pi-coding-agent/eval/js/shared/runtime";
 
 const GLOBAL_KEYS = ["__cxn_import__", "read"] as const;
 

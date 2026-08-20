@@ -64,7 +64,7 @@ class AbortController:
     """Mutable handoff between the `abort_task` host tool and the worker.
 
     `signal()` is called from the host-tool thread to request an irrecoverable
-    teardown of the cxn subprocess. The worker pre-populates `stop` with a
+    teardown of the omp subprocess. The worker pre-populates `stop` with a
     thread-safe terminator (the same one used for queue cancellation and the
     hard-timeout watchdog), and inspects `triggered` after `prompt_and_wait`
     unblocks to decide whether the resulting `RpcError` is an intentional
@@ -120,7 +120,7 @@ class ToolBindings:
     # authorizes implementation. Gates first-PR creation on non-bug/doc issues.
     impl_authorized: bool = False
     slot_uid: int | None = None
-    # Set by the worker before launching cxn. Carries the abort-task signal
+    # Set by the worker before launching omp. Carries the abort-task signal
     # back out to the worker; `None` for unit tests that exercise tools
     # without a live RpcClient.
     abort: AbortController | None = None
@@ -296,7 +296,7 @@ def ensure_workspace_dependencies(bindings: ToolBindings) -> None:
     A per-issue worktree is a bare source checkout (``git worktree add`` off
     the shared clone pool): it has the repo's ``package.json``/``bun.lock`` but
     no ``node_modules``. With bun's ``hoisted`` linker the workspace links
-    (``@cxn/pi-*``) only exist after an install, so without one any
+    (``@cyberxninja-omp/pi-*``) only exist after an install, so without one any
     ``bun test``/``bun check`` the agent runs fails instantly with "Cannot find
     package" — the agent then reports it could not verify. We install before
     the agent starts, mirroring how the natives cache pre-populates ``.node``
@@ -1187,7 +1187,7 @@ def _build_abort_task(bindings: ToolBindings) -> HostTool[Any, Any]:
             _raise_command("abort_task requires a non-empty 'reason' string.")
         reason = reason.strip()
         # Audit FIRST so the diagnosis is durable even if anything below
-        # races against the imminent cxn teardown.
+        # races against the imminent omp teardown.
         _audit(bindings, "abort_task", args, result={"reason": reason})
         log.warning(
             "task_aborted",

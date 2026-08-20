@@ -2,19 +2,19 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Agent } from "@cxn/pi-agent-core";
-import type { Context } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { runPrintMode } from "@cxn/pi-coding-agent/modes/print-mode";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { createTools, type ToolSession } from "@cxn/pi-coding-agent/tools";
-import { Snowflake } from "@cxn/pi-utils";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import type { Context } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { runPrintMode } from "@cyberxninja-omp/pi-coding-agent/modes/print-mode";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { createTools, type ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { Snowflake } from "@cyberxninja-omp/pi-utils";
 
-// Regression for #8272: with plan.defaultOnStartup:true, a headless `cxn -p`
+// Regression for #8272: with plan.defaultOnStartup:true, a headless `omp -p`
 // used to arm plan mode before the initial prompt. The only headless plan-exit
 // was a watcher that fires on a successful `xd://propose` execute-dispatch, so a
 // model that never emits exactly that dispatch (the natural plan-mode behavior:

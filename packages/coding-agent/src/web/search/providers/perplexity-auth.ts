@@ -1,5 +1,5 @@
-import type { AuthStorage, OAuthAccess } from "@cxn/pi-ai";
-import { $env } from "@cxn/pi-utils";
+import type { AuthStorage, OAuthAccess } from "@cyberxninja-omp/pi-ai";
+import { $env } from "@cyberxninja-omp/pi-utils";
 
 export const PERPLEXITY_CHAT_BASE_URL = "https://api.perplexity.ai";
 export const PERPLEXITY_RESPONSES_BASE_URL = "https://api.perplexity.ai/v1";

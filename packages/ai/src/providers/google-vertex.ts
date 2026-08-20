@@ -1,5 +1,5 @@
-import { resolveVertexEndpointHost } from "@cxn/pi-catalog/hosts";
-import { $env } from "@cxn/pi-utils";
+import { resolveVertexEndpointHost } from "@cyberxninja-omp/pi-catalog/hosts";
+import { $env } from "@cyberxninja-omp/pi-utils";
 import * as AIError from "../error";
 import type { Context, Model, StreamFunction } from "../types";
 import type { AssistantMessageEventStream } from "../utils/event-stream";

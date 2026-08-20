@@ -1,5 +1,5 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core/types";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, AgentToolResult } from "@cyberxninja-omp/pi-agent-core/types";
 
 export interface GetCurrentTimeResult extends AgentToolResult<{ utcTimestamp: number }> {}
 

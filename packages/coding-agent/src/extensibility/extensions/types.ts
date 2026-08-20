@@ -8,9 +8,9 @@
  * - Interact with the user via UI primitives
  */
 
-import type { type as ArkType } from "@cxn/omptype";
-import type * as TypeBox from "@cxn/omptype/typebox";
-import type * as zod from "@cxn/omptype/zod";
+import type { type as ArkType } from "@cyberxninja-omp/omptype";
+import type * as TypeBox from "@cyberxninja-omp/omptype/typebox";
+import type * as zod from "@cyberxninja-omp/omptype/zod";
 import type {
 	AgentMessage,
 	AgentToolResult,
@@ -18,8 +18,8 @@ import type {
 	ThinkingLevel,
 	ToolApproval,
 	ToolLoadMode,
-} from "@cxn/pi-agent-core";
-import type { CompactionResult } from "@cxn/pi-agent-core/compaction";
+} from "@cyberxninja-omp/pi-agent-core";
+import type { CompactionResult } from "@cyberxninja-omp/pi-agent-core/compaction";
 import type {
 	Api,
 	AssistantMessageEvent,
@@ -36,8 +36,8 @@ import type {
 	Static,
 	TextContent,
 	TSchema,
-} from "@cxn/pi-ai";
-import type { OAuthCredentials, OAuthLoginCallbacks } from "@cxn/pi-ai/oauth/types";
+} from "@cyberxninja-omp/pi-ai";
+import type { OAuthCredentials, OAuthLoginCallbacks } from "@cyberxninja-omp/pi-ai/oauth/types";
 import type {
 	AutocompleteItem,
 	AutocompleteProvider,
@@ -47,8 +47,8 @@ import type {
 	OverlayHandle,
 	OverlayOptions,
 	TUI,
-} from "@cxn/pi-tui";
-import type { logger as PiLogger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import type { logger as PiLogger } from "@cyberxninja-omp/pi-utils";
 import type { KeybindingsManager } from "../../config/keybindings";
 import type { ModelRegistry } from "../../config/model-registry";
 import type { EditToolDetails } from "../../edit";
@@ -117,7 +117,7 @@ import type {
 } from "../shared-events";
 import type { SlashCommandInfo } from "../slash-commands";
 
-export type { OverlayHandle, OverlayOptions } from "@cxn/pi-tui";
+export type { OverlayHandle, OverlayOptions } from "@cyberxninja-omp/pi-tui";
 export type { AppKeybinding, KeybindingsManager } from "../../config/keybindings";
 export type { ExecOptions, ExecResult } from "../../exec/exec";
 export type { AgentToolResult, AgentToolUpdateCallback };

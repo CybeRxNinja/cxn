@@ -3,8 +3,8 @@
  * Standard Gemini models only (gemini-2.0-flash, gemini-2.5-*)
  */
 
-import { getGeminiCliHeaders } from "@cxn/pi-catalog/wire/gemini-headers";
-import { $env } from "@cxn/pi-utils";
+import { getGeminiCliHeaders } from "@cyberxninja-omp/pi-catalog/wire/gemini-headers";
+import { $env } from "@cyberxninja-omp/pi-utils";
 import * as AIError from "../../error";
 import { oauthFetch, runGoogleOAuthLogin, throwIfLoginCancelled } from "./google-oauth-shared";
 import type { OAuthController, OAuthCredentials } from "./types";

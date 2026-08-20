@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { type Component, type RenderTimer, TUI } from "@cxn/pi-tui";
+import { type Component, type RenderTimer, TUI } from "@cyberxninja-omp/pi-tui";
 import { VirtualTerminal } from "./virtual-terminal";
 
 class InputProbe implements Component {

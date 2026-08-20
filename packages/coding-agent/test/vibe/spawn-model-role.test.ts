@@ -9,14 +9,14 @@
  * chain and vibe children silently retry on the `default` role's chain.
  */
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { AsyncJobManager } from "@cxn/pi-coding-agent/async/job-manager";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { ExecutorOptions } from "@cxn/pi-coding-agent/task/executor";
-import * as executorModule from "@cxn/pi-coding-agent/task/executor";
-import type { SingleResult } from "@cxn/pi-coding-agent/task/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { type VibeCli, VibeSessionRegistry } from "@cxn/pi-coding-agent/vibe/runtime";
+import { AsyncJobManager } from "@cyberxninja-omp/pi-coding-agent/async/job-manager";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { ExecutorOptions } from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import * as executorModule from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { SingleResult } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { type VibeCli, VibeSessionRegistry } from "@cyberxninja-omp/pi-coding-agent/vibe/runtime";
 
 function makeParentSession(settings: Settings): ToolSession {
 	return {

@@ -4,7 +4,7 @@
  * long-running processes (launch).
  */
 
-import type { AgentToolResult } from "@cxn/pi-agent-core";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
 import type { IrcDeliveryReceipt, IrcMessage } from "../../irc/bus";
 import type { LaunchParams, LaunchToolDetails } from "./launch";
 

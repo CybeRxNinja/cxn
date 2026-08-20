@@ -11,18 +11,18 @@ import * as fs from "node:fs";
 import * as fsp from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type Args, parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import * as modelResolverModule from "@cxn/pi-coding-agent/config/model-resolver";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import * as pluginHelpers from "@cxn/pi-coding-agent/discovery/helpers";
-import { createSessionManager, runRootCommand } from "@cxn/pi-coding-agent/main";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import type { SessionHeader } from "@cxn/pi-coding-agent/session/session-entries";
-import type { SessionInfo } from "@cxn/pi-coding-agent/session/session-listing";
-import * as sessionListingModule from "@cxn/pi-coding-agent/session/session-listing";
-import { loadEntriesFromFile } from "@cxn/pi-coding-agent/session/session-loader";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { getProjectDir, normalizePathForComparison, setProjectDir } from "@cxn/pi-utils";
+import { type Args, parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import * as modelResolverModule from "@cyberxninja-omp/pi-coding-agent/config/model-resolver";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import * as pluginHelpers from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { createSessionManager, runRootCommand } from "@cyberxninja-omp/pi-coding-agent/main";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import type { SessionHeader } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import type { SessionInfo } from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import * as sessionListingModule from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { loadEntriesFromFile } from "@cyberxninja-omp/pi-coding-agent/session/session-loader";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { getProjectDir, normalizePathForComparison, setProjectDir } from "@cyberxninja-omp/pi-utils";
 
 function buildArgs(resume: string, sessionDir?: string): Args {
 	return {

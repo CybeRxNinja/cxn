@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { spawn, TimeoutError } from "@cxn/pi-utils/ptree";
+import { spawn, TimeoutError } from "@cyberxninja-omp/pi-utils/ptree";
 
 describe("ptree timeout", () => {
 	it("contains the lifecycle rejection when the caller does not observe exited", async () => {

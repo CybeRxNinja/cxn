@@ -1,7 +1,7 @@
 import { afterAll, afterEach, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { TempDir } from "@cxn/pi-utils";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { AgentProtocolHandler } from "../../src/internal-urls/agent-protocol";
 import { resetRegisteredArtifactDirsForTests } from "../../src/internal-urls/registry-helpers";
 import { AgentRegistry } from "../../src/registry/agent-registry";

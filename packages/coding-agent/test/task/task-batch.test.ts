@@ -14,17 +14,17 @@
  *    runtime for internal callers.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { AsyncJobManager } from "@cxn/pi-coding-agent/async/job-manager";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { TaskTool } from "@cxn/pi-coding-agent/task";
-import * as discoveryModule from "@cxn/pi-coding-agent/task/discovery";
-import * as executorModule from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition, SingleResult, TaskParams } from "@cxn/pi-coding-agent/task/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { isRecord } from "@cxn/pi-utils";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { AsyncJobManager } from "@cyberxninja-omp/pi-coding-agent/async/job-manager";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { TaskTool } from "@cyberxninja-omp/pi-coding-agent/task";
+import * as discoveryModule from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import * as executorModule from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { AgentDefinition, SingleResult, TaskParams } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 
 const taskAgent: AgentDefinition = {
 	name: "task",

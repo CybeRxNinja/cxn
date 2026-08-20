@@ -1,10 +1,18 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import { streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
-import type { Context, FetchImpl, Model, ModelSpec, OpenAICompat, ProviderSessionState, Tool } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import { type } from "@cyberxninja-omp/omptype";
+import { streamOpenAICompletions } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import { streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type {
+	Context,
+	FetchImpl,
+	Model,
+	ModelSpec,
+	OpenAICompat,
+	ProviderSessionState,
+	Tool,
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 const testTool: Tool = {
 	name: "echo",

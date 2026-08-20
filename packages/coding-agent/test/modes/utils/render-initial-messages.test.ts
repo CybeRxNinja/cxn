@@ -5,26 +5,33 @@
  * `sessionManager.buildSessionContext()` — the LLM-context builder — must not be
  * consulted for display.
  *
- * Also guards the cold-launch terminal cleanup: `cxn` / `cxn -c` leave the
+ * Also guards the cold-launch terminal cleanup: `omp` / `omp -c` leave the
  * previous run's transcript in native scrollback because the TUI's initial
  * paint preserves it, so the cold-launch render must request a
  * scrollback-clearing repaint (`clearTerminalHistory`).
  */
 
 import { afterEach, beforeAll, beforeEach, describe, expect, it, type Mock, vi } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage, ImageContent, Message, Usage } from "@cxn/pi-ai";
-import { kStreamingPartialJson } from "@cxn/pi-ai/utils/block-symbols";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AssistantMessageComponent } from "@cxn/pi-coding-agent/modes/components/assistant-message";
-import { TranscriptContainer } from "@cxn/pi-coding-agent/modes/components/transcript-container";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext, RenderSessionContextOptions } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import type { SessionContext, StrippedToolCallsMarker } from "@cxn/pi-coding-agent/session/session-context";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { type Component, Container, Image, ImageProtocol, setTerminalImageProtocol, TERMINAL } from "@cxn/pi-tui";
-import { TempDir } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, ImageContent, Message, Usage } from "@cyberxninja-omp/pi-ai";
+import { kStreamingPartialJson } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AssistantMessageComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/assistant-message";
+import { TranscriptContainer } from "@cyberxninja-omp/pi-coding-agent/modes/components/transcript-container";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext, RenderSessionContextOptions } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import type { SessionContext, StrippedToolCallsMarker } from "@cyberxninja-omp/pi-coding-agent/session/session-context";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import {
+	type Component,
+	Container,
+	Image,
+	ImageProtocol,
+	setTerminalImageProtocol,
+	TERMINAL,
+} from "@cyberxninja-omp/pi-tui";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 beforeAll(() => {
 	initTheme();

@@ -1,6 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { isEmptyErrorTurn, sanitizeAssistantForReparentedHistory } from "@cxn/pi-coding-agent/session/messages";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import {
+	isEmptyErrorTurn,
+	sanitizeAssistantForReparentedHistory,
+} from "@cyberxninja-omp/pi-coding-agent/session/messages";
 
 type Turn = Pick<AssistantMessage, "stopReason" | "content">;
 

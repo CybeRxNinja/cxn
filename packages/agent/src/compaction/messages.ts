@@ -5,8 +5,8 @@ import type {
 	ProviderPayload,
 	TextContent,
 	ToolResultMessage,
-} from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import type { AgentMessage } from "../types";
 import branchSummaryContextPrompt from "./prompts/branch-summary-context.md" with { type: "text" };
 import compactionSummaryContextPrompt from "./prompts/compaction-summary-context.md" with { type: "text" };

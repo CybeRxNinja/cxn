@@ -1,6 +1,6 @@
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import { stringProperty } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { stringProperty } from "@cyberxninja-omp/pi-utils";
 import type { CompletedRewindState } from "../tools/checkpoint";
 import { writeDeviceDispatch } from "../tools/resolve";
 import type { SessionEntry } from "./session-entries";

@@ -72,10 +72,10 @@ import { execSync } from "node:child_process";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { complete } from "@cxn/pi-ai/stream";
-import type { Api, Context, ImageContent, Model, OptionsForApi, UserMessage } from "@cxn/pi-ai/types";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { $which, removeSyncWithRetries } from "@cxn/pi-utils";
+import { complete } from "@cyberxninja-omp/pi-ai/stream";
+import type { Api, Context, ImageContent, Model, OptionsForApi, UserMessage } from "@cyberxninja-omp/pi-ai/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { $which, removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 import { e2eApiKey } from "./oauth";
 
 const TEMP_DIR = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-temp-images-"));

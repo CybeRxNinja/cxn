@@ -1,4 +1,4 @@
-import type { FetchImpl } from "@cxn/pi-utils";
+import type { FetchImpl } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Build a User-Agent string that identifies as Gemini CLI to unlock higher rate limits.

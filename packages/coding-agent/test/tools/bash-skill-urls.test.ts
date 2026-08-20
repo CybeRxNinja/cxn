@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import type { Skill } from "@cxn/pi-coding-agent/extensibility/skills";
-import { type ResolveContext, resolveLocalUrlToPath } from "@cxn/pi-coding-agent/internal-urls";
-import { expandInternalUrls, expandSkillUrls } from "@cxn/pi-coding-agent/tools/bash-skill-urls";
-import { ToolError } from "@cxn/pi-coding-agent/tools/tool-errors";
+import type { Skill } from "@cyberxninja-omp/pi-coding-agent/extensibility/skills";
+import { type ResolveContext, resolveLocalUrlToPath } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { expandInternalUrls, expandSkillUrls } from "@cyberxninja-omp/pi-coding-agent/tools/bash-skill-urls";
+import { ToolError } from "@cyberxninja-omp/pi-coding-agent/tools/tool-errors";
 
 function shellEscape(p: string): string {
 	return `'${p.replace(/'/g, "'\\''")}'`;

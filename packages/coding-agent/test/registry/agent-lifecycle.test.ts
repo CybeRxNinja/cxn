@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry, MAIN_AGENT_ID } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { registerPersistedSubagents } from "@cxn/pi-coding-agent/registry/persisted-agents";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { TempDir } from "@cxn/pi-utils";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry, MAIN_AGENT_ID } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { registerPersistedSubagents } from "@cyberxninja-omp/pi-coding-agent/registry/persisted-agents";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 interface SessionStub {
 	session: AgentSession;

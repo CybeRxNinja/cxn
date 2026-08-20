@@ -1,5 +1,11 @@
-import { type Api, type ApiKeyResolver, type AuthStorage, isUsageLimitOutcome, type Model } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
+import {
+	type Api,
+	type ApiKeyResolver,
+	type AuthStorage,
+	isUsageLimitOutcome,
+	type Model,
+} from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
 
 /** Model slice accepted by the model-form `resolver(model, sessionId)` overload. */
 export type ApiKeyResolverModel = Pick<Model<Api>, "provider" | "baseUrl" | "id">;

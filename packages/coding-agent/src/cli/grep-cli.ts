@@ -1,12 +1,12 @@
 /**
  * Grep CLI command handlers.
  *
- * Handles `cxn grep` subcommand for testing grep tool on Windows.
+ * Handles `omp grep` subcommand for testing grep tool on Windows.
  */
 import * as path from "node:path";
-import { GrepOutputMode, grep } from "@cxn/pi-natives";
-import { APP_NAME } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import { GrepOutputMode, grep } from "@cyberxninja-omp/pi-natives";
+import { APP_NAME } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { expandPath } from "../tools/path-utils";
 
 export interface GrepCommandArgs {

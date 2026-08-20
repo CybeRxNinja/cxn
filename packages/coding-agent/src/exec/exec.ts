@@ -1,7 +1,7 @@
 /**
  * Shared command execution utilities for hooks and custom tools.
  */
-import { ptree } from "@cxn/pi-utils";
+import { ptree } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Options for executing shell commands.

@@ -9,11 +9,15 @@ import { describe, expect, it, vi } from "bun:test";
 import * as fsp from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { Args } from "@cxn/pi-coding-agent/cli/args";
-import type { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createSessionManager, SessionResolutionError, writeStartupNotice } from "@cxn/pi-coding-agent/main";
-import * as sessionListingModule from "@cxn/pi-coding-agent/session/session-listing";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import type { Args } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import type { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	createSessionManager,
+	SessionResolutionError,
+	writeStartupNotice,
+} from "@cyberxninja-omp/pi-coding-agent/main";
+import * as sessionListingModule from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 
 function buildResumeArgs(resume: string, sessionDir?: string): Args {
 	return {
@@ -108,7 +112,7 @@ describe("createSessionManager — missing session (#2084)", () => {
 			).rejects.toMatchObject({
 				name: "SessionResolutionError",
 				message: 'Session "019ea530-0000-7000-0000-000000000000" not found.',
-				hint: expect.stringContaining("cxn --resume"),
+				hint: expect.stringContaining("omp --resume"),
 			});
 
 			// Confirm it's the exported class so `runRootCommand`'s `instanceof` check works.
@@ -139,7 +143,7 @@ describe("createSessionManager — missing session (#2084)", () => {
 			).rejects.toMatchObject({
 				name: "SessionResolutionError",
 				message: `Session "${missingId}" not found.`,
-				hint: expect.stringContaining("cxn --resume"),
+				hint: expect.stringContaining("omp --resume"),
 			});
 		} finally {
 			await fsp.rm(cwd, { recursive: true, force: true });
@@ -161,7 +165,7 @@ describe("createSessionManager — missing session (#2084)", () => {
 			).rejects.toMatchObject({
 				name: "SessionResolutionError",
 				message: `Session "${missingId}" not found.`,
-				hint: expect.stringContaining("cxn --resume"),
+				hint: expect.stringContaining("omp --resume"),
 			});
 		} finally {
 			await fsp.rm(cwd, { recursive: true, force: true });
@@ -180,7 +184,7 @@ describe("createSessionManager — missing session (#2084)", () => {
 			).rejects.toMatchObject({
 				name: "SessionResolutionError",
 				message: 'Session "019ea530-0000-7000-0000-000000000000" not found.',
-				hint: expect.stringContaining("cxn --resume"),
+				hint: expect.stringContaining("omp --resume"),
 			});
 		} finally {
 			vi.restoreAllMocks();

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { applyEdits, InMemorySnapshotStore, parsePatch, Recovery } from "@cxn/hashline";
+import { applyEdits, InMemorySnapshotStore, parsePatch, Recovery } from "@cyberxninja-omp/hashline";
 
 /**
  * Applies with a code path, so the tree-sitter probe can judge whether an

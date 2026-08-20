@@ -4,9 +4,9 @@ import {
 	GITLAB_DUO_WORKFLOW_OAUTH_REDIRECT_URI,
 	loginGitLabDuoWorkflow,
 	refreshGitLabDuoWorkflowToken,
-} from "@cxn/pi-ai/registry/oauth/gitlab-duo-workflow";
-import type { OAuthLoginCallbacks } from "@cxn/pi-ai/registry/oauth/types";
-import type { FetchImpl } from "@cxn/pi-ai/types";
+} from "@cyberxninja-omp/pi-ai/registry/oauth/gitlab-duo-workflow";
+import type { OAuthLoginCallbacks } from "@cyberxninja-omp/pi-ai/registry/oauth/types";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 
 function makeTokenResponse(payload?: Record<string, unknown>): Response {
 	return new Response(

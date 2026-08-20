@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import type { AuthStorage, FetchImpl } from "@cxn/pi-ai";
-import { AuthStorage as CodingAuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { searchAnthropic } from "@cxn/pi-coding-agent/web/search/providers/anthropic";
-import { TempDir } from "@cxn/pi-utils";
+import type { AuthStorage, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import { AuthStorage as CodingAuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { searchAnthropic } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/anthropic";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function makeCaptureFetch(): { fetch: FetchImpl; body: () => Record<string, unknown> | undefined } {
 	let captured: Record<string, unknown> | undefined;

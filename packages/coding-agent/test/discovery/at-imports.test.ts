@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
-import { expandAtImports, MAX_AT_IMPORT_DEPTH } from "@cxn/pi-coding-agent/discovery/at-imports";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
+import { expandAtImports, MAX_AT_IMPORT_DEPTH } from "@cyberxninja-omp/pi-coding-agent/discovery/at-imports";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Behavior contract for the @-import expander used by every AGENTS.md /

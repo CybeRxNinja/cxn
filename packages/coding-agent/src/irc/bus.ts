@@ -15,7 +15,7 @@
  * generates an ephemeral side-channel auto-reply.
  */
 
-import { logger, Snowflake } from "@cxn/pi-utils";
+import { logger, Snowflake } from "@cyberxninja-omp/pi-utils";
 import { AgentLifecycleManager } from "../registry/agent-lifecycle";
 import { AgentRegistry, MAIN_AGENT_ID } from "../registry/agent-registry";
 import type { CustomMessage } from "../session/messages";

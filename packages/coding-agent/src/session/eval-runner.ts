@@ -1,5 +1,5 @@
-import type { Agent } from "@cxn/pi-agent-core";
-import { logger } from "@cxn/pi-utils";
+import type { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { Settings } from "../config/settings";
 import { disposeJuliaKernelSessionsByOwner } from "../eval/jl/executor";
 import { disposeVmContextsByOwner } from "../eval/js/context-manager";

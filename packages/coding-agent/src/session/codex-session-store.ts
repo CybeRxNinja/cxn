@@ -10,8 +10,8 @@ import type {
 	ToolCall,
 	ToolResultMessage,
 	UserMessage,
-} from "@cxn/pi-ai";
-import { isRecord } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 import { readForeignJsonRecords } from "./foreign-session-jsonl";
 import type { ForeignSessionInfo, ForeignSessionStore } from "./foreign-session-store";
 import type { CompactionEntry, ModelChangeEntry, SessionEntry, SessionMessageEntry } from "./session-entries";

@@ -1,4 +1,4 @@
-import { Snowflake } from "@cxn/pi-utils";
+import { Snowflake } from "@cyberxninja-omp/pi-utils";
 import { type CompactionEntry, CURRENT_SESSION_VERSION, type FileEntry, type SessionHeader } from "./session-entries";
 
 /** Generate a unique short ID (8 hex chars, collision-checked) */

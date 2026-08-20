@@ -6,8 +6,8 @@ import type {
 	AgentToolResult,
 	AgentToolUpdateCallback,
 	ToolApprovalDecision,
-} from "@cxn/pi-agent-core";
-import { logger, prompt, untilAborted } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import { logger, prompt, untilAborted } from "@cyberxninja-omp/pi-utils";
 import { type Theme, theme } from "../modes/theme/theme";
 import lspDescription from "../prompts/tools/lsp.md" with { type: "text" };
 import type { ToolSession } from "../tools";
@@ -1022,7 +1022,7 @@ export class LspTool implements AgentTool<typeof lspSchema, LspToolDetails, Them
 
 		if (action === "reload" && (isWorkspace || !resolvedFile)) {
 			// `reload *` is the user's explicit request to re-read config from
-			// disk. Drop the per-cwd cache entry so `.cxn/lsp.json`, root markers,
+			// disk. Drop the per-cwd cache entry so `.omp/lsp.json`, root markers,
 			// and plugin configs added after the first LSP call become visible —
 			// otherwise `getConfig` returns the first observation for the rest of
 			// the process lifetime (#3546).

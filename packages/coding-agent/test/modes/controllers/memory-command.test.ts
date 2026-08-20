@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { CommandController } from "@cxn/pi-coding-agent/modes/controllers/command-controller";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { CommandController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/command-controller";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
 
 function createMemoryContext(backend: string) {
 	const showWarning = vi.fn();

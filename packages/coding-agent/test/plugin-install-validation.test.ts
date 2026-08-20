@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { PluginManager } from "@cxn/pi-coding-agent/extensibility/plugins/manager";
-import * as piUtils from "@cxn/pi-utils";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { PluginManager } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/manager";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 import type { Subprocess } from "bun";
 
 function emptyStream(): ReadableStream<Uint8Array> {
@@ -51,7 +51,7 @@ async function writePluginPackage(pluginsNodeModules: string, name: string, fixt
 				name,
 				version: fixture.version,
 				...(fixture.peerDependencies ? { peerDependencies: fixture.peerDependencies } : {}),
-				cxn: { extensions: ["./dist/extension.ts"] },
+				omp: { extensions: ["./dist/extension.ts"] },
 			},
 			null,
 			2,
@@ -365,7 +365,7 @@ describe("PluginManager.install load validation", () => {
 						{
 							name: "partial-plugin",
 							version: "1.0.0",
-							cxn: { extensions: ["./dist/valid.ts", "./dist/missing.ts"] },
+							omp: { extensions: ["./dist/valid.ts", "./dist/missing.ts"] },
 						},
 						null,
 						2,
@@ -544,7 +544,7 @@ describe("PluginManager.install load validation", () => {
 				{
 					name: "git-plugin",
 					version: "1.0.0",
-					cxn: {
+					omp: {
 						extensions: ["./dist/extension.ts"],
 						features: { keep: { description: "keep me" } },
 					},

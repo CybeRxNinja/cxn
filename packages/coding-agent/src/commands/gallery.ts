@@ -2,7 +2,7 @@
  * Render every built-in tool's renderer across its lifecycle states.
  */
 
-import { Command, Flags } from "@cxn/pi-utils/cli";
+import { Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { galleryHelp as commandHelp } from "../cli/command-help";
 import { GALLERY_STATE_TOKENS, type GalleryState, parseGalleryStates, runGalleryCommand } from "../cli/gallery-cli";
 

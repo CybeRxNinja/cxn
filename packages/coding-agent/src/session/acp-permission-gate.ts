@@ -1,5 +1,5 @@
-import { Patch } from "@cxn/hashline";
-import { isRecord, stringProperty } from "@cxn/pi-utils";
+import { Patch } from "@cyberxninja-omp/hashline";
+import { isRecord, stringProperty } from "@cyberxninja-omp/pi-utils";
 import { expandApplyPatchToEntries } from "../edit";
 import { resolveToCwd } from "../tools/path-utils";
 import type { ClientBridgePermissionOption } from "./client-bridge";

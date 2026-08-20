@@ -1,5 +1,5 @@
-import { type } from "@cxn/omptype";
-import { once } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { once } from "@cyberxninja-omp/pi-utils";
 
 export const getSecurityContractSchemas = once(() => {
 	const stringRecordSchema = type({ "[string]": "string" });

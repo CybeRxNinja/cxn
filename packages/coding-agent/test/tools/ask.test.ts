@@ -1,17 +1,17 @@
 import { beforeAll, describe, expect, it, vi } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import { type } from "@cxn/omptype";
-import type { AgentToolContext } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentToolContext } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import type {
 	ExtensionAskDialogQuestion,
 	ExtensionAskDialogResult,
 	ExtensionUISelectItem,
-} from "@cxn/pi-coding-agent/extensibility/extensions";
-import { getThemeByName, initTheme, type Theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { AskTool, askToolRenderer } from "@cxn/pi-coding-agent/tools/ask";
-import { ToolAbortError } from "@cxn/pi-coding-agent/tools/tool-errors";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import { getThemeByName, initTheme, type Theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { AskTool, askToolRenderer } from "@cyberxninja-omp/pi-coding-agent/tools/ask";
+import { ToolAbortError } from "@cyberxninja-omp/pi-coding-agent/tools/tool-errors";
 
 function createSession(overrides: Partial<ToolSession> = {}): ToolSession {
 	return {
@@ -416,7 +416,7 @@ describe("AskTool option descriptions", () => {
 		const select = vi.fn(async (_prompt: string, options: ExtensionUISelectItem[]) => {
 			expect(options[0]).toEqual({
 				label: "Use local credentials",
-				description: "Authenticate with provider keys already configured under ~/.cxn.",
+				description: "Authenticate with provider keys already configured under ~/.omp.",
 			});
 			expect(options[1]).toEqual({
 				label: "Set up in terminal",
@@ -437,7 +437,7 @@ describe("AskTool option descriptions", () => {
 						options: [
 							{
 								label: "Use local credentials",
-								description: "Authenticate with provider keys already configured under ~/.cxn.",
+								description: "Authenticate with provider keys already configured under ~/.omp.",
 							},
 							{
 								label: "Set up in terminal",
@@ -470,7 +470,7 @@ describe("AskTool option descriptions", () => {
 				options: [
 					{
 						label: "Use local credentials",
-						description: "Authenticate with provider keys already configured under ~/.cxn.",
+						description: "Authenticate with provider keys already configured under ~/.omp.",
 					},
 					{
 						label: "Set up in terminal",

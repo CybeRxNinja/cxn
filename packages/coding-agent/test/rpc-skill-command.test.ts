@@ -2,9 +2,9 @@ import { describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { tryRunRpcSkillCommand } from "@cxn/pi-coding-agent/modes/rpc/rpc-mode";
-import { type CustomMessage, SKILL_PROMPT_MESSAGE_TYPE } from "@cxn/pi-coding-agent/session/messages";
-import { removeWithRetries, Snowflake } from "@cxn/pi-utils";
+import { tryRunRpcSkillCommand } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-mode";
+import { type CustomMessage, SKILL_PROMPT_MESSAGE_TYPE } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { removeWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 describe("tryRunRpcSkillCommand", () => {
 	test("dispatches registered /skill commands as skill prompt messages", async () => {

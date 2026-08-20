@@ -2,11 +2,15 @@ import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { applyResolvedSystemPromptInputs, readPipedInput, submitInteractiveInput } from "@cxn/pi-coding-agent/main";
-import type { SubmittedUserInput } from "@cxn/pi-coding-agent/modes/types";
-import type { CreateAgentSessionOptions } from "@cxn/pi-coding-agent/sdk";
-import { discoverTitleSystemPromptFile } from "@cxn/pi-coding-agent/system-prompt";
-import { removeWithRetries } from "@cxn/pi-utils";
+import {
+	applyResolvedSystemPromptInputs,
+	readPipedInput,
+	submitInteractiveInput,
+} from "@cyberxninja-omp/pi-coding-agent/main";
+import type { SubmittedUserInput } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { CreateAgentSessionOptions } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { discoverTitleSystemPromptFile } from "@cyberxninja-omp/pi-coding-agent/system-prompt";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const cleanupDirs: string[] = [];
 
@@ -26,10 +30,10 @@ function createInput(overrides: Partial<SubmittedUserInput> = {}): SubmittedUser
 }
 
 describe("discoverTitleSystemPromptFile", () => {
-	it("discovers TITLE_SYSTEM.md from the project cxn config directory", async () => {
+	it("discovers TITLE_SYSTEM.md from the project omp config directory", async () => {
 		const projectDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-title-system-"));
 		cleanupDirs.push(projectDir);
-		const configDir = path.join(projectDir, ".cxn");
+		const configDir = path.join(projectDir, ".omp");
 		await fs.mkdir(configDir, { recursive: true });
 		const promptPath = path.join(configDir, "TITLE_SYSTEM.md");
 		await fs.writeFile(promptPath, "custom title prompt");

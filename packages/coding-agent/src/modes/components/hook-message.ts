@@ -1,5 +1,5 @@
-import type { Component } from "@cxn/pi-tui";
-import { Box, Container } from "@cxn/pi-tui";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Box, Container } from "@cyberxninja-omp/pi-tui";
 import type { HookMessageRenderer } from "../../extensibility/hooks/types";
 import { theme } from "../../modes/theme/theme";
 import type { HookMessage } from "../../session/messages";

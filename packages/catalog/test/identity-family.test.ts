@@ -19,7 +19,7 @@ import {
 	parseAnthropicModel,
 	supportsAdaptiveThinkingDisplay,
 	supportsMidConversationSystemMessages,
-} from "@cxn/pi-catalog/identity";
+} from "@cyberxninja-omp/pi-catalog/identity";
 
 describe("isKimiModelId", () => {
 	test("matches Kimi namespace and delimiter forms", () => {

@@ -1,30 +1,37 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import type { Api, Model } from "@cxn/pi-ai";
-import * as ai from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { isSubcommand } from "@cxn/pi-coding-agent/cli-commands";
-import { getDefault, getEnumValues, getUi } from "@cxn/pi-coding-agent/config/settings-schema";
-import { TinyTitleDownloadProgressComponent } from "@cxn/pi-coding-agent/modes/components/tiny-title-download-progress";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { RefCountedWorkerHandle } from "@cxn/pi-coding-agent/subprocess/worker-client";
+import type { Api, Model } from "@cyberxninja-omp/pi-ai";
+import * as ai from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { isSubcommand } from "@cyberxninja-omp/pi-coding-agent/cli-commands";
+import { getDefault, getEnumValues, getUi } from "@cyberxninja-omp/pi-coding-agent/config/settings-schema";
+import { TinyTitleDownloadProgressComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tiny-title-download-progress";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { RefCountedWorkerHandle } from "@cyberxninja-omp/pi-coding-agent/subprocess/worker-client";
 import {
 	TINY_MODEL_DEVICE_DEFAULT,
 	TINY_MODEL_DEVICE_SETTING_OPTIONS,
 	TINY_MODEL_DEVICE_SETTING_VALUES,
-} from "@cxn/pi-coding-agent/tiny/device";
+} from "@cyberxninja-omp/pi-coding-agent/tiny/device";
 import {
 	TINY_MODEL_DTYPE_DEFAULT,
 	TINY_MODEL_DTYPE_SETTING_OPTIONS,
 	TINY_MODEL_DTYPE_SETTING_VALUES,
-} from "@cxn/pi-coding-agent/tiny/dtype";
+} from "@cyberxninja-omp/pi-coding-agent/tiny/dtype";
 import {
 	ONLINE_TINY_TITLE_MODEL_KEY,
 	TINY_TITLE_MODEL_OPTIONS,
 	TINY_TITLE_MODEL_VALUES,
-} from "@cxn/pi-coding-agent/tiny/models";
-import { createTinyTitleSubprocess, TinyTitleClient, tinyTitleClient } from "@cxn/pi-coding-agent/tiny/title-client";
-import type { TinyTitleWorkerInbound, TinyTitleWorkerOutbound } from "@cxn/pi-coding-agent/tiny/title-protocol";
-import { generateSessionTitle } from "@cxn/pi-coding-agent/utils/title-generator";
+} from "@cyberxninja-omp/pi-coding-agent/tiny/models";
+import {
+	createTinyTitleSubprocess,
+	TinyTitleClient,
+	tinyTitleClient,
+} from "@cyberxninja-omp/pi-coding-agent/tiny/title-client";
+import type {
+	TinyTitleWorkerInbound,
+	TinyTitleWorkerOutbound,
+} from "@cyberxninja-omp/pi-coding-agent/tiny/title-protocol";
+import { generateSessionTitle } from "@cyberxninja-omp/pi-coding-agent/utils/title-generator";
 import type { Subprocess } from "bun";
 
 function getModelOrThrow(id: string): Model<Api> {

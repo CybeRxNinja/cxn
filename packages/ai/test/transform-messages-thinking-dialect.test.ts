@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import { getDialectDefinition, renderDemotedThinking } from "@cxn/pi-ai/dialect";
-import { transformMessages } from "@cxn/pi-ai/providers/transform-messages";
-import type { Api, AssistantMessage, Message, Model, ModelSpec, UserMessage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { getDialectDefinition, renderDemotedThinking } from "@cyberxninja-omp/pi-ai/dialect";
+import { transformMessages } from "@cyberxninja-omp/pi-ai/providers/transform-messages";
+import type { Api, AssistantMessage, Message, Model, ModelSpec, UserMessage } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 /**
  * Cross-provider model switches (e.g. Anthropic → Gemini mid-session) cannot

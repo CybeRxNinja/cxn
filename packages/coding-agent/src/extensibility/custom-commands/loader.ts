@@ -6,9 +6,9 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import * as zod from "@cxn/omptype/zod";
-import { getAgentDir, getProjectDir, isEnoent, logger } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import * as zod from "@cyberxninja-omp/omptype/zod";
+import { getAgentDir, getProjectDir, isEnoent, logger } from "@cyberxninja-omp/pi-utils";
 import { getConfigDirs } from "../../config";
 
 import { execCommand } from "../../exec/exec";

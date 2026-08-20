@@ -1,7 +1,7 @@
 # Compliance posture
 
 This document records the licensing and terms-of-service analysis for releasing
-`CybeRxNinja/cxn` publicly. It is a point-in-time assessment (August 2026), not
+`CybeRxNinja/omp` publicly. It is a point-in-time assessment (August 2026), not
 legal advice; re-verify provider terms before relying on them, especially the
 subscription-auth features in §3.
 
@@ -27,7 +27,7 @@ notices, upstream URL attributions in README/docs).
 - `research/` upstream clones are gitignored.
 - CI secrets (`CXN_SYNC_PAT`, Apple signing keys) live in Actions secrets and
   are never exposed to fork PRs (workflows run with least-privilege
-  `permissions:` blocks; the branding guard workflow is `contents: read`).
+  `permissions:` blocks; the upstream-sync workflow is `contents: read`).
 
 ## 3. The one real flag: provider subscription-login features
 
@@ -55,25 +55,25 @@ README install section), or gate/strip the flows for a squeaky-clean product.
 - All "Prime Intellect" / "Prime Agent" / "oh-my-pi" product branding was
   removed by the rebrand sweep; the README credits the lineage (attribution,
   not affiliation).
-- Residual "pi" appears only in internal legacy names (`@cxn/pi-*` package
+- Residual "pi" appears only in internal legacy names (`@cyberxninja-omp/pi-*` package
   scopes, `pi-*` crates, `pi_natives.*.node` filenames) — invisible to users.
-- "cxn" has no significant name conflicts (Cambridge Audio CXN is a consumer
+- "omp" has no significant name conflicts (Cambridge Audio CXN is a consumer
   hifi streamer; SAP CAP has a "CXN" notation — different markets).
 
 ## 5. Supply-chain / release hygiene
 
 - The upstream-sync workflow merges oh-my-pi into `main` weekly (lane A,
   auto-merge when green). On a public repo this is the main supply-chain
-  surface: a compromised upstream `main` could flow into cxn. Mitigations:
-  the branding guard fails the run on un-rebranded additions, and the merge
-  result is reviewed before merge when conflicts/branding violations occur.
-  Consider requiring manual review of sync PRs if the risk profile changes.
+  surface: a compromised upstream `main` could flow into omp. Mitigations:
+  the post-merge rebrand pass converts any reintroduced `@oh-my-pi/` scopes
+  back to `@cyberxninja-omp/`, and the merge result is reviewed before merge when
+  conflicts occur. Consider requiring manual review of sync PRs if the risk
+  profile changes.
 - Fork PRs run CI with a read-only token; the native-addon fetch falls back to
-  the upstream addon on public npm so fork PRs stay green without access to the
-  repo's GitHub Packages.
+  the upstream addon on public npm so fork PRs stay green without repo credentials.
 
 ## 6. GitHub / npm ToS
 
-Publishing this repository (GitHub) and packages (GitHub Packages) complies
+Publishing this repository (GitHub) and packages (public npm) complies
 with the respective ToS. Nothing in the tree requires acceptance of any
 non-standard agreement to redistribute.

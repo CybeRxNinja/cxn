@@ -1,4 +1,4 @@
-import { extractRetryHint } from "@cxn/pi-utils";
+import { extractRetryHint } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Rate limit reason classification and backoff calculation utilities.

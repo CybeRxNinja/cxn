@@ -13,7 +13,7 @@ import {
 	resetHangulCompatibilityJamoWidthForTests,
 	setHangulCompatibilityJamoWidth,
 	visibleWidth,
-} from "@cxn/pi-tui/utils";
+} from "@cyberxninja-omp/pi-tui/utils";
 
 afterEach(() => {
 	resetHangulCompatibilityJamoWidthForTests();

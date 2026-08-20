@@ -1,9 +1,9 @@
 import { Database } from "bun:sqlite";
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
-import { registerOAuthProvider, unregisterOAuthProviders } from "@cxn/pi-ai/registry/oauth";
-import * as gitlabDuoWorkflowOAuth from "@cxn/pi-ai/registry/oauth/gitlab-duo-workflow";
-import type { OAuthLoginCallbacks, OAuthProviderInterface } from "@cxn/pi-ai/registry/oauth/types";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { registerOAuthProvider, unregisterOAuthProviders } from "@cyberxninja-omp/pi-ai/registry/oauth";
+import * as gitlabDuoWorkflowOAuth from "@cyberxninja-omp/pi-ai/registry/oauth/gitlab-duo-workflow";
+import type { OAuthLoginCallbacks, OAuthProviderInterface } from "@cyberxninja-omp/pi-ai/registry/oauth/types";
 
 const TEST_SOURCE = "manual-code-gate-test";
 

@@ -1,4 +1,4 @@
-import { Box, Container, Spacer, Text } from "@cxn/pi-tui";
+import { Box, Container, Spacer, Text } from "@cyberxninja-omp/pi-tui";
 import { theme } from "../../modes/theme/theme";
 import type { TodoItem } from "../../tools/todo";
 

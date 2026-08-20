@@ -1,4 +1,4 @@
-import { isRecord, readLines } from "@cxn/pi-utils";
+import { isRecord, readLines } from "@cyberxninja-omp/pi-utils";
 
 /** One readable object record from a foreign JSONL transcript. */
 export interface ForeignJsonRecord {

@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { supportsAdaptiveThinkingDisplay } from "@cxn/pi-catalog/identity";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import type { ModelSpec } from "@cxn/pi-catalog/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { supportsAdaptiveThinkingDisplay } from "@cyberxninja-omp/pi-catalog/identity";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import type { ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 
 function bedrockSpec(
 	overrides: Partial<ModelSpec<"bedrock-converse-stream">> = {},

@@ -21,21 +21,21 @@ import {
 	createMnemopiEmbedSubprocess,
 	MnemopiEmbedClient,
 	type MnemopiEmbedWorkerHandle,
-} from "@cxn/pi-coding-agent/mnemopi/embed-client";
+} from "@cyberxninja-omp/pi-coding-agent/mnemopi/embed-client";
 import type {
 	MnemopiEmbedWorkerInbound,
 	MnemopiEmbedWorkerOutbound,
-} from "@cxn/pi-coding-agent/mnemopi/embed-protocol";
+} from "@cyberxninja-omp/pi-coding-agent/mnemopi/embed-protocol";
 
 describe("issue #3031 — mnemopi embeddings live in an isolated subprocess", () => {
 	it("ping/pongs through the spawned worker subprocess and tears it down cleanly", async () => {
 		// `smokeTestMnemopiEmbedWorker` is the runtime probe wired into
-		// `cxn --smoke-test`. Run it in a child Bun process instead of this
+		// `omp --smoke-test`. Run it in a child Bun process instead of this
 		// Bun-test worker: the test runner owns its own IPC channel and can
 		// starve nested Bun subprocess IPC on some Bun builds.
 		const repoRoot = path.resolve(import.meta.dir, "../../..");
 		const script =
-			'const { smokeTestMnemopiEmbedWorker } = await import("@cxn/pi-coding-agent/mnemopi/embed-client"); await smokeTestMnemopiEmbedWorker({ timeoutMs: 15000 });';
+			'const { smokeTestMnemopiEmbedWorker } = await import("@cyberxninja-omp/pi-coding-agent/mnemopi/embed-client"); await smokeTestMnemopiEmbedWorker({ timeoutMs: 15000 });';
 		const proc = Bun.spawn([process.execPath, "-e", script], {
 			cwd: repoRoot,
 			stdout: "pipe",

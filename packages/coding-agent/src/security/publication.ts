@@ -1,4 +1,4 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type { ToolDefinition } from "../extensibility/extensions";
 import securityPublishDescription from "../prompts/tools/security-publish.md" with { type: "text" };
 import type {

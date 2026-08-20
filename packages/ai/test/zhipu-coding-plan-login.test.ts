@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "bun:test";
-import { loginZhipuCodingPlan } from "@cxn/pi-ai/registry/zhipu-coding-plan";
-import type { FetchImpl } from "@cxn/pi-ai/types";
+import { loginZhipuCodingPlan } from "@cyberxninja-omp/pi-ai/registry/zhipu-coding-plan";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 
 describe("zhipu coding plan login", () => {
 	it("validates against the domestic Coding Plan base and model used as provider default", async () => {

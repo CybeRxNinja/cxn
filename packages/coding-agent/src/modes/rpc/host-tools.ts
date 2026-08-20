@@ -1,6 +1,6 @@
-import type { AgentTool, AgentToolResult, AgentToolUpdateCallback, ToolLoadMode } from "@cxn/pi-agent-core";
-import type { Static, TSchema } from "@cxn/pi-ai";
-import { Snowflake } from "@cxn/pi-utils";
+import type { AgentTool, AgentToolResult, AgentToolUpdateCallback, ToolLoadMode } from "@cyberxninja-omp/pi-agent-core";
+import type { Static, TSchema } from "@cyberxninja-omp/pi-ai";
+import { Snowflake } from "@cyberxninja-omp/pi-utils";
 import { applyToolProxy } from "../../extensibility/tool-proxy";
 import type { Theme } from "../../modes/theme/theme";
 import { defaultLoadModeForToolName } from "../../tools/essential-tools";

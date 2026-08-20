@@ -8,16 +8,16 @@
  * (see issues #3389 and #4963).
  */
 import { afterAll, afterEach, describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentMessage, type AgentTool } from "@cxn/pi-agent-core";
-import { createMockModel, type MockModel, type MockResponse } from "@cxn/pi-ai/providers/mock";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { IrcMessage } from "@cxn/pi-coding-agent/irc/bus";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentMessage, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { createMockModel, type MockModel, type MockResponse } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { IrcMessage } from "@cyberxninja-omp/pi-coding-agent/irc/bus";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 const yieldToolSchema = type({ result: type("unknown") });

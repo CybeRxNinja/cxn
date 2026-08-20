@@ -1,9 +1,9 @@
 import { Database } from "bun:sqlite";
 import { afterEach, describe, expect, test, vi } from "bun:test";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
-import { getOAuthProviders } from "@cxn/pi-ai/registry/oauth";
-import { getEnvApiKey } from "@cxn/pi-ai/stream";
-import type { FetchImpl } from "@cxn/pi-ai/types";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { getOAuthProviders } from "@cyberxninja-omp/pi-ai/registry/oauth";
+import { getEnvApiKey } from "@cyberxninja-omp/pi-ai/stream";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 
 const originalOpenRouterApiKey = Bun.env.OPENROUTER_API_KEY;
 

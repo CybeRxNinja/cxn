@@ -1,9 +1,9 @@
 import { afterAll, afterEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import type { Api, AssistantMessage, Model } from "@cxn/pi-ai";
-import * as ai from "@cxn/pi-ai";
-import { Effort } from "@cxn/pi-ai";
-import { TempDir } from "@cxn/pi-utils";
+import type { Api, AssistantMessage, Model } from "@cyberxninja-omp/pi-ai";
+import * as ai from "@cyberxninja-omp/pi-ai";
+import { Effort } from "@cyberxninja-omp/pi-ai";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { $ } from "bun";
 import type { ModelRegistry } from "../../src/config/model-registry";
 import { Settings } from "../../src/config/settings";

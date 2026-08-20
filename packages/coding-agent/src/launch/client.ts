@@ -2,7 +2,7 @@ import * as fs from "node:fs/promises";
 import * as net from "node:net";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getGlobalDaemonRuntimeDir, isEexist, isEisdir, isEnoent, logger, postmortem } from "@cxn/pi-utils";
+import { getGlobalDaemonRuntimeDir, isEexist, isEisdir, isEnoent, logger, postmortem } from "@cyberxninja-omp/pi-utils";
 import { hostHasInheritableConsole } from "../eval/py/spawn-options";
 import { resolveWorkerSpawnCmd, workerEnvFromParent } from "../subprocess/worker-client";
 import { daemonBrokerEndpoint, daemonRuntimeDir } from "./paths";
@@ -505,7 +505,7 @@ export async function daemonClientForGlobal(service: string): Promise<DaemonBrok
 	);
 }
 
-/** Close every project and machine-global broker connection held by this cxn process. */
+/** Close every project and machine-global broker connection held by this omp process. */
 export async function closeDaemonClients(): Promise<void> {
 	const pending = [...sharedClients.values()];
 	sharedClients.clear();

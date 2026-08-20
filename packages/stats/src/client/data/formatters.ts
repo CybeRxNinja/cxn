@@ -1,4 +1,4 @@
-import { formatDistanceToNow } from "@cxn/pi-utils/dates";
+import { formatDistanceToNow } from "@cyberxninja-omp/pi-utils/dates";
 
 export function formatInteger(value: number): string {
 	return value.toLocaleString();

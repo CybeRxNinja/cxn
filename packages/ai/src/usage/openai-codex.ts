@@ -1,6 +1,6 @@
 import { Buffer } from "node:buffer";
-import { toNumber } from "@cxn/pi-catalog/utils";
-import { USER_AGENT } from "@cxn/pi-utils";
+import { toNumber } from "@cyberxninja-omp/pi-catalog/utils";
+import { USER_AGENT } from "@cyberxninja-omp/pi-utils";
 import type {
 	CredentialRankingContext,
 	CredentialRankingStrategy,

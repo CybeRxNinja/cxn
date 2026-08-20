@@ -1,11 +1,11 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import type { AssistantMessage, Usage } from "@cxn/pi-ai";
-import { BtwPanelComponent } from "@cxn/pi-coding-agent/modes/components/btw-panel";
-import { BtwController } from "@cxn/pi-coding-agent/modes/controllers/btw-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import * as clipboard from "@cxn/pi-coding-agent/utils/clipboard";
-import { Container, replaceTabs, type TUI } from "@cxn/pi-tui";
+import type { AssistantMessage, Usage } from "@cyberxninja-omp/pi-ai";
+import { BtwPanelComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/btw-panel";
+import { BtwController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/btw-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import * as clipboard from "@cyberxninja-omp/pi-coding-agent/utils/clipboard";
+import { Container, replaceTabs, type TUI } from "@cyberxninja-omp/pi-tui";
 
 const usage: Usage = {
 	input: 0,

@@ -1,5 +1,5 @@
-import { getOAuthProviders } from "@cxn/pi-ai/oauth";
-import { Container, getKeybindings, Input, Spacer, Text, type TUI, wrapTextWithAnsi } from "@cxn/pi-tui";
+import { getOAuthProviders } from "@cyberxninja-omp/pi-ai/oauth";
+import { Container, getKeybindings, Input, Spacer, Text, type TUI, wrapTextWithAnsi } from "@cyberxninja-omp/pi-tui";
 import { theme } from "../../modes/theme/theme";
 import { urlHyperlinkAlways, WidthAwareText } from "../../tui";
 import { openPath } from "../../utils/open";

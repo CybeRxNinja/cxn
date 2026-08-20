@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
-import { type AuthBrokerServerHandle, startAuthBroker } from "@cxn/pi-ai/auth-broker";
-import { runAuthBrokerCommand } from "@cxn/pi-coding-agent/cli/auth-broker-cli";
-import { getAgentDbPath, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
+import { type AuthBrokerServerHandle, startAuthBroker } from "@cyberxninja-omp/pi-ai/auth-broker";
+import { runAuthBrokerCommand } from "@cyberxninja-omp/pi-coding-agent/cli/auth-broker-cli";
+import { getAgentDbPath, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 const TEAM_ORG = "org-team-1111";
 

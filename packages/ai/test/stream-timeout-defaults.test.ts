@@ -6,7 +6,7 @@ import {
 	getStreamIdleTimeoutMs,
 	iterateWithIdleTimeout,
 	iterateWithTerminalGrace,
-} from "@cxn/pi-ai/utils/idle-iterator";
+} from "@cyberxninja-omp/pi-ai/utils/idle-iterator";
 
 /**
  * Per-provider fallback overrides on the stream-watchdog helpers.

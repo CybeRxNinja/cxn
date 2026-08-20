@@ -1,12 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import { convertOpenAICodexResponsesTools } from "@cxn/pi-ai/providers/openai-codex-responses";
-import type { Model, Tool, ToolCall } from "@cxn/pi-ai/types";
-import { enforceStrictSchema } from "@cxn/pi-ai/utils/schema";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { YieldTool } from "@cxn/pi-coding-agent/tools/yield";
+import { convertOpenAICodexResponsesTools } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import type { Model, Tool, ToolCall } from "@cyberxninja-omp/pi-ai/types";
+import { enforceStrictSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { YieldTool } from "@cyberxninja-omp/pi-coding-agent/tools/yield";
 import { arrayValuedLabels } from "../../src/task/yield-assembly";
 
 function createSession(overrides: Partial<ToolSession> = {}): ToolSession {

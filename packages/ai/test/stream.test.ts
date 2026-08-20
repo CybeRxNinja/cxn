@@ -3,14 +3,22 @@ import { type ChildProcess, execSync, spawn } from "node:child_process";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { Effort } from "@cxn/pi-ai";
-import { __resetVertexTokenCache } from "@cxn/pi-ai/providers/google-auth";
-import { complete, getEnvApiKey, stream } from "@cxn/pi-ai/stream";
-import type { Api, Context, ImageContent, Model, OptionsForApi, Tool, ToolResultMessage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { $which } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Effort } from "@cyberxninja-omp/pi-ai";
+import { __resetVertexTokenCache } from "@cyberxninja-omp/pi-ai/providers/google-auth";
+import { complete, getEnvApiKey, stream } from "@cyberxninja-omp/pi-ai/stream";
+import type {
+	Api,
+	Context,
+	ImageContent,
+	Model,
+	OptionsForApi,
+	Tool,
+	ToolResultMessage,
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { $which } from "@cyberxninja-omp/pi-utils";
 import { removeWithRetries } from "../../utils/src/temp";
 import { e2eApiKey, resolveApiKey } from "./oauth";
 

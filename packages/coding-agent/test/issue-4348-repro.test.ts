@@ -18,14 +18,14 @@
  */
 
 import { beforeAll, describe, expect, it, vi } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage, Usage } from "@cxn/pi-ai";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext, RenderSessionContextOptions } from "@cxn/pi-coding-agent/modes/types";
-import { UiHelpers } from "@cxn/pi-coding-agent/modes/utils/ui-helpers";
-import type { SessionContext } from "@cxn/pi-coding-agent/session/session-context";
-import { Container } from "@cxn/pi-tui";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, Usage } from "@cyberxninja-omp/pi-ai";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext, RenderSessionContextOptions } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { UiHelpers } from "@cyberxninja-omp/pi-coding-agent/modes/utils/ui-helpers";
+import type { SessionContext } from "@cyberxninja-omp/pi-coding-agent/session/session-context";
+import { Container } from "@cyberxninja-omp/pi-tui";
 
 beforeAll(() => {
 	initTheme();

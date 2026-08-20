@@ -107,7 +107,7 @@ Mnemopi:
   - `hindsight.autoRetain = true`
   - `hindsight.retainEveryNTurns = 3`
   - `hindsight.retainOverlapTurns = 2`
-  - `hindsight.retainContext = "cxn"`
+  - `hindsight.retainContext = "omp"`
   - `hindsight.retainMode = "full-session"`
 - Mnemopi retain settings:
   - `mnemopi.autoRetain = true`

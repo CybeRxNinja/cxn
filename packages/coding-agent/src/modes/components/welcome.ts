@@ -6,8 +6,8 @@ import {
 	truncateToWidth,
 	visibleWidth,
 	wrapTextWithAnsi,
-} from "@cxn/pi-tui";
-import { APP_NAME } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { APP_NAME } from "@cyberxninja-omp/pi-utils";
 import { theme } from "../../modes/theme/theme";
 import tipsText from "./tips.txt" with { type: "text" };
 

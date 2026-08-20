@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from "bun:test";
-import type { ImageContent } from "@cxn/pi-ai";
-import { InputController } from "@cxn/pi-coding-agent/modes/controllers/input-controller";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { USER_INTERRUPT_LABEL } from "@cxn/pi-coding-agent/session/messages";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
+import { InputController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/input-controller";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { USER_INTERRUPT_LABEL } from "@cyberxninja-omp/pi-coding-agent/session/messages";
 
 function createContext(options?: {
 	queuedMessageCount?: number;

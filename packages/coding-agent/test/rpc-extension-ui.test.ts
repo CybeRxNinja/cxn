@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "bun:test";
-import { type PendingExtensionRequest, requestRpcDialog } from "@cxn/pi-coding-agent/modes/rpc/rpc-mode";
+import { type PendingExtensionRequest, requestRpcDialog } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-mode";
 
 describe("RPC extension UI", () => {
 	it("cancels the remote dialog when its signal aborts", async () => {

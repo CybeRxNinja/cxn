@@ -1,7 +1,7 @@
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Effort } from "@cxn/pi-ai";
-import { colorLuma, logger, relativeLuminance } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Effort } from "@cyberxninja-omp/pi-ai";
+import { colorLuma, logger, relativeLuminance } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { bgAnsi, colorToAnsi, fgAnsi, resolveToHex } from "./color";
 import type { ColorMode, ThemeBg, ThemeColor } from "./schema";
 import {

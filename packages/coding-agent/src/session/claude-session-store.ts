@@ -10,8 +10,8 @@ import type {
 	ToolResultMessage,
 	Usage,
 	UserMessage,
-} from "@cxn/pi-ai";
-import { isRecord } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 import { resolveClaudePaths } from "../config/claude-paths";
 import { collectForeignJsonRecords, type ForeignJsonRecord, readForeignJsonRecords } from "./foreign-session-jsonl";
 import type { ForeignSessionInfo, ForeignSessionStore } from "./foreign-session-store";

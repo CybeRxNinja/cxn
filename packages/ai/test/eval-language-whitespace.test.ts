@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { Tool } from "@cxn/pi-ai/types";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
+import { type } from "@cyberxninja-omp/omptype";
+import type { Tool } from "@cyberxninja-omp/pi-ai/types";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
 
 describe("Eval-tool language whitespace normalization", () => {
 	it("trims a trailing newline on the ArkType-emitted language enum", () => {

@@ -84,6 +84,6 @@ esac
 
 		expect(result.exitCode, result.stderr).toBe(0);
 		expect(result.stdout).toContain("Downloading cxn-linux-musl-x64...");
-		expect(await Bun.file(path.join(installDir, "cxn")).text()).toBe("binary");
+		expect(await Bun.file(path.join(installDir, "omp")).text()).toBe("binary");
 	});
 });

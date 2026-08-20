@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { extractRetryHint, fetchWithRetry } from "@cxn/pi-utils/fetch-retry";
+import { extractRetryHint, fetchWithRetry } from "@cyberxninja-omp/pi-utils/fetch-retry";
 
 describe("fetchWithRetry", () => {
 	it("routes requests through the `fetch` override when provided", async () => {

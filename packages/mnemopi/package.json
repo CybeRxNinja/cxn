@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@cxn/pi-mnemopi",
+  "name": "@cyberxninja-omp/pi-mnemopi",
   "version": "17.4.2",
-  "description": "Local SQLite memory engine for cxn agents",
-  "homepage": "https://cxn.sh",
+  "description": "Local SQLite memory engine for omp agents",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "contributors": [
     "Abdias J"
@@ -39,10 +39,10 @@
     "fmt": "biome format --write ."
   },
   "dependencies": {
-    "@cxn/pi-ai": "catalog:",
-    "@cxn/pi-catalog": "catalog:",
-    "@cxn/pi-natives": "catalog:",
-    "@cxn/pi-utils": "catalog:"
+    "@cyberxninja-omp/pi-ai": "catalog:",
+    "@cyberxninja-omp/pi-catalog": "catalog:",
+    "@cyberxninja-omp/pi-natives": "catalog:",
+    "@cyberxninja-omp/pi-utils": "catalog:"
   },
   "peerDependencies": {
     "fastembed": "2.1.0",

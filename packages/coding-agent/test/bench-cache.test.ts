@@ -11,8 +11,8 @@ import type {
 	Context,
 	Model,
 	SimpleStreamOptions,
-} from "@cxn/pi-ai";
-import { type BenchModelRegistry, runBenchCommand } from "@cxn/pi-coding-agent/cli/bench-cli";
+} from "@cyberxninja-omp/pi-ai";
+import { type BenchModelRegistry, runBenchCommand } from "@cyberxninja-omp/pi-coding-agent/cli/bench-cli";
 
 const model = {
 	provider: "openai",

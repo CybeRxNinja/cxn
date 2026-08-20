@@ -1,13 +1,13 @@
 # /refine — continual harness
 
-`/refine` is cxn's continual-harness subsystem: it reviews the current
+`/refine` is omp's continual-harness subsystem: it reviews the current
 trajectory and applies small, evidence-backed edits to **supplemental** state —
 prompt notes, memories, skill descriptions, and subagent specs — that persists
 outside the token history. Every refinement records before/after snapshots of
 the entries it touches, which is what makes **rollback** possible.
 
 Ported from the /refine harness concept (MIT-licensed upstream), adapted to
-cxn's AI layer (`@cxn/pi-ai`) and memory backends
+omp's AI layer (`@cyberxninja-omp/pi-ai`) and memory backends
 (`src/memory-backend/`).
 
 ## Command surface

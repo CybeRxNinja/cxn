@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { getThemeByName, setThemeInstance, type Theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { TaskParams } from "@cxn/pi-coding-agent/task";
-import { taskToolRenderer } from "@cxn/pi-coding-agent/task/renderer";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { getThemeByName, setThemeInstance, type Theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { TaskParams } from "@cyberxninja-omp/pi-coding-agent/task";
+import { taskToolRenderer } from "@cyberxninja-omp/pi-coding-agent/task/renderer";
 
 describe("task renderer: streaming call preview", () => {
 	let theme: Theme;

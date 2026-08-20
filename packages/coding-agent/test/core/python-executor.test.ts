@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { disposeAllKernelSessions, executePythonWithKernel } from "@cxn/pi-coding-agent/eval/py/executor";
-import { DEFAULT_MAX_BYTES } from "@cxn/pi-coding-agent/session/streaming-output";
-import { TempDir } from "@cxn/pi-utils";
+import { disposeAllKernelSessions, executePythonWithKernel } from "@cyberxninja-omp/pi-coding-agent/eval/py/executor";
+import { DEFAULT_MAX_BYTES } from "@cyberxninja-omp/pi-coding-agent/session/streaming-output";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { FakeKernel } from "./helpers";
 
 describe("executePythonWithKernel", () => {

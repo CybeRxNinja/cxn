@@ -1,9 +1,9 @@
 /**
- * List and clean up agent-managed git worktrees under `~/.cxn/wt`.
+ * List and clean up agent-managed git worktrees under `~/.omp/wt`.
  */
 
-import { getProjectDir } from "@cxn/pi-utils";
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { getProjectDir } from "@cyberxninja-omp/pi-utils";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { worktreeHelp as commandHelp } from "../cli/command-help";
 import { clearWorktrees, listWorktrees } from "../cli/worktree-cli";
 import { Settings } from "../config/settings";
@@ -14,7 +14,7 @@ export default class Worktree extends Command {
 
 	static args = {
 		// `list` (default) inspects the worktree dir; `clear` removes entries.
-		// A positional action keeps `cxn worktree` (the no-arg form) useful.
+		// A positional action keeps `omp worktree` (the no-arg form) useful.
 		action: Args.string({
 			description: "list (default) or clear",
 			required: false,
@@ -37,17 +37,17 @@ export default class Worktree extends Command {
 	};
 
 	static examples = [
-		"cxn worktree",
-		"cxn worktree list --json",
-		"cxn worktree clear",
-		"cxn worktree clear --dry-run",
-		"cxn worktree clear --all",
+		"omp worktree",
+		"omp worktree list --json",
+		"omp worktree clear",
+		"omp worktree clear --dry-run",
+		"omp worktree clear --all",
 	];
 
 	async run(): Promise<void> {
 		const { args, flags } = await this.parse(Worktree);
 		// Load settings so the `worktree.base` override is applied before we scan
-		// — otherwise this command would inspect ~/.cxn/wt while the agent created
+		// — otherwise this command would inspect ~/.omp/wt while the agent created
 		// its worktrees under the configured base.
 		await Settings.init({ cwd: getProjectDir() });
 		if (args.action === "clear") {

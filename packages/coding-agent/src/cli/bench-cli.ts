@@ -1,4 +1,4 @@
-import type { ResolvedThinkingLevel } from "@cxn/pi-agent-core";
+import type { ResolvedThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
 import type {
 	Api,
 	ApiKeyResolver,
@@ -12,12 +12,12 @@ import type {
 	ServiceTier,
 	ServiceTierByFamily,
 	SimpleStreamOptions,
-} from "@cxn/pi-ai";
-import { resolveModelServiceTier, streamSimple } from "@cxn/pi-ai";
-import { buildModelProviderPriorityRank } from "@cxn/pi-catalog/identity";
-import { replaceTabs, truncateToWidth } from "@cxn/pi-tui";
-import { formatDuration, getProjectDir, prompt } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+} from "@cyberxninja-omp/pi-ai";
+import { resolveModelServiceTier, streamSimple } from "@cyberxninja-omp/pi-ai";
+import { buildModelProviderPriorityRank } from "@cyberxninja-omp/pi-catalog/identity";
+import { replaceTabs, truncateToWidth } from "@cyberxninja-omp/pi-tui";
+import { formatDuration, getProjectDir, prompt } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import type { ApiKeyResolverModel } from "../config/api-key-resolver";
 import { ModelRegistry } from "../config/model-registry";
 import {
@@ -794,7 +794,7 @@ export async function runBenchCommand(command: BenchCommandArgs, deps: BenchDepe
 	const now = deps.now ?? (() => performance.now());
 	const interactive = deps.stdoutIsTTY ?? process.stdout.isTTY === true;
 	if (command.models.length === 0) {
-		throw new Error("Pass at least one model selector, e.g. `cxn bench opus gpt-5.2`");
+		throw new Error("Pass at least one model selector, e.g. `omp bench opus gpt-5.2`");
 	}
 
 	const runtime = await (deps.createRuntime ?? createDefaultRuntime)();
@@ -830,7 +830,7 @@ export async function runBenchCommand(command: BenchCommandArgs, deps: BenchDepe
 			if (!preflightKey) {
 				const failure: BenchRunFailure = {
 					ok: false,
-					error: `No credentials for provider "${model.provider}". Run \`cxn\` and use /login, or set the provider API key.`,
+					error: `No credentials for provider "${model.provider}". Run \`omp\` and use /login, or set the provider API key.`,
 				};
 				results.push(failure);
 				if (!json) writeStdout(`${formatRunLine(failure, 0, runs)}\n`);

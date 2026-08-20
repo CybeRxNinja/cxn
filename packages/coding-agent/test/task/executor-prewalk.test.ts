@@ -6,23 +6,27 @@
  * target identical to the starting model).
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { Model } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { LoadExtensionsResult } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent, PromptOptions } from "@cxn/pi-coding-agent/session/agent-session";
-import { TaskTool } from "@cxn/pi-coding-agent/task";
-import * as discoveryModule from "@cxn/pi-coding-agent/task/discovery";
-import * as executorModule from "@cxn/pi-coding-agent/task/executor";
-import { runSubprocess } from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition, SingleResult } from "@cxn/pi-coding-agent/task/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { LoadExtensionsResult } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type {
+	AgentSession,
+	AgentSessionEvent,
+	PromptOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { TaskTool } from "@cyberxninja-omp/pi-coding-agent/task";
+import * as discoveryModule from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import * as executorModule from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import { runSubprocess } from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { AgentDefinition, SingleResult } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
 
 function yieldEmittingSession(
 	initialTools: string[] = ["read", "yield"],

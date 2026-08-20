@@ -4,9 +4,9 @@ import {
 	generateBranchSummary,
 	prepareBranchEntries,
 	type SessionEntry,
-} from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, Model, Usage } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantMessage, Model, Usage } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const MODEL: Model = buildModel({
 	id: "mock-model",

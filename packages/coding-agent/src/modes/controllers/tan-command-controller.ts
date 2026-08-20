@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { prompt, Snowflake } from "@cxn/pi-utils";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { prompt, Snowflake } from "@cyberxninja-omp/pi-utils";
 import backgroundTanDispatchPrompt from "../../prompts/system/background-tan-dispatch.md" with { type: "text" };
 import tanContextSwitchPrompt from "../../prompts/system/tan-context-switch.md" with { type: "text" };
 import { AgentRegistry, MAIN_AGENT_ID } from "../../registry/agent-registry";

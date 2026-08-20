@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Container, type NativeScrollbackLiveRegion, type RenderScheduler, TUI } from "@cxn/pi-tui";
-import { Image, ImageBudget } from "@cxn/pi-tui/components/image";
-import { Text } from "@cxn/pi-tui/components/text";
-import { getKittyGraphics, setKittyGraphics } from "@cxn/pi-tui/kitty-graphics";
+import { Container, type NativeScrollbackLiveRegion, type RenderScheduler, TUI } from "@cyberxninja-omp/pi-tui";
+import { Image, ImageBudget } from "@cyberxninja-omp/pi-tui/components/image";
+import { Text } from "@cyberxninja-omp/pi-tui/components/text";
+import { getKittyGraphics, setKittyGraphics } from "@cyberxninja-omp/pi-tui/kitty-graphics";
 import {
 	type CellDimensions,
 	encodeKittyPlacementLine,
@@ -12,7 +12,7 @@ import {
 	setCellDimensions,
 	TERMINAL,
 	wrapTmuxPassthrough,
-} from "@cxn/pi-tui/terminal-capabilities";
+} from "@cyberxninja-omp/pi-tui/terminal-capabilities";
 import { VirtualTerminal } from "./virtual-terminal";
 
 type MutableTerminalInfo = { id: string; imageProtocol: ImageProtocol | null };

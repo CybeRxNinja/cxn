@@ -2,18 +2,18 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:te
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentTool } from "@cxn/pi-agent-core";
-import { Effort } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import * as autoThinkingClassifier from "@cxn/pi-coding-agent/auto-thinking/classifier";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { AUTO_THINKING } from "@cxn/pi-coding-agent/thinking";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { Effort } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import * as autoThinkingClassifier from "@cyberxninja-omp/pi-coding-agent/auto-thinking/classifier";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { AUTO_THINKING } from "@cyberxninja-omp/pi-coding-agent/thinking";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const mockTaskTool: AgentTool = {
 	name: "task",

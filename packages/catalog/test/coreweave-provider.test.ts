@@ -1,12 +1,15 @@
 import { afterEach, describe, expect, test, vi } from "bun:test";
-import { getBundledModels } from "@cxn/pi-catalog/models";
-import { DEFAULT_MODEL_PER_PROVIDER, PROVIDER_DESCRIPTORS } from "@cxn/pi-catalog/provider-models/descriptors";
+import { getBundledModels } from "@cyberxninja-omp/pi-catalog/models";
+import {
+	DEFAULT_MODEL_PER_PROVIDER,
+	PROVIDER_DESCRIPTORS,
+} from "@cyberxninja-omp/pi-catalog/provider-models/descriptors";
 import {
 	coreWeaveModelManagerOptions,
 	MODELS_DEV_PROVIDER_DESCRIPTORS,
 	mapModelsDevToModels,
-} from "@cxn/pi-catalog/provider-models/openai-compat";
-import type { FetchImpl } from "@cxn/pi-catalog/types";
+} from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
+import type { FetchImpl } from "@cyberxninja-omp/pi-catalog/types";
 
 const COREWEAVE_ENV_KEYS = ["COREWEAVE_PROJECT", "WANDB_INFERENCE_PROJECT", "WANDB_ENTITY", "WANDB_PROJECT"] as const;
 const ORIGINAL_ENV = new Map(COREWEAVE_ENV_KEYS.map(key => [key, Bun.env[key]]));

@@ -8,7 +8,7 @@ import {
 	logger,
 	stripWindowsExtendedLengthPathPrefix,
 	workerHostEntry,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import type { Subprocess } from "bun";
 
 /**
@@ -430,7 +430,7 @@ export function logWorkerMessage(message: WorkerLogMessage): void {
 }
 
 /**
- * Drive the ping/pong readiness probe wired into `cxn --smoke-test`: send one
+ * Drive the ping/pong readiness probe wired into `omp --smoke-test`: send one
  * `ping`, resolve on the first `pong` (ignoring `log` chatter), and reject on
  * any other message, a worker error, or the timeout. Always tears the handle
  * down on the way out. `label` prefixes the failure messages.

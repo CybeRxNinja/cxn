@@ -2,9 +2,9 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { applyStartupCwd } from "@cxn/pi-coding-agent/cli/startup-cwd";
-import { getProjectDir, normalizePathForComparison, setProjectDir } from "@cxn/pi-utils";
+import { parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { applyStartupCwd } from "@cyberxninja-omp/pi-coding-agent/cli/startup-cwd";
+import { getProjectDir, normalizePathForComparison, setProjectDir } from "@cyberxninja-omp/pi-utils";
 
 const originalProjectDir = getProjectDir();
 

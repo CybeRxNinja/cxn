@@ -5,9 +5,9 @@
  * (or sandboxes where subprocess spawning is restricted) does not fail.
  */
 import { afterEach, describe, expect, it } from "bun:test";
-import { disposeAllRubyKernelSessions, executeRubyWithKernel } from "@cxn/pi-coding-agent/eval/rb/executor";
-import { RubyKernel } from "@cxn/pi-coding-agent/eval/rb/kernel";
-import { TempDir } from "@cxn/pi-utils";
+import { disposeAllRubyKernelSessions, executeRubyWithKernel } from "@cyberxninja-omp/pi-coding-agent/eval/rb/executor";
+import { RubyKernel } from "@cyberxninja-omp/pi-coding-agent/eval/rb/kernel";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const SHOULD_RUN = Bun.env.PI_RUBY_INTEGRATION === "1";
 

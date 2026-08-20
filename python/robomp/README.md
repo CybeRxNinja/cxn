@@ -1,6 +1,6 @@
 # roboomp
 
-Self-hosted GitHub triage bot. Drives [`cxn --mode rpc`](https://github.com/can1357/oh-my-pi)
+Self-hosted GitHub triage bot. Drives [`omp --mode rpc`](https://github.com/can1357/oh-my-pi)
 as a subprocess against a per-issue git worktree, then writes back to GitHub
 through a sidecar that holds the PAT.
 
@@ -17,7 +17,7 @@ and branches:
 - `enhancement` / `proposal` → one comment, no PR.
 - `invalid` / `duplicate` → one brief comment.
 
-Follow-up issue comments and PR review comments resume the same cxn session
+Follow-up issue comments and PR review comments resume the same omp session
 (`--continue` against the persisted JSONL transcript). On orchestrator
 restart, in-flight events are re-queued and resume the same way.
 
@@ -25,7 +25,7 @@ restart, in-flight events are re-queued and resume the same way.
 
 Two containers, one trust boundary:
 
-- **robomp** — FastAPI + sqlite event queue + `WorkerPool` running `cxn` in
+- **robomp** — FastAPI + sqlite event queue + `WorkerPool` running `omp` in
   per-issue worktrees under `/data/workspaces/`. Holds the HMAC key, never
   the PAT.
 - **gh-proxy** — sibling on an `internal: true` network. Holds `GITHUB_TOKEN`,
@@ -36,10 +36,10 @@ Flow: webhook → HMAC verify → `github_events.route` → sqlite `events`
 (dedup on `X-GitHub-Delivery`) → `WorkerPool` claims under
 `BEGIN IMMEDIATE` with an in-process `_inflight` set per `(owner, repo, n)`
 → `sandbox.ensure_workspace` produces a worktree on `farm/<8hex>/<slug>`
-→ `worker.run_task` spawns `cxn --mode rpc` with `cwd=worktree`,
+→ `worker.run_task` spawns `omp --mode rpc` with `cwd=worktree`,
 persistent `session_dir`, model randomly drawn from `ROBCXN_MODEL` (CSV).
 
-The agent uses cxn's built-in tools (`read`/`edit`/`bash`/`lsp`, scoped to
+The agent uses omp's built-in tools (`read`/`edit`/`bash`/`lsp`, scoped to
 the worktree) plus the host tools in `src/host_tools.py` — the
 exclusive surface for GitHub writes. Every host-tool invocation is audited
 into the `tool_calls` table with credential-redacted args and results.
@@ -47,10 +47,10 @@ into the `tool_calls` table with credential-redacted args and results.
 ## Setup
 
 Requires Docker Compose v2 and a LiteLLM-style proxy on the host that your
-`~/.cxn/agent/models.container.yml` points at (mounted into the container as `models.yml`; kept under a separate filename on the host so the host cxn doesn't route through the gateway). roboomp lives inside the cxn
+`~/.omp/agent/models.container.yml` points at (mounted into the container as `models.yml`; kept under a separate filename on the host so the host omp doesn't route through the gateway). roboomp lives inside the omp
 monorepo at `python/robomp/`; both the docker build context and the
 `/work/pi` bind mount default to the parent monorepo (`../..`). Override
-`PI_ROOT` only if you want a different cxn checkout backing the build
+`PI_ROOT` only if you want a different omp checkout backing the build
 and runtime.
 
 Bot account needs **Write** on every repo in `ROBCXN_REPO_ALLOWLIST`. A
@@ -63,7 +63,7 @@ $EDITOR .env
 openssl rand -hex 32              # ROBCXN_GH_PROXY_HMAC_KEY
 openssl rand -hex 32              # GITHUB_WEBHOOK_SECRET
 
-bun run pi:image                  # build cxn/pi:dev (one-time / on pi change)
+bun run pi:image                  # build omp/pi:dev (one-time / on pi change)
 bun run robomp:build && bun run robomp:up
 curl -fsS http://localhost:8080/healthz
 ```
@@ -75,7 +75,7 @@ comment out `ROBCXN_GH_PROXY_URL` / `ROBCXN_GH_PROXY_HMAC_KEY` and set
 rejects a `.env` setting both).
 
 Build invalidation is bounded: editing roboomp Python touches only the
-runtime layer; editing pi source rebuilds `cxn/pi:dev`, which
+runtime layer; editing pi source rebuilds `omp/pi:dev`, which
 roboomp's `Dockerfile.robomp` extends via `FROM ${PI_BASE}`.
 
 ### Public URL
@@ -122,8 +122,8 @@ pytest -x tests/                              # unit suite, no network
 ROBCXN_INTEGRATION=1 pytest -x tests/test_worker_smoke.py
 ```
 
-The integration test spawns a real `cxn --mode rpc` against an
-`httpx.MockTransport` GitHub and a local bare repo, so it needs `cxn` on
+The integration test spawns a real `omp --mode rpc` against an
+`httpx.MockTransport` GitHub and a local bare repo, so it needs `omp` on
 `PATH`. `bun run test:py` runs the unit suite.
 
 ## Security posture
@@ -184,13 +184,13 @@ The integration test spawns a real `cxn --mode rpc` against an
 | Symptom | Check |
 |---|---|
 | `401 invalid signature` | `GITHUB_WEBHOOK_SECRET` mismatch with the repo webhook config. |
-| Container exits with `PI_ROOT … missing` | `/work/pi` mount empty inside the container; on the host either run `docker compose` from `python/robomp/` so `PI_ROOT` defaults to `../..`, or export `PI_ROOT` to a valid cxn checkout. |
+| Container exits with `PI_ROOT … missing` | `/work/pi` mount empty inside the container; on the host either run `docker compose` from `python/robomp/` so `PI_ROOT` defaults to `../..`, or export `PI_ROOT` to a valid omp checkout. |
 | `git push: Authentication required` | Bot PAT lacks push, or `ROBCXN_BOT_LOGIN` does not identify the PAT account's mention handle (production: `roboomp`, no `@`/`[bot]`). |
 | `refusing to push: commit author identity mismatch` | Some commit not authored as `ROBCXN_GIT_AUTHOR_*`. The error lists the offending shas; `git commit --amend --reset-author --no-edit`. |
 | `refusing to push: working tree is dirty` | Uncommitted agent edits. Or just call `gh_open_pr`, which auto-commits `bun run fix` output. |
 | `bun check failed before PR creation` | Fix the reported failure and retry `gh_open_pr`. |
 | `Failed to load pi_natives` | Wrong arch / missing native. `bun run pi:image` then `bun run robomp:build`. |
-| `No API key found for <provider>` | `~/.cxn/agent/models.container.yml` mount missing or provider id mismatch with `ROBCXN_MODEL`. |
+| `No API key found for <provider>` | `~/.omp/agent/models.container.yml` mount missing or provider id mismatch with `ROBCXN_MODEL`. |
 
 ## Layout
 
@@ -200,7 +200,7 @@ src/
   github_events.py   verify_signature + route()
   queue.py           WorkerPool, dispatch loop, per-issue _inflight serialization
   tasks.py           triage_issue, handle_comment, handle_pr_conversation, handle_review, cleanup_workspace
-  worker.py          synchronous cxn RPC driver, prompt assembly, env scrubbing
+  worker.py          synchronous omp RPC driver, prompt assembly, env scrubbing
   host_tools.py      classify_issue, set_issue_labels, gh_post_comment, repro_record,
                      gh_push_branch, gh_open_pr, gh_request_review,
                      mark_unable_to_reproduce, abort_task, fetch_issue_thread

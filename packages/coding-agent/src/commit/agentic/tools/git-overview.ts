@@ -1,4 +1,4 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type { CommitAgentState, GitOverviewSnapshot } from "../../../commit/agentic/state";
 import { extractScopeCandidates } from "../../../commit/analysis/scope";
 import type { CustomTool } from "../../../extensibility/custom-tools/types";

@@ -1,13 +1,13 @@
-import type { CommandMetadata } from "@cxn/pi-utils/cli";
+import type { CommandMetadata } from "@cyberxninja-omp/pi-utils/cli";
 
 export const acpHelp = {
-	description: "Run cxn as an ACP (Agent Client Protocol) server over stdio",
+	description: "Run omp as an ACP (Agent Client Protocol) server over stdio",
 } satisfies CommandMetadata;
 
 export const agentsHelp = { description: "Manage bundled task agents" } satisfies CommandMetadata;
 
 export const authBrokerHelp = {
-	description: "Manage the cxn auth-broker (credential vault)",
+	description: "Manage the omp auth-broker (credential vault)",
 } satisfies CommandMetadata;
 
 export const authGatewayHelp = {
@@ -107,5 +107,5 @@ export const usageHelp = {
 } satisfies CommandMetadata;
 
 export const worktreeHelp = {
-	description: "List or clear agent-managed git worktrees (~/.cxn/wt)",
+	description: "List or clear agent-managed git worktrees (~/.omp/wt)",
 } satisfies CommandMetadata;

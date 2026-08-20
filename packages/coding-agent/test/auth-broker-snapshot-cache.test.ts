@@ -2,16 +2,16 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai";
 import {
 	type AuthBrokerServerHandle,
 	readAuthBrokerSnapshotCache,
 	type SnapshotResponse,
 	startAuthBroker,
 	writeAuthBrokerSnapshotCache,
-} from "@cxn/pi-ai/auth-broker";
-import { discoverAuthStorage } from "@cxn/pi-coding-agent/sdk";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/auth-broker";
+import { discoverAuthStorage } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const ENV_KEYS = [
 	"CXN_AUTH_BROKER_URL",

@@ -1,4 +1,4 @@
-import { $env, ptree, USER_AGENT } from "@cxn/pi-utils";
+import { $env, ptree, USER_AGENT } from "@cyberxninja-omp/pi-utils";
 import type { RenderResult, SpecialHandler } from "./types";
 import { buildResult, formatMediaDuration, loadPage } from "./types";
 

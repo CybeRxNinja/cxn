@@ -12,7 +12,7 @@ import {
 	setTerminalDeccara,
 	TERMINAL,
 	TUI,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import { VirtualTerminal } from "./virtual-terminal";
 
 // Truecolor background open token used throughout the integration tests.

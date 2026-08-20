@@ -10,12 +10,12 @@
  * a silent fallback to local credentials.
  */
 import { describe, expect, it, vi } from "bun:test";
-import { AuthBrokerError } from "@cxn/pi-ai/auth-broker";
-import { MissingApiKeyError } from "@cxn/pi-ai/error";
-import { parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { runRootCommand } from "@cxn/pi-coding-agent/main";
-import { describeAuthBrokerStartupError } from "@cxn/pi-coding-agent/session/auth-broker-config";
-import { setInteractiveHost } from "@cxn/pi-utils";
+import { AuthBrokerError } from "@cyberxninja-omp/pi-ai/auth-broker";
+import { MissingApiKeyError } from "@cyberxninja-omp/pi-ai/error";
+import { parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { runRootCommand } from "@cyberxninja-omp/pi-coding-agent/main";
+import { describeAuthBrokerStartupError } from "@cyberxninja-omp/pi-coding-agent/session/auth-broker-config";
+import { setInteractiveHost } from "@cyberxninja-omp/pi-utils";
 
 class ProcessExitSignal extends Error {
 	constructor(readonly code: number) {
@@ -32,8 +32,8 @@ describe("describeAuthBrokerStartupError", () => {
 		expect(message).not.toBeNull();
 		expect(message).toContain("Auth broker request failed after 2 attempt(s)");
 		// Both recovery routes the reporter asked for: start it, or disable it.
-		expect(message).toContain("cxn auth-broker serve");
-		expect(message).toContain("cxn config reset auth.broker.url");
+		expect(message).toContain("omp auth-broker serve");
+		expect(message).toContain("omp config reset auth.broker.url");
 		expect(message).toContain("CXN_AUTH_BROKER_URL");
 	});
 
@@ -98,6 +98,6 @@ describe("runRootCommand — unreachable auth broker at startup", () => {
 		expect(thrown).toBeInstanceOf(ProcessExitSignal);
 		expect(exitCodes).toEqual([1]);
 		expect(stderr).toContain("Auth broker request failed after 2 attempt(s)");
-		expect(stderr).toContain("cxn auth-broker serve");
+		expect(stderr).toContain("omp auth-broker serve");
 	}, 15_000);
 });

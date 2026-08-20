@@ -1,6 +1,6 @@
 import { Database } from "bun:sqlite";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-coding-agent/session/auth-storage";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
 
 /**
  * Shared factory for building a minimal mock `AssistantMessage`

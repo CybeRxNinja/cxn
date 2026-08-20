@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { convertAnthropicMessages } from "@cxn/pi-ai/providers/anthropic";
-import type { AssistantMessage, Model, ModelSpec, ToolResultMessage, UserMessage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { convertAnthropicMessages } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import type { AssistantMessage, Model, ModelSpec, ToolResultMessage, UserMessage } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 /**
  * Issue #814: Z.AI returns 500

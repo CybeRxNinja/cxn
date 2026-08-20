@@ -12,19 +12,19 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InternalUrlRouter } from "@cxn/pi-coding-agent/internal-urls";
-import { HistoryProtocolHandler } from "@cxn/pi-coding-agent/internal-urls/history-protocol";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InternalUrlRouter } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { HistoryProtocolHandler } from "@cyberxninja-omp/pi-coding-agent/internal-urls/history-protocol";
 import {
 	registerArtifactsDir,
 	resetRegisteredArtifactDirsForTests,
-} from "@cxn/pi-coding-agent/internal-urls/registry-helpers";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { CURRENT_SESSION_VERSION } from "@cxn/pi-coding-agent/session/session-entries";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/internal-urls/registry-helpers";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { CURRENT_SESSION_VERSION } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 async function withTempDir<T>(fn: (dir: string) => Promise<T>): Promise<T> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "history-protocol-"));

@@ -12,12 +12,12 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import type { Model } from "@cxn/pi-ai";
-import * as ai from "@cxn/pi-ai";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { startMemoryStartupTask } from "@cxn/pi-coding-agent/memories";
-import * as memoryStorage from "@cxn/pi-coding-agent/memories/storage";
-import { getAgentDbPath, logger, Snowflake, TempDir } from "@cxn/pi-utils";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import * as ai from "@cyberxninja-omp/pi-ai";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { startMemoryStartupTask } from "@cyberxninja-omp/pi-coding-agent/memories";
+import * as memoryStorage from "@cyberxninja-omp/pi-coding-agent/memories/storage";
+import { getAgentDbPath, logger, Snowflake, TempDir } from "@cyberxninja-omp/pi-utils";
 
 interface SessionLike {
 	sessionManager: {

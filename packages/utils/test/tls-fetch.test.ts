@@ -9,7 +9,7 @@ import {
 	type FetchImpl,
 	withExtraCaFetch,
 	wrapFetchForExtraCa,
-} from "@cxn/pi-utils/tls-fetch";
+} from "@cyberxninja-omp/pi-utils/tls-fetch";
 
 const SAMPLE_PEM =
 	"-----BEGIN CERTIFICATE-----\nMIIBkTCCATegAwIBAgIUF/sample/extra/ca/for/tests/1234567=\n-----END CERTIFICATE-----\n";

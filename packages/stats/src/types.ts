@@ -1,4 +1,4 @@
-import type { AssistantMessage, ServiceTier, ServiceTierByFamily, StopReason, Usage } from "@cxn/pi-ai";
+import type { AssistantMessage, ServiceTier, ServiceTierByFamily, StopReason, Usage } from "@cyberxninja-omp/pi-ai";
 import type { AgentType } from "./shared-types";
 
 export * from "./shared-types";

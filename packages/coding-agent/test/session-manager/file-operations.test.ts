@@ -2,10 +2,13 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { FileEntry, SessionHeader } from "@cxn/pi-coding-agent/session/session-entries";
-import { findMostRecentSession, resolveResumableSession } from "@cxn/pi-coding-agent/session/session-listing";
-import { loadEntriesFromFile } from "@cxn/pi-coding-agent/session/session-loader";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import type { FileEntry, SessionHeader } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
+import {
+	findMostRecentSession,
+	resolveResumableSession,
+} from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { loadEntriesFromFile } from "@cyberxninja-omp/pi-coding-agent/session/session-loader";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 import {
 	getConfigRootDir,
 	getSessionsDir,
@@ -13,7 +16,7 @@ import {
 	resolveEquivalentPath,
 	Snowflake,
 	setAgentDir,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 
 const OLDER_MTIME = new Date("2000-01-01T00:00:00.000Z");
 const NEWER_MTIME = new Date("2000-01-01T00:00:01.000Z");

@@ -1,6 +1,6 @@
 # Porting Hot Paths to `pi-natives`
 
-This is the contributor path for moving a measured JS/TS hot path into `crates/pi-natives` and exposing it through `@cxn/pi-natives`.
+This is the contributor path for moving a measured JS/TS hot path into `crates/pi-natives` and exposing it through `@cyberxninja-omp/pi-natives`.
 
 ## Decide whether to port
 
@@ -77,7 +77,7 @@ Do not add a wrapper merely to rename a generated root export.
 
 ### 4. Migrate consumers cleanly
 
-- Import the generated root symbol or intentional lazy subpath from `@cxn/pi-natives`.
+- Import the generated root symbol or intentional lazy subpath from `@cyberxninja-omp/pi-natives`.
 - Compare results and errors against the JS baseline on boundary cases.
 - Switch every intended caller and remove the obsolete implementation in the same change.
 - Keep user-facing policy and rendering in the consumer when the native primitive does not own it.

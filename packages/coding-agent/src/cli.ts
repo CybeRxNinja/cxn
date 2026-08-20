@@ -16,7 +16,7 @@ try {
  */
 import "./cli/env-defer";
 import { parentPort } from "node:worker_threads";
-import type { CliConfig, CommandMetadata } from "@cxn/pi-utils/cli";
+import type { CliConfig, CommandMetadata } from "@cyberxninja-omp/pi-utils/cli";
 import {
 	APP_NAME,
 	getActiveProfile,
@@ -24,11 +24,15 @@ import {
 	resolveProfileEnv,
 	setProfile,
 	VERSION,
-} from "@cxn/pi-utils/dirs";
-import { markEnvReady } from "@cxn/pi-utils/env";
-import { interceptUnhandledRejections } from "@cxn/pi-utils/postmortem";
-import { setProcessName } from "@cxn/pi-utils/process-name";
-import { declareWorkerHostEntry, installWorkerInbox, isWorkerHostSelector } from "@cxn/pi-utils/worker-host";
+} from "@cyberxninja-omp/pi-utils/dirs";
+import { markEnvReady } from "@cyberxninja-omp/pi-utils/env";
+import { interceptUnhandledRejections } from "@cyberxninja-omp/pi-utils/postmortem";
+import { setProcessName } from "@cyberxninja-omp/pi-utils/process-name";
+import {
+	declareWorkerHostEntry,
+	installWorkerInbox,
+	isWorkerHostSelector,
+} from "@cyberxninja-omp/pi-utils/worker-host";
 import { installProfileAlias, resolveProfileAliasCommandFromProcess } from "./cli/profile-alias";
 import { extractProfileFlags } from "./cli/profile-bootstrap";
 import { startJsEvalProcess } from "./eval/js/process-entry";
@@ -61,14 +65,14 @@ const isProcessEntry = import.meta.main || process.env.PI_COMPILED === "true";
 // Worker-host entry declaration (Worker threads and worker subprocesses
 // re-enter `Bun.main` with a hidden argv selector instead of loading separate
 // worker entrypoints) happens inside `runCli` after profile bootstrap:
-// `@cxn/pi-utils/env` eagerly loads `.env` from the agent directory at
+// `@cyberxninja-omp/pi-utils/env` eagerly loads `.env` from the agent directory at
 // import time, so it must not be imported before `setProfile` runs.
 
 async function showHelp(config: CliConfig<CommandMetadata>): Promise<void> {
 	// Root help historically loads the selected profile's environment. The
 	// lazily loaded help module imports it statically after profile bootstrap.
 	const [{ renderRootHelp }, { getExtraHelpText }] = await Promise.all([
-		import("@cxn/pi-utils/cli"),
+		import("@cyberxninja-omp/pi-utils/cli"),
 		import("./cli/help-extra"),
 	]);
 	renderRootHelp(config);
@@ -89,7 +93,7 @@ async function showHelp(config: CliConfig<CommandMetadata>): Promise<void> {
  * tarball installs all exercise it on every CI run.
  */
 async function runSmokeTest(): Promise<void> {
-	const { smokeTestSyncWorker, startServer } = await import("@cxn/cxn-stats");
+	const { smokeTestSyncWorker, startServer } = await import("@cyberxninja-omp/omp-stats");
 	const { smokeTestTinyTitleWorker } = await import("./tiny/title-client");
 	const { smokeTestSttWorker } = await import("./stt/asr-client");
 	const { smokeTestTtsWorker } = await import("./tts/tts-client");
@@ -154,7 +158,7 @@ async function runWorkerEntrypoint(arg: string | undefined): Promise<boolean> {
 			pending.push(event);
 		};
 		scope.onmessage = buffer;
-		await import("@cxn/cxn-stats/sync-worker");
+		await import("@cyberxninja-omp/omp-stats/sync-worker");
 		const handler = scope.onmessage;
 		if (handler && handler !== buffer) {
 			for (const event of pending) handler.call(scope, event);
@@ -342,7 +346,7 @@ export async function runCli(argv: string[]): Promise<void> {
 			// invalid value to avoid an uncaught throw before this try/catch is in
 			// scope (see `readProfileFromEnvSafe` in dirs.ts), and callers may set
 			// CXN_PROFILE after importing this module (profile aliases/tests). Surfacing
-			// validation here turns `CXN_PROFILE=.. cxn --version` into a clean error;
+			// validation here turns `CXN_PROFILE=.. omp --version` into a clean error;
 			// calling setProfile keeps every later path helper on the env-selected
 			// profile instead of the default agent directory.
 			setProfile(resolveProfileEnv(process.env.CXN_PROFILE, process.env.PI_PROFILE));
@@ -390,7 +394,7 @@ export async function runCli(argv: string[]): Promise<void> {
 
 	// Declare this module as the worker-host entry now that the active profile
 	// is resolved. The worker-host module is side-effect-free; importing
-	// `@cxn/pi-utils/env` here would snapshot the wrong agent `.env`.
+	// `@cyberxninja-omp/pi-utils/env` here would snapshot the wrong agent `.env`.
 	// Gated on `isProcessEntry`: only the real CLI process entry is a valid
 	// worker host. Worker-thread re-entry already returned above at the
 	// `__cxn_worker_` dispatch, and importers (`runCli` in profile-CLI tests,
@@ -408,7 +412,7 @@ export async function runCli(argv: string[]): Promise<void> {
 		return;
 	}
 	const [{ run }, { commands, resolveCliArgv }] = await Promise.all([
-		import("@cxn/pi-utils/cli"),
+		import("@cyberxninja-omp/pi-utils/cli"),
 		import("./cli-commands"),
 	]);
 	// --help and --version are handled by run() directly, don't rewrite those.

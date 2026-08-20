@@ -1,5 +1,5 @@
-import { type Component, truncateToWidth, visibleWidth } from "@cxn/pi-tui";
-import { formatBytes } from "@cxn/pi-utils";
+import { type Component, truncateToWidth, visibleWidth } from "@cyberxninja-omp/pi-tui";
+import { formatBytes } from "@cyberxninja-omp/pi-utils";
 import { getTinyTitleModelSpec, type TinyTitleLocalModelKey } from "../../tiny/models";
 import type { TinyTitleProgressEvent } from "../../tiny/title-protocol";
 import { theme } from "../theme/theme";

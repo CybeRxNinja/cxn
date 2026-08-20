@@ -1,6 +1,6 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import type { AgentToolContext, AgentToolResult } from "@cxn/pi-agent-core";
-import type { TUI } from "@cxn/pi-tui";
+import type { AgentToolContext, AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 import type { ExtensionUIDialogOptions, ExtensionUISelectItem } from "../src/extensibility/extensions";
 import { HookSelectorComponent } from "../src/modes/components/hook-selector";
 import { getThemeByName, setThemeInstance } from "../src/modes/theme/theme";

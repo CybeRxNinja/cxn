@@ -1,5 +1,5 @@
-import type * as DomNs from "@cxn/pi-utils/dom";
-import type * as ReadabilityNs from "@cxn/pi-utils/readability";
+import type * as DomNs from "@cyberxninja-omp/pi-utils/dom";
+import type * as ReadabilityNs from "@cyberxninja-omp/pi-utils/readability";
 import { htmlToBasicMarkdown } from "../../web/scrapers/types";
 
 export type ReadableFormat = "text" | "markdown";
@@ -23,7 +23,7 @@ function normalize(text: string | null | undefined): string | undefined {
 let readabilityModule: typeof ReadabilityNs | undefined;
 async function loadReadability(): Promise<typeof ReadabilityNs> {
 	if (!readabilityModule) {
-		readabilityModule = await import("@cxn/pi-utils/readability");
+		readabilityModule = await import("@cyberxninja-omp/pi-utils/readability");
 	}
 	return readabilityModule;
 }
@@ -31,7 +31,7 @@ async function loadReadability(): Promise<typeof ReadabilityNs> {
 let domModule: typeof DomNs | undefined;
 async function loadDom(): Promise<typeof DomNs> {
 	if (!domModule) {
-		domModule = await import("@cxn/pi-utils/dom");
+		domModule = await import("@cyberxninja-omp/pi-utils/dom");
 	}
 	return domModule;
 }

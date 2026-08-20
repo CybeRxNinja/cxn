@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { ProviderResponseError } from "@cxn/pi-ai/error";
-import { mapH2TransportError } from "@cxn/pi-ai/providers/cursor";
+import { ProviderResponseError } from "@cyberxninja-omp/pi-ai/error";
+import { mapH2TransportError } from "@cyberxninja-omp/pi-ai/providers/cursor";
 
 const BASE_URL = "https://api2.cursor.sh";
 

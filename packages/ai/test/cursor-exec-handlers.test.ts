@@ -10,13 +10,22 @@ import {
 	resolveExecHandler,
 	streamCursor,
 	type ToolCallState,
-} from "@cxn/pi-ai/providers/cursor";
-import { streamCursor as lazyStreamCursor, setCursorProviderModule } from "@cxn/pi-ai/providers/register-builtins";
-import type { AssistantMessage, Context, CursorExecHandlers, Model, ToolResultMessage } from "@cxn/pi-ai/types";
-import { kCursorExecResolved } from "@cxn/pi-ai/utils/block-symbols";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { buildModel } from "@cxn/pi-catalog/build";
-import type { McpResult, ReadResult } from "@cxn/pi-catalog/discovery/cursor-gen/agent_pb";
+} from "@cyberxninja-omp/pi-ai/providers/cursor";
+import {
+	streamCursor as lazyStreamCursor,
+	setCursorProviderModule,
+} from "@cyberxninja-omp/pi-ai/providers/register-builtins";
+import type {
+	AssistantMessage,
+	Context,
+	CursorExecHandlers,
+	Model,
+	ToolResultMessage,
+} from "@cyberxninja-omp/pi-ai/types";
+import { kCursorExecResolved } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import type { McpResult, ReadResult } from "@cyberxninja-omp/pi-catalog/discovery/cursor-gen/agent_pb";
 import {
 	type AgentRunRequest,
 	AgentServerMessageSchema,
@@ -31,8 +40,8 @@ import {
 	ReadRejectedSchema,
 	ReadResultSchema,
 	ReadSuccessSchema,
-} from "@cxn/pi-catalog/discovery/cursor-gen/agent_pb";
-import { logger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-catalog/discovery/cursor-gen/agent_pb";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 afterEach(() => {
 	vi.restoreAllMocks();

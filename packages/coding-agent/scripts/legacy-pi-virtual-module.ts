@@ -1,5 +1,5 @@
 import * as path from "node:path";
-import { isEnoent } from "@cxn/pi-utils/fs-error";
+import { isEnoent } from "@cyberxninja-omp/pi-utils/fs-error";
 
 /** Build-time specifier resolved to bundled legacy Pi module namespaces. */
 export const LEGACY_PI_MODULES_SPECIFIER = "cxn-legacy-pi-modules";
@@ -196,7 +196,7 @@ export function __renderLegacyPiVirtualModule(entries: readonly BundledPiEntry[]
 export async function createLegacyPiVirtualModulePlugin(): Promise<Bun.BunPlugin> {
 	const source = __renderLegacyPiVirtualModule(await collectBundledPiEntries());
 	return {
-		name: "cxn:legacy-pi-modules",
+		name: "omp:legacy-pi-modules",
 		setup(build) {
 			build.onResolve({ filter: /^cxn-legacy-pi-modules$/ }, () => ({
 				path: LEGACY_PI_MODULES_SPECIFIER,

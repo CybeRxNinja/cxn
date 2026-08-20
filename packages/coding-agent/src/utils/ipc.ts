@@ -1,4 +1,4 @@
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Narrow a value to a thenable so a rejection handler can be attached.

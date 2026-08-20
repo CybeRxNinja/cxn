@@ -1,8 +1,8 @@
 import * as path from "node:path";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage, UsageLimit, UsageReport } from "@cxn/pi-ai";
-import { type Component, truncateToWidth, visibleWidth } from "@cxn/pi-tui";
-import { getProjectDir } from "@cxn/pi-utils";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, UsageLimit, UsageReport } from "@cyberxninja-omp/pi-ai";
+import { type Component, truncateToWidth, visibleWidth } from "@cyberxninja-omp/pi-tui";
+import { getProjectDir } from "@cyberxninja-omp/pi-utils";
 import { settings } from "../../../config/settings";
 import type { AgentSession } from "../../../session/agent-session";
 import type { OAuthAccountIdentity } from "../../../session/auth-storage";

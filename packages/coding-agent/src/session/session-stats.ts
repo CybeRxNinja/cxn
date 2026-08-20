@@ -1,12 +1,12 @@
-import type { Agent, AgentMessage } from "@cxn/pi-agent-core";
+import type { Agent, AgentMessage } from "@cyberxninja-omp/pi-agent-core";
 import {
 	calculatePromptTokens,
 	estimateTokens,
 	hasContextTokenUsage,
 	type SessionMessageEntry,
-} from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, Model, ProviderResponseMetadata, Usage } from "@cxn/pi-ai";
-import { isRecord } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantMessage, Model, ProviderResponseMetadata, Usage } from "@cyberxninja-omp/pi-ai";
+import { isRecord } from "@cyberxninja-omp/pi-utils";
 import type { ModelRegistry } from "../config/model-registry";
 import type { ContextUsage } from "../extensibility/extensions/types";
 import {

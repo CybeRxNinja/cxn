@@ -1,12 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import type { Api, Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { ServingModel } from "@cxn/pi-coding-agent/session/retry-fallback-chains";
-import { runSubprocess } from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition } from "@cxn/pi-coding-agent/task/types";
+import type { Api, Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { ServingModel } from "@cyberxninja-omp/pi-coding-agent/session/retry-fallback-chains";
+import { runSubprocess } from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { AgentDefinition } from "@cyberxninja-omp/pi-coding-agent/task/types";
 
 function model(provider: string, id: string): Model<Api> {
 	return buildModel({

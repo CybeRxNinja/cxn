@@ -1,5 +1,5 @@
 import { expect, it } from "bun:test";
-import { type } from "@cxn/omptype/ark";
+import { type } from "@cyberxninja-omp/omptype/ark";
 import type { Eq } from "../type-assert";
 
 it("allows and apply", () => {

@@ -2,18 +2,18 @@ import { afterEach, beforeEach, describe, expect, it, spyOn } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	buildMemoryToolDeveloperInstructions,
 	getMemoryRoot,
 	refreshMemoryToolDeveloperInstructionsCacheAfterStartup,
 	saveLearnedLesson,
-} from "@cxn/pi-coding-agent/memories";
-import { localBackend } from "@cxn/pi-coding-agent/memory-backend/local-backend";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { LearnTool } from "@cxn/pi-coding-agent/tools/learn";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/memories";
+import { localBackend } from "@cyberxninja-omp/pi-coding-agent/memory-backend/local-backend";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { LearnTool } from "@cyberxninja-omp/pi-coding-agent/tools/learn";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 Bun.env.PI_PYTHON_SKIP_CHECK = "1";
 

@@ -1,24 +1,24 @@
 import { describe, expect, test } from "bun:test";
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import {
 	buildTransformedCodexRequestBody,
 	convertOpenAICodexResponsesTools as convertCodexTools,
 	normalizeCodexToolChoice,
-} from "@cxn/pi-ai/providers/openai-codex-responses";
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
 import {
 	buildParams,
 	convertTools,
 	mapOpenAIResponsesToolChoiceForTools,
 	supportsFreeformApplyPatch,
-} from "@cxn/pi-ai/providers/openai-responses";
-import type { ResponseStreamEvent } from "@cxn/pi-ai/providers/openai-responses-wire";
+} from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type { ResponseStreamEvent } from "@cyberxninja-omp/pi-ai/providers/openai-responses-wire";
 import {
 	appendResponsesToolResultMessages,
 	convertResponsesAssistantMessage,
 	processResponsesStream,
-} from "@cxn/pi-ai/providers/openai-shared";
-import type { AssistantMessage, Model, ModelSpec, Tool, ToolResultMessage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+} from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import type { AssistantMessage, Model, ModelSpec, Tool, ToolResultMessage } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const GRAMMAR = [
 	"// top-level comment",

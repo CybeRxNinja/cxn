@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import { buildModel } from "@cxn/pi-catalog/build";
-import type { ScopedModel } from "@cxn/pi-coding-agent/config/model-resolver";
-import { buildModelScopeNotification } from "@cxn/pi-coding-agent/main";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import type { ScopedModel } from "@cyberxninja-omp/pi-coding-agent/config/model-resolver";
+import { buildModelScopeNotification } from "@cyberxninja-omp/pi-coding-agent/main";
 
 function scopedModel(id: string): ScopedModel {
 	return {

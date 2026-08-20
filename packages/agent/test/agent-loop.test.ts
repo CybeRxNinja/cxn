@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent } from "@cxn/pi-agent-core";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
 import {
 	agentLoop,
 	agentLoopContinue,
 	agentLoopDetailed,
 	TERMINAL_TOOL_RESULT_ABORT_REASON,
-} from "@cxn/pi-agent-core/agent-loop";
+} from "@cyberxninja-omp/pi-agent-core/agent-loop";
 import type {
 	AgentContext,
 	AgentEvent,
@@ -15,15 +15,21 @@ import type {
 	AgentTool,
 	AgentToolContext,
 	ToolCallContext,
-} from "@cxn/pi-agent-core/types";
-import { ASIDE_MESSAGE_COMMIT, ASIDE_MESSAGE_DISCARD } from "@cxn/pi-agent-core/types";
-import type { AssistantMessage, AssistantMessageEvent, Context, Message, ToolResultMessage } from "@cxn/pi-ai";
-import { createMockModel, type MockResponse } from "@cxn/pi-ai/providers/mock";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+} from "@cyberxninja-omp/pi-agent-core/types";
+import { ASIDE_MESSAGE_COMMIT, ASIDE_MESSAGE_DISCARD } from "@cyberxninja-omp/pi-agent-core/types";
+import type {
+	AssistantMessage,
+	AssistantMessageEvent,
+	Context,
+	Message,
+	ToolResultMessage,
+} from "@cyberxninja-omp/pi-ai";
+import { createMockModel, type MockResponse } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import { createAssistantMessage, createUserMessage } from "./helpers";
 
-declare module "@cxn/pi-agent-core/types" {
+declare module "@cyberxninja-omp/pi-agent-core/types" {
 	interface CustomAgentMessages {
 		advisor: {
 			role: "custom";
@@ -4919,7 +4925,7 @@ describe("agentLoop streaming snapshots", () => {
 
 describe("agentLoop kCursorExecResolved (issue #4348)", () => {
 	it("skips execute for a toolCall block marked as already run by Cursor's exec channel", async () => {
-		const { kCursorExecResolved } = await import("@cxn/pi-ai/utils/block-symbols");
+		const { kCursorExecResolved } = await import("@cyberxninja-omp/pi-ai/utils/block-symbols");
 
 		const toolSchema = type({ command: "string" });
 		let executeCalls = 0;
@@ -5010,7 +5016,7 @@ describe("agentLoop kCursorExecResolved (issue #4348)", () => {
 	it("still runs a normal, unmarked toolCall block in the same turn", async () => {
 		// Guards against the filter over-matching: a mixed turn where only
 		// SOME blocks are Cursor-resolved must still execute the unmarked one.
-		const { kCursorExecResolved } = await import("@cxn/pi-ai/utils/block-symbols");
+		const { kCursorExecResolved } = await import("@cyberxninja-omp/pi-ai/utils/block-symbols");
 
 		const toolSchema = type({ value: "string" });
 		const executed: string[] = [];

@@ -4,12 +4,12 @@
  * `requestModelId`, never the local variant id, on every Copilot API path.
  */
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { streamAnthropic } from "@cxn/pi-ai/providers/anthropic";
-import { streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import { streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
-import type { Api, Context, Model, ModelSpec } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { COPILOT_API_HEADERS } from "@cxn/pi-catalog/wire/github-copilot";
+import { streamAnthropic } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import { streamOpenAICompletions } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import { streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type { Api, Context, Model, ModelSpec } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { COPILOT_API_HEADERS } from "@cyberxninja-omp/pi-catalog/wire/github-copilot";
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -119,7 +119,7 @@ describe("GitHub Copilot long-context variant wire model id", () => {
 
 /**
  * GitHub Copilot's Responses endpoint rejects the `detail: "original"` image
- * hint (an cxn extension that preserves native-resolution snapcompact
+ * hint (an omp extension that preserves native-resolution snapcompact
  * frames) with an HTTP 400. The catalog resolves `supportsImageDetailOriginal`
  * to `false` for Copilot, and the Responses request builder degrades the hint
  * to `"auto"` so the wire stays valid. Every other host preserves `"original"`.

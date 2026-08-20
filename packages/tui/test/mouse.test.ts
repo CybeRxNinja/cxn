@@ -5,7 +5,7 @@ import {
 	routeSgrMouseInput,
 	type SelectListMouseTarget,
 	type SgrMouseEvent,
-} from "@cxn/pi-tui/mouse";
+} from "@cyberxninja-omp/pi-tui/mouse";
 
 describe("parseSgrMouse", () => {
 	it("returns null for non-mouse input", () => {

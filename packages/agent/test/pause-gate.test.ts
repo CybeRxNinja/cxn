@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { agentLoop, agentPauseGate } from "@cxn/pi-agent-core";
-import type { AgentContext, AgentLoopConfig, AgentMessage, AgentTool } from "@cxn/pi-agent-core/types";
-import type { Message } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
+import { type } from "@cyberxninja-omp/omptype";
+import { agentLoop, agentPauseGate } from "@cyberxninja-omp/pi-agent-core";
+import type { AgentContext, AgentLoopConfig, AgentMessage, AgentTool } from "@cyberxninja-omp/pi-agent-core/types";
+import type { Message } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
 import { createUserMessage } from "./helpers";
 
 function identityConverter(messages: AgentMessage[]): Message[] {

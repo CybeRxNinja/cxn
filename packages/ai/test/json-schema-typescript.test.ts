@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { jsonSchemaToTypeScript, toolWireSchema } from "@cxn/pi-ai/utils/schema";
+import { type } from "@cyberxninja-omp/omptype";
+import { jsonSchemaToTypeScript, toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
 
 describe("jsonSchemaToTypeScript", () => {
 	it("renders objects with optional markers and JSDoc descriptions", () => {

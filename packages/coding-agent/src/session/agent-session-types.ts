@@ -1,4 +1,11 @@
-import type { Agent, AgentMessage, AgentTool, AgentToolContext, StreamFn, ThinkingLevel } from "@cxn/pi-agent-core";
+import type {
+	Agent,
+	AgentMessage,
+	AgentTool,
+	AgentToolContext,
+	StreamFn,
+	ThinkingLevel,
+} from "@cyberxninja-omp/pi-agent-core";
 import type {
 	Context,
 	Effort,
@@ -10,8 +17,8 @@ import type {
 	ServiceTierByFamily,
 	SimpleStreamOptions,
 	ToolChoice,
-} from "@cxn/pi-ai";
-import type { postmortem } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import type { postmortem } from "@cyberxninja-omp/pi-utils";
 import type { AdvisorConfig } from "../advisor";
 import type { AsyncJob, AsyncJobDeliveryState, AsyncJobManager } from "../async";
 import type { ModelRegistry } from "../config/model-registry";

@@ -4,8 +4,8 @@
  * Handles /mcp subcommands for managing MCP servers.
  */
 import * as path from "node:path";
-import { type Component, replaceTabs, Spacer, Text } from "@cxn/pi-tui";
-import { getMCPConfigPath, getProjectDir } from "@cxn/pi-utils";
+import { type Component, replaceTabs, Spacer, Text } from "@cyberxninja-omp/pi-tui";
+import { getMCPConfigPath, getProjectDir } from "@cyberxninja-omp/pi-utils";
 import type { SourceMeta } from "../../capability/types";
 import { expandEnvVarsDeep } from "../../discovery/helpers";
 import {

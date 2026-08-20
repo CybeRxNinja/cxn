@@ -1,8 +1,8 @@
-import { type } from "@cxn/omptype";
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Api, ApiKey, AssistantMessage, Model } from "@cxn/pi-ai";
-import { completeSimple, retryTransientCompletion, validateToolCall } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Api, ApiKey, AssistantMessage, Model } from "@cyberxninja-omp/pi-ai";
+import { completeSimple, retryTransientCompletion, validateToolCall } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import changelogSystemPrompt from "../../commit/prompts/changelog-system.md" with { type: "text" };
 import changelogUserPrompt from "../../commit/prompts/changelog-user.md" with { type: "text" };
 import type { ChangelogGenerationResult } from "../../commit/types";

@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "@cxn/omptype",
+  "name": "@cyberxninja-omp/omptype",
   "version": "17.4.2",
   "description": "ArkType-compatible runtime schema validation with lazy JIT compilation",
-  "homepage": "https://cxn.sh",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "license": "MIT",
   "repository": {

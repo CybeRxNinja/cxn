@@ -1,4 +1,4 @@
-import { type Component, Container, Markdown, Spacer, Text, type TUI } from "@cxn/pi-tui";
+import { type Component, Container, Markdown, Spacer, Text, type TUI } from "@cyberxninja-omp/pi-tui";
 import { replaceTabs } from "../../tools/render-utils";
 import { getMarkdownTheme, theme } from "../theme/theme";
 import { DynamicBorder } from "./dynamic-border";

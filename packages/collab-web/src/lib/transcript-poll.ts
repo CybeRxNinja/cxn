@@ -7,7 +7,7 @@
  * cursor, so retrying would loop hot without ever surfacing the failure.
  */
 
-import type { SessionEntry } from "@cxn/pi-wire";
+import type { SessionEntry } from "@cyberxninja-omp/pi-wire";
 import type { TranscriptResult } from "./client";
 import { parseJsonl } from "./jsonl";
 

@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, setSystemTime, vi } from "bun:test";
-import type { AuthStorage, CredentialOriginKind, FetchImpl } from "@cxn/pi-ai";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { runSearchQuery } from "@cxn/pi-coding-agent/web/search";
-import { searchXAI, XAIProvider } from "@cxn/pi-coding-agent/web/search/providers/xai";
-import { SearchProviderError } from "@cxn/pi-coding-agent/web/search/types";
+import type { AuthStorage, CredentialOriginKind, FetchImpl } from "@cyberxninja-omp/pi-ai";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { runSearchQuery } from "@cyberxninja-omp/pi-coding-agent/web/search";
+import { searchXAI, XAIProvider } from "@cyberxninja-omp/pi-coding-agent/web/search/providers/xai";
+import { SearchProviderError } from "@cyberxninja-omp/pi-coding-agent/web/search/types";
 
 type CapturedRequest = {
 	url: string;

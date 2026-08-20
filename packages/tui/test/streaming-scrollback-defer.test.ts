@@ -1,7 +1,12 @@
 process.env.PI_TUI_SCROLLBACK_REBUILD = "true";
 
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import { type Component, type NativeScrollbackCommittedRows, type NativeScrollbackLiveRegion, TUI } from "@cxn/pi-tui";
+import {
+	type Component,
+	type NativeScrollbackCommittedRows,
+	type NativeScrollbackLiveRegion,
+	TUI,
+} from "@cyberxninja-omp/pi-tui";
 import { VirtualRenderScheduler } from "./virtual-render-scheduler";
 import { VirtualTerminal } from "./virtual-terminal";
 

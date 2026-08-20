@@ -7,8 +7,8 @@
  * widget lose per-model visibility.
  */
 import { describe, expect, it } from "bun:test";
-import type { FetchImpl } from "@cxn/pi-ai/types";
-import { codexRankingStrategy, openaiCodexUsageProvider } from "@cxn/pi-ai/usage/openai-codex";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
+import { codexRankingStrategy, openaiCodexUsageProvider } from "@cyberxninja-omp/pi-ai/usage/openai-codex";
 
 const accessTokenFixture = (() => {
 	const header = Buffer.from(JSON.stringify({ alg: "none", typ: "JWT" })).toString("base64url");

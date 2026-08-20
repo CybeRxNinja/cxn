@@ -4,20 +4,20 @@
  * When a user configures an extension via `extensions:` (in settings) or
  * `--extension`/`-e` (on the CLI), the docs promise that the package's
  * sibling directories — `skills/`, `hooks/pre|post/`, `tools/`, `commands/`,
- * `rules/`, `prompts/`, and `.mcp.json` — are picked up by cxn's standard
- * discovery surfaces. The native `cxn` provider in `builtin.ts` only walks
- * `.cxn/` and `~/.cxn/agent/`, so without this provider those sub-trees are
+ * `rules/`, `prompts/`, and `.mcp.json` — are picked up by omp's standard
+ * discovery surfaces. The native `omp` provider in `builtin.ts` only walks
+ * `.omp/` and `~/.omp/agent/`, so without this provider those sub-trees are
  * silently ignored.
  *
- * Provider priority is set below the native `cxn` provider (100) so an
- * extension package never shadows the user's own `.cxn/` configuration on
+ * Provider priority is set below the native `omp` provider (100) so an
+ * extension package never shadows the user's own `.omp/` configuration on
  * dedup.
  *
  * @see ./cxn-extension-roots.ts
  * @see ../../docs/extension-loading.md
  */
 import * as path from "node:path";
-import { logger, parseFrontmatter, tryParseJson } from "@cxn/pi-utils";
+import { logger, parseFrontmatter, tryParseJson } from "@cyberxninja-omp/pi-utils";
 import { registerProvider } from "../capability";
 import { readDirEntries, readFile } from "../capability/fs";
 import { type Hook, hookCapability } from "../capability/hook";

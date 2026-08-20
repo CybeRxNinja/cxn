@@ -1,7 +1,11 @@
 import { afterEach, describe, expect, it, mock, spyOn } from "bun:test";
-import type { Context } from "@cxn/pi-ai";
-import { clearGitLabDuoDirectAccessCache, getGitLabDuoModels, streamGitLabDuo } from "@cxn/pi-ai/providers/gitlab-duo";
-import * as registerBuiltins from "@cxn/pi-ai/providers/register-builtins";
+import type { Context } from "@cyberxninja-omp/pi-ai";
+import {
+	clearGitLabDuoDirectAccessCache,
+	getGitLabDuoModels,
+	streamGitLabDuo,
+} from "@cyberxninja-omp/pi-ai/providers/gitlab-duo";
+import * as registerBuiltins from "@cyberxninja-omp/pi-ai/providers/register-builtins";
 
 const context: Context = {
 	systemPrompt: ["You are helpful."],

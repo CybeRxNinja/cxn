@@ -15,14 +15,14 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentMessage } from "@cxn/pi-agent-core";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
 import {
 	ADVISOR_TRANSCRIPT_FILENAME,
 	AdvisorTranscriptRecorder,
 	advisorTranscriptFilename,
 	loadAdvisorTranscriptCosts,
-} from "@cxn/pi-coding-agent/advisor/transcript-recorder";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/advisor/transcript-recorder";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 interface AdvisorEntry {
 	type?: string;

@@ -13,7 +13,7 @@
 
 ### Fixed
 
-- Deferred the CLI `.env` load until after profile bootstrap: `cli/env-defer.ts` signals `@cxn/pi-utils/env` to skip its eager import-time load, and `runCli` calls `markEnvReady()` right after `setProfile` so the load reads the correct agent directory. Fixes the `process-entry-import` / `profile-cli` regressions in the `test_coding_agent_native` gate.
+- Deferred the CLI `.env` load until after profile bootstrap: `cli/env-defer.ts` signals `@cyberxninja-omp/pi-utils/env` to skip its eager import-time load, and `runCli` calls `markEnvReady()` right after `setProfile` so the load reads the correct agent directory. Fixes the `process-entry-import` / `profile-cli` regressions in the `test_coding_agent_native` gate.
 - Gave the JS-eval worker subprocess bootstrap enough cell-timeout headroom in `eval-timeout.test.ts`; the worker now correctly reports `"JS eval worker exited"` (status `error`, exitCode `1`) on `process.exit(0)` instead of being force-killed as "timed out".
 - Skipped macOS-only cases in `theme-auto-detection.test.ts` on non-macOS platforms.
 
@@ -29,8 +29,8 @@
   - `modes/daemon/rlm-ledger.ts` — `RlmSpawnLedger`, the topology authority: `recordSpawn(parentId, childId, name, sessionId)` builds spawn edges; `childrenOf` / `parentOf` / `getCatalog` derive depth from the parent chain; `setStatus` / `remove`; `toJSON` / `loadJSON` for Phase 6 durability. The daemon's `register_child` / `list_subagents` / `delete_subagent` read and write it.
   - `modes/daemon/session-lease.ts` — `SessionLeaseRegistry` + `SessionLease` with a dependency-free on-disk `owner.json` (temp-file + atomic rename), pid-liveness reaping, `openingSessions` dedup, and a `SessionAlreadyActiveError` when a second owner attaches a held session. The daemon's `session.attach` acquires a lease and `session.stop` releases it.
   - `daemon-family-store.ts` now owns module-level `ledger` + `leaseRegistry` singletons configured via `setupDaemonState({ agentDir })` / `resetDaemonState()`. New tests: `test/eval/py/family-reach.test.ts` (verbatim reach), `test/modes/daemon/rlm-ledger.test.ts` (topology/depth/JSON round-trip), `test/modes/daemon/session-lease.test.ts` (acquire/reclaim/conflict), plus daemon reach + lease integration. Affected suites stay green (40 tests across the daemon + rlm dirs).
-- Added the `cxn agents` daemon subcommands (`list` / `attach` / `send` / `stop`) in
-  `cli/agents-cli.ts`, wiring the existing `cxn agents unpack` command to the new
+- Added the `omp agents` daemon subcommands (`list` / `attach` / `send` / `stop`) in
+  `cli/agents-cli.ts`, wiring the existing `omp agents unpack` command to the new
   daemon-backed actions. `list` reads the family roster (`session.list`); `send <id>
   <msg>` resolves the receiver role from the roster and dispatches
   `agent_message.send` (enforcing the verbatim nuclear-family reach); `attach <id>` /
@@ -54,7 +54,7 @@
   `test/modes/daemon/heartbeat.test.ts` (catalog + reaper + auto-reap loop),
   `test/modes/daemon/daemon-transport.test.ts` (reconnect/retry, no-reconnect failure,
   mid-conversation reconnect), and `test/modes/daemon/daemon-boot.test.ts` (spawns the real
-  `cxn` CLI subprocess and serves catalog + family requests over the socket).
+  `omp` CLI subprocess and serves catalog + family requests over the socket).
 - Added Phase 6 daemon durability: the daemon's authoritative state now survives a restart.
   `RlmSpawnLedger.persist()` writes an atomic `agentDir/rlm-ledger.json` snapshot on every
   `register_child` / `delete_subagent` / reaper mutation; `SessionLeaseRegistry.reload()` re-scans

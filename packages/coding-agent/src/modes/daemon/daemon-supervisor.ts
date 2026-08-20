@@ -3,7 +3,7 @@
  * back a connected DaemonClient.
  *
  * ensureDaemonRunning is idempotent: if a live lock + socket exist it just
- * connects; otherwise it spawns the daemon (default: the cxn CLI in
+ * connects; otherwise it spawns the daemon (default: the omp CLI in
  * --mode daemon) and waits for the socket. The spawn is injectable so tests
  * can boot an in-process server instead of a real subprocess.
  */
@@ -24,7 +24,7 @@ export type SpawnDaemonFn = (socketPath: string) => Promise<{ stop: () => Promis
 
 const cliUrl = new URL("../../cli.ts", import.meta.url);
 
-/** Default spawn: launch the cxn CLI in daemon mode over the given UDS socket. */
+/** Default spawn: launch the omp CLI in daemon mode over the given UDS socket. */
 export async function spawnCliDaemon(socketPath: string): Promise<{ stop: () => Promise<void> }> {
 	const proc = Bun.spawn([process.execPath, cliUrl.pathname, "--mode", "daemon", "--daemon-socket", socketPath], {
 		stdout: "ignore",

@@ -1,4 +1,4 @@
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
 import type { JsDisplayOutput } from "../../eval/js/shared/types";
 
 /**

@@ -1,12 +1,12 @@
 # CXN Coding Agent Installer for Windows
-# Usage: irm https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.ps1 | iex
+# Usage: irm https://raw.githubusercontent.com/CybeRxNinja/omp/main/scripts/install.ps1 | iex
 #
 # Or with options:
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.ps1))) -Source
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.ps1))) -Binary
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.ps1))) -Source -Ref v0.1.0
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.ps1))) -Source -Ref main
-#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/cxn/main/scripts/install.ps1))) -Binary -Ref v0.1.0
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/omp/main/scripts/install.ps1))) -Source
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/omp/main/scripts/install.ps1))) -Binary
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/omp/main/scripts/install.ps1))) -Source -Ref v0.1.0
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/omp/main/scripts/install.ps1))) -Source -Ref main
+#   & ([scriptblock]::Create((irm https://raw.githubusercontent.com/CybeRxNinja/omp/main/scripts/install.ps1))) -Binary -Ref v0.1.0
 
 param(
     [switch]$Source,
@@ -16,16 +16,16 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-# GitHub Packages / private-source installs: set CXN_INSTALL_TOKEN (PAT with
-# read:packages on the repo) when a registry install needs auth. Binary
+# Public npm installs: set CXN_INSTALL_TOKEN (npm token with
+# read access) when a registry install needs auth. Binary
 # downloads from public GitHub Releases need no token.
 $CxnToken = $env:CXN_INSTALL_TOKEN
 $ApiHeaders = @{ }
 if ($CxnToken) { $ApiHeaders.Authorization = "Bearer $CxnToken" }
 
-$Repo = "CybeRxNinja/cxn"
-$Package = "@cxn/pi-coding-agent"
-$InstallDir = if ($env:CXN_INSTALL_DIR) { $env:CXN_INSTALL_DIR } else { "$env:LOCALAPPDATA\cxn" }
+$Repo = "CybeRxNinja/omp"
+$Package = "@cyberxninja-omp/pi-coding-agent"
+$InstallDir = if ($env:CXN_INSTALL_DIR) { $env:CXN_INSTALL_DIR } else { "$env:LOCALAPPDATA\omp" }
 $BinaryName = "cxn-windows-x64.exe"
 $MinimumBunVersion = "1.3.14"
 
@@ -109,7 +109,7 @@ function Find-BashShell {
 
 function Configure-BashShell {
     try {
-        $settingsDir = Join-Path $env:USERPROFILE ".cxn\agent"
+        $settingsDir = Join-Path $env:USERPROFILE ".omp\agent"
         $settingsFile = Join-Path $settingsDir "settings.json"
 
         # Check if settings.json already has a shellPath configured
@@ -237,8 +237,8 @@ function Install-ViaBun {
                 $npmrc = Join-Path ([System.IO.Path]::GetTempPath()) ("cxn-install-" + [System.Guid]::NewGuid().ToString("N") + ".npmrc")
                 @(
                     "registry=https://registry.npmjs.org/",
-                    "@cxn:registry=https://npm.pkg.github.com/",
-                    "//npm.pkg.github.com/:_authToken=$CxnToken"
+                    "@cyberxninja-omp:registry=https://registry.npmjs.org/",
+                    "//registry.npmjs.org/:_authToken=$CxnToken"
                 ) | Set-Content -Path $npmrc -Encoding ascii
                 $env:NPM_CONFIG_USERCONFIG = $npmrc
             }
@@ -252,11 +252,11 @@ function Install-ViaBun {
     }
 
     Write-Host ""
-    Write-Host "[OK] Installed cxn via bun" -ForegroundColor Green
+    Write-Host "[OK] Installed omp via bun" -ForegroundColor Green
 
     Configure-BashShell
 
-    Write-Host "Run 'cxn' to get started!"
+    Write-Host "Run 'omp' to get started!"
 }
 
 function Install-Binary {
@@ -283,11 +283,11 @@ function Install-Binary {
     # Download binary
     $BinaryUrl = "https://github.com/$Repo/releases/download/$Latest/$BinaryName"
     Write-Host "Downloading $BinaryName..."
-    $OutPath = Join-Path $InstallDir "cxn.exe"
+    $OutPath = Join-Path $InstallDir "omp.exe"
     Invoke-WebRequest -Uri $BinaryUrl -Headers $ApiHeaders -OutFile $OutPath -TimeoutSec 900
 
     Write-Host ""
-    Write-Host "[OK] Installed cxn to $OutPath" -ForegroundColor Green
+    Write-Host "[OK] Installed omp to $OutPath" -ForegroundColor Green
 
     # Add to PATH if not already there
     $UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
@@ -300,9 +300,9 @@ function Install-Binary {
     Configure-BashShell
 
     if ($needsRestart) {
-        Write-Host "Restart your terminal, then run 'cxn' to get started!"
+        Write-Host "Restart your terminal, then run 'omp' to get started!"
     } else {
-        Write-Host "Run 'cxn' to get started!"
+        Write-Host "Run 'omp' to get started!"
     }
 }
 

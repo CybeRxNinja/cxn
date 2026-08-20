@@ -7,7 +7,7 @@
  * the registry of these definitions. Adding a provider is one new file in
  * `./providers/` plus one line in `./registry.ts`. Model-catalog metadata
  * (default model, model-manager factory, catalog discovery) lives in
- * `@cxn/pi-catalog`'s descriptor table.
+ * `@cyberxninja-omp/pi-catalog`'s descriptor table.
  */
 
 import type { Api, FetchImpl, Model, SimpleStreamOptions, StreamOptions } from "../types";

@@ -1,4 +1,4 @@
-import { type FetchImpl, getEnvApiKey } from "@cxn/pi-ai";
+import { type FetchImpl, getEnvApiKey } from "@cyberxninja-omp/pi-ai";
 import type { AgentStorage } from "../session/agent-storage";
 import { findCredential, withHardTimeout } from "./search/providers/utils";
 
@@ -303,7 +303,7 @@ export async function searchWithParallel(
 	const apiKey = findParallelApiKey(storage);
 	if (!apiKey) {
 		throw new ParallelApiError(
-			"Parallel credentials not found. Set PARALLEL_API_KEY or login with 'cxn /login parallel'.",
+			"Parallel credentials not found. Set PARALLEL_API_KEY or login with 'omp /login parallel'.",
 		);
 	}
 
@@ -337,7 +337,7 @@ export async function extractWithParallel(
 	const apiKey = findParallelApiKey(storage);
 	if (!apiKey) {
 		throw new ParallelApiError(
-			"Parallel credentials not found. Set PARALLEL_API_KEY or login with 'cxn /login parallel'.",
+			"Parallel credentials not found. Set PARALLEL_API_KEY or login with 'omp /login parallel'.",
 		);
 	}
 

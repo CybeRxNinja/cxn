@@ -1,4 +1,4 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type { CommitAgentState } from "../../../commit/agentic/state";
 import { CHANGELOG_CATEGORIES, type ChangelogCategory } from "../../../commit/types";
 import type { CustomTool } from "../../../extensibility/custom-tools/types";

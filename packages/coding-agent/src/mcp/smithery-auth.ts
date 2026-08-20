@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { isEnoent, logger } from "@cxn/pi-utils";
-import { getAgentDir } from "@cxn/pi-utils/dirs";
+import { isEnoent, logger } from "@cyberxninja-omp/pi-utils";
+import { getAgentDir } from "@cyberxninja-omp/pi-utils/dirs";
 import { withTimeoutSignal } from "../utils/fetch-timeout";
 
 const SMITHERY_AUTH_FILENAME = "smithery.json";

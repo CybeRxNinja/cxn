@@ -1,7 +1,7 @@
 /**
  * Regression for https://github.com/can1357/oh-my-pi/issues/7352
  *
- * A headless `cxn --mode json --no-session -p @<file>` run with
+ * A headless `omp --mode json --no-session -p @<file>` run with
  * `memory.backend: mnemopi` hung after its turn completed and left an
  * unreaped `__cxn_worker_mnemopi_embed` child. The embed-worker IPC request
  * (`embed`) had no timeout, so a wedged native runtime (fastembed /
@@ -17,11 +17,14 @@
  * exercised without fastembed/onnxruntime.
  */
 import { describe, expect, it, vi } from "bun:test";
-import { MnemopiEmbedClient, type MnemopiEmbedWorkerHandle } from "@cxn/pi-coding-agent/mnemopi/embed-client";
+import {
+	MnemopiEmbedClient,
+	type MnemopiEmbedWorkerHandle,
+} from "@cyberxninja-omp/pi-coding-agent/mnemopi/embed-client";
 import type {
 	MnemopiEmbedWorkerInbound,
 	MnemopiEmbedWorkerOutbound,
-} from "@cxn/pi-coding-agent/mnemopi/embed-protocol";
+} from "@cyberxninja-omp/pi-coding-agent/mnemopi/embed-protocol";
 
 /** A fake worker that answers `init` but never answers `embed`. */
 function silentEmbedWorker(state: { spawns: number; terminated: number }): () => MnemopiEmbedWorkerHandle {

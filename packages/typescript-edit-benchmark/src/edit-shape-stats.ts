@@ -32,8 +32,8 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 import { parseArgs } from "node:util";
-import { computeDefaultSessionDir } from "@cxn/pi-coding-agent/session/session-paths";
-import { FileSessionStorage } from "@cxn/pi-coding-agent/session/session-storage";
+import { computeDefaultSessionDir } from "@cyberxninja-omp/pi-coding-agent/session/session-paths";
+import { FileSessionStorage } from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
 
 const EDIT_TOOL_NAMES: Record<string, true> = { edit: true, apply_patch: true };
 const SIZE_BUCKETS: Array<[string, number]> = [

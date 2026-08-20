@@ -1,5 +1,5 @@
-import type { ImageContent } from "@cxn/pi-ai";
-import { logger } from "@cxn/pi-utils";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { type BlobPutResult, blobExtensionForImageMimeType } from "../session/blob-store";
 import { fileHyperlink } from "../tui/hyperlink";
 

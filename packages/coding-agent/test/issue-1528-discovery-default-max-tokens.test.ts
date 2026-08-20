@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { FetchImpl } from "@cxn/pi-ai/types";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Issue #1528: auto-discovered OpenAI-compatible models defaulted to

@@ -1,8 +1,8 @@
 import { Database } from "bun:sqlite";
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import * as reportIssue from "@cxn/pi-coding-agent/tools/report-tool-issue";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import * as reportIssue from "@cyberxninja-omp/pi-coding-agent/tools/report-tool-issue";
 import {
 	__awaitAutoQaRecordPipelineForTests,
 	__resetAutoQaConsentForTests,
@@ -11,8 +11,8 @@ import {
 	flushGrievances,
 	isAutoQaEnabled,
 	reportIssueDeviceUsage,
-} from "@cxn/pi-coding-agent/tools/report-tool-issue";
-import * as piUtils from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/tools/report-tool-issue";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
 import { mockFetch } from "../helpers/fetch-mock";
 
 function openTempDb(): Database {
@@ -186,7 +186,7 @@ describe("flushGrievances", () => {
 		expect(headers?.authorization).toBe("Bearer secret-token");
 
 		const body = JSON.parse(String(capturedInit?.body));
-		expect(body.agent?.name).toBe("cxn");
+		expect(body.agent?.name).toBe("omp");
 		expect(typeof body.agent?.version).toBe("string");
 		expect(body.host).toBeUndefined();
 		expect(typeof body.platform).toBe("string");
@@ -198,7 +198,7 @@ describe("flushGrievances", () => {
 		]);
 
 		// Rows are retained for inspection — `pushed=1` flips, but the data
-		// stays so users can browse what they've shipped via `cxn grievances`.
+		// stays so users can browse what they've shipped via `omp grievances`.
 		expect(selectIds(db)).toEqual([1, 2]);
 		expect(selectPushedIds(db)).toEqual([1, 2]);
 		expect(selectUnpushedIds(db)).toEqual([]);

@@ -9,11 +9,11 @@ import {
 	runAgentMessageBridge,
 	runRlmBridge,
 	setRlmSpawnOverride,
-} from "@cxn/pi-coding-agent/eval/py/rlm";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+} from "@cyberxninja-omp/pi-coding-agent/eval/py/rlm";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 
 /**
- * The RLM bridge (`__rlm__` / `__agent_message__`) is the cxn adaptation of
+ * The RLM bridge (`__rlm__` / `__agent_message__`) is the omp adaptation of
  * recursive-subagent admission and family messaging. The spawn side is the
  * dangerous one — a real `runStructuredSubagent` spawn is detached and
  * fire-and-forget — so the semantics are locked here through the spawn

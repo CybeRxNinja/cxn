@@ -6,15 +6,18 @@
  * agents that appear while the hub is open are appended at the end.
  */
 import { afterEach, beforeAll, describe, expect, it, setSystemTime, vi } from "bun:test";
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { IrcBus } from "@cxn/pi-coding-agent/irc/bus";
-import { type AgentHubDeps, AgentHubOverlayComponent } from "@cxn/pi-coding-agent/modes/components/agent-hub";
-import { SessionObserverRegistry } from "@cxn/pi-coding-agent/modes/session-observer-registry";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { visibleWidth } from "@cxn/pi-tui/utils";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { IrcBus } from "@cyberxninja-omp/pi-coding-agent/irc/bus";
+import {
+	type AgentHubDeps,
+	AgentHubOverlayComponent,
+} from "@cyberxninja-omp/pi-coding-agent/modes/components/agent-hub";
+import { SessionObserverRegistry } from "@cyberxninja-omp/pi-coding-agent/modes/session-observer-registry";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { visibleWidth } from "@cyberxninja-omp/pi-tui/utils";
 
 interface GeometryStub {
 	setRows(n: number): void;
@@ -587,7 +590,7 @@ describe("Agent hub row ordering", () => {
 			history: {
 				outputPath: "/tmp/Reviewer.md",
 				patchPath: "/tmp/Reviewer.patch",
-				branchName: "cxn/task/Reviewer",
+				branchName: "omp/task/Reviewer",
 			},
 			createdAt,
 		});
@@ -654,7 +657,7 @@ describe("Agent hub row ordering", () => {
 			expect(rendered).toContain("Output /tmp/Reviewer.md");
 			expect(rendered).toContain("Patch /tmp/Reviewer.patch");
 			hub.handleInput("\x1b[6~");
-			expect(Bun.stripANSI(hub.render(140).join("\n"))).toContain("Worktree branch cxn/task/Reviewer");
+			expect(Bun.stripANSI(hub.render(140).join("\n"))).toContain("Worktree branch omp/task/Reviewer");
 		} finally {
 			hub.dispose();
 		}

@@ -1,8 +1,8 @@
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AutocompleteItem } from "@cxn/pi-tui";
-import { getMCPConfigPath, getProjectDir, logger } from "@cxn/pi-utils";
+import type { AutocompleteItem } from "@cyberxninja-omp/pi-tui";
+import { getMCPConfigPath, getProjectDir, logger } from "@cyberxninja-omp/pi-utils";
 import { readMCPConfigFile } from "../mcp/config-writer";
 import { collectMcpServerNames } from "../modes/controllers/mcp-command-controller";
 import { expandTilde } from "../tools/path-utils";

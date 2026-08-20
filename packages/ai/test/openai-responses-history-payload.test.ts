@@ -1,13 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import { convertCodexResponsesMessages, streamOpenAICodexResponses } from "@cxn/pi-ai/providers/openai-codex-responses";
-import { type OpenAIResponsesOptions, streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
-import { buildResponsesInput } from "@cxn/pi-ai/providers/openai-shared";
-import type { Context, Model, ModelSpec, ProviderSessionState, Tool } from "@cxn/pi-ai/types";
-import { createOpenAIResponsesHistoryPayload, truncateResponseItemId } from "@cxn/pi-ai/utils";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { type GeneratedProvider, getBundledModel } from "@cxn/pi-catalog/models";
-import * as piUtils from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import {
+	convertCodexResponsesMessages,
+	streamOpenAICodexResponses,
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { type OpenAIResponsesOptions, streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import { buildResponsesInput } from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import type { Context, Model, ModelSpec, ProviderSessionState, Tool } from "@cyberxninja-omp/pi-ai/types";
+import { createOpenAIResponsesHistoryPayload, truncateResponseItemId } from "@cyberxninja-omp/pi-ai/utils";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { type GeneratedProvider, getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
 
 const TEST_INSTALLATION_ID = "00000000-0000-4000-8000-000000000001";
 

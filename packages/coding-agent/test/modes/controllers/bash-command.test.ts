@@ -2,10 +2,10 @@ import { beforeAll, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { BashExecutionComponent } from "@cxn/pi-coding-agent/modes/components/bash-execution";
-import { CommandController } from "@cxn/pi-coding-agent/modes/controllers/command-controller";
-import { getThemeByName, setThemeInstance } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { BashExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/bash-execution";
+import { CommandController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/command-controller";
+import { getThemeByName, setThemeInstance } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
 
 function createContainer() {
 	return {

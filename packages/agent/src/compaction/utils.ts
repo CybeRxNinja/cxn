@@ -2,10 +2,10 @@
  * Shared utilities for compaction and branch summarization.
  */
 
-import type { Message, ToolCall } from "@cxn/pi-ai";
-import { type Dialect, getDialectDefinition } from "@cxn/pi-ai/dialect";
-import { escapeHarmonyControlTokens } from "@cxn/pi-ai/utils/harmony-leak";
-import { formatGroupedPaths, prompt, stringifyJson } from "@cxn/pi-utils";
+import type { Message, ToolCall } from "@cyberxninja-omp/pi-ai";
+import { type Dialect, getDialectDefinition } from "@cyberxninja-omp/pi-ai/dialect";
+import { escapeHarmonyControlTokens } from "@cyberxninja-omp/pi-ai/utils/harmony-leak";
+import { formatGroupedPaths, prompt, stringifyJson } from "@cyberxninja-omp/pi-utils";
 import type { AgentMessage } from "../types";
 import fileOperationsTemplate from "./prompts/file-operations.md" with { type: "text" };
 import summarizationSystemPrompt from "./prompts/summarization-system.md" with { type: "text" };

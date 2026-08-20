@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
 import {
 	buildCopyTargets,
 	type CopySource,
@@ -7,7 +7,7 @@ import {
 	extractCodeBlocks,
 	extractLastCommand,
 	extractQuoteBlocks,
-} from "@cxn/pi-coding-agent/modes/utils/copy-targets";
+} from "@cyberxninja-omp/pi-coding-agent/modes/utils/copy-targets";
 
 function source(overrides: Partial<CopySource>): CopySource {
 	return {

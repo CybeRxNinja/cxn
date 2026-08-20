@@ -8,7 +8,7 @@ import {
 	Spacer,
 	Text,
 	truncateToWidth,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import { theme } from "../../modes/theme/theme";
 import { matchesSelectCancel, matchesSelectDown, matchesSelectUp } from "../../modes/utils/keybinding-matchers";
 import { DynamicBorder } from "./dynamic-border";

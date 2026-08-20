@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { loadExtensions } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { __resetDirsFromEnvForTests, setAgentDir, TempDir } from "@cxn/pi-utils";
+import { loadExtensions } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { __resetDirsFromEnvForTests, setAgentDir, TempDir } from "@cyberxninja-omp/pi-utils";
 
 describe("issue #5879: legacy provider compatibility", () => {
 	it("creates a fresh agent database while loading historical auth exports", async () => {

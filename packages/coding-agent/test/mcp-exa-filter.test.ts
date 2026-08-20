@@ -6,9 +6,9 @@
  * server instead of being dropped.
  */
 import { describe, expect, test } from "bun:test";
-import type { SourceMeta } from "@cxn/pi-coding-agent/capability/types";
-import { filterExaMCPServers } from "@cxn/pi-coding-agent/mcp/config";
-import type { MCPServerConfig } from "@cxn/pi-coding-agent/mcp/types";
+import type { SourceMeta } from "@cyberxninja-omp/pi-coding-agent/capability/types";
+import { filterExaMCPServers } from "@cyberxninja-omp/pi-coding-agent/mcp/config";
+import type { MCPServerConfig } from "@cyberxninja-omp/pi-coding-agent/mcp/types";
 
 const SOURCE: SourceMeta = {
 	provider: "test",

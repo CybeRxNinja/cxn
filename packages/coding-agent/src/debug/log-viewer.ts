@@ -7,8 +7,8 @@ import {
 	replaceTabs,
 	truncateToWidth,
 	visibleWidth,
-} from "@cxn/pi-tui";
-import { sanitizeText } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import { bottomBorder, divider, row, topBorder } from "../modes/components/overlay-box";
 import { theme } from "../modes/theme/theme";
 import { copyToClipboard } from "../utils/clipboard";

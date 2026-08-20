@@ -1,7 +1,7 @@
 /**
  * JSON tree rendering utilities shared across tool renderers.
  */
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 import type { Theme } from "../modes/theme/theme";
 import { truncateToWidth } from "./render-utils";
 

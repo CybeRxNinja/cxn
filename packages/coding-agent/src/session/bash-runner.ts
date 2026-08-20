@@ -1,6 +1,6 @@
 import * as path from "node:path";
-import type { Agent } from "@cxn/pi-agent-core";
-import { logger } from "@cxn/pi-utils";
+import type { Agent } from "@cyberxninja-omp/pi-agent-core";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { Settings } from "../config/settings";
 import { type BashResult, executeBash as executeBashCommand } from "../exec/bash-executor";
 import type { ExtensionRunner } from "../extensibility/extensions";

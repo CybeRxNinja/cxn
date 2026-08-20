@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { generateDiffString } from "@cxn/pi-coding-agent/edit/diff";
+import { generateDiffString } from "@cyberxninja-omp/pi-coding-agent/edit/diff";
 
 describe("generateDiffString", () => {
 	it("collapses unchanged lines between distant edits", () => {

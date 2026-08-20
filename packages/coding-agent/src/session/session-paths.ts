@@ -1,8 +1,14 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getTerminalId } from "@cxn/pi-tui";
-import { getSessionsDir, getTerminalSessionsDir, isEnoent, logger, resolveEquivalentPath } from "@cxn/pi-utils";
+import { getTerminalId } from "@cyberxninja-omp/pi-tui";
+import {
+	getSessionsDir,
+	getTerminalSessionsDir,
+	isEnoent,
+	logger,
+	resolveEquivalentPath,
+} from "@cyberxninja-omp/pi-utils";
 import type { SessionStorage } from "./session-storage";
 
 const migratedSessionRoots = new Set<string>();

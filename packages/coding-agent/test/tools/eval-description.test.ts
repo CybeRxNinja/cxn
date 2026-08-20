@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import type { Tool as AiTool } from "@cxn/pi-ai";
-import { toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { EvalTool, getEvalToolDescription } from "@cxn/pi-coding-agent/tools/eval";
+import type { Tool as AiTool } from "@cyberxninja-omp/pi-ai";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { EvalTool, getEvalToolDescription } from "@cyberxninja-omp/pi-coding-agent/tools/eval";
 
 function makeSession(opts: { spawns?: string | null; backends?: Record<string, boolean> }): ToolSession {
 	const settings = Settings.isolated();

@@ -1,5 +1,11 @@
-import { type Agent, ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Model, ProviderSessionState, ServiceTier, ServiceTierByFamily, ServiceTierFamily } from "@cxn/pi-ai";
+import { type Agent, ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type {
+	Model,
+	ProviderSessionState,
+	ServiceTier,
+	ServiceTierByFamily,
+	ServiceTierFamily,
+} from "@cyberxninja-omp/pi-ai";
 import {
 	clearAnthropicFastModeFallback,
 	Effort,
@@ -7,11 +13,11 @@ import {
 	realizesPriorityServiceTier,
 	resolveModelServiceTier,
 	serviceTierFamily,
-} from "@cxn/pi-ai";
-import { isFireworksFastModelId } from "@cxn/pi-catalog/fireworks-model-id";
-import { getSupportedEfforts } from "@cxn/pi-catalog/model-thinking";
-import { modelsAreEqual } from "@cxn/pi-catalog/models";
-import { logger } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { isFireworksFastModelId } from "@cyberxninja-omp/pi-catalog/fireworks-model-id";
+import { getSupportedEfforts } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { modelsAreEqual } from "@cyberxninja-omp/pi-catalog/models";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { classifyDifficulty } from "../auto-thinking/classifier";
 import type { ModelRegistry } from "../config/model-registry";
 import {

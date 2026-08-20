@@ -1,9 +1,13 @@
 import { beforeAll, describe, expect, test } from "bun:test";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { buildBrowserItems, ModelBrowser, sortModelItems } from "@cxn/pi-coding-agent/modes/components/model-browser";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	buildBrowserItems,
+	ModelBrowser,
+	sortModelItems,
+} from "@cyberxninja-omp/pi-coding-agent/modes/components/model-browser";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 
 function makeModel(provider: string, id: string): Model {
 	return buildModel({

@@ -6,7 +6,7 @@ import {
 	readAuthBrokerSnapshotCache,
 	type SnapshotResponse,
 	writeAuthBrokerSnapshotCache,
-} from "@cxn/pi-ai/auth-broker";
+} from "@cyberxninja-omp/pi-ai/auth-broker";
 import { removeWithRetries } from "../../utils/src/temp";
 
 const TOKEN = "broker-cache-token";

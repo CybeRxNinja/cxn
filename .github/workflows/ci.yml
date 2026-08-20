@@ -133,8 +133,6 @@ jobs:
       steps:
          - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: ./.github/actions/bun-install
-         - name: Branding guard
-           run: bun scripts/check-branding.ts
          - name: Type check workspace
            run: bun run ci:check:full
          - name: Build collab web
@@ -195,7 +193,7 @@ jobs:
 
    # Provides the native addons every downstream TS job installs. PRs never
    # build: they fetch the latest release's Linux x64 pair from the
-   # @cxn/pi-natives-linux-x64 npm leaf instead. The workspace loader
+   # @cyberxninja-omp/pi-natives-linux-x64 npm leaf instead. The workspace loader
    # skips its version sentinel for workspace loads, so release addons load
    # fine under a newer checkout; a PR whose TS tests depend on changed
    # native behavior fails visibly and the native side lands via main.
@@ -207,26 +205,20 @@ jobs:
       steps:
          - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
-         # ---- PR path: latest release addons from GitHub Packages ----
+         # ---- PR path: latest release addons from public npm ----
          - name: Fetch release native addons (npm)
            if: github.event_name == 'pull_request'
            shell: bash
-           env:
-              # Private registry: resolve @cxn/* from GitHub Packages with the
-              # repo's own token. npm reads the scoped registry + auth from
-              # the userconfig written below.
-              NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            run: |
               set -euo pipefail
-              printf 'registry=https://registry.npmjs.org/\n@cxn:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}\n' > "$RUNNER_TEMP/.npmrc"
-              export NPM_CONFIG_USERCONFIG="$RUNNER_TEMP/.npmrc"
-              # Fork PRs get a read-only GITHUB_TOKEN that cannot reach the base
-              # repo's GitHub Packages; before the first release the packages do
-              # not exist at all. Fall back to the upstream addon on public npm
-              # (same code lineage, no auth) so fork CI can still run the eval
+              printf 'registry=https://registry.npmjs.org/\n' > "$RUNNER_TEMP/.npmrc"
+              # Public npm packages are readable anonymously, including from fork
+              # PRs. Before the first release the packages do not exist at all.
+              # Fall back to the upstream addon on public npm (same code lineage,
+              # no auth) so fork CI can still run the eval
               # kernel tests.
-              if ! tarball="$(npm view @cxn/pi-natives-linux-x64@latest dist.tarball 2>/dev/null)"; then
-                 echo "::warning::GitHub Packages addon unavailable (fork PR or unpublished release); using the upstream addon from public npm"
+              if ! tarball="$(npm view @cyberxninja-omp/pi-natives-linux-x64@latest dist.tarball 2>/dev/null)"; then
+                 echo "::warning::@cyberxninja-omp addon unavailable (fork PR or unpublished release); using the upstream addon from public npm"
                  tarball="$(npm view @oh-my-pi/pi-natives-linux-x64@latest dist.tarball)"
               fi
               echo "Fetching $tarball"
@@ -588,11 +580,11 @@ jobs:
               binary="$(realpath "${{ matrix.binary_path }}")"
               # Bun's musl-target binaries link libstdc++/libgcc dynamically;
               # Alpine users install them alongside the binary (same as bun itself).
-              docker run --rm -v "$binary:/usr/local/bin/cxn:ro" alpine:3.22 sh -ec '
+              docker run --rm -v "$binary:/usr/local/bin/omp:ro" alpine:3.22 sh -ec '
                 apk add --no-cache libstdc++ libgcc >/dev/null
                 runtime_dir="$(mktemp -d)"
-                HOME="$runtime_dir/home" XDG_DATA_HOME="$runtime_dir/xdg" cxn --version
-                HOME="$runtime_dir/home" XDG_DATA_HOME="$runtime_dir/xdg" cxn --smoke-test
+                HOME="$runtime_dir/home" XDG_DATA_HOME="$runtime_dir/xdg" omp --version
+                HOME="$runtime_dir/home" XDG_DATA_HOME="$runtime_dir/xdg" omp --smoke-test
               '
          - name: Upload release binary artifact
            uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -654,7 +646,7 @@ jobs:
            run: bun run ci:release:build-binaries
          - name: Sign and notarize macOS binary (Developer ID)
            # Replaces the ad-hoc signature with a Developer ID + hardened-runtime
-           # one (+JIT/library-validation entitlements; cxn dlopens its
+           # one (+JIT/library-validation entitlements; omp dlopens its
            # runtime-extracted native addon, which has a different Team ID) and
            # notarizes. Auto-skips until the APPLE_* secrets are configured.
            if: env.MACOS_SIGNING == 'true'
@@ -686,7 +678,7 @@ jobs:
               name: cxn-binary-${{ matrix.target_id }}
               path: ${{ matrix.binary_path }}
 
-   # Publishes the five @cxn/pi-natives-<tag> leaf packages once
+   # Publishes the five @cyberxninja-omp/pi-natives-<tag> leaf packages once
    # validation passes and every binary built. Runs on one linux runner: leaf
    # publishing is platform-agnostic file packaging (gen-npm-packages reads
    # packages/natives/native), so no per-platform runners are needed.
@@ -701,7 +693,6 @@ jobs:
       runs-on: ubuntu-22.04
       permissions:
          contents: read
-         packages: write # publish @cxn/* to GitHub Packages (private)
       steps:
          - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
@@ -710,10 +701,9 @@ jobs:
          - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
            with:
               node-version: "24"
-              registry-url: "https://npm.pkg.github.com"
-              # Private GitHub Packages registry: only @cxn/* scoped packages
-              # route there; everything else stays on the public npm registry.
-              scope: "@cxn"
+              registry-url: "https://registry.npmjs.org"
+              # Public npm registry: publish @cyberxninja-omp/* with NPM_TOKEN.
+              scope: "@cyberxninja-omp"
          # npm runs under Bun when invoked by the release script; npm 12
          # requires a newer emulated Node version than Bun 1.3 provides.
          - name: Ensure npm supports the configured registry
@@ -740,9 +730,8 @@ jobs:
               merge-multiple: true
          - name: Publish native leaf packages
            env:
-              # GITHUB_TOKEN with packages: write publishes @cxn/* to the
-              # repo's own (private) GitHub Packages registry.
-              NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              # NPM_TOKEN publishes @cyberxninja-omp/* to the public npm registry.
+              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
            run: |
               set -euo pipefail
               for tag in linux-x64 linux-arm64 darwin-x64 darwin-arm64 win32-x64; do
@@ -854,7 +843,6 @@ jobs:
       runs-on: ubuntu-22.04
       permissions:
          contents: read
-         packages: write # publish @cxn/* to GitHub Packages (private)
       steps:
          - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
          - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
@@ -863,10 +851,9 @@ jobs:
          - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
            with:
               node-version: "24"
-              registry-url: "https://npm.pkg.github.com"
-              # Private GitHub Packages registry: only @cxn/* scoped packages
-              # route there; everything else stays on the public npm registry.
-              scope: "@cxn"
+              registry-url: "https://registry.npmjs.org"
+              # Public npm registry: publish @cyberxninja-omp/* with NPM_TOKEN.
+              scope: "@cyberxninja-omp"
          # npm runs under Bun when invoked by the release script; npm 12
          # requires a newer emulated Node version than Bun 1.3 provides.
          - name: Ensure npm supports the configured registry
@@ -883,11 +870,10 @@ jobs:
            uses: ./.github/actions/native-artifacts
            with:
               targets: linux-x64-baseline linux-x64-modern
-         - name: Publish to GitHub Packages
+         - name: Publish to npm
            env:
-              # GITHUB_TOKEN with packages: write publishes @cxn/* to the
-              # repo's own (private) GitHub Packages registry.
-              NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              # NPM_TOKEN publishes @cyberxninja-omp/* to the public npm registry.
+              NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
            run: bun run ci:release:publish
 
    # Regenerate the Homebrew tap formula (can1357/homebrew-tap) from the freshly
@@ -922,13 +908,13 @@ jobs:
            env:
               GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            run: |
-              bun scripts/ci-update-brew-formula.ts "${{ needs.release_metadata.outputs.release-tag }}" --out homebrew-tap/Formula/cxn.rb
+              bun scripts/ci-update-brew-formula.ts "${{ needs.release_metadata.outputs.release-tag }}" --out homebrew-tap/Formula/omp.rb
               cd homebrew-tap
-              if git diff --quiet -- Formula/cxn.rb; then
+              if git diff --quiet -- Formula/omp.rb; then
                 echo "formula already up to date for ${{ needs.release_metadata.outputs.release-tag }}"
                 exit 0
               fi
               git -c user.name="github-actions[bot]" \
                   -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-                  commit -m "cxn ${{ needs.release_metadata.outputs.release-tag }}" -- Formula/cxn.rb
+                  commit -m "omp ${{ needs.release_metadata.outputs.release-tag }}" -- Formula/omp.rb
               git push origin HEAD:main

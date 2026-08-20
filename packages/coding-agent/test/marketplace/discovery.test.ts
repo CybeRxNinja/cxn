@@ -2,12 +2,12 @@
  * Discovery integration tests for CXN plugin registry reading.
  *
  * NOTE: listClaudePluginRoots() lives in discovery/helpers.ts which imports
- * @cxn/pi-natives (native Rust addon via glob). We cannot call it here.
+ * @cyberxninja-omp/pi-natives (native Rust addon via glob). We cannot call it here.
  *
  * Instead these tests validate the structural contract that listClaudePluginRoots
  * depends on:
- *   1. CXN registry lives at path.join(home, ".cxn", "plugins", "installed_plugins.json")
- *      (matches getConfigDirName() == ".cxn")
+ *   1. CXN registry lives at path.join(home, ".omp", "plugins", "installed_plugins.json")
+ *      (matches getConfigDirName() == ".omp")
  *   2. The registry format passes the same validator that parseClaudePluginsRegistry uses
  *   3. readInstalledPluginsRegistry / writeInstalledPluginsRegistry produce files that
  *      satisfy that validator
@@ -19,19 +19,19 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { InstalledPluginEntry } from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
+import type { InstalledPluginEntry } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
 import {
 	addInstalledPlugin,
 	buildPluginId,
 	readInstalledPluginsRegistry,
 	writeInstalledPluginsRegistry,
-} from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // ── Inline validator ───────────────────────────────────────────────────────────
 //
 // Mirrors parseClaudePluginsRegistry() in discovery/helpers.ts exactly.
-// Kept here to avoid importing helpers.ts (which pulls in @cxn/pi-natives).
+// Kept here to avoid importing helpers.ts (which pulls in @cyberxninja-omp/pi-natives).
 function validateClaudeRegistryFormat(content: string): Record<string, unknown> | null {
 	let data: Record<string, unknown>;
 	try {
@@ -52,10 +52,10 @@ function validateClaudeRegistryFormat(content: string): Record<string, unknown> 
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-// Matches getConfigDirName() — single source of truth is in @cxn/pi-utils,
-// but we know the value is ".cxn" and hardcoding it here keeps tests free of
+// Matches getConfigDirName() — single source of truth is in @cyberxninja-omp/pi-utils,
+// but we know the value is ".omp" and hardcoding it here keeps tests free of
 // native-addon transitive imports.
-const CXN_CONFIG_DIR = ".cxn";
+const CXN_CONFIG_DIR = ".omp";
 
 function makeEntry(installPath: string, version = "1.0.0"): InstalledPluginEntry {
 	return {
@@ -70,7 +70,7 @@ function makeEntry(installPath: string, version = "1.0.0"): InstalledPluginEntry
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 
 let tmpHome: string;
-/** ~/.cxn/plugins/installed_plugins.json inside tmpHome */
+/** ~/.omp/plugins/installed_plugins.json inside tmpHome */
 let ompRegistryPath: string;
 
 beforeEach(() => {
@@ -86,10 +86,10 @@ afterEach(() => {
 // ── Path contract ─────────────────────────────────────────────────────────────
 
 describe("CXN registry path contract", () => {
-	it("CXN registry lives at home/.cxn/plugins/installed_plugins.json", () => {
+	it("CXN registry lives at home/.omp/plugins/installed_plugins.json", () => {
 		// This is the path that listClaudePluginRoots reads.
 		// Any change to this path must be reflected in helpers.ts.
-		const expected = path.join(tmpHome, ".cxn", "plugins", "installed_plugins.json");
+		const expected = path.join(tmpHome, ".omp", "plugins", "installed_plugins.json");
 		expect(ompRegistryPath).toBe(expected);
 	});
 });
@@ -213,7 +213,7 @@ describe("CXN precedence contract (registry structure)", () => {
 		// The replacement logic: roots.filter(r => r.id !== pluginId) keyed by id.
 		// CXN entries must have installPath so they can be added to roots[].
 		const id = buildPluginId("shared-plugin", "common-mkt");
-		const ompEntry = makeEntry("/cxn/cached/path");
+		const ompEntry = makeEntry("/omp/cached/path");
 
 		// CXN registry entry has installPath (required by listClaudePluginRoots)
 		expect(ompEntry.installPath).toBeTruthy();

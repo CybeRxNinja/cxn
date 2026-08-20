@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { TaskTool, taskSchema } from "@cxn/pi-coding-agent/task";
-import * as discoveryModule from "@cxn/pi-coding-agent/task/discovery";
-import { getTaskSchema, oneLineLabel } from "@cxn/pi-coding-agent/task/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { type } from "@cyberxninja-omp/omptype";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { TaskTool, taskSchema } from "@cyberxninja-omp/pi-coding-agent/task";
+import * as discoveryModule from "@cyberxninja-omp/pi-coding-agent/task/discovery";
+import { getTaskSchema, oneLineLabel } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 
 // Contract: the task tool's wire shape is flat `{ name?, agent?, task, isolated? }`
 // (batch: `{ context, tasks[] }` of the same items). `agent` defaults to the

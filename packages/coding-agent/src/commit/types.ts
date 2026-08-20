@@ -1,5 +1,5 @@
 /**
- * Types for the cxn commit pipeline.
+ * Types for the omp commit pipeline.
  */
 export type CommitType =
 	| "feat"

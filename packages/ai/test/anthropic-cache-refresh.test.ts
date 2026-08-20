@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { streamSimple } from "@cxn/pi-ai";
-import type { MessageCreateParams } from "@cxn/pi-ai/providers/anthropic-wire";
-import type { Context, FetchImpl, Model, ProviderSessionState } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { streamSimple } from "@cyberxninja-omp/pi-ai";
+import type { MessageCreateParams } from "@cyberxninja-omp/pi-ai/providers/anthropic-wire";
+import type { Context, FetchImpl, Model, ProviderSessionState } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const CACHE_REFRESH_DELAY_MS = 5 * 60_000 - 15_000;
 const CACHE_TOKENS = 1_200;

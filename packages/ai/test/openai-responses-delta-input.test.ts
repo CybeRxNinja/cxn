@@ -1,12 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import { buildResponsesDeltaInput } from "@cxn/pi-ai/providers/openai-shared";
+import { buildResponsesDeltaInput } from "@cyberxninja-omp/pi-ai/providers/openai-shared";
 import {
 	kStreamingArgumentsDone,
 	kStreamingBlockIndex,
 	kStreamingBlockKind,
 	kStreamingLastParseLen,
 	kStreamingPartialJson,
-} from "@cxn/pi-ai/utils/block-symbols";
+} from "@cyberxninja-omp/pi-ai/utils/block-symbols";
 import type { ResponseInputItem } from "../src/providers/openai-responses-wire";
 
 // Both stateful callers store the previous request/response through

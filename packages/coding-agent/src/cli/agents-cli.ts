@@ -1,15 +1,15 @@
 /**
  * Agents CLI command handlers.
  *
- * Handles `cxn agents unpack` (writing bundled agent definitions to disk) and
- * the daemon-backed subcommands `cxn agents list | attach | send | stop`,
+ * Handles `omp agents unpack` (writing bundled agent definitions to disk) and
+ * the daemon-backed subcommands `omp agents list | attach | send | stop`,
  * which talk to the supervisor daemon over its shared `FamilyStore`.
  */
 
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { getAgentDir, getProjectDir, isEnoent } from "@cxn/pi-utils";
-import chalk from "@cxn/pi-utils/chalk";
+import { getAgentDir, getProjectDir, isEnoent } from "@cyberxninja-omp/pi-utils";
+import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { YAML } from "bun";
 import {
 	type DaemonClient,
@@ -24,7 +24,7 @@ import type { AgentDefinition } from "../task/types";
 
 export type AgentsAction = "unpack" | "list" | "attach" | "send" | "stop";
 
-/** The daemon family the `cxn agents` CLI operates on by default. */
+/** The daemon family the `omp agents` CLI operates on by default. */
 export const DEFAULT_AGENTS_FAMILY_ID = "cxn-agents";
 
 export interface AgentsCommandArgs {
@@ -70,7 +70,7 @@ function resolveTargetDir(flags: AgentsCommandArgs["flags"]): string {
 	}
 
 	if (flags.project) {
-		return path.resolve(getProjectDir(), ".cxn", "agents");
+		return path.resolve(getProjectDir(), ".omp", "agents");
 	}
 
 	return path.join(getAgentDir(), "agents");
@@ -160,8 +160,8 @@ async function resolveSessionDir(client: DaemonClient, familyId: string, id: str
 		agents: Array<{ id: string; sessionDir?: string }>;
 	};
 	const target = roster.agents.find(a => a.id === id);
-	if (!target) throw new Error(`cxn agents: unknown agent ${id}`);
-	if (!target.sessionDir) throw new Error(`cxn agents: agent ${id} has no session directory`);
+	if (!target) throw new Error(`omp agents: unknown agent ${id}`);
+	if (!target.sessionDir) throw new Error(`omp agents: agent ${id} has no session directory`);
 	return target.sessionDir;
 }
 
@@ -189,13 +189,13 @@ async function runAgentsDaemonCommand(cmd: AgentsCommandArgs, opts: DaemonComman
 				return;
 			}
 			case "send": {
-				if (!cmd.id) throw new Error("cxn agents send requires <id>");
-				if (!cmd.message) throw new Error("cxn agents send requires <message>");
+				if (!cmd.id) throw new Error("omp agents send requires <id>");
+				if (!cmd.message) throw new Error("omp agents send requires <message>");
 				const roster = (await client.request("session.list", {}, { role: "parent" }, familyId)) as {
 					agents: Array<{ id: string; role: string }>;
 				};
 				const target = roster.agents.find(a => a.id === cmd.id);
-				if (!target) throw new Error(`cxn agents send: unknown agent ${cmd.id}`);
+				if (!target) throw new Error(`omp agents send: unknown agent ${cmd.id}`);
 				const receiverRole = target.role === "parent" ? "parent" : "child";
 				const res = (await client.request(
 					"agent_message.send",
@@ -211,7 +211,7 @@ async function runAgentsDaemonCommand(cmd: AgentsCommandArgs, opts: DaemonComman
 				return;
 			}
 			case "attach": {
-				if (!cmd.id) throw new Error("cxn agents attach requires <id>");
+				if (!cmd.id) throw new Error("omp agents attach requires <id>");
 				const dir = await resolveSessionDir(client, familyId, cmd.id);
 				const res = (await client.request(
 					"session.attach",
@@ -226,7 +226,7 @@ async function runAgentsDaemonCommand(cmd: AgentsCommandArgs, opts: DaemonComman
 				return;
 			}
 			case "stop": {
-				if (!cmd.id) throw new Error("cxn agents stop requires <id>");
+				if (!cmd.id) throw new Error("omp agents stop requires <id>");
 				const dir = await resolveSessionDir(client, familyId, cmd.id);
 				const res = (await client.request("session.stop", { session_dir: dir }, { role: "parent" }, familyId)) as {
 					released: boolean;

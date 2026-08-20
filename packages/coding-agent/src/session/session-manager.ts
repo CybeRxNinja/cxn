@@ -1,6 +1,13 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { ImageContent, Message, MessageAttribution, ServiceTierByFamily, TextContent, Usage } from "@cxn/pi-ai";
+import type {
+	ImageContent,
+	Message,
+	MessageAttribution,
+	ServiceTierByFamily,
+	TextContent,
+	Usage,
+} from "@cyberxninja-omp/pi-ai";
 import {
 	directoryExists,
 	getBlobsDir,
@@ -10,7 +17,7 @@ import {
 	logger,
 	stringifyJson,
 	toError,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import type { StructuredSubagentSchemaMode } from "../task/types";
 import { ArtifactManager } from "./artifacts";
 import { type BlobPutOptions, type BlobPutResult, BlobStore } from "./blob-store";

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "bun:test";
-import { AssistantMessageComponent } from "@cxn/pi-coding-agent/modes/components/assistant-message";
-import { InputController } from "@cxn/pi-coding-agent/modes/controllers/input-controller";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { AssistantMessageComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/assistant-message";
+import { InputController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/input-controller";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
 
 describe("InputController tool output expansion", () => {
 	it("expands children and forces a full display reset to bypass frozen snapshots", () => {

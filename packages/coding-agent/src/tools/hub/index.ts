@@ -15,17 +15,17 @@
  * when the agent has nothing else to do.
  */
 
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type {
 	AgentTool,
 	AgentToolContext,
 	AgentToolResult,
 	AgentToolUpdateCallback,
 	ToolApprovalDecision,
-} from "@cxn/pi-agent-core";
-import type { ToolExample } from "@cxn/pi-ai";
-import type { Component } from "@cxn/pi-tui";
-import { prompt } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ToolExample } from "@cyberxninja-omp/pi-ai";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import type { RenderResultOptions } from "../../extensibility/custom-tools/types";
 import { IrcBus } from "../../irc/bus";
 import type { Theme } from "../../modes/theme/theme";
@@ -95,9 +95,9 @@ const hubSchema = type({
 		"timeout?": type("number > 0").describe("seconds to wait; default 30"),
 	}).describe("start: readiness conditions; all supplied conditions must pass"),
 	"restart?": type("'no' | 'on-failure' | 'always'").describe("start: restart policy; default no"),
-	"persist?": type("boolean").describe("start: survive the last cxn client exiting; default false"),
+	"persist?": type("boolean").describe("start: survive the last omp client exiting; default false"),
 	"detached?": type("boolean").describe(
-		"start: survive every cxn and broker exit; implies persist and disables PTY input",
+		"start: survive every omp and broker exit; implies persist and disables PTY input",
 	),
 	"lines?": type("number > 0").describe("logs: output lines; default 100, max 1000"),
 	"head?": type("boolean").describe("logs: read from the beginning instead of the tail"),

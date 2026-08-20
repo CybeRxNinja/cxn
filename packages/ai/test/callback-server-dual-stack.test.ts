@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { OAuthCallbackFlow } from "@cxn/pi-ai/registry/oauth/callback-server";
-import type { OAuthCredentials } from "@cxn/pi-ai/registry/oauth/types";
+import { OAuthCallbackFlow } from "@cyberxninja-omp/pi-ai/registry/oauth/callback-server";
+import type { OAuthCredentials } from "@cyberxninja-omp/pi-ai/registry/oauth/types";
 
 /**
  * Callback flow that records what `login()` advertised, so a test can assert on

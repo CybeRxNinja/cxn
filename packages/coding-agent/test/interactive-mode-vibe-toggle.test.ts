@@ -9,21 +9,24 @@
  */
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { Agent, type AgentTool, type StreamFn } from "@cxn/pi-agent-core";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InteractiveMode } from "@cxn/pi-coding-agent/modes/interactive-mode";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { FileSessionStorage, type WriteTextAtomicOptions } from "@cxn/pi-coding-agent/session/session-storage";
-import { VIBE_TOOL_NAMES } from "@cxn/pi-coding-agent/tools/vibe";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { VibeSessionRegistry } from "@cxn/pi-coding-agent/vibe/runtime";
-import { TempDir } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, type AgentTool, type StreamFn } from "@cyberxninja-omp/pi-agent-core";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InteractiveMode } from "@cyberxninja-omp/pi-coding-agent/modes/interactive-mode";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import {
+	FileSessionStorage,
+	type WriteTextAtomicOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
+import { VIBE_TOOL_NAMES } from "@cyberxninja-omp/pi-coding-agent/tools/vibe";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { VibeSessionRegistry } from "@cyberxninja-omp/pi-coding-agent/vibe/runtime";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { createAssistantMessage, createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 function stubTool(name: string): AgentTool {

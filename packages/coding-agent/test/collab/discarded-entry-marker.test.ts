@@ -1,10 +1,10 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { importRoomKey } from "@cxn/pi-coding-agent/collab/crypto";
-import { CollabHost } from "@cxn/pi-coding-agent/collab/host";
-import { COLLAB_PROTO, type CollabFrame, parseCollabLink } from "@cxn/pi-coding-agent/collab/protocol";
-import { CollabSocket } from "@cxn/pi-coding-agent/collab/relay-client";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { importRoomKey } from "@cyberxninja-omp/pi-coding-agent/collab/crypto";
+import { CollabHost } from "@cyberxninja-omp/pi-coding-agent/collab/host";
+import { COLLAB_PROTO, type CollabFrame, parseCollabLink } from "@cyberxninja-omp/pi-coding-agent/collab/protocol";
+import { CollabSocket } from "@cyberxninja-omp/pi-coding-agent/collab/relay-client";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 import { installInMemoryRelay, uninstallInMemoryRelay } from "./helpers/in-memory-relay";
 
 function makeHostContext(manager: SessionManager): InteractiveModeContext {

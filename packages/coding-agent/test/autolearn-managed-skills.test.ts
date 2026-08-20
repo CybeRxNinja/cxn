@@ -9,9 +9,9 @@ import {
 	sanitizeSkillName,
 	toSkillFrontmatter,
 	writeManagedSkill,
-} from "@cxn/pi-coding-agent/autolearn/managed-skills";
-import { parseFrontmatter, removeWithRetries } from "@cxn/pi-utils";
-import { getAgentDir, setAgentDir } from "@cxn/pi-utils/dirs";
+} from "@cyberxninja-omp/pi-coding-agent/autolearn/managed-skills";
+import { parseFrontmatter, removeWithRetries } from "@cyberxninja-omp/pi-utils";
+import { getAgentDir, setAgentDir } from "@cyberxninja-omp/pi-utils/dirs";
 
 describe("managed-skills primitives", () => {
 	let tempHome: string;
@@ -21,7 +21,7 @@ describe("managed-skills primitives", () => {
 		originalAgentDir = getAgentDir();
 		tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-managed-skills-"));
 		spyOn(os, "homedir").mockReturnValue(tempHome);
-		setAgentDir(path.join(tempHome, ".cxn", "agent"));
+		setAgentDir(path.join(tempHome, ".omp", "agent"));
 	});
 
 	afterEach(async () => {
@@ -124,7 +124,7 @@ describe("managed-skills primitives", () => {
 				writeManagedSkill({ action: "create", name: "../skills/evil", description: "d", body: "b" }),
 			).rejects.toThrow();
 			// Nothing leaked into an authored skills dir.
-			const authoredEvil = path.join(tempHome, ".cxn", "agent", "skills", "evil", "SKILL.md");
+			const authoredEvil = path.join(tempHome, ".omp", "agent", "skills", "evil", "SKILL.md");
 			expect(await Bun.file(authoredEvil).exists()).toBe(false);
 		});
 

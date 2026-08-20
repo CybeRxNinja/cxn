@@ -2,9 +2,9 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi 
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { unregisterCustomApis } from "@cxn/pi-ai/api-registry";
-import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
-import { createMockModel, type MockResponseSource, registerMockApi } from "@cxn/pi-ai/providers/mock";
+import { unregisterCustomApis } from "@cyberxninja-omp/pi-ai/api-registry";
+import { type AuthCredentialStore, AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai/auth-storage";
+import { createMockModel, type MockResponseSource, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
 import { $ } from "bun";
 import { ModelRegistry } from "../../src/config/model-registry";
 import { Settings } from "../../src/config/settings";

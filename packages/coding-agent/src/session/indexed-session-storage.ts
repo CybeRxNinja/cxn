@@ -1,4 +1,4 @@
-import { toError } from "@cxn/pi-utils";
+import { toError } from "@cyberxninja-omp/pi-utils";
 import type {
 	SessionStorage,
 	SessionStorageStat,

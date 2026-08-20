@@ -9,7 +9,7 @@
  * - Abort handling during summarization
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import type { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions";
+import type { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
 import { createTestSession, e2eApiKey, type TestSessionContext } from "./utilities";
 
 describe.skipIf(!e2eApiKey("ANTHROPIC_API_KEY"))("AgentSession tree navigation e2e", () => {

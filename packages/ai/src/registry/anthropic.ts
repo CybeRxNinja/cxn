@@ -1,4 +1,4 @@
-import { $pickenv } from "@cxn/pi-utils";
+import { $pickenv } from "@cyberxninja-omp/pi-utils";
 import { isFoundryEnabled } from "../utils/foundry";
 import type { OAuthCredentials, OAuthLoginCallbacks } from "./oauth/types";
 import type { ProviderDefinition } from "./types";

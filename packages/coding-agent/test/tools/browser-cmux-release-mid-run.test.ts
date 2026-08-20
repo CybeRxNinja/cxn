@@ -32,12 +32,17 @@ import { afterEach, describe, expect, it, spyOn, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { CmuxKind } from "@cxn/pi-coding-agent/tools/browser/cmux/rpc";
-import { CmuxSocketClient } from "@cxn/pi-coding-agent/tools/browser/cmux/socket-client";
-import { acquireBrowser } from "@cxn/pi-coding-agent/tools/browser/registry";
-import { acquireTab, getTabsMapForTest, releaseTab, runInTab } from "@cxn/pi-coding-agent/tools/browser/tab-supervisor";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools/index";
-import * as logger from "@cxn/pi-utils/logger";
+import type { CmuxKind } from "@cyberxninja-omp/pi-coding-agent/tools/browser/cmux/rpc";
+import { CmuxSocketClient } from "@cyberxninja-omp/pi-coding-agent/tools/browser/cmux/socket-client";
+import { acquireBrowser } from "@cyberxninja-omp/pi-coding-agent/tools/browser/registry";
+import {
+	acquireTab,
+	getTabsMapForTest,
+	releaseTab,
+	runInTab,
+} from "@cyberxninja-omp/pi-coding-agent/tools/browser/tab-supervisor";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools/index";
+import * as logger from "@cyberxninja-omp/pi-utils/logger";
 
 function makeKind(socketSuffix: string): CmuxKind {
 	return {

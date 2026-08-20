@@ -19,7 +19,7 @@ import {
 	truncateToWidth,
 	visibleWidth,
 	wrapTextWithAnsi,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import { getMarkdownTheme, type ThemeColor, theme } from "../../modes/theme/theme";
 import {
 	matchesAppExternalEditor,

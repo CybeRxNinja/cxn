@@ -2,22 +2,22 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, spyOn, vi } from 
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import type { Rule } from "@cxn/pi-coding-agent/capability/rule";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { LocalProtocolHandler } from "@cxn/pi-coding-agent/internal-urls/local-protocol";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import * as secrets from "@cxn/pi-coding-agent/secrets";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { VibeSessionRegistry } from "@cxn/pi-coding-agent/vibe/runtime";
-import { getSessionsDir, removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
-import { getActiveProfile, getConfigRootDir, setProfile } from "@cxn/pi-utils/dirs";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import type { Rule } from "@cyberxninja-omp/pi-coding-agent/capability/rule";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { LocalProtocolHandler } from "@cyberxninja-omp/pi-coding-agent/internal-urls/local-protocol";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as secrets from "@cyberxninja-omp/pi-coding-agent/secrets";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { VibeSessionRegistry } from "@cyberxninja-omp/pi-coding-agent/vibe/runtime";
+import { getSessionsDir, removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
+import { getActiveProfile, getConfigRootDir, setProfile } from "@cyberxninja-omp/pi-utils/dirs";
 
 function createTtsrRule(name: string): Rule {
 	return {
@@ -442,8 +442,8 @@ describe("createAgentSession session storage isolation", () => {
 				existingKeySpy.mockRestore();
 			}
 
-			fs.mkdirSync(path.join(cwd, ".cxn"), { recursive: true });
-			fs.writeFileSync(path.join(cwd, ".cxn", "secrets.yml"), `- type: plain\n  content: ${configuredSecret}\n`);
+			fs.mkdirSync(path.join(cwd, ".omp"), { recursive: true });
+			fs.writeFileSync(path.join(cwd, ".omp", "secrets.yml"), `- type: plain\n  content: ${configuredSecret}\n`);
 
 			const withSecrets = await createAgentSession(commonOptions);
 			try {
@@ -463,9 +463,9 @@ describe("createAgentSession session storage isolation", () => {
 				tempDirs.push(tempDir);
 				const cwd = path.join(tempDir, "project");
 				const agentDir = path.join(tempDir, "agent");
-				fs.mkdirSync(path.join(cwd, ".cxn"), { recursive: true });
+				fs.mkdirSync(path.join(cwd, ".omp"), { recursive: true });
 				fs.writeFileSync(
-					path.join(cwd, ".cxn", "secrets.yml"),
+					path.join(cwd, ".omp", "secrets.yml"),
 					"- type: plain\n  content: sdk-secret-token-123456\n",
 				);
 
@@ -537,7 +537,7 @@ describe("createAgentSession session storage isolation", () => {
 			tempDirs.push(tempDir);
 			const cwd = path.join(tempDir, "project");
 			const agentDir = path.join(tempDir, "agent");
-			fs.mkdirSync(path.join(cwd, ".cxn"), { recursive: true });
+			fs.mkdirSync(path.join(cwd, ".omp"), { recursive: true });
 
 			const commonOptions = {
 				cwd,
@@ -575,7 +575,7 @@ describe("createAgentSession session storage isolation", () => {
 				// Replace-mode secrets never build a reversible keyed placeholder, so
 				// startup must not create the key file; an existing key is still redacted.
 				fs.writeFileSync(
-					path.join(cwd, ".cxn", "secrets.yml"),
+					path.join(cwd, ".omp", "secrets.yml"),
 					"- type: plain\n  mode: replace\n  content: replace-only-secret-123456\n",
 				);
 				const replaceOnly = await createAgentSession(commonOptions);
@@ -594,7 +594,7 @@ describe("createAgentSession session storage isolation", () => {
 				keySpy.mockClear();
 				existingKeySpy.mockClear();
 				fs.writeFileSync(
-					path.join(cwd, ".cxn", "secrets.yml"),
+					path.join(cwd, ".omp", "secrets.yml"),
 					"- type: plain\n  content: obfuscate-secret-123456\n",
 				);
 				const withObfuscate = await createAgentSession(commonOptions);
@@ -617,11 +617,11 @@ describe("createAgentSession session storage isolation", () => {
 			tempDirs.push(tempDir);
 			const cwd = path.join(tempDir, "project");
 			const agentDir = path.join(tempDir, "agent");
-			fs.mkdirSync(path.join(cwd, ".cxn"), { recursive: true });
+			fs.mkdirSync(path.join(cwd, ".omp"), { recursive: true });
 			// Only an ignored short (<8 char) plain obfuscate secret: it never becomes an
 			// active secret, but a previously-created key file must still be redacted and
 			// no new key must be created.
-			fs.writeFileSync(path.join(cwd, ".cxn", "secrets.yml"), "- type: plain\n  content: abc\n");
+			fs.writeFileSync(path.join(cwd, ".omp", "secrets.yml"), "- type: plain\n  content: abc\n");
 
 			const keySpy = spyOn(secrets, "getSecretPlaceholderKey").mockImplementation(
 				async () => "test-placeholder-key",
@@ -667,9 +667,9 @@ describe("createAgentSession session storage isolation", () => {
 				tempDirs.push(tempDir);
 				const cwd = path.join(tempDir, "project");
 				const agentDir = path.join(tempDir, "agent");
-				fs.mkdirSync(path.join(cwd, ".cxn"), { recursive: true });
+				fs.mkdirSync(path.join(cwd, ".omp"), { recursive: true });
 				fs.writeFileSync(
-					path.join(cwd, ".cxn", "secrets.yml"),
+					path.join(cwd, ".omp", "secrets.yml"),
 					"- type: plain\n  content: agent-dir-secret-123456\n",
 				);
 

@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { runConfigCommand } from "@cxn/pi-coding-agent/cli/config-cli";
-import { resetSettingsForTest } from "@cxn/pi-coding-agent/config/settings";
-import { AgentStorage } from "@cxn/pi-coding-agent/session/agent-storage";
-import { getConfigRootDir, setAgentDir, TempDir } from "@cxn/pi-utils";
+import { runConfigCommand } from "@cyberxninja-omp/pi-coding-agent/cli/config-cli";
+import { resetSettingsForTest } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AgentStorage } from "@cyberxninja-omp/pi-coding-agent/session/agent-storage";
+import { getConfigRootDir, setAgentDir, TempDir } from "@cyberxninja-omp/pi-utils";
 
 let testAgentDir: TempDir | undefined;
 const originalAgentDir = process.env.PI_CODING_AGENT_DIR;

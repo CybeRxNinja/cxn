@@ -32,7 +32,7 @@ import {
 	type SnapshotStore,
 	stripBom,
 	validateClipboardSequence,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 import { resolveToCwd } from "../../tools/path-utils";
 import { generateDiffString } from "../diff";
 import { canonicalSnapshotKey } from "../file-snapshot-store";

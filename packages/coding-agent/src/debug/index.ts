@@ -5,7 +5,7 @@
  */
 import * as fs from "node:fs/promises";
 import * as url from "node:url";
-import { getWorkProfile } from "@cxn/pi-natives";
+import { getWorkProfile } from "@cyberxninja-omp/pi-natives";
 import {
 	Container,
 	isNotificationSuppressed,
@@ -17,8 +17,8 @@ import {
 	TERMINAL,
 	type TerminalNotification,
 	Text,
-} from "@cxn/pi-tui";
-import { getSessionsDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-tui";
+import { getSessionsDir } from "@cyberxninja-omp/pi-utils";
 import { DynamicBorder } from "../modes/components/dynamic-border";
 import { TranscriptBlock } from "../modes/components/transcript-container";
 import { getSelectListTheme, getSymbolTheme, theme } from "../modes/theme/theme";
@@ -460,7 +460,7 @@ export class DebugSelectorComponent extends Container {
 		if (!suppressed) {
 			const sessionName = this.ctx.sessionManager.getSessionName();
 			const notification: TerminalNotification = {
-				title: sessionName || "cxn",
+				title: sessionName || "omp",
 				body: "Terminal protocol test",
 				type: "test",
 				actions: "focus",

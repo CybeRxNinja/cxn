@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import * as url from "node:url";
-import { $which, logger } from "@cxn/pi-utils";
+import { $which, logger } from "@cyberxninja-omp/pi-utils";
 
 const URL_SCHEME_PATTERN = /^[a-zA-Z][a-zA-Z\d+.-]*:/;
 
@@ -111,7 +111,7 @@ export function openPath(urlOrPath: string): void {
 	// Detect delayed failures (exec succeeded but the opener exited non-zero)
 	// without blocking the caller. Recording them makes silent misconfigurations
 	// (e.g. `xdg-open` present but no MIME handler for `https`) diagnosable from
-	// `~/.cxn/logs/cxn.*.log`.
+	// `~/.omp/logs/omp.*.log`.
 	child.exited.then(
 		exitCode => {
 			if (typeof exitCode === "number" && exitCode !== 0) {

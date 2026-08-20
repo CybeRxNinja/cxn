@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, spyOn, vi } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { executeBuiltinSlashCommand } from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
-import * as clipboard from "@cxn/pi-coding-agent/utils/clipboard";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { executeBuiltinSlashCommand } from "@cyberxninja-omp/pi-coding-agent/slash-commands/builtin-registry";
+import * as clipboard from "@cyberxninja-omp/pi-coding-agent/utils/clipboard";
 
 function assistantText(text: string): AgentMessage {
 	return { role: "assistant", content: [{ type: "text", text }] } as unknown as AgentMessage;

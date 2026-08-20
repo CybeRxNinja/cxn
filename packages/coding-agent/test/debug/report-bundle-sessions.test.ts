@@ -2,8 +2,8 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { createReportBundle } from "@cxn/pi-coding-agent/debug/report-bundle";
-import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { createReportBundle } from "@cyberxninja-omp/pi-coding-agent/debug/report-bundle";
+import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 const originalAgentDir = process.env.PI_CODING_AGENT_DIR;
 const originalXdgStateHome = process.env.XDG_STATE_HOME;
@@ -37,7 +37,7 @@ describe("report bundle sessions", () => {
 	it("bundles only the current session's subtree, not unrelated co-located sessions", async () => {
 		cleanupRoot = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-report-sessions-"));
 		const xdgStateHome = path.join(cleanupRoot, "state");
-		await fs.mkdir(path.join(xdgStateHome, "cxn"), { recursive: true });
+		await fs.mkdir(path.join(xdgStateHome, "omp"), { recursive: true });
 		process.env.XDG_STATE_HOME = xdgStateHome;
 		setAgentDir(fallbackAgentDir);
 

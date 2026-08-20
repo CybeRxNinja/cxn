@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { $which, getRemoteDir, postmortem } from "@cxn/pi-utils";
+import { $which, getRemoteDir, postmortem } from "@cyberxninja-omp/pi-utils";
 import { $ } from "bun";
 import {
 	getControlDir,

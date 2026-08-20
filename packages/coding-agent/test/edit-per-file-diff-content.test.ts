@@ -2,17 +2,17 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	DEFAULT_FUZZY_THRESHOLD,
 	EditTool,
 	type EditToolDetails,
 	executePatchSingle,
 	executeReplace,
-} from "@cxn/pi-coding-agent/edit";
-import { writethroughNoop } from "@cxn/pi-coding-agent/lsp";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/edit";
+import { writethroughNoop } from "@cyberxninja-omp/pi-coding-agent/lsp";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // ─── Minimal ToolSession stub ────────────────────────────────────────────────
 

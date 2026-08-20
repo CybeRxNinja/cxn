@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "bun:test";
-import { streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
+import { streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
 import type {
 	AssistantMessageEvent,
 	AssistantMessageEventStream,
@@ -7,8 +7,8 @@ import type {
 	FetchImpl,
 	Model,
 	ProviderSessionState,
-} from "@cxn/pi-ai/types";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+} from "@cyberxninja-omp/pi-ai/types";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 const model = getBundledModel("openai", "gpt-5-mini") as Model<"openai-responses">;
 const firstUser = { role: "user" as const, content: "Read the file", timestamp: 1_000 };

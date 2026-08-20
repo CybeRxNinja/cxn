@@ -1,6 +1,6 @@
 /**
  * Compatibility shim for legacy extensions importing the package root of
- * `@cxn/pi-coding-agent` (or one of its aliased scopes like
+ * `@cyberxninja-omp/pi-coding-agent` (or one of its aliased scopes like
  * `@earendil-works/pi-coding-agent` or `@mariozechner/pi-coding-agent`).
  *
  * The coding-agent package's own barrel (`./src/index.ts`) cannot be listed
@@ -9,23 +9,23 @@
  * Routing legacy plugin imports through this sibling shim sidesteps that
  * conflict: bun bundles a distinct entry whose path differs from the CLI
  * entry, while still re-exporting the canonical surface so plugins observe
- * the same module identity as a direct `@cxn/pi-coding-agent` import.
+ * the same module identity as a direct `@cyberxninja-omp/pi-coding-agent` import.
  */
 
 import { Database } from "bun:sqlite";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import { type AuthCredential, SqliteAuthCredentialStore, type TSchema } from "@cxn/pi-ai";
-import { piEscapeRegexLiteral, piJoinPath } from "@cxn/pi-ai/providers/cursor-pi-args";
-import { getKeybindings, type Keybinding, Text } from "@cxn/pi-tui";
+import type { AgentToolResult, AgentToolUpdateCallback } from "@cyberxninja-omp/pi-agent-core";
+import { type AuthCredential, SqliteAuthCredentialStore, type TSchema } from "@cyberxninja-omp/pi-ai";
+import { piEscapeRegexLiteral, piJoinPath } from "@cyberxninja-omp/pi-ai/providers/cursor-pi-args";
+import { getKeybindings, type Keybinding, Text } from "@cyberxninja-omp/pi-tui";
 import {
 	getAgentDbPath,
 	getAgentDir,
 	getProjectDir,
 	isCompiledBinary,
 	parseFrontmatter as parseOmpFrontmatter,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import { getPackageDir as getOmpPackageDir } from "../config";
 import { formatKeyHints } from "../config/keybindings";
 import type { PromptTemplate } from "../config/prompt-templates";
@@ -1424,17 +1424,17 @@ export function readStoredCredential(provider: string): AuthCredential | undefin
 }
 
 // Pi SDK path helpers. `export * from "../index"` above only forwards
-// `getAgentDir`; `getProjectDir` (a `@cxn/pi-utils` helper) and
+// `getAgentDir`; `getProjectDir` (a `@cyberxninja-omp/pi-utils` helper) and
 // `getPackageDir` are absent from that barrel, so legacy extensions importing
 // either fail Bun's static export check during validation (issue #5968).
-export { getProjectDir } from "@cxn/pi-utils";
+export { getProjectDir } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Coding-agent package install directory, matching pi's string-valued
  * `getPackageDir()` contract (extensions do `path.join(getPackageDir(), ...)`
  * to auto-allow bundled docs/resources).
  *
- * cxn's canonical `getPackageDir()` (`../config`) returns `undefined` inside a
+ * omp's canonical `getPackageDir()` (`../config`) returns `undefined` inside a
  * `bun --compile` binary — `import.meta.dir` is `/$bunfs/root` and no owning
  * `package.json` exists (issue #1423). Returning `undefined` there would crash
  * every legacy `path.join(getPackageDir(), ...)` at runtime in the shipped
@@ -1449,18 +1449,18 @@ export function getPackageDir(): string {
 
 // Legacy pi's `@earendil-works/pi-coding-agent` re-exported `estimateTokens`,
 // `compact`, and `serializeConversation` from its package root (via
-// `./core/compaction/index.ts`). In cxn they live in
-// `@cxn/pi-agent-core/compaction`, and the coding-agent barrel below does
+// `./core/compaction/index.ts`). In omp they live in
+// `@cyberxninja-omp/pi-agent-core/compaction`, and the coding-agent barrel below does
 // not forward them, so legacy extensions importing them fail Bun's static
 // export check during validation (issues #6583, #7174, #7403).
-export { compact, estimateTokens, serializeConversation } from "@cxn/pi-agent-core/compaction";
+export { compact, estimateTokens, serializeConversation } from "@cyberxninja-omp/pi-agent-core/compaction";
 
 // Same barrel gap for two more legacy package-root exports: pi re-exported the
-// `CONFIG_DIR_NAME` constant and the CLI parser `parseArgs`. In cxn
-// `CONFIG_DIR_NAME` lives in `@cxn/pi-utils` and `parseArgs` in
+// `CONFIG_DIR_NAME` constant and the CLI parser `parseArgs`. In omp
+// `CONFIG_DIR_NAME` lives in `@cyberxninja-omp/pi-utils` and `parseArgs` in
 // `../cli/args`, neither of which the barrel below forwards, so legacy
 // extensions importing either fail Bun's static export check during validation.
-export { CONFIG_DIR_NAME } from "@cxn/pi-utils";
+export { CONFIG_DIR_NAME } from "@cyberxninja-omp/pi-utils";
 export { parseArgs } from "../cli/args";
 
 export * from "../index";
@@ -1470,12 +1470,12 @@ export { Type } from "./legacy-typebox";
 
 // Legacy pi's `@earendil-works/pi-coding-agent` root exported an `is<Tool>ToolResult`
 // family of type guards that narrow a `tool_result` event (`ToolResultEvent`) by
-// tool name. cxn removed them from the public API in 10.2.3, and the barrel above
+// tool name. omp removed them from the public API in 10.2.3, and the barrel above
 // does not forward them, so legacy extensions importing them (e.g.
 // `pi-lean-ctx@3.9.18`, which uses `isEditToolResult`/`isWriteToolResult` to
 // invalidate its read cache after a native edit/write) fail Bun's static export
 // check during validation (issue #8161). Restore the full guard family; legacy
-// `find`/`ls` tool results arrive through cxn's custom-event branch, so those
+// `find`/`ls` tool results arrive through omp's custom-event branch, so those
 // guards narrow the tool name while leaving their details unknown.
 
 /** Narrow a `tool_result` event to the `bash` tool. */
@@ -1503,7 +1503,7 @@ export function isGrepToolResult(e: ToolResultEvent): e is GrepToolResultEvent {
 	return e.toolName === "grep";
 }
 
-/** Legacy `find` result event represented by cxn's custom-event branch. */
+/** Legacy `find` result event represented by omp's custom-event branch. */
 export type FindToolResultEvent = ToolResultEvent & { toolName: "find" };
 
 /** Narrow a `tool_result` event to the legacy `find` tool. */
@@ -1511,7 +1511,7 @@ export function isFindToolResult(e: ToolResultEvent): e is FindToolResultEvent {
 	return e.toolName === "find";
 }
 
-/** Legacy `ls` result event represented by cxn's custom-event branch. */
+/** Legacy `ls` result event represented by omp's custom-event branch. */
 export type LsToolResultEvent = ToolResultEvent & { toolName: "ls" };
 
 /** Narrow a `tool_result` event to the legacy `ls` tool. */

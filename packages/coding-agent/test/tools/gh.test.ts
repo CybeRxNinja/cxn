@@ -2,11 +2,11 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:te
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { ToolCall } from "@cxn/pi-ai";
-import { toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import type { ToolCall } from "@cyberxninja-omp/pi-ai";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 import {
 	buildSearchDateQualifier,
 	GithubTool,
@@ -14,10 +14,17 @@ import {
 	parsePrUnifiedDiff,
 	parseSearchDateBound,
 	resolveDefaultRepoMemoized,
-} from "@cxn/pi-coding-agent/tools/gh";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import * as piUtils from "@cxn/pi-utils";
-import { $which, getAgentDir, hashPath, removeWithRetries, setAgentDir, WhichCachePolicy } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/tools/gh";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
+import {
+	$which,
+	getAgentDir,
+	hashPath,
+	removeWithRetries,
+	setAgentDir,
+	WhichCachePolicy,
+} from "@cyberxninja-omp/pi-utils";
 
 // Isolate every `git` invocation in this file from the developer's host
 // configuration. The fixture spawns dozens of git subprocesses against tiny
@@ -176,7 +183,7 @@ async function createPrFixture(): Promise<PrFixture> {
 /**
  * Stub `os.homedir()` AND rebuild the cached `dirs` resolver in pi-utils so
  * `getWorktreesDir()` resolves under an isolated temp home instead of the
- * user's real `~/.cxn/wt`. Returns the temp home and a cleanup hook.
+ * user's real `~/.omp/wt`. Returns the temp home and a cleanup hook.
  */
 interface TempHome {
 	home: string;
@@ -187,7 +194,7 @@ async function setupTempHome(): Promise<{ home: string; cleanup: () => Promise<v
 	const home = await fs.mkdtemp(path.join(os.tmpdir(), "gh-pr-tool-home-"));
 	vi.spyOn(os, "homedir").mockReturnValue(home);
 	// Clear XDG_*_HOME so the rebuilt resolver routes `dirs.rootSubdir("wt", "data")`
-	// through the spied homedir instead of `$XDG_DATA_HOME/cxn/wt` (CI sets these).
+	// through the spied homedir instead of `$XDG_DATA_HOME/omp/wt` (CI sets these).
 	const xdgKeys = ["XDG_DATA_HOME", "XDG_STATE_HOME", "XDG_CACHE_HOME"] as const;
 	const xdgPrevious: Partial<Record<(typeof xdgKeys)[number], string | undefined>> = {};
 	for (const key of xdgKeys) {
@@ -198,7 +205,7 @@ async function setupTempHome(): Promise<{ home: string; cleanup: () => Promise<v
 	// we must rebuild the resolver after the spy + env scrub are in place.
 	// `setAgentDir` recreates it; we point it at the temp home's default agent dir.
 	const originalAgentDir = getAgentDir();
-	setAgentDir(path.join(home, ".cxn", "agent"));
+	setAgentDir(path.join(home, ".omp", "agent"));
 	return {
 		home,
 		cleanup: async () => {
@@ -222,7 +229,7 @@ async function setupTempHome(): Promise<{ home: string; cleanup: () => Promise<v
 async function expectedWorktreePath(home: string, primaryRoot: string, localBranch: string): Promise<string> {
 	const prNumber = localBranch.replace(/^pr-/, "");
 	const segment = `${prNumber}-${hashPath(primaryRoot)}`;
-	return fs.realpath(path.join(home, ".cxn", "wt", segment));
+	return fs.realpath(path.join(home, ".omp", "wt", segment));
 }
 
 describe("parsePrUnifiedDiff", () => {

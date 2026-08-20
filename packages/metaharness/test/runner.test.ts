@@ -73,21 +73,21 @@ describe("install modes", () => {
 			nodeModules: ["node_modules"],
 		});
 		expect(env.CXN_BENCH_INSTALL).toBe("source");
-		expect(env.CXN_BENCH_SOURCE_DIR).toBe("/opt/cxn/src");
-		expect(env.CXN_BENCH_SOURCE_BUN).toBe("/opt/cxn/bin/bun");
+		expect(env.CXN_BENCH_SOURCE_DIR).toBe("/opt/omp/src");
+		expect(env.CXN_BENCH_SOURCE_BUN).toBe("/opt/omp/bin/bun");
 		expect(env.CXN_BENCH_SOURCE_ARCH).toBe("arm64");
 	});
 
 	it("omits source mount env when no mount was prepared (binary/local runs)", () => {
 		const cfg = parseArgs(["--model", "anthropic/claude-opus-4-8", "--install", "local"]);
-		const env = buildHarborEnv(cfg, "/tmp/models.yml", "/tmp/cxn.tgz", "test");
+		const env = buildHarborEnv(cfg, "/tmp/models.yml", "/tmp/omp.tgz", "test");
 		expect(env.CXN_BENCH_INSTALL).toBe("local");
 		expect(env.CXN_BENCH_SOURCE_DIR).toBeUndefined();
 		expect(env.CXN_BENCH_SOURCE_ARCH).toBeUndefined();
 	});
 
 	it("--tarball implies a local (tarball) install", () => {
-		const cfg = parseArgs(["--model", "anthropic/claude-opus-4-8", "--tarball", "/tmp/cxn.tgz"]);
+		const cfg = parseArgs(["--model", "anthropic/claude-opus-4-8", "--tarball", "/tmp/omp.tgz"]);
 		expect(cfg.install).toBe("local");
 		expect(cfg.build).toBe(false);
 	});
@@ -157,7 +157,7 @@ describe("live-trial cost probe", () => {
 		try {
 			const agentDir = path.join(jobDir, "task__abc", "agent");
 			fs.mkdirSync(agentDir, { recursive: true });
-			const log = path.join(agentDir, "cxn.txt");
+			const log = path.join(agentDir, "omp.txt");
 
 			// First flush: one complete event plus a partial line mid-write.
 			fs.writeFileSync(log, `${usageEvent(0.5, 100, 10)}{"type":"mess`);

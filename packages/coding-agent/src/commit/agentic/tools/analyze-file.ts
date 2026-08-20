@@ -1,5 +1,5 @@
-import { type } from "@cxn/omptype";
-import { prompt } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import analyzeFilePrompt from "../../../commit/agentic/prompts/analyze-file.md" with { type: "text" };
 import type { CommitAgentState } from "../../../commit/agentic/state";
 import type { NumstatEntry } from "../../../commit/types";

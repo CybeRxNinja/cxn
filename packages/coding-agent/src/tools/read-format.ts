@@ -4,8 +4,8 @@ import {
 	formatNumberedLine,
 	formatNumberedLines,
 	splitAddressableFileLines,
-} from "@cxn/hashline";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
+} from "@cyberxninja-omp/hashline";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
 import { canonicalSnapshotKey, getFileSnapshotStore, recordSeenLines } from "../edit/file-snapshot-store";
 import { normalizeToLF } from "../edit/normalize";
 import { isMarkdownPath } from "../modes/theme/theme";

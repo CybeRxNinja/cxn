@@ -1,5 +1,5 @@
 import * as path from "node:path";
-import { getProjectDir, logger } from "@cxn/pi-utils";
+import { getProjectDir, logger } from "@cyberxninja-omp/pi-utils";
 import type { ToolSession } from "../../tools";
 import {
 	buildManagedKernelEnv,

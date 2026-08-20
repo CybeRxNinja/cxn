@@ -1,12 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import type { FetchImpl } from "@cxn/pi-ai/types";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 import {
 	analyzeAuthError,
 	discoverOAuthEndpoints,
 	extractMcpAuthServerUrl,
 	extractOAuthChallengeScopes,
 	fetchResourceMetadataScopes,
-} from "@cxn/pi-coding-agent/mcp/oauth-discovery";
+} from "@cyberxninja-omp/pi-coding-agent/mcp/oauth-discovery";
 import { type FetchInput, mockFetch } from "./helpers/fetch-mock";
 
 describe("mcp oauth discovery", () => {

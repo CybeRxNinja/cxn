@@ -1,6 +1,6 @@
-import { type } from "@cxn/omptype";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { logger } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { captureRequestHeaders, resolvePromptCacheKey } from "../auth-gateway/http";
 import * as AIError from "../error";
 import type {
@@ -31,8 +31,8 @@ import { isAnthropicServerToolHistoryBlock } from "./anthropic-wire";
 
 /**
  * Anthropic Messages API (https://docs.anthropic.com/en/api/messages) ↔ pi-ai
- * gateway translation. Inbound: foreign HTTP body → cxn Context. Outbound:
- * cxn AssistantMessage[Stream] → Anthropic-shaped JSON / SSE.
+ * gateway translation. Inbound: foreign HTTP body → omp Context. Outbound:
+ * omp AssistantMessage[Stream] → Anthropic-shaped JSON / SSE.
  */
 
 import type { AuthGatewayStreamControl, AuthGatewayParsedRequest as ParsedRequest } from "../auth-gateway/types";
@@ -222,7 +222,7 @@ function walkAssistantContent(
 					// verbatim, so retain each opaque block instead of flattening it.
 					out.push({ type: "anthropicServerTool", block: { ...block } });
 				} else {
-					// Other server tools use distinct result block types that cxn
+					// Other server tools use distinct result block types that omp
 					// cannot yet replay atomically. Flatten both sides rather than
 					// persisting a lone server_tool_use without its matching result.
 					const unknown = block as { type: string };

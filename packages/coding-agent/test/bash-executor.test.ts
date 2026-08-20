@@ -2,19 +2,23 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resetSettingsForTest, Settings, type ShellMinimizerSettings } from "@cxn/pi-coding-agent/config/settings";
+import {
+	resetSettingsForTest,
+	Settings,
+	type ShellMinimizerSettings,
+} from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	applyDirenvPreflight,
 	buildMinimizerOptions,
 	executeBash,
 	isPersistentShellCdCommand,
-} from "@cxn/pi-coding-agent/exec/bash-executor";
-import * as direnvModule from "@cxn/pi-coding-agent/exec/direnv";
-import { DEFAULT_MAX_BYTES } from "@cxn/pi-coding-agent/session/streaming-output";
-import * as shellSnapshot from "@cxn/pi-coding-agent/utils/shell-snapshot";
-import type { Shell, ShellRunResult } from "@cxn/pi-natives";
-import * as piNatives from "@cxn/pi-natives";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/exec/bash-executor";
+import * as direnvModule from "@cyberxninja-omp/pi-coding-agent/exec/direnv";
+import { DEFAULT_MAX_BYTES } from "@cyberxninja-omp/pi-coding-agent/session/streaming-output";
+import * as shellSnapshot from "@cyberxninja-omp/pi-coding-agent/utils/shell-snapshot";
+import type { Shell, ShellRunResult } from "@cyberxninja-omp/pi-natives";
+import * as piNatives from "@cyberxninja-omp/pi-natives";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // Matches the schema default for `tools.artifactHeadBytes` (20 KB) used by
 // OutputSink when bash-executor pulls settings via resolveOutputSinkHeadBytes.

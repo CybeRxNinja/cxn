@@ -1,13 +1,13 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createAcpConnection } from "@cxn/pi-coding-agent/modes/acp/acp-mode";
-import type { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { createAcpConnection } from "@cyberxninja-omp/pi-coding-agent/modes/acp/acp-mode";
+import type { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import {
 	type Client,
 	ClientSideConnection,
@@ -17,7 +17,7 @@ import {
 	type RequestPermissionRequest,
 	type RequestPermissionResponse,
 	type SessionNotification,
-} from "@cxn/pi-utils/acp";
+} from "@cyberxninja-omp/pi-utils/acp";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 const TEST_MODEL: Model = buildModel({
@@ -170,7 +170,7 @@ async function closeTransport(writable: WritableStream<unknown>): Promise<void> 
 
 describe("ACP lazy startup", () => {
 	it("applies schema defaults for ACP background jobs", async () => {
-		const { runRootCommand } = await import("@cxn/pi-coding-agent/main");
+		const { runRootCommand } = await import("@cyberxninja-omp/pi-coding-agent/main");
 
 		type ObservedBackgroundSettings = {
 			asyncEnabled: boolean;
@@ -239,7 +239,7 @@ describe("ACP lazy startup", () => {
 		// configured value (caller, project, --config overlay, or global) with the
 		// schema default. The fix (re-)added an `isConfigured` guard so explicit
 		// configuration survives, and the schema default only fills holes.
-		const { runRootCommand } = await import("@cxn/pi-coding-agent/main");
+		const { runRootCommand } = await import("@cyberxninja-omp/pi-coding-agent/main");
 
 		const explicit = {
 			"task.isolation.mode": "rcopy",
@@ -356,7 +356,7 @@ describe("ACP lazy startup", () => {
 			expect(initializeResponse).toEqual(
 				expect.objectContaining({
 					protocolVersion: 1,
-					agentInfo: expect.objectContaining({ name: "cxn" }),
+					agentInfo: expect.objectContaining({ name: "omp" }),
 				}),
 			);
 			expect(createCalls).toBe(0);
@@ -403,8 +403,8 @@ describe("ACP lazy startup", () => {
 		const authStorage = createInMemoryAuthStorage();
 		try {
 			const settings = Settings.isolated({ "marketplace.autoUpdate": "off" });
-			const { runRootCommand } = await import("@cxn/pi-coding-agent/main");
-			const { createAgentSession } = await import("@cxn/pi-coding-agent/sdk");
+			const { runRootCommand } = await import("@cyberxninja-omp/pi-coding-agent/main");
+			const { createAgentSession } = await import("@cyberxninja-omp/pi-coding-agent/sdk");
 			let session: AgentSession | undefined;
 			let sessionHasUI: boolean | undefined;
 			let deferredUsageReserveConfirmation: boolean | undefined;

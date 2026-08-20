@@ -1,5 +1,5 @@
-import type { Api, Model } from "@cxn/pi-ai/types";
-import { type OpenAICodexAccount, PROVIDER_DESCRIPTORS } from "@cxn/pi-catalog/provider-models";
+import type { Api, Model } from "@cyberxninja-omp/pi-ai/types";
+import { type OpenAICodexAccount, PROVIDER_DESCRIPTORS } from "@cyberxninja-omp/pi-catalog/provider-models";
 import type { AuthStorage, OAuthCredential } from "../session/auth-storage";
 
 const SPECIAL_MODEL_MANAGER_PROVIDER_IDS: readonly string[] = [

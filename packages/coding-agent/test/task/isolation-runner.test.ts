@@ -2,17 +2,17 @@ import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import * as executorModule from "@cxn/pi-coding-agent/task/executor";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import * as executorModule from "@cyberxninja-omp/pi-coding-agent/task/executor";
 import {
 	applyEligibleNestedPatches,
 	mergeIsolatedChanges,
 	runIsolatedSubprocess,
-} from "@cxn/pi-coding-agent/task/isolation-runner";
-import type { SingleResult } from "@cxn/pi-coding-agent/task/types";
-import * as worktreeModule from "@cxn/pi-coding-agent/task/worktree";
-import * as gitModule from "@cxn/pi-coding-agent/utils/git";
-import * as natives from "@cxn/pi-natives";
+} from "@cyberxninja-omp/pi-coding-agent/task/isolation-runner";
+import type { SingleResult } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import * as worktreeModule from "@cyberxninja-omp/pi-coding-agent/task/worktree";
+import * as gitModule from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import * as natives from "@cyberxninja-omp/pi-natives";
 import { $ } from "bun";
 
 function result(overrides: Partial<SingleResult> = {}): SingleResult {
@@ -144,7 +144,7 @@ describe("runIsolatedSubprocess", () => {
 		expect(await Bun.file(patchPath).text()).toBe(rootPatch);
 		expect(outcome.nestedPatches).toEqual([]);
 		expect(captureSpy).toHaveBeenCalledWith(isolationDir, baseline);
-		expect(deleteSpy).toHaveBeenCalledWith(repoRoot, "cxn/task/PreserveBranchFailure");
+		expect(deleteSpy).toHaveBeenCalledWith(repoRoot, "omp/task/PreserveBranchFailure");
 		expect(cleanupSpy).toHaveBeenCalledTimes(1);
 		expect(AgentRegistry.global().get("PreserveBranchFailure")?.history?.patchPath).toBe(patchPath);
 	});

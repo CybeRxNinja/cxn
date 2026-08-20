@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import { scheduler } from "node:timers/promises";
-import { streamSimple } from "@cxn/pi-ai";
+import { streamSimple } from "@cyberxninja-omp/pi-ai";
 import {
 	buildTransformedCodexRequestBody,
 	getOpenAICodexTransportDetails,
@@ -8,7 +8,7 @@ import {
 	prewarmOpenAICodexResponses,
 	resetOpenAICodexHistoryAfterCompaction,
 	streamOpenAICodexResponses,
-} from "@cxn/pi-ai/providers/openai-codex-responses";
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
 import type {
 	CodexCompactionRequestContext,
 	Context,
@@ -16,11 +16,11 @@ import type {
 	Model,
 	ModelSpec,
 	ProviderSessionState,
-} from "@cxn/pi-ai/types";
-import { __resetProxyCache } from "@cxn/pi-ai/utils/proxy";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
-import * as piUtils from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/types";
+import { __resetProxyCache } from "@cyberxninja-omp/pi-ai/utils/proxy";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
 import { withEnv } from "./helpers";
 
 const { getAgentDir, setAgentDir, TempDir } = piUtils;

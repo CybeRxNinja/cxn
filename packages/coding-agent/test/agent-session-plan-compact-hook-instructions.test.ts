@@ -16,17 +16,17 @@
  *   `CompactOptions.internalGuidance` instead.
  * - The `session_before_compact` hook event MUST see
  *   `customInstructions: undefined` for internal-guidance compactions.
- * - The native summarizer (invoked via `@cxn/pi-agent-core/compaction`)
+ * - The native summarizer (invoked via `@cyberxninja-omp/pi-agent-core/compaction`)
  *   MUST still receive the plan guidance so the summary is directed.
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import { Agent } from "@cxn/pi-agent-core";
-import * as compactionModule from "@cxn/pi-agent-core/compaction";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { TempDir } from "@cxn/pi-utils";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import * as compactionModule from "@cyberxninja-omp/pi-agent-core/compaction";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { ModelRegistry } from "../src/config/model-registry";
 import { Settings } from "../src/config/settings";
 import type { SessionBeforeCompactEvent } from "../src/extensibility/shared-events";

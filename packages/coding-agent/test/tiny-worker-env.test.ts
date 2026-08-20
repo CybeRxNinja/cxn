@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { tinyWorkerEnvOverlay } from "@cxn/pi-coding-agent/tiny/title-client";
+import { tinyWorkerEnvOverlay } from "@cyberxninja-omp/pi-coding-agent/tiny/title-client";
 
 describe("tinyWorkerEnvOverlay", () => {
 	it("maps non-default settings onto the worker env vars when neither is already set", () => {

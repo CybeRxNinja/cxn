@@ -1,5 +1,5 @@
 import { stripVTControlCharacters } from "node:util";
-import type { TabBarTheme } from "@cxn/pi-tui";
+import type { TabBarTheme } from "@cyberxninja-omp/pi-tui";
 import { theme } from "./theme/theme";
 
 // ═══════════════════════════════════════════════════════════════════════════

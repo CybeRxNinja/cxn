@@ -2,15 +2,15 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { StatusLineSegmentId } from "@cxn/pi-coding-agent/config/settings-schema";
-import { StatusLineComponent } from "@cxn/pi-coding-agent/modes/components/status-line";
-import type { SegmentContext } from "@cxn/pi-coding-agent/modes/components/status-line/segments";
-import { renderSegment } from "@cxn/pi-coding-agent/modes/components/status-line/segments";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { getSessionAccentAnsi, getSessionAccentHex } from "@cxn/pi-coding-agent/utils/session-color";
-import { visibleWidth } from "@cxn/pi-tui";
-import { getProjectDir, setProjectDir } from "@cxn/pi-utils";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { StatusLineSegmentId } from "@cyberxninja-omp/pi-coding-agent/config/settings-schema";
+import { StatusLineComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line";
+import type { SegmentContext } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line/segments";
+import { renderSegment } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line/segments";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { getSessionAccentAnsi, getSessionAccentHex } from "@cyberxninja-omp/pi-coding-agent/utils/session-color";
+import { visibleWidth } from "@cyberxninja-omp/pi-tui";
+import { getProjectDir, setProjectDir } from "@cyberxninja-omp/pi-utils";
 
 const originalProjectDir = getProjectDir();
 

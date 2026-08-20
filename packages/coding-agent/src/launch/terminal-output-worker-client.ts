@@ -1,4 +1,4 @@
-import { workerHostEntry } from "@cxn/pi-utils/worker-host";
+import { workerHostEntry } from "@cyberxninja-omp/pi-utils/worker-host";
 import type { TerminalOutputOptions } from "./terminal-output";
 import {
 	TERMINAL_OUTPUT_WORKER_ARG,

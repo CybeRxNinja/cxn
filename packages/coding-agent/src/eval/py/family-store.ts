@@ -227,7 +227,7 @@ export function sendToFamily(
 	}
 	if (!targetEntry) throw new Error(AGENT_FAMILY_REACH_ERROR);
 
-	// Self-delivery to one's own mailbox is allowed (cxn's in-process self-inbox
+	// Self-delivery to one's own mailbox is allowed (omp's in-process self-inbox
 	// convention — e.g. a parent queuing a message for its own recv). Cross-agent
 	// reach is enforced by the verbatim nuclear-family boundary below.
 	if (senderEntry.id !== targetEntry.id) {

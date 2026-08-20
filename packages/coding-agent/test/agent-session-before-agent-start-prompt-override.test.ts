@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { Agent } from "@cxn/pi-agent-core";
-import type { Model } from "@cxn/pi-ai";
-import { createMockModel, type MockResponseSource } from "@cxn/pi-ai/providers/mock";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { convertToLlm } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+import { Agent } from "@cyberxninja-omp/pi-agent-core";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { createMockModel, type MockResponseSource } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 
 // Contract: a per-turn system prompt returned by `before_agent_start`
 // ("Replace the system prompt for this turn") must reach the provider for the

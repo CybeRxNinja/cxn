@@ -1,4 +1,4 @@
-import { $which } from "@cxn/pi-utils";
+import { $which } from "@cyberxninja-omp/pi-utils";
 import { theme } from "../../modes/theme/theme";
 import type { DoctorCheck } from "./types";
 

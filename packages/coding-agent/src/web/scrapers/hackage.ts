@@ -1,4 +1,4 @@
-import { compareVersions, tryParseJson } from "@cxn/pi-utils";
+import { compareVersions, tryParseJson } from "@cyberxninja-omp/pi-utils";
 import type { RenderResult, SpecialHandler } from "./types";
 import { buildResult, loadPage } from "./types";
 

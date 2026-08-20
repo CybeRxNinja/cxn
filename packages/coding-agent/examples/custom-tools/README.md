@@ -23,13 +23,13 @@ Full-featured example demonstrating:
 
 ```bash
 # Test directly (can point to any .ts file)
-cxn --tool examples/custom-tools/todo/index.ts
+omp --tool examples/custom-tools/todo/index.ts
 
 # Or copy entire folder to tools directory for persistent use
-cp -r todo ~/.cxn/agent/tools/
+cp -r todo ~/.omp/agent/tools/
 ```
 
-Then in cxn:
+Then in omp:
 
 ```
 > add a todo "test custom tools"
@@ -47,8 +47,8 @@ See [docs/custom-tools.md](../../docs/custom-tools.md) for full documentation.
 **Factory pattern:**
 
 ```typescript
-import { Text } from "@cxn/pi-tui";
-import type { CustomToolFactory } from "@cxn/pi-coding-agent";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import type { CustomToolFactory } from "@cyberxninja-omp/pi-coding-agent";
 
 const factory: CustomToolFactory = (pi) => ({
 	name: "my_tool",

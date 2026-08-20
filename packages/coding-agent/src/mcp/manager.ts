@@ -6,8 +6,8 @@
  */
 import * as path from "node:path";
 import * as url from "node:url";
-import { isDefinitiveOAuthFailure, type TSchema } from "@cxn/pi-ai";
-import { logger } from "@cxn/pi-utils";
+import { isDefinitiveOAuthFailure, type TSchema } from "@cyberxninja-omp/pi-ai";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { SourceMeta } from "../capability/types";
 import { resolveConfigValue } from "../config/resolve-config-value";
 import type { CustomTool } from "../extensibility/custom-tools/types";

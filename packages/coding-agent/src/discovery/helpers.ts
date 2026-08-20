@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { FileType, glob } from "@cxn/pi-natives";
+import { FileType, glob } from "@cyberxninja-omp/pi-natives";
 import {
 	CONFIG_DIR_NAME,
 	getAgentDir,
@@ -10,7 +10,7 @@ import {
 	getProjectDir,
 	parseFrontmatter,
 	tryParseJson,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import type { ExtensionModule } from "../capability/extension-module";
 import { invalidate as invalidateFsCache, readDirEntries, readFile } from "../capability/fs";
 import { parseRuleConditionAndScope, type Rule, type RuleFrontmatter } from "../capability/rule";
@@ -612,8 +612,8 @@ async function readExtensionModuleManifest(
 	const content = await readFile(packageJsonPath);
 	if (!content) return null;
 
-	const pkg = tryParseJson<{ cxn?: ExtensionModuleManifest; pi?: ExtensionModuleManifest }>(content);
-	const manifest = pkg?.cxn ?? pkg?.pi;
+	const pkg = tryParseJson<{ omp?: ExtensionModuleManifest; pi?: ExtensionModuleManifest }>(content);
+	const manifest = pkg?.omp ?? pkg?.pi;
 	if (manifest && typeof manifest === "object") {
 		return manifest;
 	}
@@ -626,7 +626,7 @@ async function readExtensionModuleManifest(
  * Discovery rules:
  * 1. Direct files: `extensions/*.ts` or `*.js` → load
  * 2. Subdirectory with index: `extensions/<ext>/index.ts` or `index.js` → load
- * 3. Subdirectory with package.json: `extensions/<ext>/package.json` with "cxn"/"pi" field → load declared paths
+ * 3. Subdirectory with package.json: `extensions/<ext>/package.json` with "omp"/"pi" field → load declared paths
  *
  * No recursion beyond one level. Complex packages must use package.json manifest.
  * Uses native glob for fast filesystem scanning with gitignore support.
@@ -824,18 +824,18 @@ export function parseClaudePluginsRegistry(content: string): ClaudePluginsRegist
  * Resolve the active project registry path by walking up from `cwd`.
  *
  * Walk order:
- * 1. Walk up from `cwd` looking for the nearest directory containing `.cxn/`.
- *    The first match returns `<dir>/.cxn/plugins/installed_plugins.json`.
- * 2. If no `.cxn/` is found, rescan from `cwd` upward looking for `.git`.
- *    The git root is used as an anchor: `<gitRoot>/.cxn/plugins/installed_plugins.json`.
+ * 1. Walk up from `cwd` looking for the nearest directory containing `.omp/`.
+ *    The first match returns `<dir>/.omp/plugins/installed_plugins.json`.
+ * 2. If no `.omp/` is found, rescan from `cwd` upward looking for `.git`.
+ *    The git root is used as an anchor: `<gitRoot>/.omp/plugins/installed_plugins.json`.
  * 3. If neither is found, return `null` — no project context is active.
  *
  * This is the single source of truth for "active project root" used by install,
  * uninstall, list, upgrade, discovery, and doctor. Deterministic for a given `cwd`.
  */
 export async function resolveActiveProjectRegistryPath(cwd: string): Promise<string | null> {
-	// Pass 1: walk up looking for an existing .cxn/ directory (nearest wins).
-	// Stop before os.homedir() — ~/.cxn/ is the user-level config dir, not a project root.
+	// Pass 1: walk up looking for an existing .omp/ directory (nearest wins).
+	// Stop before os.homedir() — ~/.omp/ is the user-level config dir, not a project root.
 	const homeDir = os.homedir();
 	let dir = path.resolve(cwd);
 	while (dir !== homeDir) {
@@ -870,11 +870,11 @@ export async function resolveActiveProjectRegistryPath(cwd: string): Promise<str
 }
 
 /**
- * Like resolveActiveProjectRegistryPath, but falls back to `<cwd>/.cxn/plugins/installed_plugins.json`
- * when no project anchor (.cxn/ or .git/) is found.
+ * Like resolveActiveProjectRegistryPath, but falls back to `<cwd>/.omp/plugins/installed_plugins.json`
+ * when no project anchor (.omp/ or .git/) is found.
  *
  * Use this when the caller accepts an explicit --scope project so that installing into a freshly
- * bootstrapped directory (no .cxn/ or .git/ yet) works: writeInstalledPluginsRegistry auto-creates
+ * bootstrapped directory (no .omp/ or .git/ yet) works: writeInstalledPluginsRegistry auto-creates
  * the directory tree on first write.
  *
  * Returns undefined when cwd is os.homedir() — that path is already the user registry and must
@@ -909,7 +909,7 @@ export function registerPluginCacheInvalidator(invalidator: () => void): void {
 
 /**
  * List all installed Claude Code plugin roots from its active plugin cache and
- * ~/.cxn/plugins/installed_plugins.json, plus the nearest project registry when present.
+ * ~/.omp/plugins/installed_plugins.json, plus the nearest project registry when present.
  *
  * Results are cached per Claude and CXN config directories, project registry, and canonical active project.
  */
@@ -1035,7 +1035,7 @@ export async function listClaudePluginRoots(
 	}
 
 	// ── Project-scoped CXN registry ────────────────────────────────────────
-	// Loaded from the nearest .cxn/plugins/installed_plugins.json relative to cwd.
+	// Loaded from the nearest .omp/plugins/installed_plugins.json relative to cwd.
 	// Project entries take precedence over user entries for the same plugin ID.
 	if (resolvedProjectPath) {
 		const projectContent = await readFile(resolvedProjectPath);

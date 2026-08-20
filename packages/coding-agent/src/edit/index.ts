@@ -1,9 +1,14 @@
-import { MismatchError as HashlineMismatchError } from "@cxn/hashline";
-import hashlineGrammar from "@cxn/hashline/grammar.lark" with { type: "text" };
-import hashlineDescription from "@cxn/hashline/prompt.md" with { type: "text" };
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { ToolExample } from "@cxn/pi-ai";
-import { isEnoent, isEnotdir, prompt } from "@cxn/pi-utils";
+import { MismatchError as HashlineMismatchError } from "@cyberxninja-omp/hashline";
+import hashlineGrammar from "@cyberxninja-omp/hashline/grammar.lark" with { type: "text" };
+import hashlineDescription from "@cyberxninja-omp/hashline/prompt.md" with { type: "text" };
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import type { ToolExample } from "@cyberxninja-omp/pi-ai";
+import { isEnoent, isEnotdir, prompt } from "@cyberxninja-omp/pi-utils";
 import { createLspWritethrough, flushLspWritethroughBatch, type WritethroughCallback, writethroughNoop } from "../lsp";
 import { DeferredDiagnostics } from "../lsp/deferred-diagnostics";
 import { getDiagnosticsLedger } from "../lsp/diagnostics-ledger";
@@ -24,7 +29,7 @@ import { type EditToolDetails, type EditToolPerFileResult, getLspBatchRequest, t
 import { pruneOversizedEditSnapshots } from "./snapshot-details";
 import { EDIT_MODE_STRATEGIES } from "./streaming";
 
-export * from "@cxn/hashline";
+export * from "@cyberxninja-omp/hashline";
 export { DEFAULT_EDIT_MODE, type EditMode, normalizeEditMode } from "../utils/edit-mode";
 export * from "./apply-patch";
 export * from "./diff";

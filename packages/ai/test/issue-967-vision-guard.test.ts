@@ -1,13 +1,24 @@
 import { describe, expect, it } from "bun:test";
-import { convertAnthropicMessages } from "@cxn/pi-ai/providers/anthropic";
-import { convertMessages as convertGoogleMessages } from "@cxn/pi-ai/providers/google-shared";
-import { convertCodexResponsesMessages } from "@cxn/pi-ai/providers/openai-codex-responses";
-import { convertMessages as convertOpenAICompletionsMessages } from "@cxn/pi-ai/providers/openai-completions";
-import { appendResponsesToolResultMessages, convertResponsesInputContent } from "@cxn/pi-ai/providers/openai-shared";
-import { NON_VISION_IMAGE_PLACEHOLDER } from "@cxn/pi-ai/providers/vision-guard";
-import type { Api, AssistantMessage, Context, Model, ModelSpec, ToolResultMessage, Usage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import type { ResolvedOpenAICompat } from "@cxn/pi-catalog/types";
+import { convertAnthropicMessages } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import { convertMessages as convertGoogleMessages } from "@cyberxninja-omp/pi-ai/providers/google-shared";
+import { convertCodexResponsesMessages } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { convertMessages as convertOpenAICompletionsMessages } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import {
+	appendResponsesToolResultMessages,
+	convertResponsesInputContent,
+} from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import { NON_VISION_IMAGE_PLACEHOLDER } from "@cyberxninja-omp/pi-ai/providers/vision-guard";
+import type {
+	Api,
+	AssistantMessage,
+	Context,
+	Model,
+	ModelSpec,
+	ToolResultMessage,
+	Usage,
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import type { ResolvedOpenAICompat } from "@cyberxninja-omp/pi-catalog/types";
 
 const emptyUsage: Usage = {
 	input: 0,

@@ -7,19 +7,19 @@
  */
 
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { agentLoop, agentLoopDetailed } from "@cxn/pi-agent-core/agent-loop";
+import { type } from "@cyberxninja-omp/omptype";
+import { agentLoop, agentLoopDetailed } from "@cyberxninja-omp/pi-agent-core/agent-loop";
 import {
 	type AgentRunSummary,
 	aggregateAgentRunCoverage,
 	aggregateAgentRunSummaries,
 	emptyAgentRunCoverage,
 	emptyAgentRunSummary,
-} from "@cxn/pi-agent-core/run-collector";
-import { EXECUTE_TOOL_STATUS_ATTR, GenAIAttr, PiGenAIAggregateAttr } from "@cxn/pi-agent-core/telemetry";
-import type { AgentEvent, AgentLoopConfig, AgentMessage, AgentTool } from "@cxn/pi-agent-core/types";
-import type { AssistantMessage, Message } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
+} from "@cyberxninja-omp/pi-agent-core/run-collector";
+import { EXECUTE_TOOL_STATUS_ATTR, GenAIAttr, PiGenAIAggregateAttr } from "@cyberxninja-omp/pi-agent-core/telemetry";
+import type { AgentEvent, AgentLoopConfig, AgentMessage, AgentTool } from "@cyberxninja-omp/pi-agent-core/types";
+import type { AssistantMessage, Message } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
 import type {
 	AttributeValue,
 	Context as OtelContext,

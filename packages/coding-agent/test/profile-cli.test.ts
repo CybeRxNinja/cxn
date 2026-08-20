@@ -3,7 +3,7 @@ import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 import * as url from "node:url";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 import {
 	__resetProfileSnapshotForTests,
 	APP_NAME,
@@ -13,8 +13,8 @@ import {
 	setAgentDir,
 	setProfile,
 	VERSION,
-} from "@cxn/pi-utils/dirs";
-import { Snowflake } from "@cxn/pi-utils/snowflake";
+} from "@cyberxninja-omp/pi-utils/dirs";
+import { Snowflake } from "@cyberxninja-omp/pi-utils/snowflake";
 import { runCli } from "../src/cli";
 import * as profileAliasCli from "../src/cli/profile-alias";
 
@@ -135,7 +135,7 @@ describe("global --profile flag", () => {
 			configPath: "/home/me/.bashrc",
 			aliasName: "cxn-work",
 			profile: "work",
-			command: "cxn --profile=work",
+			command: "omp --profile=work",
 			reloadedWith: ". '/home/me/.bashrc'",
 		});
 		const outSpy = vi.spyOn(process.stdout, "write").mockImplementation(() => true);
@@ -160,7 +160,7 @@ describe("global --profile flag", () => {
 			configPath: "/home/me/.bashrc",
 			aliasName: "cxn-work",
 			profile: "work",
-			command: "cxn --profile=work",
+			command: "omp --profile=work",
 			reloadedWith: ". '/home/me/.bashrc'",
 		});
 		const outSpy = vi.spyOn(process.stdout, "write").mockImplementation(() => true);
@@ -185,7 +185,7 @@ describe("global --profile flag", () => {
 			configPath: "/home/me/.bashrc",
 			aliasName: "cxn-work",
 			profile: "work",
-			command: "cxn --profile=work",
+			command: "omp --profile=work",
 			reloadedWith: ". '/home/me/.bashrc'",
 		});
 		const outSpy = vi.spyOn(process.stdout, "write").mockImplementation(() => true);

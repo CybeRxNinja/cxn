@@ -3,7 +3,7 @@
  *
  * These provide rich visualization for tool calls and results in the TUI.
  */
-import type { Component } from "@cxn/pi-tui";
+import type { Component } from "@cyberxninja-omp/pi-tui";
 import { editToolRenderer } from "../edit/renderer";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import { goalToolRenderer } from "../goals/tools/goal-tool";

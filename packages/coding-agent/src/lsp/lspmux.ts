@@ -1,6 +1,6 @@
 import * as os from "node:os";
 import * as path from "node:path";
-import { $flag, $which, logger } from "@cxn/pi-utils";
+import { $flag, $which, logger } from "@cyberxninja-omp/pi-utils";
 import { TOML } from "bun";
 
 /**

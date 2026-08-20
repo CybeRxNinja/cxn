@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import { loadCustomCommands } from "../../../src/extensibility/custom-commands/loader";
 
 let tempRoot: string | undefined;

@@ -6,8 +6,8 @@ import * as url from "node:url";
 import {
 	__rewriteLegacyExtensionSourceForTests,
 	loadLegacyPiModule,
-} from "@cxn/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
-import { removeWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 interface RewriteCase {
 	name: string;

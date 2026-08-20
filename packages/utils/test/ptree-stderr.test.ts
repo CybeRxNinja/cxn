@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { exec, NonZeroExitError, spawn } from "@cxn/pi-utils/ptree";
+import { exec, NonZeroExitError, spawn } from "@cyberxninja-omp/pi-utils/ptree";
 
 const STDERR_LIMIT = NonZeroExitError.MAX_TRACE;
 const LARGE_STDERR_SIZE = 4 * 1024 * 1024;

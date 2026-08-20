@@ -1,4 +1,4 @@
-import type { FetchImpl } from "@cxn/pi-ai/types";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 
 type FetchHandler = (input: string | URL | Request, init?: RequestInit) => Response | Promise<Response>;
 

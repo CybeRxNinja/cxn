@@ -1,13 +1,13 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { KeybindingsManager } from "@cxn/pi-coding-agent/config/keybindings";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { ModelHubComponent } from "@cxn/pi-coding-agent/modes/components/model-hub";
-import { SessionSelectorComponent } from "@cxn/pi-coding-agent/modes/components/session-selector";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { SessionInfo } from "@cxn/pi-coding-agent/session/session-listing";
-import { setKeybindings, type TUI } from "@cxn/pi-tui";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { KeybindingsManager } from "@cyberxninja-omp/pi-coding-agent/config/keybindings";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { ModelHubComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/model-hub";
+import { SessionSelectorComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/session-selector";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { SessionInfo } from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { setKeybindings, type TUI } from "@cyberxninja-omp/pi-tui";
 
 beforeAll(() => {
 	initTheme();

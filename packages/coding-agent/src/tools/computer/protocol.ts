@@ -1,5 +1,5 @@
-import type { ImageContent, TextContent } from "@cxn/pi-ai";
-import type { DesktopCapabilities } from "@cxn/pi-natives";
+import type { ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import type { DesktopCapabilities } from "@cyberxninja-omp/pi-natives";
 
 /** Hidden CLI selector that re-enters the computer worker host. */
 export const COMPUTER_WORKER_ARG = "__cxn_worker_computer";

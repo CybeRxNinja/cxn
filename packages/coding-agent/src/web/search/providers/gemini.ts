@@ -8,9 +8,9 @@
  * sibling SQLite store and never POSTs the broker sentinel to a Google token
  * endpoint.
  */
-import { type AuthStorage, type FetchImpl, type OAuthAccess, withOAuthAccess } from "@cxn/pi-ai";
-import { getAntigravityUserAgent, getGeminiCliHeaders } from "@cxn/pi-catalog/wire/gemini-headers";
-import { fetchWithRetry, USER_AGENT } from "@cxn/pi-utils";
+import { type AuthStorage, type FetchImpl, type OAuthAccess, withOAuthAccess } from "@cyberxninja-omp/pi-ai";
+import { getAntigravityUserAgent, getGeminiCliHeaders } from "@cyberxninja-omp/pi-catalog/wire/gemini-headers";
+import { fetchWithRetry, USER_AGENT } from "@cyberxninja-omp/pi-utils";
 
 import type { SearchCitation, SearchResponse, SearchSource } from "../../../web/search/types";
 import { SearchProviderError } from "../../../web/search/types";
@@ -663,7 +663,7 @@ export async function searchGemini(params: GeminiSearchParams): Promise<SearchRe
 			throw new Error(
 				endpoint.isCloudflareGateway
 					? 'No Cloudflare AI Gateway credential found. Configure provider "cloudflare-ai-gateway" or set CLOUDFLARE_AI_GATEWAY_API_KEY.'
-					: "No Gemini credentials found. Set GEMINI_API_KEY, configure an API key for provider \"google\", or login with 'cxn /login google-gemini-cli' / 'cxn /login google-antigravity' to enable Gemini web search.",
+					: "No Gemini credentials found. Set GEMINI_API_KEY, configure an API key for provider \"google\", or login with 'omp /login google-gemini-cli' / 'omp /login google-antigravity' to enable Gemini web search.",
 			);
 		}
 		result = await callGeminiDeveloperSearch(

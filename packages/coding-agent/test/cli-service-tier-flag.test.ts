@@ -1,13 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import * as path from "node:path";
-import { parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { buildSessionOptions } from "@cxn/pi-coding-agent/main";
-import { createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { buildSessionOptions } from "@cyberxninja-omp/pi-coding-agent/main";
+import { createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 describe("--service-tier", () => {
 	it("parses supported OpenAI tiers without leaking the value into the prompt", () => {

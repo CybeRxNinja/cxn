@@ -7,8 +7,8 @@ import {
 	AuthStorage,
 	type CredentialDisabledEvent,
 	SqliteAuthCredentialStore,
-} from "@cxn/pi-ai/auth-storage";
-import * as oauthUtils from "@cxn/pi-ai/registry/oauth";
+} from "@cyberxninja-omp/pi-ai/auth-storage";
+import * as oauthUtils from "@cyberxninja-omp/pi-ai/registry/oauth";
 import { removeWithRetries } from "../../utils/src/temp";
 import { withEnv } from "./helpers";
 
@@ -51,7 +51,7 @@ describe("AuthStorage OAuth refresh race", () => {
 		if (!authStorage || !store) throw new Error("test setup failed");
 
 		// Seed the shared DB with one expired OAuth credential; this simulates the
-		// state two cooperating cxn processes both load from the persisted row.
+		// state two cooperating omp processes both load from the persisted row.
 		await authStorage.set("anthropic", [
 			{
 				type: "oauth",

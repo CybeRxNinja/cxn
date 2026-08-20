@@ -2,14 +2,14 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it } from "bun:test
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Patch, Patcher } from "@cxn/hashline";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { canonicalSnapshotKey, getFileSnapshotStore } from "@cxn/pi-coding-agent/edit/file-snapshot-store";
-import { HashlineFilesystem } from "@cxn/pi-coding-agent/edit/hashline/filesystem";
-import { writethroughNoop } from "@cxn/pi-coding-agent/lsp";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { WriteTool } from "@cxn/pi-coding-agent/tools/write";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { Patch, Patcher } from "@cyberxninja-omp/hashline";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { canonicalSnapshotKey, getFileSnapshotStore } from "@cyberxninja-omp/pi-coding-agent/edit/file-snapshot-store";
+import { HashlineFilesystem } from "@cyberxninja-omp/pi-coding-agent/edit/hashline/filesystem";
+import { writethroughNoop } from "@cyberxninja-omp/pi-coding-agent/lsp";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { WriteTool } from "@cyberxninja-omp/pi-coding-agent/tools/write";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 function createSession(cwd: string): ToolSession {
 	return {

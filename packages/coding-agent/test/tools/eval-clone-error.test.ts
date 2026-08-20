@@ -1,8 +1,8 @@
 import { afterAll, describe, expect, it } from "bun:test";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { disposeAllVmContexts } from "@cxn/pi-coding-agent/eval/js/context-manager";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { EvalTool } from "@cxn/pi-coding-agent/tools/eval";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { disposeAllVmContexts } from "@cyberxninja-omp/pi-coding-agent/eval/js/context-manager";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { EvalTool } from "@cyberxninja-omp/pi-coding-agent/tools/eval";
 
 function makeSession(): ToolSession {
 	return {

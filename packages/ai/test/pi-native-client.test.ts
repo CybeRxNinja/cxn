@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, type Mock, mock, spyOn } from "bun:test";
-import { streamPiNative } from "@cxn/pi-ai/providers/pi-native-client";
+import { streamPiNative } from "@cyberxninja-omp/pi-ai/providers/pi-native-client";
 import type {
 	AssistantMessage,
 	AssistantMessageEvent,
@@ -8,8 +8,8 @@ import type {
 	Model,
 	ModelSpec,
 	ProviderResponseMetadata,
-} from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 function sseBytes(events: AssistantMessageEvent[]): Uint8Array {
 	const encoder = new TextEncoder();

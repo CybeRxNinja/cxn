@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
-import { CustomEditor } from "@cxn/pi-coding-agent/modes/components/custom-editor";
-import { getEditorTheme, initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { StdinBuffer } from "@cxn/pi-tui/stdin-buffer";
+import { CustomEditor } from "@cyberxninja-omp/pi-coding-agent/modes/components/custom-editor";
+import { getEditorTheme, initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { StdinBuffer } from "@cyberxninja-omp/pi-tui/stdin-buffer";
 
 /**
  * Regression for #3857.

@@ -6,8 +6,8 @@
  * lifecycle hook dispatch.
  */
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { agentLoop } from "@cxn/pi-agent-core/agent-loop";
+import { type } from "@cyberxninja-omp/omptype";
+import { agentLoop } from "@cyberxninja-omp/pi-agent-core/agent-loop";
 import {
 	type AgentTelemetryConfig,
 	type ChatUsageEvent,
@@ -21,11 +21,17 @@ import {
 	recordManualChatTelemetry,
 	resolveTelemetry,
 	type TelemetryHookContext,
-} from "@cxn/pi-agent-core/telemetry";
-import type { AgentContext, AgentEvent, AgentLoopConfig, AgentMessage, AgentTool } from "@cxn/pi-agent-core/types";
-import type { Message } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import type { EventStream } from "@cxn/pi-ai/utils/event-stream";
+} from "@cyberxninja-omp/pi-agent-core/telemetry";
+import type {
+	AgentContext,
+	AgentEvent,
+	AgentLoopConfig,
+	AgentMessage,
+	AgentTool,
+} from "@cyberxninja-omp/pi-agent-core/types";
+import type { Message } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import type { EventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
 import { context, SpanStatusCode, trace } from "@opentelemetry/api";
 import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
 import {

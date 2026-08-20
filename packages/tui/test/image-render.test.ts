@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import { Image, ImageBudget } from "@cxn/pi-tui/components/image";
-import { getKittyGraphics, setKittyGraphics } from "@cxn/pi-tui/kitty-graphics";
+import { Image, ImageBudget } from "@cyberxninja-omp/pi-tui/components/image";
+import { getKittyGraphics, setKittyGraphics } from "@cyberxninja-omp/pi-tui/kitty-graphics";
 import {
 	type CellDimensions,
 	getCellDimensions,
@@ -9,7 +9,7 @@ import {
 	renderImage,
 	setCellDimensions,
 	TERMINAL,
-} from "@cxn/pi-tui/terminal-capabilities";
+} from "@cyberxninja-omp/pi-tui/terminal-capabilities";
 
 type MutableTerminalInfo = {
 	imageProtocol: ImageProtocol | null;

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "bun:test";
-import { executeAcpBuiltinSlashCommand } from "@cxn/pi-coding-agent/slash-commands/acp-builtins";
-import type { SlashCommandRuntime } from "@cxn/pi-coding-agent/slash-commands/types";
-import type { DesktopCapabilities } from "@cxn/pi-natives";
+import { executeAcpBuiltinSlashCommand } from "@cyberxninja-omp/pi-coding-agent/slash-commands/acp-builtins";
+import type { SlashCommandRuntime } from "@cyberxninja-omp/pi-coding-agent/slash-commands/types";
+import type { DesktopCapabilities } from "@cyberxninja-omp/pi-natives";
 
 const capabilities: DesktopCapabilities = {
 	backend: "quartz",

@@ -8,8 +8,8 @@ import {
 	type RenderScheduler,
 	type RenderTimer,
 	TUI,
-} from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui/components/text";
+} from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui/components/text";
 import { VirtualTerminal } from "./virtual-terminal";
 
 // Regression test for https://github.com/can1357/oh-my-pi/issues/2088

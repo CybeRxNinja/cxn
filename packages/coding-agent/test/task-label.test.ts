@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import type { Api, Model } from "@cxn/pi-ai";
-import * as ai from "@cxn/pi-ai";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { generateTaskLabel } from "@cxn/pi-coding-agent/task/label";
+import type { Api, Model } from "@cyberxninja-omp/pi-ai";
+import * as ai from "@cyberxninja-omp/pi-ai";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { generateTaskLabel } from "@cyberxninja-omp/pi-coding-agent/task/label";
 
 function getModelOrThrow(id: string): Model<Api> {
 	const model = getBundledModel("anthropic", id);

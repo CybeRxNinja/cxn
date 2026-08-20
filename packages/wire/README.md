@@ -1,14 +1,14 @@
-# @cxn/pi-wire
+# @cyberxninja-omp/pi-wire
 
-Shared TypeScript wire contracts for cxn collab live sessions.
+Shared TypeScript wire contracts for omp collab live sessions.
 
-The package contains only JSON-safe protocol shapes and constants. It has no runtime dependencies and is consumed by both the host CLI (`@cxn/pi-coding-agent`) and browser guest (`@cxn/collab-web`).
+The package contains only JSON-safe protocol shapes and constants. It has no runtime dependencies and is consumed by both the host CLI (`@cyberxninja-omp/pi-coding-agent`) and browser guest (`@cyberxninja-omp/collab-web`).
 
 ## Exports
 
 ```ts
-import type { GuestFrame, HostFrame, SessionEntry } from "@cxn/pi-wire";
-import { COLLAB_PROTO, DEFAULT_RELAY_URL, ENVELOPE_HEADER_LENGTH } from "@cxn/pi-wire";
+import type { GuestFrame, HostFrame, SessionEntry } from "@cyberxninja-omp/pi-wire";
+import { COLLAB_PROTO, DEFAULT_RELAY_URL, ENVELOPE_HEADER_LENGTH } from "@cyberxninja-omp/pi-wire";
 ```
 
 Key groups:

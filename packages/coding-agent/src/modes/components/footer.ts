@@ -1,7 +1,7 @@
 import { stripVTControlCharacters } from "node:util";
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import { type Component, padding, truncateToWidth, visibleWidth } from "@cxn/pi-tui";
-import { formatNumber, getProjectDir } from "@cxn/pi-utils";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import { type Component, padding, truncateToWidth, visibleWidth } from "@cyberxninja-omp/pi-tui";
+import { formatNumber, getProjectDir } from "@cyberxninja-omp/pi-utils";
 import { settings } from "../../config/settings";
 import { theme } from "../../modes/theme/theme";
 import type { AgentSession } from "../../session/agent-session";

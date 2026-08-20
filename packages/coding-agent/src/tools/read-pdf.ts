@@ -1,5 +1,5 @@
 import { pathToFileURL } from "node:url";
-import { untilAborted } from "@cxn/pi-utils";
+import { untilAborted } from "@cyberxninja-omp/pi-utils";
 import type { ToolSession } from "../sdk";
 import type { BrowserHandle } from "./browser/registry";
 import type { ScreenshotResult } from "./browser/tab-protocol";

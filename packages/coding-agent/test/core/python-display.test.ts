@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { renderKernelDisplay } from "@cxn/pi-coding-agent/eval/py/display";
+import { renderKernelDisplay } from "@cyberxninja-omp/pi-coding-agent/eval/py/display";
 
 describe("renderKernelDisplay (raw bundle shape)", () => {
 	it("renders status events without text output", async () => {

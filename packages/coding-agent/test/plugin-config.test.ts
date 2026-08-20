@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, mock, spyOn, test } from "bun:
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { PluginManager } from "@cxn/pi-coding-agent/extensibility/plugins/manager";
-import * as piUtils from "@cxn/pi-utils";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { PluginManager } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/manager";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("plugin config", () => {
 	let tmpRoot: string;

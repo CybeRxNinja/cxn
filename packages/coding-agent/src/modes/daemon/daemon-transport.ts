@@ -3,7 +3,7 @@
  *
  * Two concrete transports are provided:
  *   - udsServer / udsConnect: real Unix-domain sockets via node:net
- *     (used by the supervisor daemon and cxn agents).
+ *     (used by the supervisor daemon and omp agents).
  *   - inMemoryPair: a connected in-memory duplex, used by tests so the full
  *     client<->server protocol is exercised deterministically without a socket.
  *

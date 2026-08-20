@@ -1,6 +1,6 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import { renderResult } from "@cxn/pi-coding-agent/lsp/render";
-import * as themeModule from "@cxn/pi-coding-agent/modes/theme/theme";
+import { renderResult } from "@cyberxninja-omp/pi-coding-agent/lsp/render";
+import * as themeModule from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 
 beforeAll(async () => {
 	await themeModule.initTheme(false, undefined, undefined, "dark", "light");

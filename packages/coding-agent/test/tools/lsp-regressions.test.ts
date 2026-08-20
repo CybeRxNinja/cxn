@@ -3,22 +3,22 @@ import * as fs from "node:fs";
 import * as fsp from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentToolResult, RenderResultOptions } from "@cxn/pi-agent-core";
-import { arkToWireSchema } from "@cxn/pi-ai/utils/schema";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { preloadPluginRoots } from "@cxn/pi-coding-agent/discovery/helpers";
-import { LspTool } from "@cxn/pi-coding-agent/lsp";
-import * as lspClient from "@cxn/pi-coding-agent/lsp/client";
-import * as lspConfig from "@cxn/pi-coding-agent/lsp/config";
-import { getServersForFile, type LspConfig, loadConfig } from "@cxn/pi-coding-agent/lsp/config";
+import type { AgentToolResult, RenderResultOptions } from "@cyberxninja-omp/pi-agent-core";
+import { arkToWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { preloadPluginRoots } from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { LspTool } from "@cyberxninja-omp/pi-coding-agent/lsp";
+import * as lspClient from "@cyberxninja-omp/pi-coding-agent/lsp/client";
+import * as lspConfig from "@cyberxninja-omp/pi-coding-agent/lsp/config";
+import { getServersForFile, type LspConfig, loadConfig } from "@cyberxninja-omp/pi-coding-agent/lsp/config";
 import {
 	applyTextEditsToString,
 	applyWorkspaceEdit,
 	type ExecutedWorkspaceChange,
 	sortAndValidateTextEdits,
-} from "@cxn/pi-coding-agent/lsp/edits";
-import { renderCall, renderResult } from "@cxn/pi-coding-agent/lsp/render";
-import { configCache, getConfig } from "@cxn/pi-coding-agent/lsp/servers";
+} from "@cyberxninja-omp/pi-coding-agent/lsp/edits";
+import { renderCall, renderResult } from "@cyberxninja-omp/pi-coding-agent/lsp/render";
+import { configCache, getConfig } from "@cyberxninja-omp/pi-coding-agent/lsp/servers";
 import {
 	type CodeAction,
 	type CreateFile,
@@ -32,7 +32,7 @@ import {
 	type SymbolInformation,
 	type TextDocumentEdit,
 	type WorkspaceEdit,
-} from "@cxn/pi-coding-agent/lsp/types";
+} from "@cyberxninja-omp/pi-coding-agent/lsp/types";
 import {
 	applyCodeAction,
 	collectGlobMatches,
@@ -44,13 +44,13 @@ import {
 	resolveDiagnosticTargets,
 	resolveSymbolColumn,
 	uriToFile,
-} from "@cxn/pi-coding-agent/lsp/utils";
-import { getThemeByName, initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ToolAbortError } from "@cxn/pi-coding-agent/tools/tool-errors";
-import { clampTimeout } from "@cxn/pi-coding-agent/tools/tool-timeouts";
-import * as piUtils from "@cxn/pi-utils";
-import { sanitizeText, TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/lsp/utils";
+import { getThemeByName, initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ToolAbortError } from "@cyberxninja-omp/pi-coding-agent/tools/tool-errors";
+import { clampTimeout } from "@cyberxninja-omp/pi-coding-agent/tools/tool-timeouts";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
+import { sanitizeText, TempDir } from "@cyberxninja-omp/pi-utils";
 import type { Subprocess } from "bun";
 import DEFAULTS from "../../src/lsp/defaults.json" with { type: "json" };
 import { renderResult as renderLocalResult } from "../../src/lsp/render";
@@ -314,14 +314,14 @@ describe("lsp regressions", () => {
 		const syncedFilePath = path.join(tempDir.path(), "unsaved.gd");
 		try {
 			await Bun.write(
-				path.join(tempDir.path(), ".cxn", "lsp.json"),
+				path.join(tempDir.path(), ".omp", "lsp.json"),
 				JSON.stringify({
 					servers: {
 						"fake-gd": {
 							command: process.execPath,
 							fileTypes: [".gd"],
 							languageId: "gdscript",
-							rootMarkers: [".cxn"],
+							rootMarkers: [".omp"],
 						},
 					},
 				}),
@@ -949,7 +949,7 @@ describe("lsp regressions", () => {
 	it("answers defined server→client requests with spec no-op results", async () => {
 		// Same failure class as #3029: a defined server→client request
 		// (window/showMessage{Request}, window/showDocument, workspace/*/refresh)
-		// must receive a spec-shaped reply, not a -32601. Headless cxn can't
+		// must receive a spec-shaped reply, not a -32601. Headless omp can't
 		// surface UI prompts but still owes a defined no-op.
 		const tempDir = TempDir.createSync("@cxn-lsp-server-requests-");
 		try {
@@ -2946,14 +2946,14 @@ describe("lsp regressions", () => {
 	});
 
 	it("round-trips file URIs containing percent and hash characters", () => {
-		const tricky = path.resolve(os.tmpdir(), "cxn uri", "100% #1.ts");
+		const tricky = path.resolve(os.tmpdir(), "omp uri", "100% #1.ts");
 		const uri = fileToUri(tricky);
 		// Percent-encoded so the server cannot misparse a fragment or escape.
 		expect(uri).not.toContain("#");
 		expect(uri).not.toContain(" ");
 		expect(uriToFile(uri)).toBe(tricky);
 		// Lax servers sending unencoded paths are tolerated.
-		const plain = path.resolve(os.tmpdir(), "cxn uri", "plain.ts");
+		const plain = path.resolve(os.tmpdir(), "omp uri", "plain.ts");
 		expect(uriToFile(fileToUri(plain).replaceAll("%20", " "))).toBe(plain);
 	});
 
@@ -3568,9 +3568,9 @@ describe("lsp regressions", () => {
 		expect(output).toContain("typescript-language-server (ready)");
 	});
 
-	it("reload * invalidates the per-cwd config cache so newly written .cxn/lsp.json is observed", async () => {
+	it("reload * invalidates the per-cwd config cache so newly written .omp/lsp.json is observed", async () => {
 		// #3546: `getConfig` caches the first `loadConfig` result per cwd
-		// permanently. Creating `.cxn/lsp.json` after the first LSP call left
+		// permanently. Creating `.omp/lsp.json` after the first LSP call left
 		// the tool stuck on "No language servers configured" until the process
 		// restarted. `reload *` (the user's explicit refresh) must invalidate
 		// that cache so subsequent calls observe the fresh config from disk.

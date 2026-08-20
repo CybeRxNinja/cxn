@@ -6,7 +6,7 @@ import {
 	isVertexRawPredictUrl,
 	modelMatchesHost,
 	resolveVertexEndpointHost,
-} from "@cxn/pi-catalog/hosts";
+} from "@cyberxninja-omp/pi-catalog/hosts";
 
 describe("hostMatchesUrl", () => {
 	test("matches OpenRouter URLs and rejects other or missing URLs", () => {

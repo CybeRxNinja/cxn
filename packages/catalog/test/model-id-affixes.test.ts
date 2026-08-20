@@ -4,7 +4,7 @@ import {
 	getLongestModelLikeIdSegment,
 	getModelLikeIdSegments,
 	stripBracketedModelIdAffixes,
-} from "@cxn/pi-catalog/identity/id";
+} from "@cyberxninja-omp/pi-catalog/identity/id";
 
 describe("getModelLikeIdSegments", () => {
 	test("keeps only family-prefixed segments that carry a digit, deduped", () => {

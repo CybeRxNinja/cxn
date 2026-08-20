@@ -2,10 +2,10 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type ContextFile, contextFileCapability } from "@cxn/pi-coding-agent/capability/context-file";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initializeWithSettings, loadCapability } from "@cxn/pi-coding-agent/discovery";
-import { __resetDirsFromEnvForTests, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { type ContextFile, contextFileCapability } from "@cyberxninja-omp/pi-coding-agent/capability/context-file";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initializeWithSettings, loadCapability } from "@cyberxninja-omp/pi-coding-agent/discovery";
+import { __resetDirsFromEnvForTests, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 function restoreEnvValue(key: string, value: string | undefined): void {
 	if (value === undefined) {
@@ -34,10 +34,10 @@ describe("disabledExtensions runtime filtering", () => {
 		tempHomeDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-disabled-ext-home-"));
 		process.env.HOME = tempHomeDir;
 		vi.spyOn(os, "homedir").mockReturnValue(tempHomeDir);
-		setAgentDir(path.join(tempHomeDir, ".cxn", "agent"));
+		setAgentDir(path.join(tempHomeDir, ".omp", "agent"));
 		tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-disabled-ext-"));
-		await fs.mkdir(path.join(tempDir, ".cxn"), { recursive: true });
-		await fs.writeFile(path.join(tempDir, ".cxn", "AGENTS.md"), "# project instructions\n");
+		await fs.mkdir(path.join(tempDir, ".omp"), { recursive: true });
+		await fs.writeFile(path.join(tempDir, ".omp", "AGENTS.md"), "# project instructions\n");
 
 		const settings = await Settings.init({
 			inMemory: true,

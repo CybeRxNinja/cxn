@@ -3,8 +3,8 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { isEnhancedRecallEnabled, isQueryCacheEnabled, QueryCache } from "@cxn/pi-mnemopi/core/query-cache";
-import { expandQuery, getSynonyms, normalizeQuery } from "@cxn/pi-mnemopi/core/synonyms";
+import { isEnhancedRecallEnabled, isQueryCacheEnabled, QueryCache } from "@cyberxninja-omp/pi-mnemopi/core/query-cache";
+import { expandQuery, getSynonyms, normalizeQuery } from "@cyberxninja-omp/pi-mnemopi/core/synonyms";
 
 const openCaches: QueryCache[] = [];
 

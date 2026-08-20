@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createMemoryRuntimeContext, resolveMemoryBackend } from "@cxn/pi-coding-agent/memory-backend";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { createMemoryRuntimeContext, resolveMemoryBackend } from "@cyberxninja-omp/pi-coding-agent/memory-backend";
 
 describe("resolveMemoryBackend", () => {
 	beforeEach(() => {

@@ -2,8 +2,8 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { isContextOverflow } from "@cxn/pi-ai/error";
+import { type } from "@cyberxninja-omp/omptype";
+import { isContextOverflow } from "@cyberxninja-omp/pi-ai/error";
 import {
 	buildGitLabDuoWorkflowApprovalStartRequest,
 	buildGitLabDuoWorkflowCreateBody,
@@ -27,8 +27,8 @@ import {
 	selectGitLabDuoWorkflowModelRef,
 	streamGitLabDuoWorkflow,
 	traceGitLabDuoWorkflow,
-} from "@cxn/pi-ai/providers/gitlab-duo-workflow";
-import { configureCredentialRedaction } from "@cxn/pi-ai/providers/transform-messages";
+} from "@cyberxninja-omp/pi-ai/providers/gitlab-duo-workflow";
+import { configureCredentialRedaction } from "@cyberxninja-omp/pi-ai/providers/transform-messages";
 import type {
 	AssistantMessage,
 	Context,
@@ -38,10 +38,10 @@ import type {
 	ProviderSessionState,
 	Tool,
 	ToolResultMessage,
-} from "@cxn/pi-ai/types";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { extractHttpStatusFromError } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/types";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { extractHttpStatusFromError } from "@cyberxninja-omp/pi-utils";
 
 beforeAll(() => configureCredentialRedaction(true));
 afterAll(() => configureCredentialRedaction(false));
@@ -220,7 +220,7 @@ describe("GitLab Duo Workflow provider protocol", () => {
 		expect(mcpTools[0]).toMatchObject({
 			name: "read",
 			originalToolName: "read",
-			serverName: "cxn",
+			serverName: "omp",
 			isApproved: true,
 		});
 		expect(typeof mcpTools[0]?.inputSchema).toBe("string");

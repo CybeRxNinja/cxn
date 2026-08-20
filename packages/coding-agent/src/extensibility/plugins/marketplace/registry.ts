@@ -15,9 +15,9 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
 
-import { getPluginsDir, isEnoent, logger, tryParseJson } from "@cxn/pi-utils";
+import { getPluginsDir, isEnoent, logger, tryParseJson } from "@cyberxninja-omp/pi-utils";
 
-export { getMarketplacesRegistryPath } from "@cxn/pi-utils";
+export { getMarketplacesRegistryPath } from "@cyberxninja-omp/pi-utils";
 
 import type {
 	InstalledPluginEntry,

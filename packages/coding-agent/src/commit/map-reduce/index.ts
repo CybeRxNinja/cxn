@@ -1,6 +1,6 @@
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Api, ApiKey, Model } from "@cxn/pi-ai";
-import { $env } from "@cxn/pi-utils";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Api, ApiKey, Model } from "@cyberxninja-omp/pi-ai";
+import { $env } from "@cyberxninja-omp/pi-utils";
 import { parseFileDiffs } from "../../commit/git/diff";
 import type { ConventionalAnalysis } from "../../commit/types";
 import { isExcludedFile } from "../../commit/utils/exclusions";

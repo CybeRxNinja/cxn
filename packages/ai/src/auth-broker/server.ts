@@ -10,8 +10,8 @@
  * the server only checks a bearer token against an allow-list per request.
  */
 
-import { type Type, type } from "@cxn/omptype";
-import { logger } from "@cxn/pi-utils";
+import { type Type, type } from "@cyberxninja-omp/omptype";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { AuthStorage, StoredCredentialBlock } from "../auth-storage";
 import { parseBind } from "../utils/parse-bind";
 import { AuthBrokerRefresher, type AuthBrokerRefresherSchedule } from "./refresher";

@@ -2,12 +2,12 @@ import * as nodeCrypto from "node:crypto";
 import * as fs from "node:fs";
 import { scheduler } from "node:timers/promises";
 import * as tls from "node:tls";
-import { isAnthropicSigningProxyUrl, isOfficialAnthropicApiUrl } from "@cxn/pi-catalog/compat/anthropic";
-import { hostMatchesUrl, isVertexRawPredictUrl } from "@cxn/pi-catalog/hosts";
-import { mapEffortToAnthropicAdaptiveEffort } from "@cxn/pi-catalog/model-thinking";
-import { calculateCost, getBundledModel } from "@cxn/pi-catalog/models";
-import { isAnthropicOAuthToken } from "@cxn/pi-catalog/utils";
-import { parseGitHubCopilotApiKey } from "@cxn/pi-catalog/wire/github-copilot";
+import { isAnthropicSigningProxyUrl, isOfficialAnthropicApiUrl } from "@cyberxninja-omp/pi-catalog/compat/anthropic";
+import { hostMatchesUrl, isVertexRawPredictUrl } from "@cyberxninja-omp/pi-catalog/hosts";
+import { mapEffortToAnthropicAdaptiveEffort } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { calculateCost, getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { isAnthropicOAuthToken } from "@cyberxninja-omp/pi-catalog/utils";
+import { parseGitHubCopilotApiKey } from "@cyberxninja-omp/pi-catalog/wire/github-copilot";
 import {
 	$env,
 	getInstallId,
@@ -16,7 +16,7 @@ import {
 	parseJsonWithRepair,
 	parseStreamingJsonThrottled,
 	readSseEvents,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import { renderDemotedThinking } from "../dialect/demotion";
 import * as AIError from "../error";
 import { getEnvApiKey, OUTPUT_FALLBACK_BUFFER } from "../stream";
@@ -3600,7 +3600,7 @@ function toWellFormedDeep(value: unknown): unknown {
 }
 
 /**
- * Serialize cxn {@link Message}s to Anthropic wire messages.
+ * Serialize omp {@link Message}s to Anthropic wire messages.
  *
  * `opts.serverSideFallbackEnabled` — when the CURRENT request itself
  * opts into the server-side-fallback beta chain. Only then may a persisted

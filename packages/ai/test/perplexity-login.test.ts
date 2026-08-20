@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { loginPerplexity } from "@cxn/pi-ai/registry/oauth/perplexity";
-import type { FetchImpl } from "@cxn/pi-ai/types";
+import { loginPerplexity } from "@cyberxninja-omp/pi-ai/registry/oauth/perplexity";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
 import { withEnv } from "./helpers";
 
 type CapturedRequest = {

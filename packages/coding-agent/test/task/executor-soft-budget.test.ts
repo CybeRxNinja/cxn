@@ -1,22 +1,26 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { ASYNC_JOB_MANAGER_SHUTDOWN_REASON, AsyncJobManager } from "@cxn/pi-coding-agent/async";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { LoadExtensionsResult } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import { IrcBus } from "@cxn/pi-coding-agent/irc/bus";
-import { RpcSubagentRegistry } from "@cxn/pi-coding-agent/modes/rpc/rpc-subagents";
-import type { RpcSubagentFrame } from "@cxn/pi-coding-agent/modes/rpc/rpc-types";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { registerPersistedSubagents } from "@cxn/pi-coding-agent/registry/persisted-agents";
-import type { CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent, PromptOptions } from "@cxn/pi-coding-agent/session/agent-session";
-import type { CustomMessage } from "@cxn/pi-coding-agent/session/messages";
-import { resolveSoftRequestBudget, runSubprocess } from "@cxn/pi-coding-agent/task/executor";
-import type { AgentDefinition } from "@cxn/pi-coding-agent/task/types";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { TempDir } from "@cxn/pi-utils";
+import { ASYNC_JOB_MANAGER_SHUTDOWN_REASON, AsyncJobManager } from "@cyberxninja-omp/pi-coding-agent/async";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { LoadExtensionsResult } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import { IrcBus } from "@cyberxninja-omp/pi-coding-agent/irc/bus";
+import { RpcSubagentRegistry } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-subagents";
+import type { RpcSubagentFrame } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-types";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { registerPersistedSubagents } from "@cyberxninja-omp/pi-coding-agent/registry/persisted-agents";
+import type { CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type {
+	AgentSession,
+	AgentSessionEvent,
+	PromptOptions,
+} from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { CustomMessage } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { resolveSoftRequestBudget, runSubprocess } from "@cyberxninja-omp/pi-coding-agent/task/executor";
+import type { AgentDefinition } from "@cyberxninja-omp/pi-coding-agent/task/types";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Contracts under test — the soft request budget must degrade gracefully

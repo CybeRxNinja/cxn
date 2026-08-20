@@ -1,4 +1,4 @@
-import { formatNumber } from "@cxn/pi-utils";
+import { formatNumber } from "@cyberxninja-omp/pi-utils";
 import type { ThemeColor } from "../../../modes/theme/theme";
 
 export type ContextUsageLevel = "normal" | "warning" | "purple" | "error";

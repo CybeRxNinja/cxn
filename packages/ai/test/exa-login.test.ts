@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { loginExa } from "@cxn/pi-ai/registry/exa";
+import { loginExa } from "@cyberxninja-omp/pi-ai/registry/exa";
 
 describe("exa login", () => {
 	it("opens Exa API-key settings and returns a trimmed key without validation requests", async () => {

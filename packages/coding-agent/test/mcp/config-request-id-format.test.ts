@@ -8,7 +8,7 @@
  * transports read. A field missing from either step silently degrades to the
  * snowflake-string default, which is the hang the option exists to avoid.
  *
- * Both CXN-native loaders are covered: `.cxn/mcp.json` (native provider) and a
+ * Both CXN-native loaders are covered: `.omp/mcp.json` (native provider) and a
  * standalone project-root `.mcp.json` (mcp-json provider).
  *
  * Separately, `isSameMCPConnection` treats two differently-named entries with the
@@ -21,9 +21,9 @@ import { afterEach, beforeEach, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
-import { loadAllMCPConfigs } from "@cxn/pi-coding-agent/mcp/config";
-import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cxn/pi-utils";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
+import { loadAllMCPConfigs } from "@cyberxninja-omp/pi-coding-agent/mcp/config";
+import { getConfigRootDir, removeWithRetries, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 const originalAgentDirEnv = process.env.PI_CODING_AGENT_DIR;
 const fallbackAgentDir = path.join(getConfigRootDir(), "agent");
@@ -67,8 +67,8 @@ async function loadFrom(file: string, mcpServers: Record<string, unknown>) {
 	return configs;
 }
 
-test("requestIdFormat from .cxn/mcp.json reaches the transport config", async () => {
-	const configs = await loadFrom(path.join(".cxn", "mcp.json"), {
+test("requestIdFormat from .omp/mcp.json reaches the transport config", async () => {
+	const configs = await loadFrom(path.join(".omp", "mcp.json"), {
 		xcode: { type: "stdio", command: "/usr/bin/xcrun", args: ["mcpbridge"], requestIdFormat: "number" },
 		plain: { type: "stdio", command: "/bin/echo" },
 	});
@@ -87,7 +87,7 @@ test("requestIdFormat from a standalone .mcp.json reaches the transport config",
 });
 
 test("an unrecognized requestIdFormat is dropped rather than passed through", async () => {
-	const configs = await loadFrom(path.join(".cxn", "mcp.json"), {
+	const configs = await loadFrom(path.join(".omp", "mcp.json"), {
 		bogus: { type: "stdio", command: "/bin/echo", requestIdFormat: "integer" },
 	});
 
@@ -96,7 +96,7 @@ test("an unrecognized requestIdFormat is dropped rather than passed through", as
 });
 
 test("differing requestIdFormat prevents equivalence dedup from collapsing two aliases", async () => {
-	const configs = await loadFrom(path.join(".cxn", "mcp.json"), {
+	const configs = await loadFrom(path.join(".omp", "mcp.json"), {
 		"xcode-string": { type: "stdio", command: "/usr/bin/xcrun", args: ["mcpbridge"], requestIdFormat: "string" },
 		"xcode-default": { type: "stdio", command: "/usr/bin/xcrun", args: ["mcpbridge"] },
 	});
@@ -112,7 +112,7 @@ test("differing requestIdFormat prevents equivalence dedup from collapsing two a
 });
 
 test('an explicit "number" is the default, so dedup collapses it with an unset alias', async () => {
-	const configs = await loadFrom(path.join(".cxn", "mcp.json"), {
+	const configs = await loadFrom(path.join(".omp", "mcp.json"), {
 		"xcode-numeric": { type: "stdio", command: "/usr/bin/xcrun", args: ["mcpbridge"], requestIdFormat: "number" },
 		"xcode-default": { type: "stdio", command: "/usr/bin/xcrun", args: ["mcpbridge"] },
 	});

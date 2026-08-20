@@ -1,5 +1,5 @@
 /**
- * Types for `cxn gallery` sample data. See {@link ./index} for the aggregated
+ * Types for `omp gallery` sample data. See {@link ./index} for the aggregated
  * fixture registry and the contract each fixture must satisfy.
  */
 import type { EditMode } from "../../edit";

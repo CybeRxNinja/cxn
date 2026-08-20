@@ -1,7 +1,7 @@
 import { Database, type Statement } from "bun:sqlite";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { AsyncDrain, getDbBusyTimeoutMs, getHistoryDbPath, logger } from "@cxn/pi-utils";
+import { AsyncDrain, getDbBusyTimeoutMs, getHistoryDbPath, logger } from "@cyberxninja-omp/pi-utils";
 
 export interface HistoryEntry {
 	id: number;

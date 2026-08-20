@@ -1,4 +1,4 @@
-import { $env } from "@cxn/pi-utils";
+import { $env } from "@cyberxninja-omp/pi-utils";
 import type { DeviceType } from "@huggingface/transformers";
 
 export type TinyModelDevice = DeviceType;

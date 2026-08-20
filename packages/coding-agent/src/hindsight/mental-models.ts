@@ -39,7 +39,7 @@
  * followed by a re-seed.
  */
 
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import type { BankScope } from "./bank";
 import type {
 	HindsightApi,

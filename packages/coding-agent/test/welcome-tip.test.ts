@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { renderWelcomeTip } from "@cxn/pi-coding-agent/modes/components/welcome";
-import { initTheme, setTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { visibleWidth } from "@cxn/pi-tui";
+import { renderWelcomeTip } from "@cyberxninja-omp/pi-coding-agent/modes/components/welcome";
+import { initTheme, setTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { visibleWidth } from "@cyberxninja-omp/pi-tui";
 
 describe("renderWelcomeTip", () => {
 	beforeAll(async () => {

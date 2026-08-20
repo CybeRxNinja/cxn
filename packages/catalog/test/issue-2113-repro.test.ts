@@ -1,5 +1,5 @@
 /**
- * Issue #2113 — `kimik2 does not work on the latest cxn`
+ * Issue #2113 — `kimik2 does not work on the latest omp`
  *
  * Reporter: with only `MOONSHOT_API_KEY` set, selecting `kimi-k2.6` and
  * sending any text leaves the agent stuck on "Working..." with no output.
@@ -17,13 +17,16 @@
  * moonshot discovery mapper and stamps default thinking metadata.
  */
 import { describe, expect, it } from "bun:test";
-import { type OpenAICompletionsOptions, streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import type { AssistantMessage, Context } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { moonshotModelManagerOptions } from "@cxn/pi-catalog/provider-models/openai-compat";
-import type { Model, ModelSpec } from "@cxn/pi-catalog/types";
+import {
+	type OpenAICompletionsOptions,
+	streamOpenAICompletions,
+} from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import type { AssistantMessage, Context } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { moonshotModelManagerOptions } from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
+import type { Model, ModelSpec } from "@cyberxninja-omp/pi-catalog/types";
 
 function moonshotKimiModel(id: string, reasoning: boolean): Model<"openai-completions"> {
 	const reference = getBundledModel("openai", "gpt-4o-mini");

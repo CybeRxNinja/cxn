@@ -1,5 +1,5 @@
 /**
- * `cxn gallery` — render every built-in tool's renderer across its lifecycle.
+ * `omp gallery` — render every built-in tool's renderer across its lifecycle.
  *
  * For each tool with a registered renderer, the gallery drives a real
  * {@link ToolExecutionComponent} through four states — streaming arguments,
@@ -7,9 +7,9 @@
  * rendered output to stdout. It exists for visual QA of tool renderers without
  * having to provoke each state through a live agent session.
  */
-import type { AgentTool } from "@cxn/pi-agent-core";
-import type { TUI } from "@cxn/pi-tui";
-import { getProjectDir } from "@cxn/pi-utils";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
+import { getProjectDir } from "@cyberxninja-omp/pi-utils";
 import { Settings } from "../config/settings";
 import { ToolExecutionComponent } from "../modes/components/tool-execution";
 import { initTheme, theme } from "../modes/theme/theme";

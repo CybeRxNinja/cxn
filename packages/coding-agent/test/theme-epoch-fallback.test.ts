@@ -5,7 +5,7 @@ import {
 	setTheme,
 	setThemeInstance,
 	type Theme,
-} from "@cxn/pi-coding-agent/modes/theme/theme";
+} from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 
 /**
  * Contract: every change to the *active* theme bumps the theme epoch — including

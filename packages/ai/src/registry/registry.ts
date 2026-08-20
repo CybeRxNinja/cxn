@@ -1,4 +1,4 @@
-import type { KnownProvider } from "@cxn/pi-catalog";
+import type { KnownProvider } from "@cyberxninja-omp/pi-catalog";
 import { aiandProvider } from "./aiand";
 import { aimlApiProvider } from "./aimlapi";
 import { alibabaCodingPlanProvider } from "./alibaba-coding-plan";

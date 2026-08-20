@@ -1,10 +1,10 @@
 {
   "type": "module",
-  "name": "@cxn/collab-web",
+  "name": "@cyberxninja-omp/collab-web",
   "version": "17.3.7",
   "private": true,
-  "description": "Browser guest client and local relay tools for cxn collab live sessions",
-  "homepage": "https://cxn.sh",
+  "description": "Browser guest client and local relay tools for omp collab live sessions",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "license": "MIT",
   "repository": {
@@ -37,8 +37,8 @@
     "fmt": "biome format --write ."
   },
   "dependencies": {
-    "@cxn/pi-utils": "catalog:",
-    "@cxn/pi-wire": "catalog:",
+    "@cyberxninja-omp/pi-utils": "catalog:",
+    "@cyberxninja-omp/pi-wire": "catalog:",
     "lucide-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"

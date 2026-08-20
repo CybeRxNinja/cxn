@@ -5,10 +5,15 @@
  * providers with provider-specific parameters exposed conditionally.
  */
 
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { AuthStorage } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import type { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import { ModelRegistry } from "../../config/model-registry";
 import { settings } from "../../config/settings";
 import type { CustomTool, CustomToolContext, RenderResultOptions } from "../../extensibility/custom-tools/types";
@@ -154,7 +159,7 @@ async function executeSearch(
 	const parsedQuery = parseSearchQuery(params.query);
 
 	// Invariant across providers; read once and tolerate an uninitialized
-	// Settings singleton (e.g. `cxn q ...` CLI path, unit tests) so the
+	// Settings singleton (e.g. `omp q ...` CLI path, unit tests) so the
 	// provider-fallback loop never aborts before any provider runs.
 	let antigravityEndpointMode: "auto" | "production" | "sandbox" | undefined;
 	try {

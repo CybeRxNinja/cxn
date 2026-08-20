@@ -3,8 +3,14 @@ import { describe, expect, it } from "bun:test";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { initBeam } from "@cxn/pi-mnemopi/core/beam";
-import { DeltaSync, EventType, MemoryEvent, MemoryStream, SyncCheckpoint } from "@cxn/pi-mnemopi/core/streaming";
+import { initBeam } from "@cyberxninja-omp/pi-mnemopi/core/beam";
+import {
+	DeltaSync,
+	EventType,
+	MemoryEvent,
+	MemoryStream,
+	SyncCheckpoint,
+} from "@cyberxninja-omp/pi-mnemopi/core/streaming";
 
 describe("MemoryEvent", () => {
 	it("serializes and restores Python-shaped events", () => {

@@ -1,5 +1,5 @@
 import { statSync } from "node:fs";
-import "@cxn/pi-utils/vterm";
+import "@cyberxninja-omp/pi-utils/vterm";
 
 const paths = Object.keys(require.cache)
 	.filter(modulePath => modulePath.replaceAll("\\", "/").includes("/packages/utils/src/vterm"))

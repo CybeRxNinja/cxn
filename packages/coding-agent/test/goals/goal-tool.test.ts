@@ -1,8 +1,8 @@
 import { describe, expect, it, vi } from "bun:test";
-import { completionBudgetReport, GoalRuntime } from "@cxn/pi-coding-agent/goals/runtime";
-import type { Goal, GoalModeState, GoalTokenUsage } from "@cxn/pi-coding-agent/goals/state";
-import { GoalTool } from "@cxn/pi-coding-agent/goals/tools/goal-tool";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { completionBudgetReport, GoalRuntime } from "@cyberxninja-omp/pi-coding-agent/goals/runtime";
+import type { Goal, GoalModeState, GoalTokenUsage } from "@cyberxninja-omp/pi-coding-agent/goals/state";
+import { GoalTool } from "@cyberxninja-omp/pi-coding-agent/goals/tools/goal-tool";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 
 function createUsage(overrides: Partial<GoalTokenUsage> = {}): GoalTokenUsage {
 	return {

@@ -1,5 +1,5 @@
-import { enclosingBlockBoundaries } from "@cxn/pi-natives";
-import { logger } from "@cxn/pi-utils";
+import { enclosingBlockBoundaries } from "@cyberxninja-omp/pi-natives";
+import { logger } from "@cyberxninja-omp/pi-utils";
 
 const OPEN_TO_CLOSE: Record<string, string> = {
 	"(": ")",

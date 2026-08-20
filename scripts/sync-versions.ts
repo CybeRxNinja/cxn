@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 /**
- * Syncs ALL @cxn/* package dependency versions to match their current versions.
+ * Syncs ALL @cyberxninja-omp/* package dependency versions to match their current versions.
  * This ensures lockstep versioning across the monorepo.
  */
 

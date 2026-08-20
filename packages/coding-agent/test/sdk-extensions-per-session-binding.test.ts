@@ -15,9 +15,9 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { loadExtensions } from "@cxn/pi-coding-agent/extensibility/extensions";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { loadExtensions } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 describe("loadExtensions per-session binding (#2190 review fix)", () => {
 	let tmp: string;

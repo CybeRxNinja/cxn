@@ -1,4 +1,4 @@
-import type { SelectList, SgrMouseEvent } from "@cxn/pi-tui";
+import type { SelectList, SgrMouseEvent } from "@cyberxninja-omp/pi-tui";
 
 interface RoutableSelectList {
 	routeMouse?: (event: SgrMouseEvent, line: number, col: number) => void;

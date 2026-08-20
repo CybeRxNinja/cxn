@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, test, vi } from "bun:test";
-import { completeSimple, getEnvApiKey, stream, streamSimple } from "@cxn/pi-ai/stream";
-import type { Context, Tool } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { ollamaCloudModelManagerOptions } from "@cxn/pi-catalog/provider-models/ollama";
-import type { FetchImpl, Model } from "@cxn/pi-catalog/types";
+import { completeSimple, getEnvApiKey, stream, streamSimple } from "@cyberxninja-omp/pi-ai/stream";
+import type { Context, Tool } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { ollamaCloudModelManagerOptions } from "@cyberxninja-omp/pi-catalog/provider-models/ollama";
+import type { FetchImpl, Model } from "@cyberxninja-omp/pi-catalog/types";
 
 const originalApiKey = Bun.env.OLLAMA_CLOUD_API_KEY;
 

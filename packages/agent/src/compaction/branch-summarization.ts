@@ -5,9 +5,9 @@
  * a summary of the branch being left so context isn't lost.
  */
 
-import type { Api, ApiKey, AssistantMessage, Context, Model, SimpleStreamOptions } from "@cxn/pi-ai";
-import { preferredDialect } from "@cxn/pi-catalog/identity";
-import { prompt } from "@cxn/pi-utils";
+import type { Api, ApiKey, AssistantMessage, Context, Model, SimpleStreamOptions } from "@cyberxninja-omp/pi-ai";
+import { preferredDialect } from "@cyberxninja-omp/pi-catalog/identity";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import { type AgentTelemetry, instrumentedCompleteSimple } from "../telemetry";
 import type { AgentMessage } from "../types";
 import { estimateTokens } from "./compaction";

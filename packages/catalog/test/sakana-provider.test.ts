@@ -2,14 +2,17 @@ import { afterEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { getOAuthProviders } from "@cxn/pi-ai/registry/oauth";
-import { getEnvApiKey } from "@cxn/pi-ai/stream";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { resolveProviderModels } from "@cxn/pi-catalog/model-manager";
-import { getBundledModels } from "@cxn/pi-catalog/models";
-import { DEFAULT_MODEL_PER_PROVIDER, PROVIDER_DESCRIPTORS } from "@cxn/pi-catalog/provider-models/descriptors";
-import { sakanaModelManagerOptions } from "@cxn/pi-catalog/provider-models/openai-compat";
-import type { FetchImpl, ModelSpec, ResolvedOpenAIResponsesCompat } from "@cxn/pi-catalog/types";
+import { getOAuthProviders } from "@cyberxninja-omp/pi-ai/registry/oauth";
+import { getEnvApiKey } from "@cyberxninja-omp/pi-ai/stream";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { resolveProviderModels } from "@cyberxninja-omp/pi-catalog/model-manager";
+import { getBundledModels } from "@cyberxninja-omp/pi-catalog/models";
+import {
+	DEFAULT_MODEL_PER_PROVIDER,
+	PROVIDER_DESCRIPTORS,
+} from "@cyberxninja-omp/pi-catalog/provider-models/descriptors";
+import { sakanaModelManagerOptions } from "@cyberxninja-omp/pi-catalog/provider-models/openai-compat";
+import type { FetchImpl, ModelSpec, ResolvedOpenAIResponsesCompat } from "@cyberxninja-omp/pi-catalog/types";
 
 const ORIGINAL_ENV = {
 	SAKANA_API_KEY: Bun.env.SAKANA_API_KEY,

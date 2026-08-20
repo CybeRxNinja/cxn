@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import { downloadFile } from "@cxn/pi-coding-agent/utils/tools-manager";
-import { TempDir } from "@cxn/pi-utils";
+import { downloadFile } from "@cyberxninja-omp/pi-coding-agent/utils/tools-manager";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 function mockDownloadResponse(response: Response): void {
 	const fetchMock: typeof globalThis.fetch = Object.assign(async () => response, {

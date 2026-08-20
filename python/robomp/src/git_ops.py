@@ -580,7 +580,7 @@ def fetch_ref(
         fatal: could not read Username for 'https://github.com'
         fatal: could not fetch <sha> from promisor remote
 
-    (cxn#1818). ``--refetch`` forces a fresh negotiation that ignores
+    (omp#1818). ``--refetch`` forces a fresh negotiation that ignores
     "we already have this commit", and ``--no-filter`` overrides the inherited
     filter for this one invocation without touching the on-disk config — so
     ``fetch_prune`` keeps its cheap blob-skipping semantics on the next pool
@@ -620,7 +620,7 @@ def fetch_pr_head(
     review checkouts. See :func:`fetch_ref` for why ``--refetch --no-filter``
     is required: without the blob backfill, the worktree-add triggers a
     promisor lazy fetch that fails under proxy-transport deployments
-    (cxn#1818).
+    (omp#1818).
     """
     if pr_number <= 0:
         raise ValueError(f"invalid PR number: {pr_number!r}")

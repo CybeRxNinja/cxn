@@ -7,7 +7,7 @@ import {
 	installRuntimeModuleResolver,
 	isCompiledBinary,
 	resolveRuntimeModule,
-} from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-utils";
 import type { ProgressInfo } from "@huggingface/transformers";
 import packageJson from "../../package.json" with { type: "json" };
 

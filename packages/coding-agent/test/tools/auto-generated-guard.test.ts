@@ -2,10 +2,13 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { assertEditableFile, assertEditableFileContent } from "@cxn/pi-coding-agent/tools/auto-generated-guard";
-import { resolveImageOptions } from "@cxn/pi-coding-agent/tools/render-utils";
-import { ToolError } from "@cxn/pi-coding-agent/tools/tool-errors";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	assertEditableFile,
+	assertEditableFileContent,
+} from "@cyberxninja-omp/pi-coding-agent/tools/auto-generated-guard";
+import { resolveImageOptions } from "@cyberxninja-omp/pi-coding-agent/tools/render-utils";
+import { ToolError } from "@cyberxninja-omp/pi-coding-agent/tools/tool-errors";
 
 let tempDir: string;
 let testSettings: Settings;

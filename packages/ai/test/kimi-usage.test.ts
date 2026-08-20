@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import type { FetchImpl } from "@cxn/pi-ai/types";
-import type { UsageFetchContext, UsageFetchParams } from "@cxn/pi-ai/usage";
-import { kimiUsageProvider } from "@cxn/pi-ai/usage/kimi";
+import type { FetchImpl } from "@cyberxninja-omp/pi-ai/types";
+import type { UsageFetchContext, UsageFetchParams } from "@cyberxninja-omp/pi-ai/usage";
+import { kimiUsageProvider } from "@cyberxninja-omp/pi-ai/usage/kimi";
 
 function makeCredential(accountId?: string): UsageFetchParams["credential"] {
 	return {
@@ -24,7 +24,7 @@ describe("kimi usage provider", () => {
 	it("surfaces the 5h limit reset time from the limit detail onto the window", async () => {
 		// Live payload shape: `resetTime` lives on `detail`, while `window`
 		// carries only duration/timeUnit. The 5h row must still render
-		// "resets in …" in `cxn usage`.
+		// "resets in …" in `omp usage`.
 		const detailReset = "2026-07-18T05:43:35.355947Z";
 		const usageReset = "2026-07-21T07:43:35.355947Z";
 		const report = await kimiUsageProvider.fetchUsage!(

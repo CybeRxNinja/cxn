@@ -1,22 +1,22 @@
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { Agent, type AgentMessage } from "@cxn/pi-agent-core";
-import * as compactionModule from "@cxn/pi-agent-core/compaction";
-import type { AssistantMessage, Model } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { loadAdvisorTranscriptCosts } from "@cxn/pi-coding-agent/advisor/transcript-recorder";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions";
-import { createAgentSession } from "@cxn/pi-coding-agent/sdk";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { AgentStorage } from "@cxn/pi-coding-agent/session/agent-storage";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { getProjectAgentDir, TempDir } from "@cxn/pi-utils";
+import { Agent, type AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import * as compactionModule from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AssistantMessage, Model } from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { loadAdvisorTranscriptCosts } from "@cyberxninja-omp/pi-coding-agent/advisor/transcript-recorder";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import { createAgentSession } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { AgentStorage } from "@cyberxninja-omp/pi-coding-agent/session/agent-storage";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { getProjectAgentDir, TempDir } from "@cyberxninja-omp/pi-utils";
 import { createInMemoryAuthStorage } from "./helpers/agent-session-setup";
 
 describe("AgentSession advisor toggle", () => {

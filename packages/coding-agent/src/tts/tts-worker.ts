@@ -1,5 +1,5 @@
 import { createRequire } from "node:module";
-import { ensureRuntimeInstalled, getTinyModelsCacheDir, resolveRuntimeModule } from "@cxn/pi-utils";
+import { ensureRuntimeInstalled, getTinyModelsCacheDir, resolveRuntimeModule } from "@cyberxninja-omp/pi-utils";
 import type { ProgressInfo, RawAudio } from "@huggingface/transformers";
 import {
 	errorMessage,

@@ -1,6 +1,6 @@
 import { describe, expect, it, spyOn } from "bun:test";
-import { listSessions } from "@cxn/pi-coding-agent/session/session-listing";
-import { MemorySessionStorage } from "@cxn/pi-coding-agent/session/session-storage";
+import { listSessions } from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { MemorySessionStorage } from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
 
 const SESSION_DIR = "/sessions/project";
 

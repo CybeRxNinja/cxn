@@ -4,11 +4,11 @@ import {
 	parseGalleryStates,
 	renderGalleryState,
 	resolveFixture,
-} from "@cxn/pi-coding-agent/cli/gallery-cli";
-import type { GalleryFixture } from "@cxn/pi-coding-agent/cli/gallery-fixtures";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { toolRenderers } from "@cxn/pi-coding-agent/tools/renderers";
+} from "@cyberxninja-omp/pi-coding-agent/cli/gallery-cli";
+import type { GalleryFixture } from "@cyberxninja-omp/pi-coding-agent/cli/gallery-fixtures";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { toolRenderers } from "@cyberxninja-omp/pi-coding-agent/tools/renderers";
 
 beforeAll(async () => {
 	resetSettingsForTest();

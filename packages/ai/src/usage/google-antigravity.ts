@@ -1,4 +1,4 @@
-import { getAntigravityUserAgent } from "@cxn/pi-catalog/wire/gemini-headers";
+import { getAntigravityUserAgent } from "@cyberxninja-omp/pi-catalog/wire/gemini-headers";
 import * as AIError from "../error";
 import type {
 	CredentialRankingContext,

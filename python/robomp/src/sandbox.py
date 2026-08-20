@@ -23,10 +23,10 @@ There are four ownership zones on disk; do not let them blur:
    `ensure_workspace` + `_chown_workspace` are the single point of truth for
    this zone — no other helper sets ownership inside `ws_root`.
 2. **Clone pool** (`/data/workspaces/_pool/<owner>__<repo>/`): genuinely
-   multi-slot. Owned by `root:cxn` (gid 2000) with setgid `02770`; cross-slot
+   multi-slot. Owned by `root:omp` (gid 2000) with setgid `02770`; cross-slot
    writes are bridged by `_share_git_metadata_with_slots`.
 3. **Language tool caches** (`/data/cache/{cargo,cargo-target,rustup,bun-cache}`):
-   multi-slot. Owned by `root:cxn` with setgid `02770`; provisioned by
+   multi-slot. Owned by `root:omp` with setgid `02770`; provisioned by
    `entrypoint.sh`.
 4. **Agent HOME template** (`/srv/agent-home`): read-only, `root:root`
    `0755/0644`.
@@ -495,7 +495,7 @@ def _prepare_slot_runtime_env(workspace: Workspace, slot_uid: int | None) -> dic
     tests) or for the case where a runtime dir was deleted mid-process.
 
     Cargo/rustup/target caches live under ``/data/cache/*`` (container ENV)
-    and are group-shared via ``cxn``. Bun's install cache is explicitly
+    and are group-shared via ``omp``. Bun's install cache is explicitly
     workspace-private because bun chmod/chowns its cache root, which makes a
     cross-slot shared cache a permanent source of permission failures.
     """
@@ -508,7 +508,7 @@ def _prepare_slot_runtime_env(workspace: Workspace, slot_uid: int | None) -> dic
 
     for base in (xdg_data, xdg_state, xdg_cache):
         base.mkdir(parents=True, exist_ok=True)
-        (base / "cxn").mkdir(parents=True, exist_ok=True)
+        (base / "omp").mkdir(parents=True, exist_ok=True)
     bun_cache.mkdir(parents=True, exist_ok=True)
 
     return {
@@ -547,7 +547,7 @@ def _provision_runtime_dirs(ws_root: Path) -> None:
     for sub in ("data", "state", "cache"):
         base = xdg_root / sub
         base.mkdir(parents=True, exist_ok=True)
-        (base / "cxn").mkdir(parents=True, exist_ok=True)
+        (base / "omp").mkdir(parents=True, exist_ok=True)
     (xdg_root / "cache" / "bun-install").mkdir(parents=True, exist_ok=True)
 
 
@@ -610,7 +610,7 @@ def _share_git_metadata_with_slots(repo_dir: Path, slot_uid: int | None) -> None
     The worktree checkout itself is slot-private, but `.git` in a Git worktree
     points back into the shared clone pool. A retry may run as a different
     `cxn-N` user, so the pool-side worktree gitdir, refs, reflogs, and object
-    directories must stay writable through the shared `cxn` group.
+    directories must stay writable through the shared `omp` group.
     """
     if not _slot_permissions_active(slot_uid):
         return
@@ -974,7 +974,7 @@ class SandboxManager:
             )
             # Best-effort: hardlink pre-built natives in if we've cached this
             # source state before. Runs AFTER the slot chown so the cache inode
-            # keeps its `root:cxn` ownership (the slot reads through group `cxn`);
+            # keeps its `root:omp` ownership (the slot reads through group `omp`);
             # write-temp + rename in the napi build replaces with a new inode if
             # the agent rebuilds, so the cached file is never mutated.
             self._populate_natives_cache(workspace, slot_uid=slot_uid)
@@ -991,9 +991,9 @@ class SandboxManager:
         Post-populate, the populated `packages/natives/native/` directory
         and the COPIED companion files are chowned to the slot so the slot
         can rebuild via temp + rename in that directory. The hardlinked
-        `.node` files are LEFT at `root:cxn` ownership — chowning them
+        `.node` files are LEFT at `root:omp` ownership — chowning them
         would chown the cache file too (shared inode), breaking the
-        cross-slot sharing model. The slot reads them via group `cxn`.
+        cross-slot sharing model. The slot reads them via group `omp`.
         """
         cache = self.natives_cache
         if cache is None:
@@ -1040,8 +1040,8 @@ class SandboxManager:
         hardlinked `.node` inodes (those are shared with the cache).
 
         Files whose names match a cached `.node` are skipped — they are
-        hardlinks back into the root:cxn cache and the slot reads them via
-        group `cxn`. Everything else (the directory itself, copied
+        hardlinks back into the root:omp cache and the slot reads them via
+        group `omp`. Everything else (the directory itself, copied
         companions) is chowned to the slot so the slot can rebuild via
         temp + rename.
         """

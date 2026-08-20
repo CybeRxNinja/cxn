@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import * as connectionManager from "@cxn/pi-coding-agent/ssh/connection-manager";
-import { removeWithRetries } from "@cxn/pi-utils";
+import * as connectionManager from "@cyberxninja-omp/pi-coding-agent/ssh/connection-manager";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 async function withLooseKey<T>(run: (keyPath: string) => Promise<T>): Promise<T> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), "cxn-ssh-key-"));

@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import type { Api, Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import type { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { Api, Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import type { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import { createExtensionModelQuery } from "../../src/extensibility/extensions/model-api";
 
 function model(id: string, name: string, provider: string): Model<"anthropic-messages"> {

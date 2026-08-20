@@ -13,7 +13,7 @@ import {
 	Patch,
 	Patcher,
 	type WriteResult,
-} from "@cxn/hashline";
+} from "@cyberxninja-omp/hashline";
 
 const PATH = "a.ts";
 

@@ -4,7 +4,7 @@ import {
 	type DaemonRequestHandler,
 	inMemoryPair,
 	serveConnection,
-} from "@cxn/pi-coding-agent/modes/daemon/index";
+} from "@cyberxninja-omp/pi-coding-agent/modes/daemon/index";
 
 const handler: DaemonRequestHandler = req => ({
 	id: req.id,

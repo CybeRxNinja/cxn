@@ -2,12 +2,12 @@ import { describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { clearAwsCredentialCache } from "@cxn/pi-ai/providers/aws-credentials";
-import type { BedrockMantleOptions } from "@cxn/pi-ai/providers/bedrock-mantle";
-import { getProviderDefinition } from "@cxn/pi-ai/registry";
-import { stream, streamSimple } from "@cxn/pi-ai/stream";
-import type { Context, FetchImpl, Model, SimpleStreamOptions } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { clearAwsCredentialCache } from "@cyberxninja-omp/pi-ai/providers/aws-credentials";
+import type { BedrockMantleOptions } from "@cyberxninja-omp/pi-ai/providers/bedrock-mantle";
+import { getProviderDefinition } from "@cyberxninja-omp/pi-ai/registry";
+import { stream, streamSimple } from "@cyberxninja-omp/pi-ai/stream";
+import type { Context, FetchImpl, Model, SimpleStreamOptions } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import { removeWithRetries } from "../../utils/src/temp";
 import { withEnv } from "./helpers";
 

@@ -1,5 +1,5 @@
 /**
- * `cxn __complete <kind> [-- <prefix>]` — dynamic completion candidates.
+ * `omp __complete <kind> [-- <prefix>]` — dynamic completion candidates.
  *
  * Hidden helper invoked by the generated shell completion scripts to resolve
  * values that can't be baked into the script: the live model catalog and
@@ -8,8 +8,8 @@
  * first field. The import surface is kept deliberately narrow so a TAB press
  * doesn't pay for the full agent boot.
  */
-import { type GeneratedProvider, getBundledModels, getBundledProviders } from "@cxn/pi-catalog/models";
-import { Command } from "@cxn/pi-utils/cli";
+import { type GeneratedProvider, getBundledModels, getBundledProviders } from "@cyberxninja-omp/pi-catalog/models";
+import { Command } from "@cyberxninja-omp/pi-utils/cli";
 import { completeHelp as commandHelp } from "../cli/command-help";
 import { SessionManager } from "../session/session-manager";
 

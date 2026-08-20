@@ -1,4 +1,4 @@
-import { logger, Snowflake } from "@cxn/pi-utils";
+import { logger, Snowflake } from "@cyberxninja-omp/pi-utils";
 import type { Subprocess } from "bun";
 import { type KernelDisplayOutput, renderKernelDisplay } from "./py/display";
 

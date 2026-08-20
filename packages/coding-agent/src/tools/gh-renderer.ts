@@ -1,4 +1,4 @@
-import { type Component, padding, Text, visibleWidth } from "@cxn/pi-tui";
+import { type Component, padding, Text, visibleWidth } from "@cyberxninja-omp/pi-tui";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import type { Theme, ThemeColor } from "../modes/theme/theme";
 import { framedBlock, outputBlockContentWidth, renderStatusLine } from "../tui";

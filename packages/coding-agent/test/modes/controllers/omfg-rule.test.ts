@@ -1,14 +1,14 @@
 import { describe, expect, it } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { AssistantMessage, Usage } from "@cxn/pi-ai";
-import type { Rule } from "@cxn/pi-coding-agent/capability/rule";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { AssistantMessage, Usage } from "@cyberxninja-omp/pi-ai";
+import type { Rule } from "@cyberxninja-omp/pi-coding-agent/capability/rule";
 import {
 	type ParsedGeneratedRule,
 	parseGeneratedRule,
 	ruleMatchesAssistantHistory,
 	sanitizeRuleName,
 	validateParsedRuleAgainstAssistantHistory,
-} from "@cxn/pi-coding-agent/modes/controllers/omfg-rule";
+} from "@cyberxninja-omp/pi-coding-agent/modes/controllers/omfg-rule";
 
 const usage: Usage = {
 	input: 0,

@@ -17,10 +17,13 @@ import { randomBytes } from "node:crypto";
 import { rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import "./setup";
-import { cmdRemember } from "@cxn/pi-mnemopi/cli";
-import { BeamMemory } from "@cxn/pi-mnemopi/core/beam";
-import { Mnemopi } from "@cxn/pi-mnemopi/core/memory";
-import { type ResolvedMnemopiRuntimeOptions, withMnemopiRuntimeOptions } from "@cxn/pi-mnemopi/core/runtime-options";
+import { cmdRemember } from "@cyberxninja-omp/pi-mnemopi/cli";
+import { BeamMemory } from "@cyberxninja-omp/pi-mnemopi/core/beam";
+import { Mnemopi } from "@cyberxninja-omp/pi-mnemopi/core/memory";
+import {
+	type ResolvedMnemopiRuntimeOptions,
+	withMnemopiRuntimeOptions,
+} from "@cyberxninja-omp/pi-mnemopi/core/runtime-options";
 
 interface EmbeddingRow {
 	readonly memory_id: string;

@@ -1,15 +1,15 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import type { AgentTool } from "@cxn/pi-agent-core";
-import type { TSchema } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import { renderMCPResult } from "@cxn/pi-coding-agent/mcp/render";
-import { DeferredMCPTool, MCPTool, type MCPToolDetails } from "@cxn/pi-coding-agent/mcp/tool-bridge";
-import type { MCPServerConnection, MCPToolDefinition, MCPTransport } from "@cxn/pi-coding-agent/mcp/types";
-import { ToolExecutionComponent } from "@cxn/pi-coding-agent/modes/components/tool-execution";
-import { theme as activeTheme, getThemeByName, initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { formatOutputNotice, type OutputMeta } from "@cxn/pi-coding-agent/tools/output-meta";
-import { formatStatusIcon } from "@cxn/pi-coding-agent/tools/render-utils";
-import { TUI } from "@cxn/pi-tui";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import type { TSchema } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { renderMCPResult } from "@cyberxninja-omp/pi-coding-agent/mcp/render";
+import { DeferredMCPTool, MCPTool, type MCPToolDetails } from "@cyberxninja-omp/pi-coding-agent/mcp/tool-bridge";
+import type { MCPServerConnection, MCPToolDefinition, MCPTransport } from "@cyberxninja-omp/pi-coding-agent/mcp/types";
+import { ToolExecutionComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tool-execution";
+import { theme as activeTheme, getThemeByName, initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { formatOutputNotice, type OutputMeta } from "@cyberxninja-omp/pi-coding-agent/tools/output-meta";
+import { formatStatusIcon } from "@cyberxninja-omp/pi-coding-agent/tools/render-utils";
+import { TUI } from "@cyberxninja-omp/pi-tui";
 import { VirtualTerminal } from "../../tui/test/virtual-terminal";
 
 beforeAll(async () => {

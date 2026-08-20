@@ -1,5 +1,5 @@
 import { expect } from "bun:test";
-import { type as arkType, type Type } from "@cxn/omptype";
+import { type as arkType, type Type } from "@cyberxninja-omp/omptype";
 
 function formatIssues(error: unknown): string {
 	if (error instanceof Error) {

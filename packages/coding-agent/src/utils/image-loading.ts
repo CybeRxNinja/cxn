@@ -1,7 +1,20 @@
 import * as fs from "node:fs/promises";
-import type { Context, ImageContent, Message, Model, OpenAIResponsesHistoryPayload, TextContent } from "@cxn/pi-ai";
-import { formatBytes, isRecord, logger, readImageMetadata, SUPPORTED_IMAGE_MIME_TYPES } from "@cxn/pi-utils";
-import { LRUCache } from "@cxn/pi-utils/lru";
+import type {
+	Context,
+	ImageContent,
+	Message,
+	Model,
+	OpenAIResponsesHistoryPayload,
+	TextContent,
+} from "@cyberxninja-omp/pi-ai";
+import {
+	formatBytes,
+	isRecord,
+	logger,
+	readImageMetadata,
+	SUPPORTED_IMAGE_MIME_TYPES,
+} from "@cyberxninja-omp/pi-utils";
+import { LRUCache } from "@cyberxninja-omp/pi-utils/lru";
 import { resolveReadPath } from "../tools/path-utils";
 import { formatDimensionNote, type ImageResizeOptions, resizeImage } from "./image-resize";
 

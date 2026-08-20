@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { ExtensionRunner } from "@cxn/pi-coding-agent/extensibility/extensions/runner";
-import type { ExtensionRuntime } from "@cxn/pi-coding-agent/extensibility/extensions/types";
-import type { AsyncJobSnapshot } from "@cxn/pi-coding-agent/session/agent-session";
+import { ExtensionRunner } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/runner";
+import type { ExtensionRuntime } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/types";
+import type { AsyncJobSnapshot } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
 
 function createRunner(getAsyncJobSnapshot?: () => AsyncJobSnapshot | null): ExtensionRunner {
 	const runtime = {

@@ -7,8 +7,8 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { loadExtensions } from "@cxn/pi-coding-agent/extensibility/extensions/loader";
-import { TempDir } from "@cxn/pi-utils";
+import { loadExtensions } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions/loader";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const EVENTS_KEY = "__ompExtensionLoaderConcurrencyEvents";
 const RELEASE_KEY = "__ompExtensionLoaderConcurrencyRelease";

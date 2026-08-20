@@ -6,17 +6,17 @@
   ...
 }:
 let
-  cfg = config.programs.cxn;
+  cfg = config.programs.omp;
   yaml = pkgs.formats.yaml { };
 in
 {
-  options.programs.cxn = {
+  options.programs.omp = {
     enable = lib.mkEnableOption "CXN coding agent";
 
     package = lib.mkOption {
       type = lib.types.package;
       default = self.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      defaultText = lib.literalExpression "inputs.cxn.packages.${pkgs.stdenv.hostPlatform.system}.default";
+      defaultText = lib.literalExpression "inputs.omp.packages.${pkgs.stdenv.hostPlatform.system}.default";
       description = "CXN package to install.";
     };
 
@@ -24,7 +24,7 @@ in
       type = lib.types.nullOr yaml.type;
       default = null;
       description = ''
-        Settings written declaratively to {file}`~/.cxn/agent/config.yml`.
+        Settings written declaratively to {file}`~/.omp/agent/config.yml`.
         The file is a read-only store symlink: changes made from inside CXN
         (`/settings`, onboarding) replace it but revert on the next
         `home-manager switch`.
@@ -38,7 +38,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    home.file.".cxn/agent/config.yml" = lib.mkIf (cfg.settings != null) {
+    home.file.".omp/agent/config.yml" = lib.mkIf (cfg.settings != null) {
       source = yaml.generate "cxn-config.yml" cfg.settings;
     };
   };

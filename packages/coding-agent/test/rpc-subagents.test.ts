@@ -2,16 +2,19 @@ import { afterEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { ImageContent } from "@cxn/pi-ai";
-import { RpcClient } from "@cxn/pi-coding-agent/modes/rpc/rpc-client";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
+import { RpcClient } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-client";
 import {
 	handleRpcSessionChange,
 	type RpcSessionChangeCommand,
 	type RpcSessionChangeResult,
 	type RpcSessionChangeSession,
-} from "@cxn/pi-coding-agent/modes/rpc/rpc-mode";
-import { RpcSubagentRegistry, readRpcSubagentTranscript } from "@cxn/pi-coding-agent/modes/rpc/rpc-subagents";
-import type { RpcSubagentFrame } from "@cxn/pi-coding-agent/modes/rpc/rpc-types";
+} from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-mode";
+import {
+	RpcSubagentRegistry,
+	readRpcSubagentTranscript,
+} from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-subagents";
+import type { RpcSubagentFrame } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-types";
 import {
 	type AgentProgress,
 	type SubagentEventPayload,
@@ -20,9 +23,9 @@ import {
 	TASK_SUBAGENT_EVENT_CHANNEL,
 	TASK_SUBAGENT_LIFECYCLE_CHANNEL,
 	TASK_SUBAGENT_PROGRESS_CHANNEL,
-} from "@cxn/pi-coding-agent/task";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/task";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const tempPaths: string[] = [];
 

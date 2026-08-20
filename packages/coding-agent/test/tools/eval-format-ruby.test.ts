@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { formatRubyForDisplay } from "@cxn/pi-coding-agent/tools/eval-format/ruby";
+import { formatRubyForDisplay } from "@cyberxninja-omp/pi-coding-agent/tools/eval-format/ruby";
 
 describe("formatRubyForDisplay", () => {
 	it("expands genuinely compact nested blocks", () => {

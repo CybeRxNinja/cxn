@@ -1,4 +1,4 @@
-import { type Component, matchesKey, type OverlayFocusOwner } from "@cxn/pi-tui";
+import { type Component, matchesKey, type OverlayFocusOwner } from "@cyberxninja-omp/pi-tui";
 import type { InteractiveModeContext } from "../types";
 import { renderSetupSplash, SETUP_SPLASH_MS, SETUP_TICK_MS } from "./scenes/splash";
 

@@ -14,14 +14,14 @@
  * silently reporting a successful no-op navigation (review on #5895).
  */
 import { describe, expect, it, vi } from "bun:test";
-import { Agent, type AgentToolResult } from "@cxn/pi-agent-core";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ExtensionRunner, ExtensionUIContext } from "@cxn/pi-coding-agent/extensibility/extensions";
-import { SecretObfuscator } from "@cxn/pi-coding-agent/secrets/obfuscator";
-import { AgentSession } from "@cxn/pi-coding-agent/session/agent-session";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import type { AskToolDetails } from "@cxn/pi-coding-agent/tools/ask";
+import { Agent, type AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ExtensionRunner, ExtensionUIContext } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import { SecretObfuscator } from "@cyberxninja-omp/pi-coding-agent/secrets/obfuscator";
+import { AgentSession } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import type { AskToolDetails } from "@cyberxninja-omp/pi-coding-agent/tools/ask";
 
 const TEST_MODEL = getBundledModel("anthropic", "claude-sonnet-4-5")!;
 

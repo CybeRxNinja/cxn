@@ -1,10 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { getToolDashboardStats, syncAllSessions } from "@cxn/cxn-stats/aggregator";
-import { getToolStats, getToolStatsByModel } from "@cxn/cxn-stats/db";
-import type { ToolUsageStats } from "@cxn/cxn-stats/types";
-import { getSessionsDir } from "@cxn/pi-utils";
+import { getToolDashboardStats, syncAllSessions } from "@cyberxninja-omp/omp-stats/aggregator";
+import { getToolStats, getToolStatsByModel } from "@cyberxninja-omp/omp-stats/db";
+import type { ToolUsageStats } from "@cyberxninja-omp/omp-stats/types";
+import { getSessionsDir } from "@cyberxninja-omp/pi-utils";
 import { installStatsTestIsolation } from "./helpers/temp-agent";
 
 installStatsTestIsolation("@pi-stats-tool-stats-");

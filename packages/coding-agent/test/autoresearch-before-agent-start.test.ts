@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { createAutoresearchExtension } from "@cxn/pi-coding-agent/autoresearch";
-import { closeAllAutoresearchStorages } from "@cxn/pi-coding-agent/autoresearch/storage";
+import { createAutoresearchExtension } from "@cyberxninja-omp/pi-coding-agent/autoresearch";
+import { closeAllAutoresearchStorages } from "@cyberxninja-omp/pi-coding-agent/autoresearch/storage";
 import type {
 	BeforeAgentStartEvent,
 	BeforeAgentStartEventResult,
@@ -8,9 +8,9 @@ import type {
 	ExtensionContext,
 	ExtensionHandler,
 	SessionStartEvent,
-} from "@cxn/pi-coding-agent/extensibility/extensions";
-import * as git from "@cxn/pi-coding-agent/utils/git";
-import { TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 // Reproduces issue #3665: when the upstream system prompt resolution leaves
 // `event.systemPrompt` unset, the autoresearch handler must still render its

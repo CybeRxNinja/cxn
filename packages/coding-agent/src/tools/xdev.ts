@@ -28,10 +28,20 @@
  * known and provably does not target `xd://`; device writes then delegate to
  * the wrapped tool's own renderer with the decoded inner args.
  */
-import type { AgentToolContext, AgentToolResult, AgentToolUpdateCallback, ToolLoadMode } from "@cxn/pi-agent-core";
-import { type Tool as AiTool, jsonSchemaToTypeScript, toolWireSchema, validateToolArguments } from "@cxn/pi-ai";
-import { type Component, Container, Text } from "@cxn/pi-tui";
-import { parseStreamingJson } from "@cxn/pi-utils";
+import type {
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+	ToolLoadMode,
+} from "@cyberxninja-omp/pi-agent-core";
+import {
+	type Tool as AiTool,
+	jsonSchemaToTypeScript,
+	toolWireSchema,
+	validateToolArguments,
+} from "@cyberxninja-omp/pi-ai";
+import { type Component, Container, Text } from "@cyberxninja-omp/pi-tui";
+import { parseStreamingJson } from "@cyberxninja-omp/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import { XD_URL_PREFIX } from "../internal-urls/xd-protocol";
 import type { Theme } from "../modes/theme/theme";

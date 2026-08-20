@@ -6,16 +6,16 @@
   ...
 }:
 let
-  cfg = config.programs.cxn;
+  cfg = config.programs.omp;
 in
 {
-  options.programs.cxn = {
+  options.programs.omp = {
     enable = lib.mkEnableOption "CXN coding agent";
 
     package = lib.mkOption {
       type = lib.types.package;
       default = self.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      defaultText = lib.literalExpression "inputs.cxn.packages.${pkgs.stdenv.hostPlatform.system}.default";
+      defaultText = lib.literalExpression "inputs.omp.packages.${pkgs.stdenv.hostPlatform.system}.default";
       description = "CXN package to install system-wide.";
     };
   };

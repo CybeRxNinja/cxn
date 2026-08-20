@@ -639,10 +639,10 @@ def resolve_cxn_bin(raw: str | None) -> str:
     repo_bin = resolve_repo_cxn_bin()
     if repo_bin:
         return repo_bin
-    found = shutil.which("cxn")
+    found = shutil.which("omp")
     if not found:
         raise SystemExit(
-            "Could not find `cxn` on PATH and could not resolve the repo CLI. Set --cxn-bin or CXN_BIN."
+            "Could not find `omp` on PATH and could not resolve the repo CLI. Set --cxn-bin or CXN_BIN."
         )
     return found
 
@@ -912,7 +912,7 @@ def parse_args(description: str) -> argparse.Namespace:
     parser.add_argument(
         "--cxn-bin",
         default=os.environ.get("CXN_BIN"),
-        help="Executable to launch. Defaults to the repo checkout CLI, then falls back to `cxn` on PATH.",
+        help="Executable to launch. Defaults to the repo checkout CLI, then falls back to `omp` on PATH.",
     )
     parser.add_argument(
         "--timeout", type=float, default=60.0, help="Per-turn timeout in seconds."

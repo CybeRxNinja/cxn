@@ -1,11 +1,18 @@
 import { mkdirSync } from "node:fs";
 import * as fsp from "node:fs/promises";
 import * as nodePath from "node:path";
-import { type ApiKey, getOpenRouterHeaders, withAuth } from "@cxn/pi-ai";
-import { ProviderHttpError } from "@cxn/pi-ai/error";
-import { hostMatchesUrl } from "@cxn/pi-catalog/hosts";
-import { $env, $flag, extractHttpStatusFromError, fetchWithRetry, getFastembedCacheDir, logger } from "@cxn/pi-utils";
-import { LRUCache } from "@cxn/pi-utils/lru";
+import { type ApiKey, getOpenRouterHeaders, withAuth } from "@cyberxninja-omp/pi-ai";
+import { ProviderHttpError } from "@cyberxninja-omp/pi-ai/error";
+import { hostMatchesUrl } from "@cyberxninja-omp/pi-catalog/hosts";
+import {
+	$env,
+	$flag,
+	extractHttpStatusFromError,
+	fetchWithRetry,
+	getFastembedCacheDir,
+	logger,
+} from "@cyberxninja-omp/pi-utils";
+import { LRUCache } from "@cyberxninja-omp/pi-utils/lru";
 import type { EmbeddingModel } from "fastembed";
 import { ensureFastembedModelSidecars } from "./fastembed-model-cache";
 import { loadFastembed } from "./fastembed-runtime";

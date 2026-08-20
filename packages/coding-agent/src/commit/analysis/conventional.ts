@@ -1,7 +1,7 @@
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Api, ApiKey, Model } from "@cxn/pi-ai";
-import { completeSimple, retryTransientCompletion } from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Api, ApiKey, Model } from "@cyberxninja-omp/pi-ai";
+import { completeSimple, retryTransientCompletion } from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import analysisSystemPrompt from "../../commit/prompts/analysis-system.md" with { type: "text" };
 import analysisUserPrompt from "../../commit/prompts/analysis-user.md" with { type: "text" };
 import type { ConventionalAnalysis } from "../../commit/types";

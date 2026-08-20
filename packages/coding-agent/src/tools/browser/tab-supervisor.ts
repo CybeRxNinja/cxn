@@ -1,4 +1,11 @@
-import { getPuppeteerDir, logger, postmortem, Snowflake, withTimeout, workerHostEntry } from "@cxn/pi-utils";
+import {
+	getPuppeteerDir,
+	logger,
+	postmortem,
+	Snowflake,
+	withTimeout,
+	workerHostEntry,
+} from "@cyberxninja-omp/pi-utils";
 import type { Page, Target } from "puppeteer-core";
 import { callSessionTool } from "../../eval/js/tool-bridge";
 import { webpExclusionForModel } from "../../utils/image-loading";

@@ -1,12 +1,12 @@
 /**
  * Tree-sitter-backed {@link BlockResolver} for the hashline `N*` locator.
  * Bridges the pure hashline seam to the native `blockRangeAt` primitive in
- * `@cxn/pi-natives`, which infers the language from the file path and
+ * `@cyberxninja-omp/pi-natives`, which infers the language from the file path and
  * returns the 1-indexed line span of the syntactic block beginning on the
  * requested line (or `null` when none can be resolved).
  */
-import type { BlockResolver } from "@cxn/hashline";
-import { blockRangeAt } from "@cxn/pi-natives";
+import type { BlockResolver } from "@cyberxninja-omp/hashline";
+import { blockRangeAt } from "@cyberxninja-omp/pi-natives";
 
 /**
  * `blockRangeAt` runs a full synchronous tree-sitter parse of `text` per

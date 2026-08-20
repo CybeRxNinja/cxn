@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { loadCapability } from "@cxn/pi-coding-agent/capability";
-import { clearCache as clearFsCache } from "@cxn/pi-coding-agent/capability/fs";
-import { clearClaudePluginRootsCache } from "@cxn/pi-coding-agent/discovery/helpers";
-import { removeWithRetries } from "@cxn/pi-utils";
-import "@cxn/pi-coding-agent/discovery/claude-plugins";
-import type { MCPServer } from "@cxn/pi-coding-agent/capability/mcp";
+import { loadCapability } from "@cyberxninja-omp/pi-coding-agent/capability";
+import { clearCache as clearFsCache } from "@cyberxninja-omp/pi-coding-agent/capability/fs";
+import { clearClaudePluginRootsCache } from "@cyberxninja-omp/pi-coding-agent/discovery/helpers";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
+import "@cyberxninja-omp/pi-coding-agent/discovery/claude-plugins";
+import type { MCPServer } from "@cyberxninja-omp/pi-coding-agent/capability/mcp";
 
 describe("issue-851: claude-plugins loads flat .mcp.json shape", () => {
 	let tempDir: string;

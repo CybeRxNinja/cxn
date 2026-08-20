@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
 	__resolveTypeBoxShimPath,
 	__validateLegacyPiPackageRootOverrides,
-} from "@cxn/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/legacy-pi-compat";
 
 // Regression for issue #2168: in compiled-binary mode the package-root
 // override branch of `resolveCanonicalPiSpecifier` returned a bunfs path
@@ -22,8 +22,8 @@ import {
 describe("legacy pi compat package-root override validation (issue #2168)", () => {
 	it("keeps overrides whose filesystem targets exist", () => {
 		const candidates = {
-			"@cxn/pi-ai": "/tmp/exists-ai.js",
-			"@cxn/pi-utils": "/tmp/exists-utils.js",
+			"@cyberxninja-omp/pi-ai": "/tmp/exists-ai.js",
+			"@cyberxninja-omp/pi-utils": "/tmp/exists-utils.js",
 		};
 		const result = __validateLegacyPiPackageRootOverrides(candidates, () => true);
 		expect(result).toEqual(candidates);
@@ -31,29 +31,29 @@ describe("legacy pi compat package-root override validation (issue #2168)", () =
 
 	it("drops overrides whose filesystem targets are missing on disk", () => {
 		const candidates = {
-			"@cxn/pi-ai": "/tmp/exists-ai.js",
-			"@cxn/pi-coding-agent": "/tmp/exists-shim.js",
-			"@cxn/pi-utils": "/$bunfs/root/packages/utils/src/index.js",
-			"@cxn/pi-tui": "/$bunfs/root/packages/tui/src/index.js",
+			"@cyberxninja-omp/pi-ai": "/tmp/exists-ai.js",
+			"@cyberxninja-omp/pi-coding-agent": "/tmp/exists-shim.js",
+			"@cyberxninja-omp/pi-utils": "/$bunfs/root/packages/utils/src/index.js",
+			"@cyberxninja-omp/pi-tui": "/$bunfs/root/packages/tui/src/index.js",
 		};
 		const missing = new Set(["/$bunfs/root/packages/utils/src/index.js", "/$bunfs/root/packages/tui/src/index.js"]);
 		const result = __validateLegacyPiPackageRootOverrides(candidates, p => !missing.has(p));
 		expect(result).toEqual({
-			"@cxn/pi-ai": "/tmp/exists-ai.js",
-			"@cxn/pi-coding-agent": "/tmp/exists-shim.js",
+			"@cyberxninja-omp/pi-ai": "/tmp/exists-ai.js",
+			"@cyberxninja-omp/pi-coding-agent": "/tmp/exists-shim.js",
 		});
 		// `pi-utils` and `pi-tui` are absent so the resolver falls through to
 		// `getResolvedSpecifier` (which throws under bunfs), which triggers
 		// the catch in `rewriteLegacyPiImports` that leaves the specifier
 		// unchanged for native `node_modules` resolution.
-		expect(result).not.toHaveProperty("@cxn/pi-utils");
-		expect(result).not.toHaveProperty("@cxn/pi-tui");
+		expect(result).not.toHaveProperty("@cyberxninja-omp/pi-utils");
+		expect(result).not.toHaveProperty("@cyberxninja-omp/pi-tui");
 	});
 
 	it("drops every override when none of the filesystem targets exist", () => {
 		const candidates = {
-			"@cxn/pi-utils": "/$bunfs/root/packages/utils/src/index.js",
-			"@cxn/pi-tui": "/$bunfs/root/packages/tui/src/index.js",
+			"@cyberxninja-omp/pi-utils": "/$bunfs/root/packages/utils/src/index.js",
+			"@cyberxninja-omp/pi-tui": "/$bunfs/root/packages/tui/src/index.js",
 		};
 		const result = __validateLegacyPiPackageRootOverrides(candidates, () => false);
 		expect(result).toEqual({});
@@ -66,12 +66,12 @@ describe("legacy pi compat package-root override validation (issue #2168)", () =
 		// validator MUST short-circuit before any filesystem probe.
 		let probed = false;
 		const candidates = {
-			"@cxn/pi-ai": "cxn-legacy-pi-bundled:@cxn/pi-ai",
-			"@cxn/pi-coding-agent": "cxn-legacy-pi-bundled:@cxn/pi-coding-agent",
-			"@cxn/pi-agent-core": "cxn-legacy-pi-bundled:@cxn/pi-agent-core",
-			"@cxn/pi-natives": "cxn-legacy-pi-bundled:@cxn/pi-natives",
-			"@cxn/pi-tui": "cxn-legacy-pi-bundled:@cxn/pi-tui",
-			"@cxn/pi-utils": "cxn-legacy-pi-bundled:@cxn/pi-utils",
+			"@cyberxninja-omp/pi-ai": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-ai",
+			"@cyberxninja-omp/pi-coding-agent": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-coding-agent",
+			"@cyberxninja-omp/pi-agent-core": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-agent-core",
+			"@cyberxninja-omp/pi-natives": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-natives",
+			"@cyberxninja-omp/pi-tui": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-tui",
+			"@cyberxninja-omp/pi-utils": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-utils",
 		};
 		const result = __validateLegacyPiPackageRootOverrides(candidates, () => {
 			probed = true;
@@ -83,15 +83,15 @@ describe("legacy pi compat package-root override validation (issue #2168)", () =
 
 	it("mixes virtual and filesystem entries: virtuals always pass, filesystems gated", () => {
 		const candidates = {
-			"@cxn/pi-ai": "cxn-legacy-pi-bundled:@cxn/pi-ai",
-			"@cxn/pi-coding-agent": "/dev/source/legacy-pi-coding-agent-shim.ts",
-			"@cxn/pi-tui": "/missing/path.ts",
+			"@cyberxninja-omp/pi-ai": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-ai",
+			"@cyberxninja-omp/pi-coding-agent": "/dev/source/legacy-pi-coding-agent-shim.ts",
+			"@cyberxninja-omp/pi-tui": "/missing/path.ts",
 		};
 		const missing = new Set(["/missing/path.ts"]);
 		const result = __validateLegacyPiPackageRootOverrides(candidates, p => !missing.has(p));
 		expect(result).toEqual({
-			"@cxn/pi-ai": "cxn-legacy-pi-bundled:@cxn/pi-ai",
-			"@cxn/pi-coding-agent": "/dev/source/legacy-pi-coding-agent-shim.ts",
+			"@cyberxninja-omp/pi-ai": "cxn-legacy-pi-bundled:@cyberxninja-omp/pi-ai",
+			"@cyberxninja-omp/pi-coding-agent": "/dev/source/legacy-pi-coding-agent-shim.ts",
 		});
 	});
 });

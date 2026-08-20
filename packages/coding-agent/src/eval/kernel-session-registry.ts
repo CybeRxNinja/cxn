@@ -1,6 +1,6 @@
 import * as path from "node:path";
 
-import { logger } from "@cxn/pi-utils";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import {
 	attachSessionOwner,
 	type CancelledErrorClass,

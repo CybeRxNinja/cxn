@@ -11,11 +11,11 @@
  * stacked, each showing its tool calls and streamed text as it works.
  */
 
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { Component } from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui";
-import { prompt } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, AgentToolResult, AgentToolUpdateCallback } from "@cyberxninja-omp/pi-agent-core";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import { shimmerEnabled, shimmerText } from "../modes/theme/shimmer";
 import type { Theme } from "../modes/theme/theme";

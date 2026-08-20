@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
-import * as AIError from "@cxn/pi-ai/error";
-import { ZaiOAuthFlow } from "@cxn/pi-ai/registry/oauth/zai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { ZaiOAuthFlow } from "@cyberxninja-omp/pi-ai/registry/oauth/zai";
 
 const CLIENT_ID = "client_P8X5CMWmlaRO9gyO-KSqtg";
 const AUTHORIZE_URL = "https://chat.z.ai/api/oauth/authorize";
@@ -87,7 +87,7 @@ function makeBizFetch(
 		}
 		if (url === KEYS_URL && method === "POST") {
 			// Create returns an inline secret; the flow must IGNORE it and copy.
-			return bizEnvelope({ name: "cxn", apiKey: "created-key", secretKey: "inline-ignored" });
+			return bizEnvelope({ name: "omp", apiKey: "created-key", secretKey: "inline-ignored" });
 		}
 		if (url.startsWith(`${KEYS_URL}/copy/`)) {
 			const apiKey = decodeURIComponent(url.slice(`${KEYS_URL}/copy/`.length));
@@ -154,14 +154,14 @@ describe("zai oauth flow", () => {
 			expect(bizReq.authorization).toBe("Bearer biz-token");
 		}
 		// Created CXN's own key name, never ZCode's.
-		expect(requests[4]?.body).toEqual({ name: "cxn" });
+		expect(requests[4]?.body).toEqual({ name: "omp" });
 	});
 
 	it("reuses an existing key and takes the full secret from copy, not the masked list value", async () => {
 		const { fetchMock, requests } = makeBizFetch({
 			existingKeys: [
 				{ name: "zcode-api-key", apiKey: "zcode-key", secretKey: "*****aaaa" },
-				{ name: "cxn", apiKey: "existing-key", secretKey: "*****pz5Y" },
+				{ name: "omp", apiKey: "existing-key", secretKey: "*****pz5Y" },
 			],
 		});
 		const flow = new ZaiOAuthFlow({ fetch: fetchMock as unknown as typeof fetch });

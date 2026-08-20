@@ -1,5 +1,5 @@
-import * as AIError from "@cxn/pi-ai/error";
-import { logger, readSseEvents } from "@cxn/pi-utils";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { logger, readSseEvents } from "@cyberxninja-omp/pi-utils";
 import type {
 	JsonRpcError,
 	JsonRpcMessage,

@@ -4,9 +4,9 @@ import {
 	type AuthCredentialStore,
 	AuthStorage,
 	type StoredAuthCredential,
-} from "@cxn/pi-ai/auth-storage";
-import type { UsageLimit, UsageReport } from "@cxn/pi-ai/usage";
-import * as claudeUsage from "@cxn/pi-ai/usage/claude";
+} from "@cyberxninja-omp/pi-ai/auth-storage";
+import type { UsageLimit, UsageReport } from "@cyberxninja-omp/pi-ai/usage";
+import * as claudeUsage from "@cyberxninja-omp/pi-ai/usage/claude";
 
 interface ObservableStore extends AuthCredentialStore {
 	cache: Map<string, { value: string; expiresAtSec: number }>;

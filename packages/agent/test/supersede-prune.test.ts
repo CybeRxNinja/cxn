@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import type { AgentMessage } from "@cxn/pi-agent-core";
-import type { SessionEntry, SessionMessageEntry } from "@cxn/pi-agent-core/compaction";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { SessionEntry, SessionMessageEntry } from "@cyberxninja-omp/pi-agent-core/compaction";
 import {
 	DEFAULT_PRUNE_CONFIG,
 	pruneSupersededToolResults,
@@ -9,9 +9,9 @@ import {
 	SUPERSEDED_NOTICE,
 	type SupersedePruneConfig,
 	USELESS_NOTICE,
-} from "@cxn/pi-agent-core/compaction";
-import type { ProtectedToolContext } from "@cxn/pi-agent-core/compaction/tool-protection";
-import type { AssistantMessage, TextContent, ToolResultMessage } from "@cxn/pi-ai";
+} from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { ProtectedToolContext } from "@cyberxninja-omp/pi-agent-core/compaction/tool-protection";
+import type { AssistantMessage, TextContent, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
 
 let idCounter = 0;
 function nextId(): string {

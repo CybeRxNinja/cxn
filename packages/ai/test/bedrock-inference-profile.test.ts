@@ -2,10 +2,10 @@ import { describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { streamBedrock } from "@cxn/pi-ai/providers/amazon-bedrock";
-import type { Context, FetchImpl, Model } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { Effort } from "@cxn/pi-catalog/effort";
+import { streamBedrock } from "@cyberxninja-omp/pi-ai/providers/amazon-bedrock";
+import type { Context, FetchImpl, Model } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
 import { removeWithRetries } from "../../utils/src/temp";
 import { withEnv } from "./helpers";
 

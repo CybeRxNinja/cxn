@@ -2,11 +2,11 @@ import { Database } from "bun:sqlite";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
-import type { FetchImpl, ImageContent, TextContent } from "@cxn/pi-ai";
-import { htmlToMarkdown } from "@cxn/pi-natives";
-import { type Component, Text } from "@cxn/pi-tui";
-import { $which, ptree, truncate } from "@cxn/pi-utils";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import type { FetchImpl, ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
+import { htmlToMarkdown } from "@cyberxninja-omp/pi-natives";
+import { type Component, Text } from "@cyberxninja-omp/pi-tui";
+import { $which, ptree, truncate } from "@cyberxninja-omp/pi-utils";
 import type { Settings } from "../config/settings";
 import { readEditableNotebookText } from "../edit/notebook";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
@@ -516,7 +516,7 @@ function cleanFeedText(text: string): string {
  * Parse RSS/Atom feed to markdown
  */
 async function parseFeedToMarkdown(content: string, maxItems = 10): Promise<string> {
-	const { parseHTML } = await import("@cxn/pi-utils/dom");
+	const { parseHTML } = await import("@cyberxninja-omp/pi-utils/dom");
 	try {
 		const doc = parseHTML(content).document;
 

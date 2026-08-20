@@ -1,5 +1,5 @@
-import { Spacer } from "@cxn/pi-tui";
-import { APP_NAME } from "@cxn/pi-utils";
+import { Spacer } from "@cyberxninja-omp/pi-tui";
+import { APP_NAME } from "@cyberxninja-omp/pi-utils";
 import { CollabGuestLink } from "../collab/guest";
 import { CollabHost } from "../collab/host";
 import type { SettingPath, SettingValue } from "../config/settings";

@@ -949,9 +949,9 @@ def sync_reference_fixtures(fixtures_dir: Path) -> None:
 def resolve_cxn_bin(raw: str | None) -> str:
     if raw:
         return raw
-    found = shutil.which("cxn")
+    found = shutil.which("omp")
     if not found:
-        raise SystemExit("Could not find `cxn` on PATH. Set --cxn-bin or CXN_BIN.")
+        raise SystemExit("Could not find `omp` on PATH. Set --cxn-bin or CXN_BIN.")
     return found
 
 
@@ -1410,7 +1410,7 @@ def run_oracle_review_sync(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run OpenRouter fixture evaluations through cxn RPC mode."
+        description="Run OpenRouter fixture evaluations through omp RPC mode."
     )
     parser.add_argument("--cxn-bin", default=os.environ.get("CXN_BIN"))
     parser.add_argument("--fixtures-dir", default=os.path.expanduser("~/tmp/fixtures"))

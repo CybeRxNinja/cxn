@@ -6,15 +6,15 @@
  * internals, which massively overcounts.
  */
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { arkToWireSchema } from "@cxn/pi-ai/utils/schema";
+import { type } from "@cyberxninja-omp/omptype";
+import { arkToWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
 import {
 	type ContextBreakdown,
 	computeNonMessageBreakdown,
 	computeNonMessageTokens,
 	estimateToolSchemaTokens,
 	renderContextUsage,
-} from "@cxn/pi-coding-agent/modes/utils/context-usage";
+} from "@cyberxninja-omp/pi-coding-agent/modes/utils/context-usage";
 
 describe("estimateToolSchemaTokens", () => {
 	it("counts arktype tool schemas by their wire JSON Schema, not arktype internals", () => {

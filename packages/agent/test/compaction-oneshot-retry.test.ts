@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { generateSummary } from "@cxn/pi-agent-core/compaction";
-import type { AgentMessage } from "@cxn/pi-agent-core/types";
-import type { AssistantMessage, Model, Usage } from "@cxn/pi-ai/types";
+import { generateSummary } from "@cyberxninja-omp/pi-agent-core/compaction";
+import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core/types";
+import type { AssistantMessage, Model, Usage } from "@cyberxninja-omp/pi-ai/types";
 
 /**
  * Defends `SummaryOptions.oneshotRetry`, the split that lets manual `/compact`

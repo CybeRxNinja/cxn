@@ -1,5 +1,5 @@
-import type { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { Api, ApiKey, Model } from "@cxn/pi-ai";
+import type { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { Api, ApiKey, Model } from "@cyberxninja-omp/pi-ai";
 import type { ApiKeyResolverRegistry } from "../config/api-key-resolver";
 import {
 	getModelMatchPreferences,

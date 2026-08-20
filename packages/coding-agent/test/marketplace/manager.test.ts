@@ -3,17 +3,17 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 
-import { listOmpExtensionRoots } from "@cxn/pi-coding-agent/discovery/cxn-extension-roots";
-import { getEnabledPlugins } from "@cxn/pi-coding-agent/extensibility/plugins/loader";
-import { PluginManager } from "@cxn/pi-coding-agent/extensibility/plugins/manager";
+import { listOmpExtensionRoots } from "@cyberxninja-omp/pi-coding-agent/discovery/cxn-extension-roots";
+import { getEnabledPlugins } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/loader";
+import { PluginManager } from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/manager";
 import {
 	MarketplaceManager,
 	readInstalledPluginsRegistry,
 	readMarketplacesRegistry,
 	writeMarketplacesRegistry,
-} from "@cxn/pi-coding-agent/extensibility/plugins/marketplace";
-import * as piUtils from "@cxn/pi-utils";
-import { removeSyncWithRetries } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/plugins/marketplace";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
+import { removeSyncWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // Minimal marketplace fixture, built once into a temp dir (see beforeAll). It carries only
 // what these tests assert — one plugin entry plus a plugin.json for the version-fallback path —
@@ -52,7 +52,7 @@ function buildMinimalFixture(): string {
 		JSON.stringify({
 			name: "hello-plugin",
 			version: "1.0.0",
-			cxn: { extensions: ["./extensions"] },
+			omp: { extensions: ["./extensions"] },
 		}),
 	);
 	fs.writeFileSync(path.join(pluginDir, "extensions", "index.ts"), "export default {};\n");
@@ -179,7 +179,7 @@ describe("MarketplaceManager", () => {
 
 		try {
 			const added = await ctx.manager.addMarketplace(FIXTURE_DIR);
-			const catalogPath = "~/.cxn/plugins/cache/marketplaces/test-marketplace/marketplace.json";
+			const catalogPath = "~/.omp/plugins/cache/marketplaces/test-marketplace/marketplace.json";
 			const registry = await readMarketplacesRegistry(registryPath);
 			await writeMarketplacesRegistry(registryPath, {
 				...registry,
@@ -276,9 +276,9 @@ describe("MarketplaceManager", () => {
 	it("installPlugin exposes marketplace package to the runtime loader", async () => {
 		const tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-mgr-home-"));
 		try {
-			const pluginsDir = path.join(tmpHome, ".cxn", "plugins");
+			const pluginsDir = path.join(tmpHome, ".omp", "plugins");
 			const manager = new MarketplaceManager({
-				marketplacesRegistryPath: path.join(tmpHome, ".cxn", "marketplaces.json"),
+				marketplacesRegistryPath: path.join(tmpHome, ".omp", "marketplaces.json"),
 				installedRegistryPath: path.join(pluginsDir, "installed_plugins.json"),
 				marketplacesCacheDir: path.join(pluginsDir, "cache", "marketplaces"),
 				pluginsCacheDir: path.join(pluginsDir, "cache", "plugins"),
@@ -347,7 +347,7 @@ describe("MarketplaceManager", () => {
 			`${JSON.stringify({
 				name: "hello-plugin",
 				version: "9.9.9",
-				cxn: { tools: "tools" },
+				omp: { tools: "tools" },
 			})}\n`,
 		);
 		fs.mkdirSync(path.join(localPlugin, "tools"), { recursive: true });
@@ -375,9 +375,9 @@ describe("MarketplaceManager", () => {
 	it("installPlugin keeps marketplace packages out of CXN extension roots", async () => {
 		const tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-mgr-home-"));
 		try {
-			const pluginsDir = path.join(tmpHome, ".cxn", "plugins");
+			const pluginsDir = path.join(tmpHome, ".omp", "plugins");
 			const manager = new MarketplaceManager({
-				marketplacesRegistryPath: path.join(tmpHome, ".cxn", "marketplaces.json"),
+				marketplacesRegistryPath: path.join(tmpHome, ".omp", "marketplaces.json"),
 				installedRegistryPath: path.join(pluginsDir, "installed_plugins.json"),
 				marketplacesCacheDir: path.join(pluginsDir, "cache", "marketplaces"),
 				pluginsCacheDir: path.join(pluginsDir, "cache", "plugins"),
@@ -397,11 +397,11 @@ describe("MarketplaceManager", () => {
 		const tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-mgr-home-"));
 		const projectAnchor = fs.mkdtempSync(path.join(os.tmpdir(), "cxn-mgr-project-"));
 		try {
-			const userPluginsDir = path.join(tmpHome, ".cxn", "plugins");
-			const projectPluginsDir = path.join(projectAnchor, ".cxn", "plugins");
+			const userPluginsDir = path.join(tmpHome, ".omp", "plugins");
+			const projectPluginsDir = path.join(projectAnchor, ".omp", "plugins");
 			fs.mkdirSync(projectPluginsDir, { recursive: true });
 			const manager = new MarketplaceManager({
-				marketplacesRegistryPath: path.join(tmpHome, ".cxn", "marketplaces.json"),
+				marketplacesRegistryPath: path.join(tmpHome, ".omp", "marketplaces.json"),
 				installedRegistryPath: path.join(userPluginsDir, "installed_plugins.json"),
 				projectInstalledRegistryPath: path.join(projectPluginsDir, "installed_plugins.json"),
 				marketplacesCacheDir: path.join(userPluginsDir, "cache", "marketplaces"),

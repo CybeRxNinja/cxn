@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import path from "node:path";
-import { type } from "@cxn/omptype";
-import type { AgentSideConnection, SessionNotification } from "@cxn/pi-utils/acp";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentSideConnection, SessionNotification } from "@cyberxninja-omp/pi-utils/acp";
 
 const arkSessionNotification = type({
 	sessionId: "string",
@@ -13,16 +13,16 @@ const arkSessionNotification = type({
 	},
 });
 
-import type { Model } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { AcpAgent } from "@cxn/pi-coding-agent/modes/acp/acp-agent";
+import type { Model } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { AcpAgent } from "@cyberxninja-omp/pi-coding-agent/modes/acp/acp-agent";
 import {
 	buildToolCallStartUpdate,
 	mapAgentSessionEventToAcpSessionUpdates,
 	normalizeReplayToolArguments,
-} from "@cxn/pi-coding-agent/modes/acp/acp-event-mapper";
-import type { AgentSession, AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
+} from "@cyberxninja-omp/pi-coding-agent/modes/acp/acp-event-mapper";
+import type { AgentSession, AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
 import { expectAcpStructure, expectAcpStructureRejects } from "./helpers/acp-schema";
 
 function makeAssistantMessage(text: string) {

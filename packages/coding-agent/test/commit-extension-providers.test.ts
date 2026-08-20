@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as path from "node:path";
-import { runCommitCommand } from "@cxn/pi-coding-agent/commit";
-import { getProjectAgentDir, setAgentDir, setProjectDir, TempDir } from "@cxn/pi-utils";
+import { runCommitCommand } from "@cyberxninja-omp/pi-coding-agent/commit";
+import { getProjectAgentDir, setAgentDir, setProjectDir, TempDir } from "@cyberxninja-omp/pi-utils";
 import { $ } from "bun";
 import { beginSettingsTest, restoreSettingsTestState, type SettingsTestState } from "./helpers/settings-test-state";
 

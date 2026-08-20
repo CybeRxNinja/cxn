@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import type { Tool } from "@cxn/pi-ai/types";
-import { isValidJsonSchema, toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
-import { type TSchema, Type } from "@cxn/pi-coding-agent/extensibility/legacy-typebox";
+import type { Tool } from "@cyberxninja-omp/pi-ai/types";
+import { isValidJsonSchema, toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
+import { type TSchema, Type } from "@cyberxninja-omp/pi-coding-agent/extensibility/legacy-typebox";
 
 /**
  * Exercise the legacy `__validator` failure-marker contract independently of

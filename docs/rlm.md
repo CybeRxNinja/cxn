@@ -3,7 +3,7 @@
 The RLM (recursive language model) execution model lets an agent spawn
 **recursive children** — full agent sessions that run detached from the
 parent's turn — and exchange **family messages** with them. This document
-describes cxn's adaptation: the semantics, the bridge surface, and the
+describes omp's adaptation: the semantics, the bridge surface, and the
 current scope.
 
 ## Concepts

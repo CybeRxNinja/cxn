@@ -33,13 +33,13 @@ pub(super) fn portal_runtime() -> CoreResult<&'static Runtime> {
 /// #7884 dropped the restore-token path.
 const ORPHANED_REMOTE_DESKTOP_TOKEN: &str = "remote-desktop-token";
 
-/// Resolves the `cxn` state directory (`$XDG_STATE_HOME/cxn` or
-/// `~/.local/state/cxn`) that holds portal tokens.
+/// Resolves the `omp` state directory (`$XDG_STATE_HOME/omp` or
+/// `~/.local/state/omp`) that holds portal tokens.
 fn cxn_state_dir() -> Option<PathBuf> {
 	let base = std::env::var_os("XDG_STATE_HOME")
 		.map(PathBuf::from)
 		.or_else(|| std::env::var_os("HOME").map(|home| PathBuf::from(home).join(".local/state")))?;
-	Some(base.join("cxn"))
+	Some(base.join("omp"))
 }
 
 fn remove_token_in(dir: &Path) {

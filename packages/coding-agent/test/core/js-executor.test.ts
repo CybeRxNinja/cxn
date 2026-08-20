@@ -1,13 +1,13 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, setDefaultTimeout, vi } from "bun:test";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { disposeAllVmContexts } from "@cxn/pi-coding-agent/eval/js/context-manager";
-import { executeJs, type JsResult } from "@cxn/pi-coding-agent/eval/js/executor";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { TempDir } from "@cxn/pi-utils";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { disposeAllVmContexts } from "@cyberxninja-omp/pi-coding-agent/eval/js/context-manager";
+import { executeJs, type JsResult } from "@cyberxninja-omp/pi-coding-agent/eval/js/executor";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 
 // JS eval cold-starts a Bun worker; under --isolate + high CI concurrency that startup
 // can exceed Bun's 5s default per-test timeout, flaking the suite. Give the worker-backed

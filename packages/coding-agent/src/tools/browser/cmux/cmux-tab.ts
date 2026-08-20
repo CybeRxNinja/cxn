@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { logger, postmortem, Snowflake, untilAborted } from "@cxn/pi-utils";
+import { logger, postmortem, Snowflake, untilAborted } from "@cyberxninja-omp/pi-utils";
 import { JsRuntime, type RuntimeHooks } from "../../../eval/js/shared/runtime";
 import { callSessionTool } from "../../../eval/js/tool-bridge";
 import { resizeImage } from "../../../utils/image-resize";

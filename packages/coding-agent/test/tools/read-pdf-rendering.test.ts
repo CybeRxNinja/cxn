@@ -2,13 +2,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ReadTool, type ReadToolDetails } from "@cxn/pi-coding-agent/tools/read";
-import * as pdfRead from "@cxn/pi-coding-agent/tools/read-pdf";
-import * as markit from "@cxn/pi-coding-agent/utils/markit";
-import { removeWithRetries } from "@cxn/pi-utils";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ReadTool, type ReadToolDetails } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import * as pdfRead from "@cyberxninja-omp/pi-coding-agent/tools/read-pdf";
+import * as markit from "@cyberxninja-omp/pi-coding-agent/utils/markit";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const ONE_PX_PNG = Buffer.from(
 	"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC",

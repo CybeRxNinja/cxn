@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
-import { type AgentMessage, ASIDE_MESSAGE_COMMIT } from "@cxn/pi-agent-core";
-import { YieldQueue } from "@cxn/pi-coding-agent/session/yield-queue";
+import { type AgentMessage, ASIDE_MESSAGE_COMMIT } from "@cyberxninja-omp/pi-agent-core";
+import { YieldQueue } from "@cyberxninja-omp/pi-coding-agent/session/yield-queue";
 
 type Entry = {
 	id: string;

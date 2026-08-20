@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { BUILTIN_DEFAULTS_PROVIDER_ID, type Rule } from "@cxn/pi-coding-agent/capability/rule";
-import { bucketRules } from "@cxn/pi-coding-agent/capability/rule-buckets";
-import { TtsrManager } from "@cxn/pi-coding-agent/export/ttsr";
+import { BUILTIN_DEFAULTS_PROVIDER_ID, type Rule } from "@cyberxninja-omp/pi-coding-agent/capability/rule";
+import { bucketRules } from "@cyberxninja-omp/pi-coding-agent/capability/rule-buckets";
+import { TtsrManager } from "@cyberxninja-omp/pi-coding-agent/export/ttsr";
 
 function source(provider: string): Rule["_source"] {
 	return { provider, providerName: provider, path: "/tmp/rule.md", level: "user" };

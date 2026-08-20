@@ -20,20 +20,24 @@ import { afterAll, afterEach, beforeAll, describe, expect, it, spyOn } from "bun
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentTool } from "@cxn/pi-agent-core";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import type {
 	ExtensionActions,
 	ExtensionContextActions,
 	ExtensionFactory,
 	ExtensionRunner,
-} from "@cxn/pi-coding-agent/extensibility/extensions";
-import { type CreateAgentSessionOptions, createAgentSession, discoverAuthStorage } from "@cxn/pi-coding-agent/sdk";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import type { FileWriteFallbackRequest } from "@cxn/pi-coding-agent/tools/file-write-fallback";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
+import {
+	type CreateAgentSessionOptions,
+	createAgentSession,
+	discoverAuthStorage,
+} from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import type { FileWriteFallbackRequest } from "@cyberxninja-omp/pi-coding-agent/tools/file-write-fallback";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 /**
  * Drives `ExtensionRunner.initialize` with no-op stubs, mirroring what a mode

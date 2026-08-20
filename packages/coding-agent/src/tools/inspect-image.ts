@@ -1,6 +1,11 @@
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolContext, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import { instrumentedCompleteSimple, resolveTelemetry } from "@cxn/pi-agent-core";
+import { type } from "@cyberxninja-omp/omptype";
+import type {
+	AgentTool,
+	AgentToolContext,
+	AgentToolResult,
+	AgentToolUpdateCallback,
+} from "@cyberxninja-omp/pi-agent-core";
+import { instrumentedCompleteSimple, resolveTelemetry } from "@cyberxninja-omp/pi-agent-core";
 import {
 	type Api,
 	type AssistantMessage,
@@ -8,8 +13,8 @@ import {
 	type ImageContent,
 	type Model,
 	type ToolExample,
-} from "@cxn/pi-ai";
-import { prompt } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import { extractTextContent } from "../commit/utils";
 
 import {

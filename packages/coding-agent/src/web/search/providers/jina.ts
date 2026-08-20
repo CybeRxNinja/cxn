@@ -5,7 +5,7 @@
  * cleaned content.
  */
 
-import { type ApiKey, type AuthStorage, type FetchImpl, withAuth } from "@cxn/pi-ai";
+import { type ApiKey, type AuthStorage, type FetchImpl, withAuth } from "@cyberxninja-omp/pi-ai";
 import type { SearchResponse, SearchSource } from "../../../web/search/types";
 import { SearchProviderError } from "../../../web/search/types";
 import { formatQuery, parseSearchQuery } from "../query";

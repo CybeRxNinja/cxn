@@ -7,9 +7,12 @@ import {
 	IndexedSessionStorage,
 	type SessionStorageBackend,
 	type SessionStorageIndexEntry,
-} from "@cxn/pi-coding-agent/session/indexed-session-storage";
-import { FileSessionStorage } from "@cxn/pi-coding-agent/session/session-storage";
-import { type SessionTitleUpdate, serializeTitleSlot } from "@cxn/pi-coding-agent/session/session-title-slot";
+} from "@cyberxninja-omp/pi-coding-agent/session/indexed-session-storage";
+import { FileSessionStorage } from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
+import {
+	type SessionTitleUpdate,
+	serializeTitleSlot,
+} from "@cyberxninja-omp/pi-coding-agent/session/session-title-slot";
 
 class ControlledTitleUpdateBackend implements SessionStorageBackend {
 	readonly #sessionPath: string;

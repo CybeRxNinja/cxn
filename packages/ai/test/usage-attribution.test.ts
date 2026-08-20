@@ -1,9 +1,12 @@
 import { describe, expect, it } from "bun:test";
-import { applyAnthropicUsageExtras } from "@cxn/pi-ai/providers/anthropic";
-import { parseChunkUsage } from "@cxn/pi-ai/providers/openai-completions";
-import { calculateOpenAIUsageAccounting, populateResponsesUsageFromResponse } from "@cxn/pi-ai/providers/openai-shared";
-import type { AssistantMessage, Model, Usage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { applyAnthropicUsageExtras } from "@cyberxninja-omp/pi-ai/providers/anthropic";
+import { parseChunkUsage } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import {
+	calculateOpenAIUsageAccounting,
+	populateResponsesUsageFromResponse,
+} from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import type { AssistantMessage, Model, Usage } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const OPENAI_MODEL: Model<"openai-completions"> = buildModel({
 	id: "gpt-5",

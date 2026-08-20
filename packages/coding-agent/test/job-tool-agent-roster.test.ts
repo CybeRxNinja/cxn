@@ -7,10 +7,10 @@
  * background jobs and subagents".
  */
 import { afterEach, describe, expect, test } from "bun:test";
-import { AsyncJobManager } from "@cxn/pi-coding-agent/async";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
+import { AsyncJobManager } from "@cyberxninja-omp/pi-coding-agent/async";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
 import { type CoordinationDetails, HubTool } from "../src/tools/hub";
 
 const managers: AsyncJobManager[] = [];

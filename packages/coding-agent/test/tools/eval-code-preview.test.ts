@@ -1,9 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
-import type { EvalToolDetails } from "@cxn/pi-coding-agent/eval/types";
-import { getThemeByName, setThemeInstance, type Theme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { evalToolRenderer } from "@cxn/pi-coding-agent/tools/eval";
-import { previewWindowRows } from "@cxn/pi-coding-agent/tools/render-utils";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import type { EvalToolDetails } from "@cyberxninja-omp/pi-coding-agent/eval/types";
+import { getThemeByName, setThemeInstance, type Theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { evalToolRenderer } from "@cyberxninja-omp/pi-coding-agent/tools/eval";
+import { previewWindowRows } from "@cyberxninja-omp/pi-coding-agent/tools/render-utils";
 
 /**
  * Defends the bounded code-window contract for eval cells: collapsed views cap

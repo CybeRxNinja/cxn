@@ -2,7 +2,7 @@
  * Manage bundled task agents.
  */
 
-import { Args, Command, Flags, renderCommandHelp } from "@cxn/pi-utils/cli";
+import { Args, Command, Flags, renderCommandHelp } from "@cyberxninja-omp/pi-utils/cli";
 import { type AgentsAction, type AgentsCommandArgs, runAgentsCommand } from "../cli/agents-cli";
 import { agentsHelp as commandHelp } from "../cli/command-help";
 import { initTheme } from "../modes/theme/theme";
@@ -25,25 +25,25 @@ export default class Agents extends Command {
 		force: Flags.boolean({ char: "f", description: "Overwrite existing agent files" }),
 		json: Flags.boolean({ description: "Output JSON" }),
 		dir: Flags.string({ description: "Output directory (overrides --user/--project)" }),
-		user: Flags.boolean({ description: "Write to ~/.cxn/agent/agents (default)" }),
-		project: Flags.boolean({ description: "Write to ./.cxn/agents" }),
+		user: Flags.boolean({ description: "Write to ~/.omp/agent/agents (default)" }),
+		project: Flags.boolean({ description: "Write to ./.omp/agents" }),
 		family: Flags.string({ description: "Daemon family id (default cxn-agents)" }),
 	};
 
 	static examples = [
-		"# Export bundled agents into user config (default)\n  cxn agents unpack",
-		"# Export bundled agents into project config\n  cxn agents unpack --project",
-		"# Overwrite existing local agent files\n  cxn agents unpack --project --force",
-		"# Export into a custom directory\n  cxn agents unpack --dir ./tmp/agents --json",
-		"# List running agents via the daemon\n  cxn agents list",
-		"# Send a message to an agent\n  cxn agents send <id> 'status?'",
-		"# Attach to / stop an agent's session (lease)\n  cxn agents attach <id> / cxn agents stop <id>",
+		"# Export bundled agents into user config (default)\n  omp agents unpack",
+		"# Export bundled agents into project config\n  omp agents unpack --project",
+		"# Overwrite existing local agent files\n  omp agents unpack --project --force",
+		"# Export into a custom directory\n  omp agents unpack --dir ./tmp/agents --json",
+		"# List running agents via the daemon\n  omp agents list",
+		"# Send a message to an agent\n  omp agents send <id> 'status?'",
+		"# Attach to / stop an agent's session (lease)\n  omp agents attach <id> / omp agents stop <id>",
 	];
 
 	async run(): Promise<void> {
 		const { args, flags } = await this.parse(Agents);
 		if (!args.action) {
-			renderCommandHelp("cxn", "agents", Agents);
+			renderCommandHelp("omp", "agents", Agents);
 			return;
 		}
 

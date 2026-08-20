@@ -1,11 +1,11 @@
 /**
- * Run cxn as an ACP (Agent Client Protocol) server over stdio.
+ * Run omp as an ACP (Agent Client Protocol) server over stdio.
  *
  * Thin wrapper around the launch flow that forces `mode: "acp"` unless the
  * ACP terminal-auth flag asks the same command to open the interactive TUI.
  */
 
-import { Command } from "@cxn/pi-utils/cli";
+import { Command } from "@cyberxninja-omp/pi-utils/cli";
 import { type Args as ParsedArgs, parseArgs, reportCliUsageError } from "../cli/args";
 import { acpHelp as commandHelp } from "../cli/command-help";
 import { runRootCommand } from "../main";

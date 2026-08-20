@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import * as path from "node:path";
-import { TempDir } from "@cxn/pi-utils";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 interface ProbeResult {
 	retainedHeapNodes: number;

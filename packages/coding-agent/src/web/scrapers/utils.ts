@@ -1,4 +1,4 @@
-import { isRecord, ptree } from "@cxn/pi-utils";
+import { isRecord, ptree } from "@cyberxninja-omp/pi-utils";
 
 export { isRecord };
 

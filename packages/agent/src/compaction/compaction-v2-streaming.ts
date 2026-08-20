@@ -7,25 +7,30 @@
  * compaction item as replacement history.
  */
 
-import type { Api, CodexCompactionContext, FetchImpl, Model, ProviderSessionState } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
-import { applyCodexResponsesLiteShape } from "@cxn/pi-ai/providers/openai-codex/request-transformer";
+import type { Api, CodexCompactionContext, FetchImpl, Model, ProviderSessionState } from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
+import { applyCodexResponsesLiteShape } from "@cyberxninja-omp/pi-ai/providers/openai-codex/request-transformer";
 import {
 	createOpenAICodexCompactionRequestContext,
 	createOpenAICodexCompatibilityMetadata,
 	type OpenAICodexCompactionBody,
 	type OpenAICodexCompatibilityMetadata,
 	openCodexCompactionEventStream,
-} from "@cxn/pi-ai/providers/openai-codex-responses";
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
 import {
 	getOpenAIPromptCacheKey,
 	getOpenAIResponsesRoutingSessionId,
 	parseAzureDeploymentNameMap,
 	resolveOpenAIRequestSetup,
-} from "@cxn/pi-ai/providers/openai-shared";
-import { captureOpenAIHttpError } from "@cxn/pi-ai/utils/openai-http";
-import { CODEX_BASE_URL, getCodexAccountId, OPENAI_HEADER_VALUES, OPENAI_HEADERS } from "@cxn/pi-catalog/wire/codex";
-import { $env, logger, stringifyJson } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import { captureOpenAIHttpError } from "@cyberxninja-omp/pi-ai/utils/openai-http";
+import {
+	CODEX_BASE_URL,
+	getCodexAccountId,
+	OPENAI_HEADER_VALUES,
+	OPENAI_HEADERS,
+} from "@cyberxninja-omp/pi-catalog/wire/codex";
+import { $env, logger, stringifyJson } from "@cyberxninja-omp/pi-utils";
 
 // ============================================================================
 // Types & Configuration

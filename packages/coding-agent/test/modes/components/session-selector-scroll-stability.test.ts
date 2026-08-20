@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { SessionSelectorComponent } from "@cxn/pi-coding-agent/modes/components/session-selector";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { SessionInfo } from "@cxn/pi-coding-agent/session/session-listing";
-import { TUI } from "@cxn/pi-tui";
+import { SessionSelectorComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/session-selector";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { SessionInfo } from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { TUI } from "@cyberxninja-omp/pi-tui";
 import { StressRenderScheduler } from "../../../../tui/test/render-stress-scheduler";
 import { VirtualTerminal } from "../../../../tui/test/virtual-terminal";
 

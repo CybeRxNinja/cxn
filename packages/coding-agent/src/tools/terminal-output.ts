@@ -1,5 +1,5 @@
-import { sanitizeText } from "@cxn/pi-utils";
-import type { Terminal as XtermTerminal } from "@cxn/pi-utils/vterm";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
+import type { Terminal as XtermTerminal } from "@cyberxninja-omp/pi-utils/vterm";
 
 const RESET = "\x1b[0m";
 const SGR = /\x1b\[([0-9;]*)m/g;

@@ -2,8 +2,8 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import { mkdtempSync, rmSync } from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AuthStorage } from "@cxn/pi-ai";
-import { buildModel } from "@cxn/pi-catalog/build";
+import type { AuthStorage } from "@cyberxninja-omp/pi-ai";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 import { ModelRegistry } from "../../src/config/model-registry";
 
 /** Stub auth storage for registry lifecycle and missing-credential coverage. */
@@ -38,7 +38,7 @@ describe("ModelRegistry", () => {
 		tmpDir = mkdtempSync(path.join(os.tmpdir(), "cxn-reg-"));
 		// Construct with an explicit modelsPath inside the temp dir so the
 		// constructor's #loadModels read returns "not-found" rather than
-		// touching the host's ~/.cxn/agent/models.yaml. isBunTestRuntime()
+		// touching the host's ~/.omp/agent/models.yaml. isBunTestRuntime()
 		// auto-stubs #fetch in the constructor.
 		registry = new ModelRegistry(createStubAuthStorage(), path.join(tmpDir, "models.yaml"));
 	});

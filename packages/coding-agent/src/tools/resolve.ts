@@ -14,10 +14,10 @@
  * resolve renderer under `resolve` and `reject` so device writes and legacy
  * `resolve` tool transcripts draw the same block.
  */
-import type { AgentToolResult, CustomMessage } from "@cxn/pi-agent-core";
-import type { Component } from "@cxn/pi-tui";
-import { Text } from "@cxn/pi-tui";
-import { prompt } from "@cxn/pi-utils";
+import type { AgentToolResult, CustomMessage } from "@cyberxninja-omp/pi-agent-core";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Text } from "@cyberxninja-omp/pi-tui";
+import { prompt } from "@cyberxninja-omp/pi-utils";
 import type { RenderResultOptions } from "../extensibility/custom-tools/types";
 import { parseXdUrl, XD_URL_PREFIX } from "../internal-urls/xd-protocol";
 import type { Theme } from "../modes/theme/theme";

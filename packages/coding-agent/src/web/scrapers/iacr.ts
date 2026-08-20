@@ -29,7 +29,7 @@ export const handleIacr: SpecialHandler = async (
 
 		if (!result.ok) return null;
 
-		const { parseHTML } = await import("@cxn/pi-utils/dom");
+		const { parseHTML } = await import("@cyberxninja-omp/pi-utils/dom");
 		const doc = parseHTML(result.content).document;
 
 		// Extract metadata from the page

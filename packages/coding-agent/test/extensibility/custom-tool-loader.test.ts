@@ -2,8 +2,8 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { toolWireSchema } from "@cxn/pi-ai/utils/schema";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
+import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
 import { loadCustomTools, type ToolPathWithSource } from "../../src/extensibility/custom-tools/loader";
 
 let tempRoot: string | undefined;

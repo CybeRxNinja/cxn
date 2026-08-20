@@ -1,11 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as os from "node:os";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { InternalUrlRouter } from "@cxn/pi-coding-agent/internal-urls";
-import { MCPManager } from "@cxn/pi-coding-agent/mcp/manager";
-import type { MCPResource, MCPResourceReadResult, MCPResourceTemplate } from "@cxn/pi-coding-agent/mcp/types";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { InternalUrlRouter } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
+import { MCPManager } from "@cyberxninja-omp/pi-coding-agent/mcp/manager";
+import type {
+	MCPResource,
+	MCPResourceReadResult,
+	MCPResourceTemplate,
+} from "@cyberxninja-omp/pi-coding-agent/mcp/types";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
 
 function createMockManager(opts: {
 	servers?: string[];

@@ -5,11 +5,11 @@
  * modify the system prompt based on extension state.
  *
  * Usage:
- * 1. Copy this file to ~/.cxn/agent/extensions/ (legacy: ~/.pi/agent/extensions/) or your project's .cxn/extensions/
+ * 1. Copy this file to ~/.omp/agent/extensions/ (legacy: ~/.pi/agent/extensions/) or your project's .omp/extensions/
  * 2. Use /pirate to toggle pirate mode
  * 3. When enabled, the agent will respond like a pirate
  */
-import type { ExtensionAPI } from "@cxn/pi-coding-agent";
+import type { ExtensionAPI } from "@cyberxninja-omp/pi-coding-agent";
 
 export default function pirateExtension(pi: ExtensionAPI) {
 	let pirateMode = false;

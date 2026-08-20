@@ -48,11 +48,11 @@ Parsing comes from frontmatter via `parseAgentFields()` (`src/discovery/helpers.
 
 ## Role-backed custom agents
 
-CXN discovers user agents from `~/.cxn/agent/agents/*.md` and project agents from `.cxn/agents/*.md`.
+CXN discovers user agents from `~/.omp/agent/agents/*.md` and project agents from `.omp/agents/*.md`.
 
 Give the agent a role alias in frontmatter, then dispatch it by name. For model routing, task dispatch sets only `agent`; it does not set a worker model:
 
-`~/.cxn/agent/agents/reviewer.md`:
+`~/.omp/agent/agents/reviewer.md`:
 
 ```md
 ---
@@ -64,7 +64,7 @@ model: "@review"
 Review the assigned change and report concrete findings.
 ```
 
-Set the role mapping in `~/.cxn/agent/config.yml`:
+Set the role mapping in `~/.omp/agent/config.yml`:
 
 ```yaml
 modelRoles:
@@ -127,12 +127,12 @@ Because bundled parsing uses `level: "fatal"`, malformed bundled frontmatter thr
 
 ## Filesystem and plugin discovery
 
-`discoverAgents(cwd, home)` (`src/task/discovery.ts`) merges agents from CXN-native roots, CXN extension packages, and Claude marketplace plugin roots before appending bundled definitions. Direct cross-harness roots such as `.claude/agents`, `.codex/agents`, and `.gemini/agents` are intentionally skipped — their frontmatter schema is not the CXN task-agent contract (`TASK_AGENT_CONFIG_SOURCE = ".cxn"` filters the native config-dir lists).
+`discoverAgents(cwd, home)` (`src/task/discovery.ts`) merges agents from CXN-native roots, CXN extension packages, and Claude marketplace plugin roots before appending bundled definitions. Direct cross-harness roots such as `.claude/agents`, `.codex/agents`, and `.gemini/agents` are intentionally skipped — their frontmatter schema is not the CXN task-agent contract (`TASK_AGENT_CONFIG_SOURCE = ".omp"` filters the native config-dir lists).
 
 ### Discovery inputs and precedence
 
-1. Nearest project `.cxn/agents` dir from `findAllNearestProjectConfigDirs("agents", cwd)` (first `.cxn` hit only)
-2. User `.cxn/agents` dir from `getConfigDirs("agents", { project: false })` (first `.cxn` hit only)
+1. Nearest project `.omp/agents` dir from `findAllNearestProjectConfigDirs("agents", cwd)` (first `.omp` hit only)
+2. User `.omp/agents` dir from `getConfigDirs("agents", { project: false })` (first `.omp` hit only)
 3. `<extension-root>/agents` for every enabled CXN extension package returned by `listOmpExtensionRoots(...)`, in this order:
    - CLI `--extension` roots
    - project `extensions:` settings
@@ -153,7 +153,7 @@ Discovery uses first-wins dedup by exact `agent.name`:
 
 Implications:
 
-- Project `.cxn` overrides user `.cxn`.
+- Project `.omp` overrides user `.omp`.
 - Earlier extension roots override later extension roots, Claude marketplace plugins, and bundled agents.
 - Non-bundled agents override bundled agents with the same name.
 - Name matching is case-sensitive (`Task` and `task` are distinct).

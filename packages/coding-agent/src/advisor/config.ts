@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { isEnoent, logger } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { isEnoent, logger } from "@cyberxninja-omp/pi-utils";
 import { YAML } from "bun";
 import { expandAtImports } from "../discovery/at-imports";
 import { BUILTIN_TOOL_NAMES, normalizeToolNames } from "../tools/builtin-names";

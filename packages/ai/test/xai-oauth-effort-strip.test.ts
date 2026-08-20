@@ -1,9 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { buildParams } from "@cxn/pi-ai/providers/openai-responses";
-import type { AssistantMessage, Context, Model } from "@cxn/pi-ai/types";
-import { Effort } from "@cxn/pi-catalog/effort";
-import { getSupportedEfforts } from "@cxn/pi-catalog/model-thinking";
-import { getBundledModel } from "@cxn/pi-catalog/models";
+import { buildParams } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type { AssistantMessage, Context, Model } from "@cyberxninja-omp/pi-ai/types";
+import { Effort } from "@cyberxninja-omp/pi-catalog/effort";
+import { getSupportedEfforts } from "@cyberxninja-omp/pi-catalog/model-thinking";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 
 // Pins fix #2 of the compaction effort-override bug. Models that reason
 // natively but reject the wire `reasoning.effort` param (e.g.

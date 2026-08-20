@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { ThinkingLevel } from "@cxn/pi-agent-core";
-import type { SegmentContext } from "@cxn/pi-coding-agent/modes/components/status-line/segments";
-import { renderSegment } from "@cxn/pi-coding-agent/modes/components/status-line/segments";
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import { ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { SegmentContext } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line/segments";
+import { renderSegment } from "@cyberxninja-omp/pi-coding-agent/modes/components/status-line/segments";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 
 beforeAll(async () => {
 	await initTheme();

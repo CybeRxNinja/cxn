@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import * as AIError from "@cxn/pi-ai/error";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import * as AIError from "@cyberxninja-omp/pi-ai/error";
 
 function message(overrides: Partial<AssistantMessage> = {}): AssistantMessage {
 	return {

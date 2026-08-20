@@ -1,6 +1,6 @@
 import { afterAll, afterEach, describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { AgentTool } from "@cxn/pi-agent-core";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool } from "@cyberxninja-omp/pi-agent-core";
 import { Settings } from "../../src/config/settings";
 import {
 	EVAL_TIMEOUT_PAUSE_OP,

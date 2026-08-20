@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it, vi } from "bun:test";
-import { LoginDialogComponent } from "@cxn/pi-coding-agent/modes/components/login-dialog";
-import { SelectorController } from "@cxn/pi-coding-agent/modes/controllers/selector-controller";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import type { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import type { TUI } from "@cxn/pi-tui";
+import { LoginDialogComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/login-dialog";
+import { SelectorController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/selector-controller";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import type { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import type { TUI } from "@cyberxninja-omp/pi-tui";
 
 interface RenderableBlock {
 	render(width: number): string[];

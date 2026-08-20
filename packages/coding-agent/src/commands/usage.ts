@@ -2,7 +2,7 @@
  * Show provider usage limits for every authenticated account.
  */
 
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { usageHelp as commandHelp } from "../cli/command-help";
 import { runUsageCommand } from "../cli/usage-cli";
 
@@ -32,13 +32,13 @@ export default class Usage extends Command {
 	};
 
 	static examples = [
-		"# Detailed per-account usage breakdown across all providers\n  cxn usage",
-		"# Only Anthropic accounts\n  cxn usage --provider anthropic",
-		"# Redact account identifiers for screenshots\n  cxn usage --redact",
-		"# Machine-readable output\n  cxn usage --json",
-		"# Usage-limit trend over the last 30 days\n  cxn usage --history --days 30",
-		"# Invalidate cached usage reports for all providers\n  cxn usage invalidate",
-		"# Invalidate cached usage reports for a specific provider\n  cxn usage invalidate --provider anthropic",
+		"# Detailed per-account usage breakdown across all providers\n  omp usage",
+		"# Only Anthropic accounts\n  omp usage --provider anthropic",
+		"# Redact account identifiers for screenshots\n  omp usage --redact",
+		"# Machine-readable output\n  omp usage --json",
+		"# Usage-limit trend over the last 30 days\n  omp usage --history --days 30",
+		"# Invalidate cached usage reports for all providers\n  omp usage invalidate",
+		"# Invalidate cached usage reports for a specific provider\n  omp usage invalidate --provider anthropic",
 	];
 
 	async run(): Promise<void> {

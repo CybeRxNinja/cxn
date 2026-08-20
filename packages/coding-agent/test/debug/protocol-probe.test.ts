@@ -4,9 +4,9 @@ import {
 	buildSampleImage,
 	encodeRgbPng,
 	ProtocolProbeComponent,
-} from "@cxn/pi-coding-agent/debug/protocol-probe";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { getImageDimensions, ImageBudget, ImageProtocol, TERMINAL } from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-coding-agent/debug/protocol-probe";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { getImageDimensions, ImageBudget, ImageProtocol, TERMINAL } from "@cyberxninja-omp/pi-tui";
 
 beforeAll(async () => {
 	// buildLargeTextLines styles the OSC 66 span through the global theme singleton.

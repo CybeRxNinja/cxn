@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { sanitizeStatusText } from "@cxn/pi-coding-agent/modes/shared";
+import { sanitizeStatusText } from "@cyberxninja-omp/pi-coding-agent/modes/shared";
 
 describe("sanitizeStatusText", () => {
 	it("strips OSC, DCS, PM, APC, and 8-bit CSI escape sequences", () => {

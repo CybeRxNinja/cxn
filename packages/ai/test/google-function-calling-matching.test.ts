@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import { convertMessages } from "@cxn/pi-ai/providers/google-shared";
-import type { Context, Model, Usage } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
+import { convertMessages } from "@cyberxninja-omp/pi-ai/providers/google-shared";
+import type { Context, Model, Usage } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 const ZERO_USAGE: Usage = {
 	input: 0,

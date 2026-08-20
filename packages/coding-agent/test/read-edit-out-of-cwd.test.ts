@@ -2,13 +2,17 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { EditTool, type ExecuteHashlineSingleOptions, executeHashlineSingle } from "@cxn/pi-coding-agent/edit";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import type { ReadToolDetails } from "@cxn/pi-coding-agent/tools/read";
-import { ReadTool } from "@cxn/pi-coding-agent/tools/read";
-import { removeWithRetries } from "@cxn/pi-utils";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import {
+	EditTool,
+	type ExecuteHashlineSingleOptions,
+	executeHashlineSingle,
+} from "@cyberxninja-omp/pi-coding-agent/edit";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import type { ReadToolDetails } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 function textOutput(result: AgentToolResult<ReadToolDetails>): string {
 	return result.content

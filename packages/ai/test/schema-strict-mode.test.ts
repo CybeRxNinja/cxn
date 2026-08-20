@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { Tool, ToolCall } from "@cxn/pi-ai/types";
+import { type } from "@cyberxninja-omp/omptype";
+import type { Tool, ToolCall } from "@cyberxninja-omp/pi-ai/types";
 import {
 	adaptSchemaForStrict,
 	arkToWireSchema,
@@ -11,8 +11,8 @@ import {
 	sanitizeSchemaForStrictMode,
 	toolWireSchema,
 	tryEnforceStrictSchema,
-} from "@cxn/pi-ai/utils/schema";
-import { validateToolArguments } from "@cxn/pi-ai/utils/validation";
+} from "@cyberxninja-omp/pi-ai/utils/schema";
+import { validateToolArguments } from "@cyberxninja-omp/pi-ai/utils/validation";
 
 describe("sanitizeSchemaForStrictMode", () => {
 	it("infers object type, strips non-structural keywords, and converts const to enum", () => {

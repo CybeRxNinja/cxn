@@ -1,10 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { type } from "@cxn/omptype";
-import { Agent, AgentBusyError, type AgentEvent, type AgentTool, ThinkingLevel } from "@cxn/pi-agent-core";
-import type { SimpleStreamOptions, ToolResultMessage } from "@cxn/pi-ai";
-import { createMockModel } from "@cxn/pi-ai/providers/mock";
-import { kCursorExecResolved } from "@cxn/pi-ai/utils/block-symbols";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
+import { type } from "@cyberxninja-omp/omptype";
+import { Agent, AgentBusyError, type AgentEvent, type AgentTool, ThinkingLevel } from "@cyberxninja-omp/pi-agent-core";
+import type { SimpleStreamOptions, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
+import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
+import { kCursorExecResolved } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
 import { createAssistantMessage } from "./helpers";
 
 describe("Agent", () => {

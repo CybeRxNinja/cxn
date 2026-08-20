@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
 // Import from the zero-dep classify module — plugin-cli.ts transitively loads native addons.
-import { classifyInstallTarget } from "@cxn/pi-coding-agent/cli/classify-install-target";
+import { classifyInstallTarget } from "@cyberxninja-omp/pi-coding-agent/cli/classify-install-target";
 
 const KNOWN = new Set(["my-marketplace"]);
 

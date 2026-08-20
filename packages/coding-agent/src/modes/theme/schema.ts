@@ -1,4 +1,4 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import type { SpinnerFramesOverride } from "./symbols";
 
 // ============================================================================

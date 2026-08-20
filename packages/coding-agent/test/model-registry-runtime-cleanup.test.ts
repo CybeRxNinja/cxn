@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { type AssistantMessageEventStream, clearCustomApis, getCustomApi } from "@cxn/pi-ai";
-import { getOAuthProvider } from "@cxn/pi-ai/oauth";
-import { ModelRegistry, type ProviderConfigInput } from "@cxn/pi-coding-agent/config/model-registry";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
+import { type AssistantMessageEventStream, clearCustomApis, getCustomApi } from "@cyberxninja-omp/pi-ai";
+import { getOAuthProvider } from "@cyberxninja-omp/pi-ai/oauth";
+import { ModelRegistry, type ProviderConfigInput } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
 
 describe("ModelRegistry runtime source cleanup", () => {
 	let authStorage: AuthStorage;

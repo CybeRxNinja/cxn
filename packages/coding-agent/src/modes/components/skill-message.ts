@@ -1,6 +1,6 @@
-import type { TextContent } from "@cxn/pi-ai";
-import type { Component } from "@cxn/pi-tui";
-import { Box, Container, Markdown, Spacer, Text } from "@cxn/pi-tui";
+import type { TextContent } from "@cyberxninja-omp/pi-ai";
+import type { Component } from "@cyberxninja-omp/pi-tui";
+import { Box, Container, Markdown, Spacer, Text } from "@cyberxninja-omp/pi-tui";
 import { getMarkdownTheme, theme } from "../../modes/theme/theme";
 import type { CustomMessage, SkillPromptDetails } from "../../session/messages";
 import { shortenPath } from "../../tools/render-utils";

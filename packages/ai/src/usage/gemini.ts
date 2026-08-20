@@ -1,4 +1,4 @@
-import { getGeminiCliHeaders } from "@cxn/pi-catalog/wire/gemini-headers";
+import { getGeminiCliHeaders } from "@cyberxninja-omp/pi-catalog/wire/gemini-headers";
 import type {
 	UsageAmount,
 	UsageFetchContext,

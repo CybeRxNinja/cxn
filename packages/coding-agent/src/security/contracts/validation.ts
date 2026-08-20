@@ -1,4 +1,4 @@
-import { type } from "@cxn/omptype";
+import { type } from "@cyberxninja-omp/omptype";
 import { getSecurityContractSchemas } from "./schemas";
 import type { SecurityFinding, SecurityScan, SecurityScanBundle, SecurityScanPlan } from "./types";
 

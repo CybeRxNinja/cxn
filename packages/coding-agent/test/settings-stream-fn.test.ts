@@ -8,11 +8,11 @@
  * (can1357/oh-my-pi#3639).
  */
 import { describe, expect, it } from "bun:test";
-import type { StreamFn } from "@cxn/pi-agent-core";
-import type { Context, Model, SimpleStreamOptions } from "@cxn/pi-ai";
-import { AssistantMessageEventStream } from "@cxn/pi-ai/utils/event-stream";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { createSettingsAwareStreamFn } from "@cxn/pi-coding-agent/session/settings-stream-fn";
+import type { StreamFn } from "@cyberxninja-omp/pi-agent-core";
+import type { Context, Model, SimpleStreamOptions } from "@cyberxninja-omp/pi-ai";
+import { AssistantMessageEventStream } from "@cyberxninja-omp/pi-ai/utils/event-stream";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { createSettingsAwareStreamFn } from "@cyberxninja-omp/pi-coding-agent/session/settings-stream-fn";
 
 function captureBase(): { fn: StreamFn; calls: Array<{ options?: SimpleStreamOptions }> } {
 	const calls: Array<{ options?: SimpleStreamOptions }> = [];

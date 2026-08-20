@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "bun:test";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { executeBuiltinSlashCommand } from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { executeBuiltinSlashCommand } from "@cyberxninja-omp/pi-coding-agent/slash-commands/builtin-registry";
 
 function createRuntimeHarness(handleFreshCommand: InteractiveModeContext["handleFreshCommand"]) {
 	const setText = vi.fn();

@@ -3,23 +3,26 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "bun:test";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Effort, type FetchImpl, type Model } from "@cxn/pi-ai";
-import type { OAuthCredentials } from "@cxn/pi-ai/oauth/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import { writeModelCache } from "@cxn/pi-catalog/model-cache";
-import { getBundledModel } from "@cxn/pi-catalog/models";
-import { resolveModelCacheProviderId, resolveOllamaModelCacheProviderId } from "@cxn/pi-catalog/provider-models";
-import type { ModelSpec, OpenAICompat } from "@cxn/pi-catalog/types";
+import { Effort, type FetchImpl, type Model } from "@cyberxninja-omp/pi-ai";
+import type { OAuthCredentials } from "@cyberxninja-omp/pi-ai/oauth/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import { writeModelCache } from "@cyberxninja-omp/pi-catalog/model-cache";
+import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
+import {
+	resolveModelCacheProviderId,
+	resolveOllamaModelCacheProviderId,
+} from "@cyberxninja-omp/pi-catalog/provider-models";
+import type { ModelSpec, OpenAICompat } from "@cyberxninja-omp/pi-catalog/types";
 import {
 	applyLlamaCppQwenThinking,
 	discoverOllamaModels,
 	discoveryProbeTimeoutMs,
-} from "@cxn/pi-coding-agent/config/model-discovery";
-import { kNoAuth, ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { ProviderDiscoverySchema } from "@cxn/pi-coding-agent/config/models-config-schema";
-import { resetSettingsForTest } from "@cxn/pi-coding-agent/config/settings";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { removeSyncWithRetries, Snowflake } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/config/model-discovery";
+import { kNoAuth, ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { ProviderDiscoverySchema } from "@cyberxninja-omp/pi-coding-agent/config/models-config-schema";
+import { resetSettingsForTest } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { removeSyncWithRetries, Snowflake } from "@cyberxninja-omp/pi-utils";
 
 describe("ModelRegistry runtime discovery", () => {
 	let tempDir: string;

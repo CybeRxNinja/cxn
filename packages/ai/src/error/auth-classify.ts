@@ -1,4 +1,4 @@
-import { extractHttpStatusFromError } from "@cxn/pi-utils";
+import { extractHttpStatusFromError } from "@cyberxninja-omp/pi-utils";
 import { isAccountPolicyError, isOAuthExpiry, isUsageLimit } from "./flags";
 import { isConcurrencyCapExclusion, isUsageLimitOutcome } from "./rate-limit";
 
@@ -6,7 +6,7 @@ import { isConcurrencyCapExclusion, isUsageLimitOutcome } from "./rate-limit";
  * Whether an OAuth refresh failure is definitive (the credential must be
  * disabled) versus transient. Thin alias over the {@link Flag.OAuthExpiry}
  * text classifier {@link isOAuthExpiry}; retained as the public
- * `@cxn/pi-ai` entrypoint name used by the coding agent and auth-broker.
+ * `@cyberxninja-omp/pi-ai` entrypoint name used by the coding agent and auth-broker.
  */
 export function isDefinitiveOAuthFailure(errorMsg: string): boolean {
 	return isOAuthExpiry(errorMsg);

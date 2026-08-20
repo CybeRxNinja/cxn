@@ -4,13 +4,13 @@
  * leaving unrelated commands and read-only `gh` calls alone.
  */
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "bun:test";
-import { invalidateGithubCacheForBashCommand } from "@cxn/pi-coding-agent/tools/gh-cache-invalidation";
+import { invalidateGithubCacheForBashCommand } from "@cyberxninja-omp/pi-coding-agent/tools/gh-cache-invalidation";
 import {
 	clearAll,
 	getCached,
 	putCached,
 	resetForTests as resetCacheForTests,
-} from "@cxn/pi-coding-agent/tools/github-cache";
+} from "@cyberxninja-omp/pi-coding-agent/tools/github-cache";
 
 const REPO = "owner/example";
 

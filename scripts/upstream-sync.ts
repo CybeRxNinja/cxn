@@ -1,13 +1,11 @@
 #!/usr/bin/env bun
 /**
- * Upstream sync for cxn.
+ * Upstream sync for omp.
  *
  * Lane A (omp): merge can1357/oh-my-pi/main into a sync branch on top of our
- * main, update UPSTREAM.md, run the branding guard, push, open a PR, and
- * auto-merge it when everything is clean (CI-gated via gh pr merge --auto).
- * Conflicting hunks resolve with `-X ours` (keep our rebranded lines); the
- * branding guard is the backstop — if upstream reintroduced branding, the PR
- * is labeled and left for manual review.
+ * main, update UPSTREAM.md, push, open a PR, and auto-merge it when everything
+ * is clean (CI-gated via gh pr merge --auto). Conflicting hunks resolve with
+ * `-X ours` (keep our omp lines).
  *
  * Lane B (prime-agent): scaffold only. The RLM port (Phase 1-2 of PLAN.md)
  * will drive this lane with `git format-patch` ranges applied selectively.
@@ -92,7 +90,7 @@ await $`git switch -C ${branch} main`;
 let mergeResult = await $`git merge ${UPSTREAM}/main -m "chore: sync upstream omp @ ${shortSha}"`.nothrow();
 let usedOurs = false;
 if (mergeResult.exitCode !== 0) {
-	console.log("Merge conflicts; retrying with -X ours (keep cxn lines)...");
+	console.log("Merge conflicts; retrying with -X ours (keep omp lines)...");
 	await $`git merge --abort`.nothrow();
 	mergeResult =
 		await $`git merge -X ours ${UPSTREAM}/main -m "chore: sync upstream omp @ ${shortSha} (conflicts resolved with -X ours)"`.nothrow();
@@ -111,13 +109,10 @@ if (mergeResult.exitCode !== 0) {
 // ---------------------------------------------------------------------------
 // A plain merge of upstream into a fully-rebranded fork always reintroduces
 // upstream identity in the hunks that merged without conflict (files we never
-// touched). Mechanically convert those back to cxn so the merged tree builds
-// and passes the branding guard:
-//   - `@oh-my-pi/` package scopes  -> `@cxn/` (workspace imports must resolve)
-//   - bare `oh-my-pi` / `omp`      -> `cxn` (product identity strings)
+// touched). Mechanically convert those back to omp so the merged tree builds:
+//   - `@oh-my-pi/` package scopes  -> `@cyberxninja-omp/` (workspace imports must resolve)
+//   - bare `oh-my-pi` / `omp`      -> `omp` (product identity strings)
 // `can1357/oh-my-pi` upstream URLs are preserved (references, not branding).
-// The branding guard below remains the backstop: anything this pass misses is
-// flagged and the PR is labeled for manual review instead of auto-merging.
 const REBRAND_SKIP = (rel: string): boolean => {
 	const base = rel.split("/").pop() ?? "";
 	// Mirror scripts/check-branding.ts: attribution docs, lockfiles, and the
@@ -146,10 +141,10 @@ async function rebrandSyncedTree(): Promise<void> {
 			continue; // binary or unreadable; nothing to rebrand
 		}
 		const next = text
-			.replaceAll("@oh-my-pi/", "@cxn/")
-			.replace(/(?<!can1357\/)oh-my-pi/g, "cxn")
-			.replace(/\bomp\b/g, "cxn")
-			.replace(/Oh My Pi/g, "cxn");
+			.replaceAll("@oh-my-pi/", "@cyberxninja-omp/")
+			.replace(/(?<!can1357\/)oh-my-pi/g, "omp")
+			.replace(/\bomp\b/g, "omp")
+			.replace(/Oh My Pi/g, "omp");
 		if (next !== text) {
 			await Bun.write(rel, next);
 			touched++;
@@ -226,9 +221,9 @@ async function alignWorkspaceVersions(): Promise<void> {
 			changed = true;
 		}
 	}
-	// Root catalog pins @cxn/* entries to the workspace version.
+	// Root catalog pins @cyberxninja-omp/* entries to the workspace version.
 	const rootText = await Bun.file("package.json").text();
-	const rootNext = rootText.replace(/("@cxn\/[^"]+":\s*)"[^"]+"/g, `$1"${target}"`);
+	const rootNext = rootText.replace(/("@cyberxninja-omp\/[^"]+":\s*)"[^"]+"/g, `$1"${target}"`);
 	if (rootNext !== rootText) {
 		await Bun.write("package.json", rootNext);
 		changed = true;
@@ -269,7 +264,7 @@ async function alignWorkspaceVersions(): Promise<void> {
 // `-X ours` keeps our import blocks, so upstream features that add new
 // references arrive with dangling names (TS2304). Heal them deterministically:
 // for each unknown name, restore the import upstream's version of the file
-// carries (rebranded to the @cxn scope).
+// carries (rebranded to the @cyberxninja-omp scope).
 function parseImportSpecifiers(text: string): Array<{ spec: string; symbol: string; from: string; typeOnly: boolean }> {
 	const out: Array<{ spec: string; symbol: string; from: string; typeOnly: boolean }> = [];
 	const named = /import\s*(type\s*)?\{([^}]*)\}\s*from\s*"([^"]+)"/g;
@@ -330,7 +325,7 @@ async function healMissingImports(): Promise<number> {
 	if (check.exitCode === 0) return 0;
 	const output = `${check.stdout.toString()}\n${check.stderr.toString()}`;
 	// Resolve each workspace package name to its directory so the per-package
-	// check paths ("@cxn/<pkg> check: relpath(line,col): error ...") map to
+	// check paths ("@cyberxninja-omp/<pkg> check: relpath(line,col): error ...") map to
 	// repo paths.
 	const pkgDirs = new Map<string, string>();
 	for (const p of new Bun.Glob("packages/*/package.json").scanSync()) {
@@ -341,7 +336,8 @@ async function healMissingImports(): Promise<number> {
 			// unreadable; skip
 		}
 	}
-	const lineRe = /^(@cxn\/[^\s]+)\s+check:\s+([^\s(]+)\(\d+,\d+\):\s*error TS2304: Cannot find name '([^']+)'\./gm;
+	const lineRe =
+		/^(@cyberxninja-omp\/[^\s]+)\s+check:\s+([^\s(]+)\(\d+,\d+\):\s*error TS2304: Cannot find name '([^']+)'\./gm;
 	const wanted = new Map<string, Set<string>>();
 	for (const m of output.matchAll(lineRe)) {
 		const dir = pkgDirs.get(m[1]!);
@@ -371,7 +367,7 @@ async function healMissingImports(): Promise<number> {
 		for (const sym of syms) {
 			const found = upstreamImports.find(imp => imp.symbol === sym);
 			if (!found) continue;
-			const from = found.from.replaceAll("@oh-my-pi/", "@cxn/");
+			const from = found.from.replaceAll("@oh-my-pi/", "@cyberxninja-omp/");
 			const extended = insertIntoExistingImport(next, from, sym, found.typeOnly);
 			if (extended !== null) {
 				if (extended !== next) healed++;
@@ -421,10 +417,9 @@ await Bun.write(upPath, upContent);
 await $`git add UPSTREAM.md`;
 await $`git commit -m "chore: record upstream sync point ${shortSha}"`.nothrow();
 
-// Branding guard: the enforcement backstop for merged upstream code.
-const guard = await $`bun scripts/check-branding.ts`.nothrow();
-const brandingClean = guard.exitCode === 0;
-if (!brandingClean) console.error("Branding guard found violations in the sync (see output above).");
+// Branding guard was removed: omp is the intended brand, so upstream's
+// `@oh-my-pi/` -> `@cyberxninja-omp/` rebrand pass above is the only reconciliation needed.
+const brandingClean = true;
 
 // Type check: `-X ours` keeps our import blocks, so upstream features that
 // add new references can arrive with dangling names. Run the same check CI
@@ -455,8 +450,8 @@ const body = [
 	"",
 	`- **Lane:** ${LANE}`,
 	`- **Sync branch:** \`${branch}\``,
-	usedOurs ? "- **Conflict policy:** `-X ours` applied (kept cxn lines in conflicting hunks) — review the diff." : "",
-	brandingClean ? "- **Branding guard:** clean" : "- **Branding guard: VIOLATIONS FOUND** — fix before merging.",
+	usedOurs ? "- **Conflict policy:** `-X ours` applied (kept omp lines in conflicting hunks) — review the diff." : "",
+	"- **Branding guard:** removed (omp is the intended brand)",
 	typesClean ? "- **Type check:** clean" : "- **Type check: FAILED** — fix before merging.",
 	"",
 	"Merge is enabled (auto-merge) only when CI passes, branding is clean, and the type check is clean.",

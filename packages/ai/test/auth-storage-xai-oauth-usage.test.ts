@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { type AuthCredentialStore, AuthStorage, type StoredAuthCredential } from "@cxn/pi-ai/auth-storage";
-import type { UsageFetchParams, UsageProvider } from "@cxn/pi-ai/usage";
+import { type AuthCredentialStore, AuthStorage, type StoredAuthCredential } from "@cyberxninja-omp/pi-ai/auth-storage";
+import type { UsageFetchParams, UsageProvider } from "@cyberxninja-omp/pi-ai/usage";
 import { withEnv } from "./helpers";
 
 function makeStore(credentials: StoredAuthCredential[] = []): AuthCredentialStore {

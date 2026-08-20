@@ -1,5 +1,5 @@
 import * as path from "node:path";
-import { getTinyModelsCacheDir, prompt } from "@cxn/pi-utils";
+import { getTinyModelsCacheDir, prompt } from "@cyberxninja-omp/pi-utils";
 import type {
 	ProgressInfo,
 	TextGenerationPipeline,

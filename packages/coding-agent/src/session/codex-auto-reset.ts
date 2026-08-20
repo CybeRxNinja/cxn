@@ -59,7 +59,7 @@ import type {
 	ResetCreditTarget,
 	UsageReport,
 	UsageResetCreditDetail,
-} from "@cxn/pi-ai";
+} from "@cyberxninja-omp/pi-ai";
 import type { CodexAutoRedeemMode } from "../config/settings-schema";
 import { reportMatchesActiveAccount } from "../slash-commands/helpers/active-oauth-account";
 

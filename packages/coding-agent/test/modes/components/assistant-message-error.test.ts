@@ -1,12 +1,12 @@
 import { afterEach, beforeAll, beforeEach, describe, expect, it, spyOn } from "bun:test";
-import type { AssistantMessage } from "@cxn/pi-ai";
-import { resetSettingsForTest, Settings } from "@cxn/pi-coding-agent/config/settings";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
+import { resetSettingsForTest, Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import {
 	AssistantMessageComponent,
 	resetThinkingSpeedTracker,
-} from "@cxn/pi-coding-agent/modes/components/assistant-message";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { setTerminalImageProtocol, TERMINAL } from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-coding-agent/modes/components/assistant-message";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { setTerminalImageProtocol, TERMINAL } from "@cyberxninja-omp/pi-tui";
 
 const originalImageProtocol = TERMINAL.imageProtocol;
 

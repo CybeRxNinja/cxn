@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { patch } from "@cxn/pi-coding-agent/utils/git";
+import { patch } from "@cyberxninja-omp/pi-coding-agent/utils/git";
 
 describe("joinPatch", () => {
 	test("preserves space character in empty context line at end of patch", () => {

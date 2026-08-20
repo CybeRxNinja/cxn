@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
-import type { AssistantMessage, Context, Tool, ToolResultMessage, Usage } from "@cxn/pi-ai";
-import { streamOllama } from "@cxn/pi-ai/providers/ollama";
-import { NON_VISION_IMAGE_PLACEHOLDER } from "@cxn/pi-ai/providers/vision-guard";
-import { buildModel } from "@cxn/pi-catalog/build";
+import type { AssistantMessage, Context, Tool, ToolResultMessage, Usage } from "@cyberxninja-omp/pi-ai";
+import { streamOllama } from "@cyberxninja-omp/pi-ai/providers/ollama";
+import { NON_VISION_IMAGE_PLACEHOLDER } from "@cyberxninja-omp/pi-ai/providers/vision-guard";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
 
 interface OllamaChatMessagePayload {
 	role?: unknown;

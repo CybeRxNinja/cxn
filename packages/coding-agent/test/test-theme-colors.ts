@@ -1,4 +1,4 @@
-import { initTheme, theme } from "@cxn/pi-coding-agent/modes/theme/theme";
+import { initTheme, theme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
 
 // Initialize with dark theme explicitly
 Bun.env.COLORTERM = "truecolor";

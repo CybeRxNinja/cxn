@@ -1,5 +1,5 @@
-import { isDashscopeCompatibleModeUrl } from "@cxn/pi-catalog/hosts";
-import { isQwenModelId } from "@cxn/pi-catalog/identity";
+import { isDashscopeCompatibleModeUrl } from "@cyberxninja-omp/pi-catalog/hosts";
+import { isQwenModelId } from "@cyberxninja-omp/pi-catalog/identity";
 
 import type { ImageContent, Model, TextContent } from "../types";
 

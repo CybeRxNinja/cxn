@@ -90,16 +90,16 @@
     {
       packages = forAllSystems (system: {
         default = packageFor system;
-        cxn = packageFor system;
+        omp = packageFor system;
       });
 
       apps = forAllSystems (system: {
         default = {
           type = "app";
-          program = "${self.packages.${system}.default}/bin/cxn";
+          program = "${self.packages.${system}.default}/bin/omp";
           meta.description = "Run CXN";
         };
-        cxn = self.apps.${system}.default;
+        omp = self.apps.${system}.default;
       });
 
       devShells = forAllSystems (
@@ -132,8 +132,8 @@
               }
               self.homeManagerModules.default
               {
-                programs.cxn.enable = true;
-                programs.cxn.settings.startup.quiet = true;
+                programs.omp.enable = true;
+                programs.omp.settings.startup.quiet = true;
               }
             ];
           };
@@ -147,12 +147,12 @@
                 };
               }
               self.nixosModules.default
-              { programs.cxn.enable = true; }
+              { programs.omp.enable = true; }
             ];
           };
           modulesEvaluate =
             assert builtins.elem self.packages.${system}.default homeManagerEvaluation.config.home.packages;
-            assert homeManagerEvaluation.config.home.file ? ".cxn/agent/config.yml";
+            assert homeManagerEvaluation.config.home.file ? ".omp/agent/config.yml";
             assert builtins.elem self.packages.${system}.default
               nixosEvaluation.config.environment.systemPackages;
             pkgs.runCommand "cxn-module-evaluation" { } "touch $out";
@@ -168,19 +168,19 @@
             touch "$out"
           '';
           modules = modulesEvaluate;
-          cxn = self.packages.${system}.default;
+          omp = self.packages.${system}.default;
         }
       );
 
       formatter = forAllSystems (system: (pkgsFor system).nixfmt);
 
       overlays.default = _final: previous: {
-        cxn = self.packages.${previous.stdenv.hostPlatform.system}.default;
+        omp = self.packages.${previous.stdenv.hostPlatform.system}.default;
       };
 
       homeManagerModules.default = import ./nix/home-manager.nix { inherit self; };
-      homeManagerModules.cxn = self.homeManagerModules.default;
+      homeManagerModules.omp = self.homeManagerModules.default;
       nixosModules.default = import ./nix/nixos-module.nix { inherit self; };
-      nixosModules.cxn = self.nixosModules.default;
+      nixosModules.omp = self.nixosModules.default;
     };
 }

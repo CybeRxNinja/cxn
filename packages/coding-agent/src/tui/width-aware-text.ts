@@ -1,4 +1,4 @@
-import { type Component, getPaddingX, Text } from "@cxn/pi-tui";
+import { type Component, getPaddingX, Text } from "@cyberxninja-omp/pi-tui";
 
 /**
  * Text whose content is (re)formatted against the actual render width.

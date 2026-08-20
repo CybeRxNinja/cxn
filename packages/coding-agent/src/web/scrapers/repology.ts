@@ -1,4 +1,4 @@
-import { tryParseJson } from "@cxn/pi-utils";
+import { tryParseJson } from "@cyberxninja-omp/pi-utils";
 import { buildResult, loadPage, type RenderResult, type SpecialHandler } from "./types";
 
 interface RepologyPackage {

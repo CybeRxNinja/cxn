@@ -1,7 +1,7 @@
 /**
  * Session leases — the daemon's ownership record for attachable sessions.
  *
- * A `cxn agents attach` acquires a lease (an `owner.json` written atomically
+ * A `omp agents attach` acquires a lease (an `owner.json` written atomically
  * next to the session) so two clients cannot drive the same session at once.
  * The in-memory `openingSessions` set de-dupes concurrent opens and
  * `client_owned_sessions` tracks which sessions a client currently owns.
@@ -9,7 +9,7 @@
  * This is a proportionate port of the upstream `session-lease.ts`: the same
  * on-disk `owner.json` + pid-liveness + no-clobber semantics, without the
  * `proper-lockfile` dependency or Windows-specific process-start-id RPC (those
- * are defense-in-depth for a cross-platform shipped product; cxn's daemon runs
+ * are defense-in-depth for a cross-platform shipped product; omp's daemon runs
  * where Bun runs). Aliveness is checked via `process.kill(pid, 0)`.
  */
 

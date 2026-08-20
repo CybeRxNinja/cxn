@@ -652,7 +652,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         payload: dict[str, Any] = Body(...),
         x_robcxn_token: str | None = Header(None, alias="X-Robomp-Replay-Token"),
     ) -> JSONResponse:
-        """Stop a running event. The cxn subprocess is killed; the row lands in
+        """Stop a running event. The omp subprocess is killed; the row lands in
         `failed` with `cancelled by operator` as the error.
         """
         bag = request.app.state.bag

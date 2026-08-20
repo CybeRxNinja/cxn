@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { stripVTControlCharacters } from "node:util";
-import { TruncatedText } from "@cxn/pi-tui/components/truncated-text";
-import { visibleWidth } from "@cxn/pi-tui/utils";
-import { Chalk } from "@cxn/pi-utils/chalk";
+import { TruncatedText } from "@cyberxninja-omp/pi-tui/components/truncated-text";
+import { visibleWidth } from "@cyberxninja-omp/pi-tui/utils";
+import { Chalk } from "@cyberxninja-omp/pi-utils/chalk";
 
 // Force full color in CI so ANSI assertions are deterministic
 const chalk = new Chalk({ level: 3 });

@@ -5,7 +5,7 @@
  * behavior series.
  */
 
-import { format } from "@cxn/pi-utils/dates";
+import { format } from "@cyberxninja-omp/pi-utils/dates";
 
 // CXN brand palette (packages/collab-web/src/styles/tokens.css): pink/purple/cyan.
 // Categorical series lead with the brand gradient hues (pink -> purple -> cyan).

@@ -3,8 +3,8 @@
  *
  * Discovers agent definitions from:
  *   - Bundled agents (shipped with cxn-coding-agent)
- *   - ~/.cxn/agent/agents/*.md (user-level)
- *   - .cxn/agents/*.md (project-level)
+ *   - ~/.omp/agent/agents/*.md (user-level)
+ *   - .omp/agents/*.md (project-level)
  *
  * Supports:
  *   - Single agent spawn per call (parallelism = parallel task calls)
@@ -14,9 +14,9 @@
  *   - Session artifacts for debugging
  */
 import path from "node:path";
-import type { AgentTool, AgentToolResult, AgentToolUpdateCallback } from "@cxn/pi-agent-core";
-import type { Usage } from "@cxn/pi-ai";
-import { $env, logger, prompt } from "@cxn/pi-utils";
+import type { AgentTool, AgentToolResult, AgentToolUpdateCallback } from "@cyberxninja-omp/pi-agent-core";
+import type { Usage } from "@cyberxninja-omp/pi-ai";
+import { $env, logger, prompt } from "@cyberxninja-omp/pi-utils";
 import type { ToolSession } from "..";
 import type { Theme } from "../modes/theme/theme";
 import subagentUserPromptTemplate from "../prompts/system/subagent-user-prompt.md" with { type: "text" };

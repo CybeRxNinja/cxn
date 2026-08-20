@@ -1,4 +1,4 @@
-import { type SgrMouseEvent, TabBar } from "@cxn/pi-tui";
+import { type SgrMouseEvent, TabBar } from "@cyberxninja-omp/pi-tui";
 import { getTabBarTheme } from "../../shared";
 import { SignInTab } from "./sign-in";
 import type { SetupScene, SetupSceneController, SetupSceneHost, SetupTab } from "./types";

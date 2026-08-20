@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
-import { resolveResumableSession } from "@cxn/pi-coding-agent/session/session-listing";
-import { computeDefaultSessionDir } from "@cxn/pi-coding-agent/session/session-paths";
-import { FileSessionStorage } from "@cxn/pi-coding-agent/session/session-storage";
-import { executeBuiltinSlashCommand } from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
-import { getConfigRootDir, setAgentDir } from "@cxn/pi-utils";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
+import { resolveResumableSession } from "@cyberxninja-omp/pi-coding-agent/session/session-listing";
+import { computeDefaultSessionDir } from "@cyberxninja-omp/pi-coding-agent/session/session-paths";
+import { FileSessionStorage } from "@cyberxninja-omp/pi-coding-agent/session/session-storage";
+import { executeBuiltinSlashCommand } from "@cyberxninja-omp/pi-coding-agent/slash-commands/builtin-registry";
+import { getConfigRootDir, setAgentDir } from "@cyberxninja-omp/pi-utils";
 
 let tempDir: string;
 const originalAgentDir = process.env.PI_CODING_AGENT_DIR;

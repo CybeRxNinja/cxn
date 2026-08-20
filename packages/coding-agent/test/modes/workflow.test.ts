@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import { containsWorkflow, highlightWorkflow } from "@cxn/pi-coding-agent/modes/workflow";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import { containsWorkflow, highlightWorkflow } from "@cyberxninja-omp/pi-coding-agent/modes/workflow";
 
 beforeAll(() => {
 	// highlightWorkflow reads the global theme's color mode.

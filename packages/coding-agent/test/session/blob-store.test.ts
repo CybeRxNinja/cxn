@@ -5,8 +5,8 @@ import {
 	externalizeImageData,
 	parseBlobRef,
 	resolveImageData,
-} from "@cxn/pi-coding-agent/session/blob-store";
-import { TempDir } from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-coding-agent/session/blob-store";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 describe("BlobStore image display paths", () => {
 	it("creates an extension-bearing sidecar for image blobs while keeping canonical refs extensionless", async () => {

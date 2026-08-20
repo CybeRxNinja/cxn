@@ -1,4 +1,4 @@
-import type { RenderScheduler, RenderTimer } from "@cxn/pi-tui/tui";
+import type { RenderScheduler, RenderTimer } from "@cyberxninja-omp/pi-tui/tui";
 import type { VirtualTerminal } from "./virtual-terminal";
 
 /**

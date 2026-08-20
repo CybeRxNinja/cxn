@@ -7,7 +7,7 @@ import {
 	isApiModel,
 	resetEmbeddingProviderForTests,
 	setEmbeddingProviderForTests,
-} from "@cxn/pi-mnemopi/core/embeddings";
+} from "@cyberxninja-omp/pi-mnemopi/core/embeddings";
 
 function withEnvValue<T>(key: string, value: string | undefined, fn: () => T): T {
 	const previous = process.env[key];

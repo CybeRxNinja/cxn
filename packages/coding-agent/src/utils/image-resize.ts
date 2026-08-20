@@ -1,4 +1,4 @@
-import type { ImageContent } from "@cxn/pi-ai";
+import type { ImageContent } from "@cyberxninja-omp/pi-ai";
 
 export interface ImageResizeOptions {
 	maxWidth?: number;

@@ -2,7 +2,7 @@
 
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { isEnoent } from "@cxn/pi-utils";
+import { isEnoent } from "@cyberxninja-omp/pi-utils";
 import { buildDocsIndexPayload } from "./generate-docs-index";
 
 const packageDir = path.join(import.meta.dir, "..");
@@ -15,7 +15,7 @@ const legacyHtmlExportAssetPattern = /^(?:template-[^.]+\.(?:css|html|js)|tool-v
 // `cxn-legacy-pi-modules` exists only in compiled binaries via the build plugin;
 // the npm bundle never executes that `isCompiledBinary()` branch.
 const ALWAYS_EXTERNAL = [
-	"@cxn/pi-natives",
+	"@cyberxninja-omp/pi-natives",
 	"@huggingface/transformers",
 	"fastembed",
 	"onnxruntime-node",
@@ -54,7 +54,7 @@ function formatBytes(bytes: number): string {
 }
 
 async function cleanBundleOutputs(): Promise<void> {
-	// dist/ is shared with the dev binary (dist/cxn); only remove assets
+	// dist/ is shared with the dev binary (dist/omp); only remove assets
 	// emitted by this script.
 	let entries: string[];
 	try {
@@ -87,8 +87,8 @@ async function main(): Promise<void> {
 	await runCommand(["bun", "--cwd=../stats", "run", "gen:stats"]);
 	// One payload for both consumers: inlined into dist/cli.js via `--define` for
 	// the bundled CLI entrypoint, and written to dist/docs-index.generated.txt so
-	// SDK consumers importing `@cxn/pi-coding-agent/*` (TypeScript source, no
-	// build-time embed) can still resolve cxn:// docs (see src/internal-urls/docs-index.ts).
+	// SDK consumers importing `@cyberxninja-omp/pi-coding-agent/*` (TypeScript source, no
+	// build-time embed) can still resolve omp:// docs (see src/internal-urls/docs-index.ts).
 	try {
 		const docsPayload = await buildDocsIndexPayload();
 		// Build in-process: the docs embed payload is far larger than Linux's

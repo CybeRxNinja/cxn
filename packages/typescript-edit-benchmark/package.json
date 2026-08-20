@@ -1,10 +1,10 @@
 {
   "type": "module",
   "private": true,
-  "name": "@cxn/typescript-edit-benchmark",
+  "name": "@cyberxninja-omp/typescript-edit-benchmark",
   "version": "17.3.7",
   "description": "Edit benchmark suite using TypeScript source code mutations",
-  "homepage": "https://cxn.sh",
+  "homepage": "https://omp.sh",
   "author": "Can Boluk",
   "license": "MIT",
   "repository": {
@@ -34,16 +34,16 @@
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
     "@babel/types": "catalog:",
-    "@cxn/hashline": "catalog:",
-    "@cxn/pi-agent-core": "catalog:",
-    "@cxn/pi-coding-agent": "catalog:",
-    "@cxn/pi-utils": "catalog:",
+    "@cyberxninja-omp/hashline": "catalog:",
+    "@cyberxninja-omp/pi-agent-core": "catalog:",
+    "@cyberxninja-omp/pi-coding-agent": "catalog:",
+    "@cyberxninja-omp/pi-utils": "catalog:",
     "diff": "catalog:",
-    "@cxn/pi-natives": "catalog:",
+    "@cyberxninja-omp/pi-natives": "catalog:",
     "prettier": "catalog:",
     "regexp-tree": "catalog:",
-    "@cxn/pi-ai": "catalog:",
-    "@cxn/pi-tui": "catalog:"
+    "@cyberxninja-omp/pi-ai": "catalog:",
+    "@cyberxninja-omp/pi-tui": "catalog:"
   },
   "devDependencies": {
     "@types/babel__generator": "catalog:",

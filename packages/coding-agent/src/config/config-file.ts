@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { OmpErrors, type Type } from "@cxn/omptype";
-import { getAgentDir, isEnoent, logger } from "@cxn/pi-utils";
+import { OmpErrors, type Type } from "@cyberxninja-omp/omptype";
+import { getAgentDir, isEnoent, logger } from "@cyberxninja-omp/pi-utils";
 import { JSONC, YAML } from "bun";
 
 /** Minimal subset of the AJV ConfigSchemaError shape this module actually relies on. */

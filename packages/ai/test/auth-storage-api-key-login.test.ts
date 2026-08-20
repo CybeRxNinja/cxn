@@ -4,12 +4,12 @@ import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
 
-import { AuthStorage, SqliteAuthCredentialStore } from "@cxn/pi-ai/auth-storage";
-import * as deepseekModule from "@cxn/pi-ai/registry/deepseek";
-import * as kagiModule from "@cxn/pi-ai/registry/kagi";
-import * as ollamaCloudModule from "@cxn/pi-ai/registry/ollama-cloud";
-import * as aiStream from "@cxn/pi-ai/stream";
-import { serializeAlibabaTokenPlanCredential } from "@cxn/pi-catalog/wire/alibaba-token-plan";
+import { AuthStorage, SqliteAuthCredentialStore } from "@cyberxninja-omp/pi-ai/auth-storage";
+import * as deepseekModule from "@cyberxninja-omp/pi-ai/registry/deepseek";
+import * as kagiModule from "@cyberxninja-omp/pi-ai/registry/kagi";
+import * as ollamaCloudModule from "@cyberxninja-omp/pi-ai/registry/ollama-cloud";
+import * as aiStream from "@cyberxninja-omp/pi-ai/stream";
+import { serializeAlibabaTokenPlanCredential } from "@cyberxninja-omp/pi-catalog/wire/alibaba-token-plan";
 import { removeWithRetries } from "../../utils/src/temp";
 
 function countCredentialRows(dbPath: string, provider: string): number {

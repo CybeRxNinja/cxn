@@ -1,18 +1,18 @@
 # Daemon / Agent-Connection Lane — Implementation Plan
 
-> Scope: the next Critical phase of the cxn RLM port (see `docs/progress.md`
+> Scope: the next Critical phase of the omp RLM port (see `docs/progress.md`
 > Phase 2 "Daemon/attach lane"). This plan turns the daemon from a stub into a
-> working, robust subsystem that powers `cxn agents` (list/attach/send/stop),
+> working, robust subsystem that powers `omp agents` (list/attach/send/stop),
 > compaction-surviving session leases, and correct cross-session family reach.
 >
-> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5 + Phase 6 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in PR #8; `cxn agents` CLI in PR #9; heartbeats/reconnect/real-daemon-boot/crash-cleanup in PR #10; compaction-surviving durability of ledger + leases + mailboxes in PR #11). The in-process child-kernel wiring needs no daemon IPC.
+> Status: **Phase 0 + Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5 + Phase 6 DONE** (family-store extraction + child-kernel wiring in PR #6; daemon skeleton in PR #7; ledger/leases/reach in PR #8; `omp agents` CLI in PR #9; heartbeats/reconnect/real-daemon-boot/crash-cleanup in PR #10; compaction-surviving durability of ledger + leases + mailboxes in PR #11). The in-process child-kernel wiring needs no daemon IPC.
 
 ---
 
 ## 0. Corrected architecture (read this first)
 
 Earlier notes claimed RLM children "run as subprocesses with their own
-in-memory family state." **That is wrong for cxn's current code.** Tracing
+in-memory family state." **That is wrong for omp's current code.** Tracing
 `runStructuredSubagent` → `runSubprocess` (`packages/coding-agent/src/task/executor.ts`)
 shows the child is created with `createAgentSession(...)` and run by an
 in-process `monitor` (`monitor.takeActiveSession()` / `monitor.finish()`).
@@ -34,14 +34,14 @@ family. That is a small, safe, in-process fix (Phase 1 below) — deliverable
 now, with no new process or socket.
 
 The daemon is still required, but for a *different* job: **cross-process**
-authority. Specifically `cxn agents` (a separate terminal attaching to a
+authority. Specifically `omp agents` (a separate terminal attaching to a
 session), persistent/attached agents that survive the spawning parent, and
 sibling messaging **across different parent sessions** (different processes).
 For those, the authoritative family/session state must live in a process that
 outlives any single parent — the supervisor daemon.
 
-### What cxn already has (reuse, don't rebuild)
-- **ACP** — `@cxn/pi-utils/acp` (`AgentSideConnection`, `ndJsonStream`,
+### What omp already has (reuse, don't rebuild)
+- **ACP** — `@cyberxninja-omp/pi-utils/acp` (`AgentSideConnection`, `ndJsonStream`,
   `Stream`) + `packages/coding-agent/src/modes/acp/` (`acp-agent.ts`,
   `acp-mode.ts` with `runAcpMode`, `acp-client-bridge.ts`). A complete
   JSON-RPC agent-communication server. This is the transport to reuse.
@@ -75,7 +75,7 @@ outlives any single parent — the supervisor daemon.
    drains its own mailbox (in-process, no daemon). [Phase 1]
 2. A supervisor **daemon** process: owns session runtimes + family/mailbox
    state + session leases; serves ACP over a UDS socket. [Phase 2–3]
-3. `cxn agents` CLI: `list` / `attach` / `send` / `stop` against the daemon.
+3. `omp agents` CLI: `list` / `attach` / `send` / `stop` against the daemon.
    [Phase 4]
 4. Session leases + `RlmSpawnLedger` so sessions are attachable and topology is
    authoritative. [Phase 3]
@@ -85,10 +85,10 @@ outlives any single parent — the supervisor daemon.
 
 **Non-goals (explicitly out of scope — avoid scope creep)**
 - Do **not** port prime-agent's entire `AgentConnection` interface (it is the
-  whole TUI↔session boundary; cxn already has `interactive-mode.ts`, `rpc/`,
+  whole TUI↔session boundary; omp already has `interactive-mode.ts`, `rpc/`,
   `acp/`). We port only the *daemon-specific* primitives (ledger, lease,
-  socket/client, reach, CLI), reusing cxn's existing transport.
-- Do **not** change cxn's in-process child-execution model into OS
+  socket/client, reach, CLI), reusing omp's existing transport.
+- Do **not** change omp's in-process child-execution model into OS
   subprocesses. Keep children in-process; the daemon is an *authority* for
   cross-process clients, not the owner of every transient child.
 - Do not re-implement the TUI; `agents` is a CLI (port prime-agent's
@@ -115,7 +115,7 @@ interface FamilyStore {
   in `rlm.ts`. Used when the session is not daemon-owned (the common,
   fast, in-process parent↔child path). No serialization, no socket.
 - `DaemonFamilyStore` — talks to the supervisor daemon over ACP/UDS
-  (`DaemonClient.request(...)`). Used by `cxn agents` clients and by
+  (`DaemonClient.request(...)`). Used by `omp agents` clients and by
   daemon-owned (persistent/attached) sessions.
 
 The `rlm.ts` / `agent_message` bridges select the store from the session
@@ -167,7 +167,7 @@ additive authority.
     `DuplexStreams`), `DaemonClient` (correlated `request()`), `inMemoryPair`
     (in-memory duplex for deterministic tests), and the real `udsServer` /
     `udsConnect` over a `node:net` Unix-domain socket
-    (`$XDG_RUNTIME_DIR`/cxn/daemon-`<uid>`.sock via `daemon-socket.ts`, with a
+    (`$XDG_RUNTIME_DIR`/omp/daemon-`<uid>`.sock via `daemon-socket.ts`, with a
     `<sock>.lock` identity file). `udsServer.stop()` destroys sockets and
     removes the socket file (idempotent), giving lockfile + identity-checked
     cleanup on daemon exit.
@@ -183,7 +183,7 @@ additive authority.
     --daemon-socket`) is a thin wrapper that fills `spawn` with `udsServer`.
   - `index.ts` — barrel re-exporting the module.
 - Transport decision: a self-contained JSONL protocol over `node:net` UDS
-  (with an in-memory duplex fallback) rather than booting cxn's full ACP
+  (with an in-memory duplex fallback) rather than booting omp's full ACP
   server. The ACP server's CLI boot is heavy and its envelope is
   request/response-oriented; the daemon only needs command/response
   correlation, which the lightweight `DaemonClient` provides. The *message
@@ -211,7 +211,7 @@ additive authority.
   in-process and via daemon.
   - **cxn-specific extension (documented, minimal):** self-delivery to one's
     own mailbox (e.g. a parent queuing a message for its own `recv()`) is
-    allowed *before* the reach check. This is cxn's in-process self-inbox
+    allowed *before* the reach check. This is omp's in-process self-inbox
     convention, not a cross-agent reach grant; the nuclear-family boundary for
     distinct agents is untouched.
 - `RlmSpawnLedger` (`packages/coding-agent/src/modes/daemon/rlm-ledger.ts`) —
@@ -240,8 +240,8 @@ additive authority.
 - Risk: retired (medium → low). Reach ported verbatim; ledger/lease covered by
   new contract tests; no new process primitive.
 
-### Phase 4 — `cxn agents` CLI (DONE — 2026-08-18)
-- `cxn agents list | attach | send | stop` now talk to the supervisor daemon over
+### Phase 4 — `omp agents` CLI (DONE — 2026-08-18)
+- `omp agents list | attach | send | stop` now talk to the supervisor daemon over
   its shared `FamilyStore` (no separate `DaemonFamilyStore` shim — the CLI connects
   directly via `ensureDaemonRunning` + `DaemonClient.request(...)`, reusing the
   Phase 2 transport and the Phase 3 ledger/lease handlers).
@@ -272,7 +272,7 @@ additive authority.
 - Real daemon boot: `cli.ts --mode daemon` dispatches `runDaemonMode`, which
   serves the UDS, runs the heartbeat reaper, and installs `uncaughtException` /
   `unhandledRejection` / `SIGINT` / `SIGTERM` handlers that clean the socket +
-  lockfile. Verified end-to-end by spawning the real `cxn` CLI subprocess.
+  lockfile. Verified end-to-end by spawning the real `omp` CLI subprocess.
 - Lockfile identity-checked cleanup on daemon exit (the supervisor writes the
   lock; the daemon removes it on shutdown).
 - Risk: retired (medium). Defense-in-depth; each piece has a test (reap,
@@ -301,7 +301,7 @@ The daemon now boots with durable state so a restart/respawn resumes where it le
 - **Phase 3**: reach test — port prime-agent's `assertAgentFamilyReach`
   cases (parent/child/sibling allowed; aunt/cousin/stranger rejected);
   ledger topology drives reach.
-- **Phase 4**: `cxn agents` e2e — scripted CLI against a live daemon
+- **Phase 4**: `omp agents` e2e — scripted CLI against a live daemon
   (list shows spawned children; attach + send delivers).
 - **Phase 5**: robustness — kill a child process → daemon reaps + marks
   completed; drop the socket → client reconnects; daemon crash → lockfile
@@ -329,7 +329,7 @@ reach, cleaned socket), never "the code ran."
 
 ## 6. Definition of done
 
-- [x] `cxn agents list/attach/send/stop` work against a running daemon.
+- [x] `omp agents list/attach/send/stop` work against a running daemon.
 - [x] A child's `agent_message.recv()` drains its mailbox (in-process).
 - [x] Sibling/parent/child reach enforced identically in-process and via daemon.
 - [x] Session leases + `RlmSpawnLedger` make sessions attachable; topology is
@@ -346,7 +346,7 @@ reach, cleaned socket), never "the code ran."
 ## 7. Suggested first PR (this session's next step)
 
 **Phase 0–6 DONE** (Phase 0+1 merged in PR #6; Phase 2 daemon skeleton merged in
-PR #7; Phase 3 ledger/leases/reach merged in PR #8; `cxn agents` CLI in PR #9;
+PR #7; Phase 3 ledger/leases/reach merged in PR #8; `omp agents` CLI in PR #9;
 robustness in PR #10; compaction-surviving durability in PR #11).
 Child-kernel wiring is implemented, reach/ledger/leases/CLI/robustness/persistence
 are landed. The daemon feature lane is complete through Phase 6; remaining work is

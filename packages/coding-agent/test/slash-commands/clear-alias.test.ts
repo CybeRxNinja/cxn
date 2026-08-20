@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test";
 import {
 	BUILTIN_SLASH_COMMANDS,
 	lookupBuiltinSlashCommand,
-} from "@cxn/pi-coding-agent/slash-commands/builtin-registry";
-import { CombinedAutocompleteProvider } from "@cxn/pi-tui/autocomplete";
+} from "@cyberxninja-omp/pi-coding-agent/slash-commands/builtin-registry";
+import { CombinedAutocompleteProvider } from "@cyberxninja-omp/pi-tui/autocomplete";
 
 describe("/clear slash command", () => {
 	it("resolves /clear to the context reset command and removed /clear alias from /new", async () => {

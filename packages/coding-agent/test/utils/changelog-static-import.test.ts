@@ -35,7 +35,7 @@ async function runProbe(command: string[], cwd?: string): Promise<BundleProbeRes
 }
 
 /**
- * Swap `@cxn/pi-utils` and the changelog module's `../config` import for a
+ * Swap `@cyberxninja-omp/pi-utils` and the changelog module's `../config` import for a
  * dependency-free stub. Both pull the native addon loader into the bundle graph, and
  * that loader resolves `pi_natives.<platform>.node` relative to the emitted artifact,
  * so any probe written outside the repo fails to start. The subject under test is
@@ -45,7 +45,7 @@ function changelogUtilsStubPlugin(): BunPlugin {
 	return {
 		name: "changelog-utils-stub",
 		setup(build) {
-			build.onResolve({ filter: /^@cxn\/pi-utils$/ }, () => ({ path: utilsStubPath }));
+			build.onResolve({ filter: /^@cyberxninja-omp\/pi-utils$/ }, () => ({ path: utilsStubPath }));
 			build.onResolve({ filter: /^\.\.\/config$/ }, args =>
 				args.importer.endsWith("/utils/changelog.ts") ? { path: utilsStubPath } : undefined,
 			);
@@ -54,12 +54,12 @@ function changelogUtilsStubPlugin(): BunPlugin {
 }
 
 describe("bundled changelog asset path resolution", () => {
-	const moduleUrl = new URL("file:///opt/cxn/dist/cli.js");
+	const moduleUrl = new URL("file:///opt/omp/dist/cli.js");
 
 	test.each([
-		["Windows drive-letter", String.raw`C:\cxn\dist\CHANGELOG.md`],
-		["Windows UNC", String.raw`\\server\share\cxn\CHANGELOG.md`],
-		["POSIX", "/opt/cxn/dist/CHANGELOG.md"],
+		["Windows drive-letter", String.raw`C:\omp\dist\CHANGELOG.md`],
+		["Windows UNC", String.raw`\\server\share\omp\CHANGELOG.md`],
+		["POSIX", "/opt/omp/dist/CHANGELOG.md"],
 	])("preserves an absolute %s path", (_kind, nativePath) => {
 		expect(resolveBundledChangelogPath(nativePath, moduleUrl)).toBe(nativePath);
 	});

@@ -1,5 +1,5 @@
 import { scheduler } from "node:timers/promises";
-import { isRetryableError } from "@cxn/pi-utils";
+import { isRetryableError } from "@cyberxninja-omp/pi-utils";
 import { isCopilotTransientModelError, status } from "../error/flags";
 import { getHeadersFromError, getRetryAfterMsFromHeaders } from "./retry-after";
 

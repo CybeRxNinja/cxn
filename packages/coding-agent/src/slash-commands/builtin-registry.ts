@@ -1,4 +1,4 @@
-import type { AutocompleteItem } from "@cxn/pi-tui";
+import type { AutocompleteItem } from "@cyberxninja-omp/pi-tui";
 import { COLLAB_GUEST_ALLOWED_COMMANDS } from "../collab/guest";
 import { BUILTIN_COLLABORATION_SLASH_COMMANDS } from "./builtin-collaboration";
 import {

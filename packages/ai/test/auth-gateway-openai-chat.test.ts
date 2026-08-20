@@ -1,6 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { encodeResponse, encodeStream, parseRequest } from "@cxn/pi-ai/providers/openai-chat-server";
-import type { AssistantMessage, AssistantMessageEvent, AssistantMessageEventStream } from "@cxn/pi-ai/types";
+import { encodeResponse, encodeStream, parseRequest } from "@cyberxninja-omp/pi-ai/providers/openai-chat-server";
+import type {
+	AssistantMessage,
+	AssistantMessageEvent,
+	AssistantMessageEventStream,
+} from "@cyberxninja-omp/pi-ai/types";
 
 function makeEventStream(events: AssistantMessageEvent[], final: AssistantMessage): AssistantMessageEventStream {
 	async function* iter() {

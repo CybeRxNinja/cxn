@@ -1,4 +1,4 @@
-import { Container } from "@cxn/pi-tui";
+import { Container } from "@cyberxninja-omp/pi-tui";
 
 /**
  * Capabilities a mounted {@link ChatBlock} may use against its host transcript.

@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import type { AgentTool, AgentToolResult } from "@cxn/pi-agent-core";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { callSessionTool } from "@cxn/pi-coding-agent/eval/js/tool-bridge";
-import type { ToolSession } from "@cxn/pi-coding-agent/tools";
-import { INTENT_FIELD } from "@cxn/pi-wire";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentTool, AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { callSessionTool } from "@cyberxninja-omp/pi-coding-agent/eval/js/tool-bridge";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import { INTENT_FIELD } from "@cyberxninja-omp/pi-wire";
 
 function createTool(
 	name: string,

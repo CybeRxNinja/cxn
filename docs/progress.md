@@ -1,4 +1,4 @@
-# cxn — Project Progress
+# omp — Project Progress
 
 **Last updated:** 2026-08-18
 **Current phase:** Phase 6 DONE — compaction-surviving daemon durability (ledger + leases + mailboxes persist across restart) landed in PR #11; the RLM daemon lane (Phases 0–6) is complete. Next: operational hardening + the pre-existing `cli-computer-lazy` regression (regressed by PR #10, out of Phase 6 scope).
@@ -7,7 +7,7 @@
 
 ## Executive status
 
-cxn is a **public, working coding agent** — the base oh-my-pi fork is fully rebranded,
+omp is a **public, working coding agent** — the base oh-my-pi fork is fully rebranded,
 CI is green on the core gates (typecheck, branding guard, lint), the upstream sync pipeline
 is operational end-to-end with automated import healing, and the first two RLM features
 (`/refine` harness and `rlm()` recursive subagents) are ported and tested. The Rust
@@ -22,9 +22,9 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 
 | Item | Status | Notes |
 |------|--------|-------|
-| Private repo created & published public | ✅ | `CybeRxNinja/cxn` on GitHub |
+| Private repo created & published public | ✅ | `CybeRxNinja/omp` on GitHub |
 | Upstream remotes configured | ✅ | `upstream-omp` (can1357/oh-my-pi), `upstream-pa` (PrimeIntellect-ai/prime-agent) |
-| Full rebrand sweep | ✅ | CLI → `cxn`, scope → `@cxn/*`, prompts/URLs/branding → `cxn` (see §2.5 of PLAN.md) |
+| Full rebrand sweep | ✅ | CLI → `omp`, scope → `@cyberxninja-omp/*`, prompts/URLs/branding → `omp` (see §2.5 of PLAN.md) |
 | Branding guard CI gate | ✅ | `scripts/check-branding.ts` + `.github/workflows/branding-guard.yml` — fails PRs on forbidden branding |
 | CI green on hosted runners | ✅ | `bun run check:ts`, branding guard, lint — all passing on `ubuntu-latest` |
 | License/attribution preserved | ✅ | MIT notices for Zechner, Bölük, and Prime Intellect (for ported code) retained |
@@ -74,7 +74,7 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 | Item | Status | Notes |
 |------|--------|-------|
 | Sync script | ✅ | `scripts/upstream-sync.ts` — merge, rebrand pass, version alignment, import heal, typecheck gate, PR creation/update |
-| Rebrand pass | ✅ | `@oh-my-pi/*` → `@cxn/*`, product strings, user-agent regex — runs on every sync |
+| Rebrand pass | ✅ | `@oh-my-pi/*` → `@cyberxninja-omp/*`, product strings, user-agent regex — runs on every sync |
 | Version alignment | ✅ | Aligns workspace versions to upstream's latest when sync brings a release bump |
 | Import heal | ✅ | Heals missing imports dropped by `-X ours` merge (layout-preserving splice + biome normalization) |
 | Biome lint pass | ✅ | Applies safe + unsafe (unused import) fixes on synced files |
@@ -90,8 +90,8 @@ the test itself passes locally and on unloaded runners; the fix is tracked below
 | Internal URL autocomplete test | ✅ | Rebranded scheme list sorted correctly |
 | Git-hosting test | ✅ | Over-rebranded repo expectations reverted (parser returns literal upstream URLs) |
 | Export HTML template sha256 | ✅ | Updated deterministic fingerprint |
-| TUI notification base64 fixtures | ✅ | Updated to `base64("cxn")` |
-| QR code fingerprint fixtures | ✅ | Updated for `my.cxn.sh` URL |
+| TUI notification base64 fixtures | ✅ | Updated to `base64("omp")` |
+| QR code fingerprint fixtures | ✅ | Updated for `my.omp.sh` URL |
 | Julia kernel boot budget | ✅ | Bumped from 15s to 60s for cold CI boots |
 | pi-shell kill test timeouts | ✅ | Bumped to 30s (still flaking on loaded CI runners — see below) |
 
@@ -129,13 +129,13 @@ CI-blocking.
 
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
-| Child kernels wired into family | **Done** | — | **DONE (in-process)** — extracted into `eval/py/family-store.ts`; a child's `agent_message.recv()` now drains its real mailbox. Resolution uses `getAgentId()` (== `rlm_child_id`) so no spawn-path injection is needed. The daemon is only needed for *cross-process* `cxn agents` + cross-session sibling reach (see `docs/daemon-lane.md` Phase 1). |
+| Child kernels wired into family | **Done** | — | **DONE (in-process)** — extracted into `eval/py/family-store.ts`; a child's `agent_message.recv()` now drains its real mailbox. Resolution uses `getAgentId()` (== `rlm_child_id`) so no spawn-path injection is needed. The daemon is only needed for *cross-process* `omp agents` + cross-session sibling reach (see `docs/daemon-lane.md` Phase 1). |
 | Sibling-to-sibling messaging | **Done** | — | **DONE (Phase 3)** — `assertAgentFamilyReach` (ported verbatim from prime-agent) now permits child→sibling within a nuclear family, enforced on every `sendToFamily` (in-process + daemon). See `docs/daemon-lane.md` Phase 3. |
 | `find_models` catalog | **Done** | — | Ported to `__rlm__` (free-text / provider / capability over the bundled catalog); added contract tests. |
 | Compaction-surviving persistence | **Done** | **Phase 6 DONE (PR #11)** — `RlmSpawnLedger.persist()` writes `agentDir/rlm-ledger.json` on every mutation; `SessionLeaseRegistry.reload()` re-scans `agentDir/session-leases/*.lock`; mailboxes written per-family and re-seeded on boot via `restoreMailboxMessages`. All survive a daemon restart (tested). See `docs/daemon-lane.md` Phase 6. |
 | Daemon supervisor skeleton | **Done** | — | `modes/daemon/` transport (UDS JSONL + in-memory) + `ensureDaemonRunning` supervisor + handlers (`agent_message`, `rlm`, `session`, `find_models`) over a shared `FamilyStore`. in-memory + real-UDS + supervisor tests. See `docs/daemon-lane.md` Phase 2. |
-| Daemon ledger/leases/reach (`cxn agents` CLI) | **Done** | — | **Phase 3 + Phase 4 DONE** — `RlmSpawnLedger` (topology authority), `assertAgentFamilyReach` (verbatim reach boundary in `eval/py/family-reach.ts`), and `SessionLeaseRegistry` (on-disk `owner.json` + pid reaping) landed and wired into the daemon handlers; `cxn agents list/attach/send/stop` CLI added in Phase 4 over the shared `FamilyStore`. See `docs/daemon-lane.md` Phases 3–4. |
-| Daemon robustness (heartbeats/reconnect/crash-cleanup) | **Done** | — | **Phase 5 DONE** — `HeartbeatCatalog` + `startDaemonHeartbeat` reaper (reaps stale child agents and force-releases their session leases by session dir), `DaemonClient` reconnect/retry with a generation-guarded pump, real `cli.ts --mode daemon` boot wiring `uncaughtException`/`unhandledRejection`/`SIGINT`/`SIGTERM` cleanup, and identity-checked lockfile removal on exit. Verified end-to-end by spawning the real `cxn` CLI subprocess. See `docs/daemon-lane.md` Phase 5. |
+| Daemon ledger/leases/reach (`omp agents` CLI) | **Done** | — | **Phase 3 + Phase 4 DONE** — `RlmSpawnLedger` (topology authority), `assertAgentFamilyReach` (verbatim reach boundary in `eval/py/family-reach.ts`), and `SessionLeaseRegistry` (on-disk `owner.json` + pid reaping) landed and wired into the daemon handlers; `omp agents list/attach/send/stop` CLI added in Phase 4 over the shared `FamilyStore`. See `docs/daemon-lane.md` Phases 3–4. |
+| Daemon robustness (heartbeats/reconnect/crash-cleanup) | **Done** | — | **Phase 5 DONE** — `HeartbeatCatalog` + `startDaemonHeartbeat` reaper (reaps stale child agents and force-releases their session leases by session dir), `DaemonClient` reconnect/retry with a generation-guarded pump, real `cli.ts --mode daemon` boot wiring `uncaughtException`/`unhandledRejection`/`SIGINT`/`SIGTERM` cleanup, and identity-checked lockfile removal on exit. Verified end-to-end by spawning the real `omp` CLI subprocess. See `docs/daemon-lane.md` Phase 5. |
 | Auto-refine hookup | Medium | Low | Wire `reviewAutoRefine` into turn loop (after daemon lands) |
 
 ### Phase 3 — Python-backed skills
@@ -150,8 +150,8 @@ CI-blocking.
 
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
-| `cron-jobs.ts` + `cxn schedule` | Medium | Medium | One-time + cron scheduled jobs |
-| `autonomous.ts` + `cxn autonomous` | Medium | Medium | Bounded mode with turn/token/time budgets + quality gates |
+| `cron-jobs.ts` + `omp schedule` | Medium | Medium | One-time + cron scheduled jobs |
+| `autonomous.ts` + `omp autonomous` | Medium | Medium | Bounded mode with turn/token/time budgets + quality gates |
 | Goals CLI | Medium | Low | `/goal` persistent goals |
 | Heartbeats | Low | Low | `/heartbeat` (user), `rlm_heartbeat` (agent) |
 
@@ -159,9 +159,9 @@ CI-blocking.
 
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
-| Release pipeline on hosted runners | High | High | `release.ts` adapted: version bump → tag → CI builds → GitHub Packages → GitHub Release with checksums |
-| GitHub Packages publishing | High | Medium | `@cxn/*` to `npm.pkg.github.com`; native leaf packages |
-| Installer scripts | High | Medium | `install.sh` / `install.ps1` adapted; `cxn update` reads configured registry |
+| Release pipeline on hosted runners | High | High | `release.ts` adapted: version bump → tag → CI builds → public npm → GitHub Release with checksums |
+| public npm publishing | High | Medium | `@cyberxninja-omp/*` to `registry.npmjs.org`; native leaf packages |
+| Installer scripts | High | Medium | `install.sh` / `install.ps1` adapted; `omp update` reads configured registry |
 | Homebrew tap (optional) | Low | Low | Self-gating on unset secret; port if desired |
 | macOS signing/notarization | Low | Low | Auto-skip until `APPLE_*` secrets configured |
 | Python runtime in releases | Medium | Medium | Bundle `cxn-runtime` wheel + kernel bootstrap |
@@ -171,7 +171,7 @@ CI-blocking.
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
 | Docs tree update | Medium | Medium | RLM/daemon docs, updated tool reference |
-| Session migration tool | Low | Medium | Migrate old cxn sessions if format diverges |
+| Session migration tool | Low | Medium | Migrate old omp sessions if format diverges |
 | Security review | Medium | Medium | Sandbox warnings inherited; audit ported code |
 | Remove `research/upstream/` clones | Low | Trivial | Gitignored; clean up before v0.1.0 |
 | Telemetry decision | Low | Low | Disable or make opt-in (recommended: disable for private tool) |
@@ -195,12 +195,12 @@ CI-blocking.
 
 ## Key design decisions (summary)
 
-1. **Adapt, don't transplant** the RLM kernel — cxn's `eval` kernel + loopback bridge already satisfy the execution contract.
+1. **Adapt, don't transplant** the RLM kernel — omp's `eval` kernel + loopback bridge already satisfy the execution contract.
 2. **In-memory family state first** — compaction-surviving persistence is a follow-up, not a blocker.
 3. **Automated sync with safety backstops** — `CXN_SYNC_PAT` auto-merges when CI is green; branding guard + typecheck gate prevent silent regressions.
 4. **Layout-preserving import heal** — the sync script heals missing imports without corrupting multi-line formatting (biome normalizes afterward).
 5. **REST over GraphQL for PR updates** — works with limited-scope tokens (classic PATs, `GITHUB_TOKEN`).
-6. **Private by default, public-ready** — the repo is public; GitHub Packages still require auth; Releases are public with checksums.
+6. **Private by default, public-ready** — the repo is public; public npm packages need no auth; Releases are public with checksums.
 
 ---
 

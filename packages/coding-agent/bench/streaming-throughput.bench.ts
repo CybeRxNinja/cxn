@@ -21,7 +21,7 @@
  *
  * Run: bun run packages/coding-agent/bench/streaming-throughput.bench.ts
  */
-import type { AssistantMessage } from "@cxn/pi-ai";
+import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
 import { BlockUnitCounter, buildDisplayMessage, nextStep } from "../src/modes/controllers/streaming-reveal";
 
 const HIDE_THINKING = false;

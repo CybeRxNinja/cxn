@@ -2,7 +2,7 @@
  * Test web search providers.
  */
 
-import { Args, Command, Flags } from "@cxn/pi-utils/cli";
+import { Args, Command, Flags } from "@cyberxninja-omp/pi-utils/cli";
 import { searchHelp as commandHelp } from "../cli/command-help";
 import { runSearchCommand, type SearchCommandArgs } from "../cli/web-search-cli";
 import { SEARCH_PROVIDER_ORDER } from "../web/search/provider";

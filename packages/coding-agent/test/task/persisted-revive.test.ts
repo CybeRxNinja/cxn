@@ -1,21 +1,21 @@
 import { afterEach, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
-import type { ModelRegistry } from "@cxn/pi-coding-agent/config/model-registry";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { MCPManager } from "@cxn/pi-coding-agent/mcp/manager";
-import { RpcSubagentRegistry } from "@cxn/pi-coding-agent/modes/rpc/rpc-subagents";
-import type { RpcSubagentFrame } from "@cxn/pi-coding-agent/modes/rpc/rpc-types";
-import { AgentLifecycleManager } from "@cxn/pi-coding-agent/registry/agent-lifecycle";
-import type { AgentRef } from "@cxn/pi-coding-agent/registry/agent-registry";
-import { AgentRegistry } from "@cxn/pi-coding-agent/registry/agent-registry";
-import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cxn/pi-coding-agent/sdk";
-import * as sdkModule from "@cxn/pi-coding-agent/sdk";
-import type { AgentSession, AgentSessionEvent } from "@cxn/pi-coding-agent/session/agent-session";
-import type { CustomMessage } from "@cxn/pi-coding-agent/session/messages";
-import { SessionManager } from "@cxn/pi-coding-agent/session/session-manager";
-import { createPersistedSubagentReviverFactory } from "@cxn/pi-coding-agent/task/persisted-revive";
-import { EventBus } from "@cxn/pi-coding-agent/utils/event-bus";
-import { TempDir } from "@cxn/pi-utils";
+import type { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { MCPManager } from "@cyberxninja-omp/pi-coding-agent/mcp/manager";
+import { RpcSubagentRegistry } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-subagents";
+import type { RpcSubagentFrame } from "@cyberxninja-omp/pi-coding-agent/modes/rpc/rpc-types";
+import { AgentLifecycleManager } from "@cyberxninja-omp/pi-coding-agent/registry/agent-lifecycle";
+import type { AgentRef } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import { AgentRegistry } from "@cyberxninja-omp/pi-coding-agent/registry/agent-registry";
+import type { CreateAgentSessionOptions, CreateAgentSessionResult } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import * as sdkModule from "@cyberxninja-omp/pi-coding-agent/sdk";
+import type { AgentSession, AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
+import type { CustomMessage } from "@cyberxninja-omp/pi-coding-agent/session/messages";
+import { SessionManager } from "@cyberxninja-omp/pi-coding-agent/session/session-manager";
+import { createPersistedSubagentReviverFactory } from "@cyberxninja-omp/pi-coding-agent/task/persisted-revive";
+import { EventBus } from "@cyberxninja-omp/pi-coding-agent/utils/event-bus";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 
 const tempDirs: TempDir[] = [];
 

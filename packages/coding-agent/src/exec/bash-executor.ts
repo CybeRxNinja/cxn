@@ -3,9 +3,9 @@
  *
  * Uses brush-core via native bindings for shell execution.
  */
-import { ExponentialYield } from "@cxn/pi-agent-core/utils/yield";
-import { type MinimizerOptions, Shell, type ShellRunResult } from "@cxn/pi-natives";
-import { isCmdShell, isExecutable, type ShellConfig } from "@cxn/pi-utils/procmgr";
+import { ExponentialYield } from "@cyberxninja-omp/pi-agent-core/utils/yield";
+import { type MinimizerOptions, Shell, type ShellRunResult } from "@cyberxninja-omp/pi-natives";
+import { isCmdShell, isExecutable, type ShellConfig } from "@cyberxninja-omp/pi-utils/procmgr";
 import { Settings, type ShellMinimizerSettings } from "../config/settings";
 import { OutputSink } from "../session/streaming-output";
 import { resolveOutputMaxColumns, resolveOutputSinkHeadBytes } from "../tools/output-meta";

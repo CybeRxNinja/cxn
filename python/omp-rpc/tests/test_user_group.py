@@ -23,7 +23,7 @@ def _start_and_capture(**kwargs):
 
 
 def test_no_user_group_defaults_to_none():
-    call = _start_and_capture(executable="cxn")
+    call = _start_and_capture(executable="omp")
     assert call.kwargs["user"] is None
     assert call.kwargs["group"] is None
     assert call.kwargs["extra_groups"] is None
@@ -31,17 +31,17 @@ def test_no_user_group_defaults_to_none():
 
 def test_user_and_group_kwargs_threaded():
     call = _start_and_capture(
-        executable="cxn",
+        executable="omp",
         user=2001,
-        group="cxn",
+        group="omp",
         extra_groups=[2000, "docker"],
     )
     assert call.kwargs["user"] == 2001
-    assert call.kwargs["group"] == "cxn"
+    assert call.kwargs["group"] == "omp"
     assert call.kwargs["extra_groups"] == [2000, "docker"]
 
 
 def test_extra_groups_none_distinct_from_empty():
-    call = _start_and_capture(executable="cxn", extra_groups=[])
+    call = _start_and_capture(executable="omp", extra_groups=[])
     # [] means an empty supplementary group list and differs from None.
     assert call.kwargs["extra_groups"] == []

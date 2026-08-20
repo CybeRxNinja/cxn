@@ -3,18 +3,23 @@ import {
 	type InputItem,
 	type RequestBody,
 	transformRequestBody,
-} from "@cxn/pi-ai/providers/openai-codex/request-transformer";
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex/request-transformer";
 import {
 	buildTransformedCodexRequestBody,
 	convertCodexResponsesMessages,
 	resetOpenAICodexHistoryAfterCompaction,
 	streamOpenAICodexResponses,
-} from "@cxn/pi-ai/providers/openai-codex-responses";
-import { isOpenAIResponsesProgressEvent } from "@cxn/pi-ai/providers/openai-shared";
-import { configureCredentialRedaction } from "@cxn/pi-ai/providers/transform-messages";
-import type { CodexCompactionRequestContext, Context, FetchImpl, ProviderSessionState } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import * as piUtils from "@cxn/pi-utils";
+} from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { isOpenAIResponsesProgressEvent } from "@cyberxninja-omp/pi-ai/providers/openai-shared";
+import { configureCredentialRedaction } from "@cyberxninja-omp/pi-ai/providers/transform-messages";
+import type {
+	CodexCompactionRequestContext,
+	Context,
+	FetchImpl,
+	ProviderSessionState,
+} from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
 import { createCodexModel } from "./helpers";
 
 beforeAll(() => configureCredentialRedaction(true));

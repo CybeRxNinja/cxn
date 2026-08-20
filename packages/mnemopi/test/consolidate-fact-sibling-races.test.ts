@@ -2,8 +2,8 @@ import { afterEach, describe, expect, it, vi } from "bun:test";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { VeracityConsolidator } from "@cxn/pi-mnemopi/core/veracity-consolidation";
-import { closeQuietly } from "@cxn/pi-mnemopi/db";
+import { VeracityConsolidator } from "@cyberxninja-omp/pi-mnemopi/core/veracity-consolidation";
+import { closeQuietly } from "@cyberxninja-omp/pi-mnemopi/db";
 
 afterEach(() => {
 	vi.restoreAllMocks();

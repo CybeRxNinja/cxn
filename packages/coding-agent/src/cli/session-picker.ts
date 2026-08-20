@@ -1,5 +1,5 @@
-import { ProcessTerminal, TUI } from "@cxn/pi-tui";
-import { logger } from "@cxn/pi-utils";
+import { ProcessTerminal, TUI } from "@cyberxninja-omp/pi-tui";
+import { logger } from "@cyberxninja-omp/pi-utils";
 import { SessionSelectorComponent } from "../modes/components/session-selector";
 import { HistoryStorage } from "../session/history-storage";
 import type { SessionInfo } from "../session/session-listing";

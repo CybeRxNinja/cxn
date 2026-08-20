@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "bun:test";
-import { parseArgs } from "@cxn/pi-coding-agent/cli/args";
-import { Settings } from "@cxn/pi-coding-agent/config/settings";
-import { runRootCommand } from "@cxn/pi-coding-agent/main";
-import type { CreateAgentSessionOptions } from "@cxn/pi-coding-agent/sdk";
-import { AuthStorage } from "@cxn/pi-coding-agent/session/auth-storage";
-import { TempDir } from "@cxn/pi-utils";
+import { parseArgs } from "@cyberxninja-omp/pi-coding-agent/cli/args";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { runRootCommand } from "@cyberxninja-omp/pi-coding-agent/main";
+import type { CreateAgentSessionOptions } from "@cyberxninja-omp/pi-coding-agent/sdk";
+import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";
+import { TempDir } from "@cyberxninja-omp/pi-utils";
 import { runCli } from "../src/cli";
 
 describe("parseArgs — --max-time flag", () => {
@@ -71,7 +71,7 @@ describe("parseArgs — --max-time flag", () => {
 		const stderr = captured.join("");
 		expect(observedExitCode).toBe(2);
 		expect(stderr).toContain("Error: Invalid --max-time value");
-		expect(stderr).toContain("Run `cxn --help` for available flags.");
+		expect(stderr).toContain("Run `omp --help` for available flags.");
 		expect(stderr).not.toContain("parseMaxTimeSeconds");
 		expect(stderr).not.toContain("CliUsageError");
 	});

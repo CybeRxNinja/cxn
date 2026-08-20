@@ -2,13 +2,18 @@ import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { AuthStorage, type OAuthCredential, REMOTE_REFRESH_SENTINEL, SqliteAuthCredentialStore } from "@cxn/pi-ai";
+import {
+	AuthStorage,
+	type OAuthCredential,
+	REMOTE_REFRESH_SENTINEL,
+	SqliteAuthCredentialStore,
+} from "@cyberxninja-omp/pi-ai";
 import {
 	AuthBrokerClient,
 	type AuthBrokerServerHandle,
 	RemoteAuthCredentialStore,
 	startAuthBroker,
-} from "@cxn/pi-ai/auth-broker";
+} from "@cyberxninja-omp/pi-ai/auth-broker";
 import { removeWithRetries } from "../../utils/src/temp";
 
 // MCP OAuth credentials extend the base OAuthCredential with refresh material

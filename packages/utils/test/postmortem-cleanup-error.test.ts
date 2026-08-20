@@ -3,7 +3,7 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { postmortem } from "@cxn/pi-utils";
+import { postmortem } from "@cyberxninja-omp/pi-utils";
 
 const postmortemModuleUrl = pathToFileURL(join(import.meta.dir, "../src/index.ts")).href;
 
@@ -53,7 +53,7 @@ describe("postmortem expected cleanup errors", () => {
 		const marked = postmortem.markExpectedCleanupError(reason);
 
 		expect(marked).toBe(reason);
-		expect(Reflect.get(reason, Symbol.for("cxn.expectedCleanupError"))).toBe(true);
+		expect(Reflect.get(reason, Symbol.for("omp.expectedCleanupError"))).toBe(true);
 		expect(postmortem.isExpectedCleanupError(reason)).toBe(true);
 	});
 
@@ -129,7 +129,7 @@ describe("postmortem expected cleanup errors", () => {
 
 			postmortem.registerFatalRecoveryHint(() => ({
 				label: "Main",
-				command: "cxn --resume 019cafe0-dead-beef",
+				command: "omp --resume 019cafe0-dead-beef",
 			}));
 			Promise.reject(new Error("session crashed"));
 			await Promise.resolve();
@@ -137,7 +137,7 @@ describe("postmortem expected cleanup errors", () => {
 
 		expect(result.exitCode).toBe(1);
 		expect(result.stderr).toContain("[Unhandled Rejection] Error: session crashed");
-		expect(result.stderr).toContain("[Recovery]\n  Main: cxn --resume 019cafe0-dead-beef");
+		expect(result.stderr).toContain("[Recovery]\n  Main: omp --resume 019cafe0-dead-beef");
 	});
 
 	it("exits after an uncaught exception when terminal stderr is revoked", async () => {

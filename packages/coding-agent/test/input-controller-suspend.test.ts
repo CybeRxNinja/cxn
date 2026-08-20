@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, type Mock, vi } from "bun:test";
-import { InputController } from "@cxn/pi-coding-agent/modes/controllers/input-controller";
-import type { InteractiveModeContext } from "@cxn/pi-coding-agent/modes/types";
+import { InputController } from "@cyberxninja-omp/pi-coding-agent/modes/controllers/input-controller";
+import type { InteractiveModeContext } from "@cyberxninja-omp/pi-coding-agent/modes/types";
 
 interface SuspendCtx {
 	ctx: InteractiveModeContext;

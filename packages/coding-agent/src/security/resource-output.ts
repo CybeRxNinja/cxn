@@ -1,4 +1,4 @@
-import { sanitizeText } from "@cxn/pi-utils";
+import { sanitizeText } from "@cyberxninja-omp/pi-utils";
 import type { InternalResource } from "../internal-urls";
 import { DEFAULT_MAX_BYTES, DEFAULT_MAX_LINES, truncateHead } from "../session/streaming-output";
 

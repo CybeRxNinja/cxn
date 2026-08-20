@@ -5,8 +5,8 @@
  * fallback strategies for finding text in files.
  */
 
-import { type } from "@cxn/omptype";
-import type { AgentToolResult } from "@cxn/pi-agent-core";
+import { type } from "@cyberxninja-omp/omptype";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
 import type { FileDiagnosticsResult, WritethroughCallback, WritethroughDeferredHandle } from "../../lsp";
 import type { ToolSession } from "../../tools";
 import { routeWriteThroughBridge } from "../../tools/acp-bridge";

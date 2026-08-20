@@ -21,14 +21,14 @@ export const LSP_MUX_SOCKET_ENV = "CXN_LSP_MUX_SOCKET";
 export const LSP_MUX_PROJECT_DIR_ENV = "CXN_LSP_MUX_PROJECT_DIR";
 
 /** Stable broker daemon name for the shared LSP mux. */
-export const LSP_MUX_DAEMON_NAME = "cxn.lsp.mux";
+export const LSP_MUX_DAEMON_NAME = "omp.lsp.mux";
 
 /** Broker readiness regex matched against the banner printed by the worker. */
-export const LSP_MUX_READY_PATTERN = String.raw`cxn lsp mux listening on \S+`;
+export const LSP_MUX_READY_PATTERN = String.raw`omp lsp mux listening on \S+`;
 
 /** Banner printed on stdout once the mux socket accepts connections. */
 export function lspMuxReadyBanner(endpoint: string): string {
-	return `cxn lsp mux listening on ${endpoint}`;
+	return `omp lsp mux listening on ${endpoint}`;
 }
 
 /** Resolve the Unix socket or Windows named pipe for one project scope. */
@@ -50,13 +50,13 @@ export function lspMuxEndpoint(projectDir: string, runtimeDir: string): string {
  * result: {@link MuxConnectResult}. After the response the link carries
  * ordinary LSP traffic for that server.
  */
-export const MUX_CONNECT_METHOD = "cxn/muxConnect";
+export const MUX_CONNECT_METHOD = "omp/muxConnect";
 
 /**
  * Liveness probe answered with {@link MUX_PING_RESULT} without binding the
  * link to a server. Used by the smoke probe and the ensure loop.
  */
-export const MUX_PING_METHOD = "cxn/muxPing";
+export const MUX_PING_METHOD = "omp/muxPing";
 export const MUX_PING_RESULT = "pong";
 
 /**
@@ -65,7 +65,7 @@ export const MUX_PING_RESULT = "pong";
  * a plain per-session `shutdown`/`exit` is intercepted by the mux so the
  * process can linger for reuse.
  */
-export const MUX_RESTART_METHOD = "cxn/muxRestartServer";
+export const MUX_RESTART_METHOD = "omp/muxRestartServer";
 
 /** Handshake parameters identifying a reusable server process. */
 export interface MuxConnectParams {

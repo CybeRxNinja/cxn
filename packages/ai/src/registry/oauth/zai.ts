@@ -26,7 +26,7 @@ const BIZ_BASE = env("ZAI_BIZ_BASE") ?? "https://api.z.ai";
 /** Business-login endpoint: exchanges the OAuth access token for a biz token. */
 const BUSINESS_LOGIN_URL = env("ZAI_BUSINESS_LOGIN_URL") ?? "https://api.z.ai/api/auth/z/login";
 /** CXN's own key name so sign-in never mutates ZCode's `zcode-api-key`. */
-const KEY_NAME = "cxn";
+const KEY_NAME = "omp";
 const CALLBACK_PORT = 54548;
 const CALLBACK_PATH = "/callback";
 /** Durable minted key never expires; matches the perplexity NEVER_EXPIRES sentinel. */

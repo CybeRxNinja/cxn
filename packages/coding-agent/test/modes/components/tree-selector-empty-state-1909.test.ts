@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { TreeSelectorComponent } from "@cxn/pi-coding-agent/modes/components/tree-selector";
-import { initTheme } from "@cxn/pi-coding-agent/modes/theme/theme";
-import type { SessionEntry, SessionTreeNode } from "@cxn/pi-coding-agent/session/session-entries";
+import { TreeSelectorComponent } from "@cyberxninja-omp/pi-coding-agent/modes/components/tree-selector";
+import { initTheme } from "@cyberxninja-omp/pi-coding-agent/modes/theme/theme";
+import type { SessionEntry, SessionTreeNode } from "@cyberxninja-omp/pi-coding-agent/session/session-entries";
 
 beforeAll(async () => {
 	await initTheme(false, undefined, undefined, "dark", "light");

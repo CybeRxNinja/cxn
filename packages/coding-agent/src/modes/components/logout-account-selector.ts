@@ -1,4 +1,4 @@
-import { Container, matchesKey, ScrollView, Spacer, TruncatedText } from "@cxn/pi-tui";
+import { Container, matchesKey, ScrollView, Spacer, TruncatedText } from "@cyberxninja-omp/pi-tui";
 import { theme } from "../../modes/theme/theme";
 import { matchesSelectCancel, matchesSelectDown, matchesSelectUp } from "../../modes/utils/keybinding-matchers";
 import type { LogoutAccount } from "../../slash-commands/helpers/logout";

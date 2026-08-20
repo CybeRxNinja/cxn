@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { type } from "@cxn/omptype";
-import { adjustHsv, getCustomThemesDir, isEnoent } from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { adjustHsv, getCustomThemesDir, isEnoent } from "@cyberxninja-omp/pi-utils";
 import { detectColorMode, resolveThemeColors } from "./color";
 import darkThemeJson from "./dark.json" with { type: "json" };
 import { defaultThemes } from "./defaults";

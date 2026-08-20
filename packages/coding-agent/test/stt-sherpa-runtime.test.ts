@@ -2,8 +2,8 @@ import { afterEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { loadSourceSherpaRuntime } from "@cxn/pi-coding-agent/stt/sherpa-runtime";
-import { removeWithRetries } from "@cxn/pi-utils";
+import { loadSourceSherpaRuntime } from "@cyberxninja-omp/pi-coding-agent/stt/sherpa-runtime";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 const PLATFORM_PACKAGE = `sherpa-onnx-${os.platform() === "win32" ? "win" : os.platform()}-${os.arch()}`;
 

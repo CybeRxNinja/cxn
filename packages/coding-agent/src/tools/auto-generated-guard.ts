@@ -5,8 +5,8 @@
  * by code generation tools (protoc, sqlc, buf, swagger, etc.).
  */
 import * as path from "node:path";
-import { isEnoent, peekFile } from "@cxn/pi-utils";
-import { LRUCache } from "@cxn/pi-utils/lru";
+import { isEnoent, peekFile } from "@cyberxninja-omp/pi-utils";
+import { LRUCache } from "@cyberxninja-omp/pi-utils/lru";
 import { settings as globalSettings, isSettingsInitialized, type Settings } from "../config/settings";
 import { getDefault } from "../config/settings-schema";
 import { ToolError } from "./tool-errors";

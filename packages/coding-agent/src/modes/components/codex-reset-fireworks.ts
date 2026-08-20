@@ -6,7 +6,7 @@ import {
 	type OverlayOptions,
 	truncateToWidth,
 	visibleWidth,
-} from "@cxn/pi-tui";
+} from "@cyberxninja-omp/pi-tui";
 import { type ThemeColor, theme } from "../theme/theme";
 
 const FRAME_INTERVAL_MS = 85;

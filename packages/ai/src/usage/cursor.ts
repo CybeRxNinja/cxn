@@ -1,4 +1,4 @@
-import { toNumber } from "@cxn/pi-catalog/utils";
+import { toNumber } from "@cyberxninja-omp/pi-catalog/utils";
 import { extractCursorAccessTokenUserId } from "../registry/oauth/cursor";
 import type {
 	UsageAmount,

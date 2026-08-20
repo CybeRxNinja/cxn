@@ -1,12 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
-import { type } from "@cxn/omptype";
-import { streamAzureOpenAIResponses } from "@cxn/pi-ai/providers/azure-openai-responses";
-import { streamOpenAICodexResponses } from "@cxn/pi-ai/providers/openai-codex-responses";
-import { streamOpenAICompletions } from "@cxn/pi-ai/providers/openai-completions";
-import { streamOpenAIResponses } from "@cxn/pi-ai/providers/openai-responses";
-import type { Context, Model, Tool, ToolChoice } from "@cxn/pi-ai/types";
-import { buildModel } from "@cxn/pi-catalog/build";
-import * as piUtils from "@cxn/pi-utils";
+import { type } from "@cyberxninja-omp/omptype";
+import { streamAzureOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/azure-openai-responses";
+import { streamOpenAICodexResponses } from "@cyberxninja-omp/pi-ai/providers/openai-codex-responses";
+import { streamOpenAICompletions } from "@cyberxninja-omp/pi-ai/providers/openai-completions";
+import { streamOpenAIResponses } from "@cyberxninja-omp/pi-ai/providers/openai-responses";
+import type { Context, Model, Tool, ToolChoice } from "@cyberxninja-omp/pi-ai/types";
+import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
+import * as piUtils from "@cyberxninja-omp/pi-utils";
 
 const TEST_INSTALLATION_ID = "00000000-0000-4000-8000-000000000001";
 
