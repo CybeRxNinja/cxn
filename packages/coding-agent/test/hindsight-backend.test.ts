@@ -639,7 +639,7 @@ describe("hindsightBackend live bank routing", () => {
 		await Bun.sleep(0);
 
 		const next = session.getHindsightSessionState();
-		expect(next?.bankId).toBe("cxn-proj");
+		expect(next?.bankId).toBe("omp-proj");
 		expect(next).not.toBe(initial);
 	});
 
@@ -706,13 +706,13 @@ describe("hindsightBackend live bank routing", () => {
 		expect(next).not.toBe(initial);
 		// With scoping=per-project the base falls back to the default ("omp"),
 		// so the reset bank id picks up the project suffix from cwd.
-		expect(next?.bankId).toBe("cxn-_new_xengamekit");
+		expect(next?.bankId).toBe("omp-_new_xengamekit");
 
 		next!.enqueueRetain("post-reset fact", "reset routing");
 		await next!.flushRetainQueue();
 
 		expect(retainBatchSpy).toHaveBeenCalledTimes(1);
-		expect(retainBatchSpy.mock.calls[0][0]).toBe("cxn-_new_xengamekit");
+		expect(retainBatchSpy.mock.calls[0][0]).toBe("omp-_new_xengamekit");
 	});
 
 	// Companion case: when `hindsight.scoping` is `global`, clearing the
