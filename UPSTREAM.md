@@ -6,7 +6,7 @@ the sync workflow updates it automatically.
 
 ## Lane A — oh-my-pi (base)
 
-- **Sync point:** `8500092` (2026-08-18) — lane A (oh-my-pi)
+- **Sync point:** `72000ac` (2026-08-20) — lane A (oh-my-pi)
 
 The base tree is a fork of [can1357/oh-my-pi](https://github.com/can1357/oh-my-pi)
 (MIT, © Mario Zechner, © Can Bölük), itself a fork of

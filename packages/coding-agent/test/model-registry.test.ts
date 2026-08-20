@@ -1663,6 +1663,33 @@ describe("ModelRegistry", () => {
 			expect(disabledProbeUrls).toEqual([]);
 		});
 	});
+	describe("extended context", () => {
+		test("off caps premium long-context models at the standard-pricing threshold", async () => {
+			await Settings.init({ inMemory: true, overrides: { extendedContext: false } });
+			const registry = new ModelRegistry(authStorage, modelsJsonPath);
+
+			// GPT-5.6 bills 2x input above 272K on both the API and Codex.
+			expect(registry.find("openai", "gpt-5.6-sol")?.contextWindow).toBe(272_000);
+			expect(registry.find("openai-codex", "gpt-5.6-sol")?.contextWindow).toBe(272_000);
+			// Standard-priced 1M models (no long-context tier) keep their window.
+			expect(registry.find("anthropic", "claude-opus-4-8")?.contextWindow).toBe(1_000_000);
+		});
+
+		test("reapplyModelPolicies re-clamps and restores premium windows on toggle", async () => {
+			await Settings.init({ inMemory: true });
+			const registry = new ModelRegistry(authStorage, modelsJsonPath);
+			expect(registry.find("openai", "gpt-5.6-terra")?.contextWindow).toBe(1_050_000);
+
+			settings.set("extendedContext", false);
+			await registry.reapplyModelPolicies();
+			expect(registry.find("openai", "gpt-5.6-terra")?.contextWindow).toBe(272_000);
+
+			settings.set("extendedContext", true);
+			await registry.reapplyModelPolicies();
+			expect(registry.find("openai", "gpt-5.6-terra")?.contextWindow).toBe(1_050_000);
+			expect(registry.find("openai-codex", "gpt-5.6-terra")?.contextWindow).toBe(1_000_000);
+		});
+	});
 	describe("bundled Anthropic catalog availability", () => {
 		let anthropicAuth: AuthStorage;
 		let registry: ModelRegistry;

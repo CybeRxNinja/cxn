@@ -420,7 +420,7 @@ function rollbackProposal(target: RefinementResult): RefinementProposal {
 }
 
 /** Low-reasoning JSON completion used by /refine planning and the auto gate. */
-type JsonCompleter = (options: {
+export type JsonCompleter = (options: {
 	model: Model;
 	systemPrompt: string;
 	userPrompt: string;

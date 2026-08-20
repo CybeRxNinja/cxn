@@ -167,6 +167,8 @@ async function settleResize(term: VirtualTerminal): Promise<void> {
 	await flushRender(term);
 }
 
+withoutTerminalMultiplexer();
+
 describe("TUI overlays", () => {
 	let savedTerminalEnv: Record<string, string | undefined> = {};
 	beforeEach(() => {

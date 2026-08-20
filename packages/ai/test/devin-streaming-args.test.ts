@@ -3,10 +3,10 @@ import { create, toBinary } from "@bufbuild/protobuf";
 import { streamDevin } from "@cyberxninja-omp/pi-ai/providers/devin";
 import type { Context, Model, ToolCall } from "@cyberxninja-omp/pi-ai/types";
 import { buildModel } from "@cyberxninja-omp/pi-catalog/build";
-import { GetChatMessageResponseSchema } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/api_server_pb/api_server_pb";
-import { GetUserJwtResponseSchema } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/auth_pb/auth_pb";
 import {
 	ChatToolCallSchema,
+	GetChatMessageResponseSchema,
+	GetUserJwtResponseSchema,
 	StopReason,
 } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/codeium_common_pb/codeium_common_pb";
 

@@ -7,6 +7,11 @@
 ### Fixed
 
 - Fixed `@cyberxninja-omp/pi-utils/env` eagerly loading `.env` files at import time, which read `$HOME/.env` (and the profile/agent `.env`) before profile bootstrap and leaked the user's dotenv into non-CLI entry graphs. The load is now deferred to `markEnvReady()` (called by the CLI after `setProfile`); non-CLI entry points (SDK, probes, tests) keep the eager load so directory resolvers still honor profile `.env` XDG keys.
+## [17.3.8] - 2026-08-19
+
+### Added
+
+- Exported `BINARY_SNIFF_BYTES`, the header window `isProbablyBinary` sniffs, so a caller holding the whole file in memory can classify the identical prefix through `isProbablyBinaryHeader` instead of reopening the file.
 
 ## [17.3.5] - 2026-08-16
 

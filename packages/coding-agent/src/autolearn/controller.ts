@@ -42,13 +42,26 @@ export interface AutoLearnControllerOptions {
 	session: AgentSession;
 	settings: Settings;
 	capture: (content: string) => Promise<void>;
+	/** Autonomous /refine trigger, fired alongside the capture nudge. */
+	refine?: (trigger: { turnsSinceLastReview: number }) => Promise<void>;
 }
 
 export class AutoLearnController {
 	readonly #session: AgentSession;
 	readonly #settings: Settings;
 	readonly #capture: (content: string) => Promise<void>;
+	readonly #refine: ((trigger: { turnsSinceLastReview: number }) => Promise<void>) | undefined;
 	#toolCalls = 0;
+	/** Assistant turns since the last auto-refine review; reset after a review. */
+	#turnsSinceLastReview = 0;
+	/** Prevent overlapping private capture runs while real primary turns continue. */
+	#captureInFlight = false;
+	/** One newer eligible primary stop arrived while capture was running. */
+	#capturePending = false;
+	/** Prevent overlapping autonomous-refine runs. */
+	#refineInFlight = false;
+	/** One newer eligible primary stop arrived while refine was running. */
+	#refinePending = false;
 	/**
 	 * Whether the in-flight turn BEGAN while goal mode was active. Captured at
 	 * agent_start because a `goal` tool can complete or drop the goal mid-turn,
@@ -56,15 +69,11 @@ export class AutoLearnController {
 	 * would let a goal-continuation turn slip through and get nudged.
 	 */
 	#turnStartedInGoalMode = false;
-	/** Prevent overlapping private capture runs while real primary turns continue. */
-	#captureInFlight = false;
-	/** One newer eligible primary stop arrived while capture was running. */
-	#capturePending = false;
-
 	constructor(options: AutoLearnControllerOptions) {
 		this.#session = options.session;
 		this.#settings = options.settings;
 		this.#capture = options.capture;
+		this.#refine = options.refine;
 		// The listener closure captures `this`, so the session's listener array
 		// keeps the controller alive — no stored unsubscribe needed.
 		this.#session.subscribe(event => this.#onEvent(event));
@@ -96,18 +105,24 @@ export class AutoLearnController {
 		const startedInGoalMode = this.#turnStartedInGoalMode;
 		this.#turnStartedInGoalMode = false;
 
-		// Never nudge a turn that ended in an abort (ESC, cancel, etc.). The
-		// abort flag on the session is unreliable by the time agent_end is
-		// deferred to subscribers; read stopReason from the event messages.
+		// Only refine/capture after a genuinely successful turn. The abort flag
+		// on the session is unreliable by the time agent_end is deferred to
+		// subscribers, so read stopReason from the latest assistant message.
+		// Successful completion is a clean `stop` (model finished its reply) or
+		// `toolUse` (the turn ended on a tool call that was executed). Anything
+		// else — `aborted` (ESC/cancel), `error` (provider/stream failure),
+		// `length` (truncated output), or `pause_turn` (commentary-only, no real
+		// progress) — is not a finished task, so skip the autonomous refine.
+		const SUCCESS_STOP_REASONS: Record<string, true> = { stop: true, toolUse: true };
+		let stopReason: string | undefined;
 		for (let i = event.messages.length - 1; i >= 0; i--) {
 			const message = event.messages[i];
 			if (message && typeof message === "object" && "role" in message && message.role === "assistant") {
-				if ("stopReason" in message && message.stopReason === "aborted") {
-					return;
-				}
+				if ("stopReason" in message) stopReason = message.stopReason as string | undefined;
 				break;
 			}
 		}
+		if (!stopReason || !(stopReason in SUCCESS_STOP_REASONS)) return;
 		// Honor a live opt-out: the subscription outlives the setting, so re-check
 		// the current flag rather than trusting install-time state.
 		if (!this.#settings.get("autolearn.enabled")) return;
@@ -129,11 +144,41 @@ export class AutoLearnController {
 		const autoContinue = this.#settings.get("autolearn.autoContinue") === true;
 		if (!autoContinue) return;
 
+		// Fire the autonomous /refine trigger alongside the capture nudge so the
+		// continual harness improves whenever auto-learn does. The gate inside
+		// `runAutonomousRefine` still decides whether a refinement is warranted.
+		if (this.#refine) {
+			this.#turnsSinceLastReview++;
+			void this.#triggerRefine();
+		}
+
 		if (this.#captureInFlight) {
 			this.#capturePending = true;
 			return;
 		}
 		this.#startCapture();
+	}
+
+	async #triggerRefine(): Promise<void> {
+		if (this.#refineInFlight) {
+			this.#refinePending = true;
+			return;
+		}
+		this.#refineInFlight = true;
+		const turns = this.#turnsSinceLastReview;
+		try {
+			await this.#refine!({ turnsSinceLastReview: turns });
+		} catch (err) {
+			logger.warn("autonomous /refine trigger failed", { err });
+		} finally {
+			this.#refineInFlight = false;
+			if (this.#refinePending) {
+				this.#refinePending = false;
+				void this.#triggerRefine();
+			} else {
+				this.#turnsSinceLastReview = 0;
+			}
+		}
 	}
 
 	#startCapture(): void {

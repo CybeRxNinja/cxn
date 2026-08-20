@@ -62,6 +62,27 @@ const STATIC_INSTRUCTIONS = [
 	"",
 ].join("\n");
 
+/** Prompt turns for one Mnemopi completion. */
+export interface MemoryCompletionInput {
+	prompt: string;
+	systemPrompt?: string;
+}
+
+/** Maps a Mnemopi completion into instruction and input turns.
+ *
+ *  Extraction is the only task with its own instructions, and it always supplies
+ *  the raw text, so the instructions become the system turn and the text becomes
+ *  the user turn. Every other task keeps the prompt Mnemopi rendered. */
+export function resolveMemoryCompletionInput(
+	prompt: string,
+	options?: MnemopiLlmCompleteOptions,
+): MemoryCompletionInput {
+	if (options?.task?.kind === "memory-extraction") {
+		return { prompt: options.task.input, systemPrompt: memoryExtractionPrompt };
+	}
+	return { prompt };
+}
+
 async function installMnemopiState(session: AgentSession, config: MnemopiBackendConfig): Promise<MnemopiSessionState> {
 	const state = new MnemopiSessionState({ sessionId: session.sessionId, config, session });
 	const previous = setMnemopiSessionState(session, state);
@@ -506,8 +527,16 @@ async function resolveMnemopiProviderOptions(
 		return {
 			...base,
 			llm: {
-				complete: (prompt, opts) => tinyModelClient.complete(memoryModel, prompt, { maxTokens: opts?.maxTokens }),
-				extractionPrompt: memoryExtractionPrompt,
+				complete: (prompt, opts) => {
+					const request = resolveMemoryCompletionInput(prompt, opts);
+					return tinyModelClient.complete(memoryModel, request.prompt, {
+						maxTokens: opts?.maxTokens,
+						systemPrompt: request.systemPrompt,
+					});
+				},
+				// No `extractionPrompt`: resolveMemoryCompletionInput supplies the
+				// instructions as a system turn for every extraction call, so anything
+				// rendered here would be built in code and then discarded.
 				consolidationPrompt: memoryConsolidationPrompt,
 			},
 		};
@@ -537,6 +566,7 @@ async function resolveMnemopiProviderOptions(
 		return {
 			...base,
 			llm: async (prompt, opts) => {
+				const request = resolveMemoryCompletionInput(prompt, opts);
 				const hasApiKey = await modelRegistry.getApiKey(model, sessionId);
 				if (!hasApiKey) {
 					logger.warn("Mnemopi: smol completion requested but no current API key is available.", {
@@ -549,7 +579,8 @@ async function resolveMnemopiProviderOptions(
 					completeSimple(
 						model,
 						{
-							messages: [{ role: "user", content: prompt, timestamp: Date.now() }],
+							...(request.systemPrompt ? { systemPrompt: [request.systemPrompt] } : {}),
+							messages: [{ role: "user", content: request.prompt, timestamp: Date.now() }],
 						},
 						{
 							apiKey: modelRegistry.resolver(model, sessionId),

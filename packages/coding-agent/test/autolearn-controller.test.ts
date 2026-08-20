@@ -14,10 +14,13 @@ import { convertToLlm } from "@cyberxninja-omp/pi-coding-agent/session/messages"
 class FakeSession {
 	readonly listeners: Array<(event: AgentSessionEvent) => void> = [];
 	readonly captures: string[] = [];
+	readonly refines: Array<{ turnsSinceLastReview: number }> = [];
 	planEnabled = false;
 	goalEnabled = false;
 	captureGate: Promise<void> | undefined;
 	captureError: Error | undefined;
+	refineGate: Promise<void> | undefined;
+	refineError: Error | undefined;
 
 	subscribe(listener: (event: AgentSessionEvent) => void): () => void {
 		this.listeners.push(listener);
@@ -28,6 +31,14 @@ class FakeSession {
 		this.captures.push(content);
 		const gate = this.captureGate;
 		const error = this.captureError;
+		if (gate) await gate;
+		if (error) throw error;
+	}
+
+	async refine(trigger: { turnsSinceLastReview: number }): Promise<void> {
+		this.refines.push(trigger);
+		const gate = this.refineGate;
+		const error = this.refineError;
 		if (gate) await gate;
 		if (error) throw error;
 	}
@@ -50,21 +61,62 @@ class FakeSession {
 		}
 	}
 
+	agentEnd(messages: AgentMessage[] = []): void {
+		// A real agent_end always carries the assistant message; default to a
+		// clean successful stop so existing tests model a finished turn.
+		const withMessages =
+			messages.length > 0
+				? messages
+				: ([
+						{
+							role: "assistant",
+							api: "google-generative-ai",
+							provider: "google",
+							model: "gemini-3.5-flash",
+							content: [{ type: "text", text: "done" }],
+							usage: ZERO_USAGE,
+							stopReason: "stop",
+							timestamp: 1,
+						} as unknown as AgentMessage,
+					] as AgentMessage[]);
+		this.emit({ type: "agent_end", messages: withMessages });
+	}
+
+	/** Emit agent_end carrying a single assistant message with the given stopReason. */
+	agentEndWith(stopReason: string): void {
+		this.emit({
+			type: "agent_end",
+			messages: [
+				{
+					role: "assistant",
+					api: "google-generative-ai",
+					provider: "google",
+					model: "gemini-3.5-flash",
+					content: [{ type: "text", text: "done" }],
+					usage: ZERO_USAGE,
+					stopReason,
+					timestamp: 1,
+				} as unknown as AgentMessage,
+			],
+		});
+	}
+
 	agentStart(): void {
 		this.emit({ type: "agent_start" });
 	}
-
-	agentEnd(messages: AgentMessage[] = []): void {
-		this.emit({ type: "agent_end", messages });
-	}
 }
 
-function install(session: FakeSession, overrides: Record<string, unknown> = {}): Settings {
+function install(
+	session: FakeSession,
+	overrides: Record<string, unknown> = {},
+	refine: ((trigger: { turnsSinceLastReview: number }) => Promise<void>) | undefined = session.refine.bind(session),
+): Settings {
 	const settings = Settings.isolated({ "autolearn.enabled": true, ...overrides });
 	new AutoLearnController({
 		session: session as unknown as AgentSession,
 		settings,
 		capture: content => session.capture(content),
+		refine,
 	});
 	return settings;
 }
@@ -144,6 +196,68 @@ describe("AutoLearnController", () => {
 		expect(session.captures).toHaveLength(0);
 	});
 
+	it("fires the autonomous /refine trigger alongside an eligible capture", async () => {
+		const session = new FakeSession();
+		install(session, { "autolearn.autoContinue": true });
+		session.toolCalls(5);
+		session.agentEnd();
+		await settleCaptures();
+		expect(session.captures).toHaveLength(1);
+		expect(session.refines).toHaveLength(1);
+		expect(session.refines[0].turnsSinceLastReview).toBe(1);
+	});
+
+	it("does not fire /refine when capture would not fire (autoContinue off)", async () => {
+		const session = new FakeSession();
+		install(session); // autoContinue defaults false
+		session.toolCalls(5);
+		session.agentEnd();
+		await settleCaptures();
+		expect(session.captures).toHaveLength(0);
+		expect(session.refines).toHaveLength(0);
+	});
+
+	it("only refines after a genuinely successful turn", async () => {
+		const session = new FakeSession();
+		install(session, { "autolearn.autoContinue": true });
+		session.toolCalls(5);
+		// error / length / aborted / pause_turn are not finished work
+		session.agentEndWith("error");
+		await settleCaptures();
+		expect(session.refines).toHaveLength(0);
+
+		session.toolCalls(5);
+		session.agentEndWith("length");
+		await settleCaptures();
+		expect(session.refines).toHaveLength(0);
+
+		session.toolCalls(5);
+		session.agentEndWith("pause_turn");
+		await settleCaptures();
+		expect(session.refines).toHaveLength(0);
+
+		// a clean stop is a finished task -> refine fires
+		session.toolCalls(5);
+		session.agentEndWith("stop");
+		await settleCaptures();
+		expect(session.refines).toHaveLength(1);
+	});
+
+	it("refine respects in-flight overlap and re-runs once pending clears", async () => {
+		const release = Promise.withResolvers<void>();
+		const session = new FakeSession();
+		session.refineGate = release.promise;
+		install(session, { "autolearn.autoContinue": true });
+		session.toolCalls(5);
+		session.agentEnd(); // first refine starts, blocks on gate
+		session.toolCalls(5);
+		session.agentEnd(); // while in-flight: pending
+		await settleCaptures();
+		expect(session.refines).toHaveLength(1); // only the in-flight one yet
+		release.resolve();
+		await settleCaptures();
+		expect(session.refines).toHaveLength(2); // pending re-run fired
+	});
 	it("does not nudge below the threshold", () => {
 		const session = new FakeSession();
 		install(session, { "autolearn.autoContinue": true });

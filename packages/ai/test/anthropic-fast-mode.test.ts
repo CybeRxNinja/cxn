@@ -52,6 +52,8 @@ function capturePayload(model: Model<"anthropic-messages">, opts: CaptureOptions
 	return promise;
 }
 
+withOfficialAnthropicEndpoint();
+
 describe("Anthropic priority service tier → speed='fast'", () => {
 	it("sets speed='fast' for Claude Opus 4.7 when serviceTier='priority'", async () => {
 		const payload = (await capturePayload(makeAnthropicModel("claude-opus-4-7"), {

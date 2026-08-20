@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { Tokenizer } from "@cyberxninja-omp/pi-agent-core";
 import {
 	compact,
 	estimateTokens,
@@ -15,8 +16,13 @@ import {
 // during plugin validation (e.g. `omp plugin install pi-blackhole`). This pins
 // the re-export through the public package specifier.
 describe("legacy shim compaction helpers", () => {
-	it("re-exports estimateTokens as a callable token estimator", () => {
+	it("exports estimateTokens as a callable token estimator", () => {
 		expect(typeof estimateTokens).toBe("function");
+		const tokens = estimateTokens({ role: "user", content: "hello world", timestamp: Date.now() }, new Tokenizer());
+		expect(tokens).toBeGreaterThan(0);
+	});
+
+	it("counts tokens without a tokenizer argument (the legacy pi call shape)", () => {
 		const tokens = estimateTokens({ role: "user", content: "hello world", timestamp: Date.now() });
 		expect(tokens).toBeGreaterThan(0);
 	});

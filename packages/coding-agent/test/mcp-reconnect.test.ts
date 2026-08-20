@@ -146,6 +146,18 @@ describe("MCPTool.execute retry on connection error", () => {
 		expect(result.content[0]).toEqual({ type: "text", text: "ok" });
 	});
 
+	it("preserves image blocks returned by MCP tools", async () => {
+		const image: MCPImageContent = { type: "image", data: "iVBORw0KGgo=", mimeType: "image/png" };
+		const transport = mockTransport(async () => ({
+			content: [{ type: "text", text: "Screenshot captured" }, image],
+		}));
+		const tool = new MCPTool(makeConnection(transport), TOOL_DEF);
+
+		const result = await tool.execute("call-1", {}, noop, noCtx);
+
+		expect(result.content).toEqual([{ type: "text", text: "Screenshot captured" }, image]);
+	});
+
 	it("retries on transport closed and rebinding succeeds", async () => {
 		let oldCalls = 0;
 		let newCalls = 0;

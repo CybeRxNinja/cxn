@@ -152,6 +152,8 @@ function expectClaudeMetadataUserId(userId: string | undefined, expectedSessionI
 	}
 }
 
+withOfficialAnthropicEndpoint();
+
 describe("Anthropic request fingerprint alignment", () => {
 	it("maps Stainless arch values from explicit inputs", () => {
 		expect(mapStainlessArch("x64")).toBe("x64");

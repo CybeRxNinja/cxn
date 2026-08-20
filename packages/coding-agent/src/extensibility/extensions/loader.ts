@@ -37,6 +37,7 @@ import { getAllPluginExtensionPaths } from "../plugins/loader";
 import { resolvePath, withHostGuard } from "../utils";
 import type {
 	AssistantThinkingRenderer,
+	ComposerShapeDefinition,
 	Extension,
 	ExtensionAPI,
 	ExtensionContext,
@@ -235,6 +236,20 @@ class ConcreteExtensionAPI implements ExtensionAPI, IExtensionRuntime {
 		this.extension.assistantThinkingRenderers.push(renderer);
 	}
 
+	registerComposerShape(definition: ComposerShapeDefinition): void {
+		const id = definition.style.id;
+		if (id.length === 0 || id !== id.trim()) {
+			throw new TypeError("Composer shape id must be a non-empty trimmed string");
+		}
+		if (definition.label.trim().length === 0) {
+			throw new TypeError(`Composer shape "${id}" must have a label`);
+		}
+		if (isBuiltinComposerStyle(id)) {
+			throw new Error(`Cannot replace built-in composer shape "${id}"`);
+		}
+		this.extension.composerShapes.set(id, definition);
+	}
+
 	getFlag(name: string): boolean | string | undefined {
 		if (!this.extension.flags.has(name)) return undefined;
 		return this.runtime.flagValues.get(name);
@@ -332,6 +347,7 @@ function createExtension(extensionPath: string, resolvedPath: string): Extension
 		fileWriteFallbackHandlers: [],
 		fileDeleteFallbackHandlers: [],
 		messageRenderers: new Map(),
+		composerShapes: new Map(),
 		commands: new Map(),
 		flags: new Map(),
 		shortcuts: new Map(),

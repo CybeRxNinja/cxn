@@ -41,7 +41,7 @@ export interface AsyncResultEntry {
 
 type AsyncResultJobDetails = {
 	jobId: string;
-	type?: "bash" | "task";
+	type?: AsyncJobType;
 	label?: string;
 	durationMs?: number;
 };

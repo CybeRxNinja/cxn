@@ -7,6 +7,19 @@
 ### Fixed
 
 - Rebrand: updated stale `cxn` product-name references in OSC 99 notifications (app-name base64 `Y3hu` → `b21w` and capability-probe id) and the capability-probe fallback id left over from the omp rename.
+## [17.4.0] - 2026-08-20
+
+### Added
+
+- Added composer border styles (`box`, `claude`, `pi`, `borderless`) via `ComposerStyle` objects and `getComposerStyle`, unifying chrome geometry and rendering across the editor and previews.
+- Added support for warning risk notes and row markers in settings lists.
+
+## [17.3.8] - 2026-08-19
+
+### Fixed
+
+- Fixed images rendering as the `[Image: …]` text card on SIXEL terminals that expose no identifying environment variable (foot, xterm, contour): the graphics probe no longer requires Windows Terminal, and no longer reads an XTSMGRAPHICS success reply as a failure.
+- Fixed the multiline editor ignoring a `tui.input.submit` remap onto Ctrl+Enter: the hardcoded Ctrl/Shift+Enter → newline fallbacks now yield to an explicit submit binding, so Ctrl+Enter can be used to submit ([#8906](https://github.com/can1357/oh-my-pi/issues/8906)).
 
 ## [17.3.5] - 2026-08-16
 
