@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cyberxninja-omp/pi-catalog",
-  "version": "17.4.2",
+  "version": "17.5.0",
   "description": "Model catalog for omp: bundled model database, provider discovery descriptors, model identity, classification, and equivalence",
   "homepage": "https://omp.sh",
   "author": "Can Boluk",

@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@cyberxninja-omp/pi-ai",
-  "version": "17.4.2",
+  "version": "17.5.0",
   "description": "Unified LLM API with automatic model discovery and provider configuration",
   "homepage": "https://omp.sh",
   "author": "Can Boluk",
