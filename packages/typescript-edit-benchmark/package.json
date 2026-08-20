@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "name": "@cyberxninja-omp/typescript-edit-benchmark",
-  "version": "17.3.7",
+  "version": "17.5.3",
   "description": "Edit benchmark suite using TypeScript source code mutations",
   "homepage": "https://omp.sh",
   "author": "Can Boluk",
