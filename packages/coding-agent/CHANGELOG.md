@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [17.5.3] - 2026-08-20
+
 ### Fixed
 
 - Rebrand: corrected stale `cxn` product-name references left in `hindsight-backend.test.ts` expectations that broke the release `Test coding-agent native` job — per-project bank id (`cxn-proj` → `omp-proj`) and scoped-bank suffix (`cxn-_new_xengamekit` → `omp-_new_xengamekit`).
