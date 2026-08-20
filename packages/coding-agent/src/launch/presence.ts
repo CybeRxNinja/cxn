@@ -1,7 +1,7 @@
 import type { Dirent } from "node:fs";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { isEisdir, isEnoent, logger, postmortem } from "@cyberxninja-omp/pi-utils";
+import { isEnoent, logger, postmortem } from "@cyberxninja-omp/pi-utils";
 import { daemonRuntimeDir } from "./paths";
 
 const CLIENTS_DIR = "clients";

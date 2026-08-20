@@ -1,7 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "bun:test";
 import * as path from "node:path";
 import { Agent, type AgentMessage } from "@cyberxninja-omp/pi-agent-core";
-import { estimateTokens } from "@cyberxninja-omp/pi-agent-core/compaction/compaction";
 import type { AssistantMessage, Message, Model } from "@cyberxninja-omp/pi-ai";
 import { createMockModel } from "@cyberxninja-omp/pi-ai/providers/mock";
 import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";

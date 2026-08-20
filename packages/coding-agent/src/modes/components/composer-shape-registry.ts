@@ -1,4 +1,4 @@
-import { registerComposerStyle } from "@oh-my-pi/pi-tui";
+import { registerComposerStyle } from "@cyberxninja-omp/pi-tui";
 import { BUILTIN_COMPOSER_SHAPES, type SubmenuOption } from "../../config/settings-schema";
 import type { ComposerShapeDefinition } from "../../extensibility/extensions";
 

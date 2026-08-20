@@ -13,7 +13,6 @@ import {
 	loadExtensionFromFactory,
 	loadExtensions,
 } from "@cyberxninja-omp/pi-coding-agent/extensibility/extensions";
-import { resolveLocalUrlToPath } from "@cyberxninja-omp/pi-coding-agent/internal-urls";
 import { SecretObfuscator } from "@cyberxninja-omp/pi-coding-agent/secrets";
 import { AgentSession, type AgentSessionEvent } from "@cyberxninja-omp/pi-coding-agent/session/agent-session";
 import { AuthStorage } from "@cyberxninja-omp/pi-coding-agent/session/auth-storage";

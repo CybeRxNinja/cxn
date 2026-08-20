@@ -1,4 +1,4 @@
-import { Container, type SelectItem, SelectList, type SgrMouseEvent } from "@cyberxninja-omp/pi-tui";
+import { type SelectItem, SelectList, type SgrMouseEvent } from "@cyberxninja-omp/pi-tui";
 import { getSelectListTheme } from "../../modes/theme/theme";
 import { OverlayPanel } from "./overlay-box";
 import { routeSelectListMouseWithTopBorder } from "./select-list-mouse-routing";

@@ -3,16 +3,7 @@
  *
  * Interactive multi-step wizard for adding MCP servers.
  */
-import {
-	Container,
-	Input,
-	matchesKey,
-	replaceTabs,
-	Spacer,
-	Text,
-	TruncatedText,
-	truncateToWidth,
-} from "@cyberxninja-omp/pi-tui";
+import { Container, Input, matchesKey, replaceTabs, Spacer, Text, truncateToWidth } from "@cyberxninja-omp/pi-tui";
 import { getMCPConfigPath, getProjectDir } from "@cyberxninja-omp/pi-utils";
 import { validateServerName } from "../../mcp/config-writer";
 import { analyzeAuthError, discoverOAuthEndpoints, fetchResourceMetadataScopes } from "../../mcp/oauth-discovery";

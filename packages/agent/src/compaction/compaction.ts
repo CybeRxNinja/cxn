@@ -30,7 +30,7 @@ import { buildResponsesInput, resolveOpenAICompatPolicy } from "@cyberxninja-omp
 import { stripOpenAIResponsesOutputOnlyStatusesForReplay } from "@cyberxninja-omp/pi-ai/utils";
 import { preferredDialect } from "@cyberxninja-omp/pi-catalog/identity";
 import { clampThinkingLevelForModel } from "@cyberxninja-omp/pi-catalog/model-thinking";
-import { isRecord, logger, prompt, stringifyJson } from "@cyberxninja-omp/pi-utils";
+import { isRecord, logger, prompt } from "@cyberxninja-omp/pi-utils";
 import * as snapcompact from "@cyberxninja-omp/snapcompact";
 import { type AgentTelemetry, instrumentedCompleteSimple } from "../telemetry";
 import { ThinkingLevel } from "../thinking";

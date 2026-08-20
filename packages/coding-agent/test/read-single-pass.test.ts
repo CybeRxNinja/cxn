@@ -10,17 +10,17 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import { Patch, Patcher } from "@oh-my-pi/hashline";
-import type { AgentToolResult } from "@oh-my-pi/pi-agent-core";
-import { Settings } from "@oh-my-pi/pi-coding-agent/config/settings";
-import { getFileSnapshotStore } from "@oh-my-pi/pi-coding-agent/edit/file-snapshot-store";
-import { HashlineFilesystem } from "@oh-my-pi/pi-coding-agent/edit/hashline/filesystem";
-import { writethroughNoop } from "@oh-my-pi/pi-coding-agent/lsp";
-import type { ToolSession } from "@oh-my-pi/pi-coding-agent/tools";
-import type { ReadToolDetails } from "@oh-my-pi/pi-coding-agent/tools/read";
-import { ReadTool } from "@oh-my-pi/pi-coding-agent/tools/read";
-import { formatBytes } from "@oh-my-pi/pi-coding-agent/tools/render-utils";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+import { Patch, Patcher } from "@cyberxninja-omp/hashline";
+import type { AgentToolResult } from "@cyberxninja-omp/pi-agent-core";
+import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
+import { getFileSnapshotStore } from "@cyberxninja-omp/pi-coding-agent/edit/file-snapshot-store";
+import { HashlineFilesystem } from "@cyberxninja-omp/pi-coding-agent/edit/hashline/filesystem";
+import { writethroughNoop } from "@cyberxninja-omp/pi-coding-agent/lsp";
+import type { ToolSession } from "@cyberxninja-omp/pi-coding-agent/tools";
+import type { ReadToolDetails } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { ReadTool } from "@cyberxninja-omp/pi-coding-agent/tools/read";
+import { formatBytes } from "@cyberxninja-omp/pi-coding-agent/tools/render-utils";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 function textOutput(result: AgentToolResult<ReadToolDetails>): string {
 	return result.content

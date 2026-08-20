@@ -1,21 +1,10 @@
 import { gunzipSync, gzipSync } from "node:zlib";
 import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
-import {
-	ChatMessageRequestType,
-	GetChatMessageRequestSchema,
-	GetChatMessageResponseSchema,
-} from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/api_server_pb/api_server_pb";
-import {
-	GetUserJwtRequestSchema,
-	GetUserJwtResponseSchema,
-} from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/auth_pb/auth_pb";
+import { ChatMessageRequestType } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/api_server_pb/api_server_pb";
 import {
 	CacheControlType,
 	type ChatMessagePrompt,
 	ChatMessagePromptSchema,
-	ChatToolChoiceSchema,
-	ChatToolDefinitionSchema,
-	PromptCacheOptionsSchema,
 } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/chat_pb/chat_pb";
 import {
 	ChatMessageSource,

@@ -2,8 +2,8 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import * as fs from "node:fs/promises";
 import * as os from "node:os";
 import * as path from "node:path";
-import * as git from "@oh-my-pi/pi-coding-agent/utils/git";
-import { removeWithRetries } from "@oh-my-pi/pi-utils";
+import * as git from "@cyberxninja-omp/pi-coding-agent/utils/git";
+import { removeWithRetries } from "@cyberxninja-omp/pi-utils";
 
 // Regression coverage for #8897: `omp commit` split-commit captured the staged
 // diff with `git diff --cached --binary`, whose stdout is hard-capped at

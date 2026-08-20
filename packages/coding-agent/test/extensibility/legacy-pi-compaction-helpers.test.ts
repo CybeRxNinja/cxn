@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { Tokenizer } from "@oh-my-pi/pi-agent-core";
+import { Tokenizer } from "@cyberxninja-omp/pi-agent-core";
 import {
 	compact,
 	estimateTokens,

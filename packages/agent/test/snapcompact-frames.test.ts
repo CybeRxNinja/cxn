@@ -1,7 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import type { ImageContent } from "@cyberxninja-omp/pi-ai";
 import * as snapcompact from "@cyberxninja-omp/snapcompact";
-import { estimateTokens } from "../src/compaction/compaction";
 import { createCompactionSummaryMessage, defaultConvertToLlm } from "../src/compaction/messages";
 import { Tokenizer } from "../src/tokenizer";
 

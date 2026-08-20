@@ -1,4 +1,4 @@
-import { type Component, Container, Markdown, Spacer, Text, type TUI } from "@cyberxninja-omp/pi-tui";
+import { type Component, Markdown, Spacer, Text, type TUI } from "@cyberxninja-omp/pi-tui";
 import { replaceTabs } from "../../tools/render-utils";
 import { getMarkdownTheme, theme } from "../theme/theme";
 import { OverlayPanel } from "./overlay-box";

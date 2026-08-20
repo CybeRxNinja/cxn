@@ -1,12 +1,5 @@
-import {
-	Container,
-	type SelectItem,
-	SelectList,
-	type SgrMouseEvent,
-	Spacer,
-	TruncatedText,
-} from "@cyberxninja-omp/pi-tui";
-import { getSelectListTheme, theme } from "../../modes/theme/theme";
+import { type SelectItem, SelectList, type SgrMouseEvent } from "@cyberxninja-omp/pi-tui";
+import { getSelectListTheme } from "../../modes/theme/theme";
 import type { SessionPinAccount } from "../../slash-commands/helpers/session-pin";
 import { OverlayPanel } from "./overlay-box";
 import { routeSelectListMouseWithTopBorder } from "./select-list-mouse-routing";

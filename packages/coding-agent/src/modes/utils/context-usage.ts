@@ -1,10 +1,5 @@
-import { countTokens } from "@cyberxninja-omp/pi-agent-core";
 import type { CompactionSettings } from "@cyberxninja-omp/pi-agent-core/compaction";
-import {
-	effectiveReserveTokens,
-	estimateTokens,
-	resolveThresholdTokens,
-} from "@cyberxninja-omp/pi-agent-core/compaction";
+import { effectiveReserveTokens, resolveThresholdTokens } from "@cyberxninja-omp/pi-agent-core/compaction";
 import type { Tool as AiTool, Model } from "@cyberxninja-omp/pi-ai";
 import { toolWireSchema } from "@cyberxninja-omp/pi-ai/utils/schema";
 import { formatNumber } from "@cyberxninja-omp/pi-utils";

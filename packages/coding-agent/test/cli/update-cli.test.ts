@@ -102,7 +102,7 @@ describe("getLatestRelease proxy errors", () => {
 		const fetchStub = Object.assign(
 			async () => {
 				throw new Error(
-					'UnsupportedProxyProtocol fetching "https://registry.npmjs.org/@oh-my-pi/pi-coding-agent/latest". ' +
+					'UnsupportedProxyProtocol fetching "https://registry.npmjs.org/@cyberxninja-omp/pi-coding-agent/latest". ' +
 						"For more information, pass `verbose: true` in the second argument to fetch()",
 				);
 			},

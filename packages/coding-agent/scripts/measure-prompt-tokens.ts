@@ -1,4 +1,3 @@
-import { countTokens } from "@cyberxninja-omp/pi-agent-core";
 import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";
 import { estimateToolSchemaTokens } from "@cyberxninja-omp/pi-coding-agent/modes/utils/context-usage";
 import { buildSystemPrompt } from "@cyberxninja-omp/pi-coding-agent/system-prompt";

@@ -1,11 +1,7 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "bun:test";
-import { Agent, type AgentMessage, type CompactionSummaryMessage, countTokens } from "@cyberxninja-omp/pi-agent-core";
+import { Agent, type AgentMessage, type CompactionSummaryMessage } from "@cyberxninja-omp/pi-agent-core";
 import * as compactionModule from "@cyberxninja-omp/pi-agent-core/compaction";
-import {
-	calculateContextTokens,
-	estimateTokens,
-	resolveThresholdTokens,
-} from "@cyberxninja-omp/pi-agent-core/compaction";
+import { calculateContextTokens, resolveThresholdTokens } from "@cyberxninja-omp/pi-agent-core/compaction";
 import type { AssistantMessage } from "@cyberxninja-omp/pi-ai";
 import { createMockModel, type MockModel, registerMockApi } from "@cyberxninja-omp/pi-ai/providers/mock";
 import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";

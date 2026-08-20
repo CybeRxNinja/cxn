@@ -1,5 +1,4 @@
 import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
-import { estimateTokens } from "@cyberxninja-omp/pi-agent-core/compaction";
 import type { AssistantMessage, ImageContent, TextContent } from "@cyberxninja-omp/pi-ai";
 import * as AIError from "@cyberxninja-omp/pi-ai/error";
 import { raceWithSignal } from "@cyberxninja-omp/pi-ai/utils/abort";

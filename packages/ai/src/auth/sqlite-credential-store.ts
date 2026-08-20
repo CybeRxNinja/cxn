@@ -89,8 +89,8 @@ const CODEX_METER_BLOCK_SCOPES = ["chat", "spark"] as const;
 
 // SQLite error classifiers live in pi-utils so the credential store and the
 // model cache share one implementation; re-exported here to preserve the
-// pre-existing `@oh-my-pi/pi-ai/auth-storage` surface.
-export { isSqliteBusyError, isSqliteCorruptionError };
+// pre-existing `@cyberxninja-omp/pi-ai/auth-storage` surface.
+export type { isSqliteBusyError, isSqliteCorruptionError };
 
 function normalizeStoredAccountId(accountId: string | null | undefined): string | null {
 	const normalized = accountId?.trim();

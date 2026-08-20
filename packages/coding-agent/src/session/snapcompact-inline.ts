@@ -14,7 +14,6 @@
  * estimate (`estimateInlineSavings`) so the two can never disagree.
  */
 
-import { countTokens } from "@cyberxninja-omp/pi-agent-core";
 import type { Context, ImageContent, Model, TextContent, ToolResultMessage, UserMessage } from "@cyberxninja-omp/pi-ai";
 import * as snapcompact from "@cyberxninja-omp/snapcompact";
 import contextFramesNote from "../prompts/system/snapcompact-context-frames-note.md" with { type: "text" };

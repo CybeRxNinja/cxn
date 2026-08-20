@@ -47,7 +47,6 @@ import {
 	OPENAI_HEADERS,
 } from "@cyberxninja-omp/pi-catalog/wire/codex";
 import { $env, isRecord, logger, prompt, stringifyJson, structuredCloneJSON } from "@cyberxninja-omp/pi-utils";
-import { countTokensConservatively } from "../tokenizer";
 import contextWindowTruncatedOutputPrompt from "./prompts/context-window-truncated-output.md" with { type: "text" };
 
 export * from "./compaction-v2-streaming";

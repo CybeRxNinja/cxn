@@ -25,7 +25,6 @@
  *      `PI_TOKENIZER_ACCURATE=1` uses the native cl100k tokenizer.
  */
 import type { AgentMessage } from "@cyberxninja-omp/pi-agent-core";
-import { estimateTokens } from "@cyberxninja-omp/pi-agent-core/compaction";
 import type { AssistantMessage, ToolResultMessage, Usage } from "@cyberxninja-omp/pi-ai";
 import { convertToLlm } from "../src/session/messages";
 

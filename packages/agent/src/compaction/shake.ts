@@ -11,7 +11,6 @@
  */
 
 import type { TextContent, ToolResultMessage } from "@cyberxninja-omp/pi-ai";
-import { countTokens } from "../tokenizer";
 import type { AgentMessage } from "../types";
 import type { CustomMessageEntry, SessionEntry, SessionMessageEntry } from "./entries";
 import { invalidateMessageCache } from "./message-cache";

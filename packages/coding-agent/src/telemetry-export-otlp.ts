@@ -18,8 +18,8 @@ import type {
 	AgentTelemetryWarning,
 	ChatUsageEvent,
 	ToolStatus,
-} from "@oh-my-pi/pi-agent-core";
-import { logger, postmortem } from "@oh-my-pi/pi-utils";
+} from "@cyberxninja-omp/pi-agent-core";
+import { logger, postmortem } from "@cyberxninja-omp/pi-utils";
 import {
 	type Attributes,
 	type AttributeValue,
@@ -48,7 +48,7 @@ import type { TelemetrySignalConfig } from "./telemetry-export";
  */
 const FLUSH_INTERVAL_MS = 30_000;
 
-const SERVICE_NAME = "oh-my-pi";
+const SERVICE_NAME = "omp";
 
 type OtelLogLevel = "none" | logger.LogLevel;
 
@@ -138,7 +138,7 @@ export async function registerProviders(signalConfig: TelemetrySignalConfig): Pr
 			readers: [new PeriodicExportingMetricReader({ exporter })],
 		});
 		metrics.setGlobalMeterProvider(meterProvider);
-		metricRecorder = new AgentMetricRecorder(metrics.getMeter("@oh-my-pi/pi-coding-agent"));
+		metricRecorder = new AgentMetricRecorder(metrics.getMeter("@cyberxninja-omp/pi-coding-agent"));
 	}
 
 	if (signalConfig.log) {
@@ -148,7 +148,7 @@ export async function registerProviders(signalConfig: TelemetrySignalConfig): Pr
 			processors: [new BatchLogRecordProcessor({ exporter })],
 		});
 		logs.setGlobalLoggerProvider(logProvider);
-		otelLogger = logProvider.getLogger("@oh-my-pi/pi-coding-agent");
+		otelLogger = logProvider.getLogger("@cyberxninja-omp/pi-coding-agent");
 		unregisterLogSink = logger.registerLogSink(event => {
 			emitOtelLog(
 				event.level,

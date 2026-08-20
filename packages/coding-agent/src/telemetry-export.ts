@@ -13,25 +13,10 @@
  * `OTEL_EXPORTER_OTLP*_PROTOCOL` of `grpc` or `http/json` declines rather than
  * misrouting protobuf payloads.
  */
-import type {
-	AgentRunCoverage,
-	AgentRunSummary,
-	AgentTelemetryConfig,
-	AgentTelemetryWarning,
-	ChatUsageEvent,
-	ToolStatus,
-} from "@cyberxninja-omp/pi-agent-core";
+import type { AgentTelemetryConfig } from "@cyberxninja-omp/pi-agent-core";
 import { logger, postmortem } from "@cyberxninja-omp/pi-utils";
-import {
-	type Attributes,
-	type AttributeValue,
-	type Counter,
-	context,
-	type Histogram,
-	type Meter,
-	metrics,
-} from "@opentelemetry/api";
-import { type LogAttributes, logs, type Logger as OtelLogger, SeverityNumber } from "@opentelemetry/api-logs";
+import { metrics } from "@opentelemetry/api";
+import { logs } from "@opentelemetry/api-logs";
 import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-hooks";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-proto";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-proto";

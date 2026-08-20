@@ -20,7 +20,7 @@
 
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "bun:test";
 import { Agent } from "@cyberxninja-omp/pi-agent-core";
-import { effectiveReserveTokens, estimateTokens, prepareCompaction } from "@cyberxninja-omp/pi-agent-core/compaction";
+import { effectiveReserveTokens, prepareCompaction } from "@cyberxninja-omp/pi-agent-core/compaction";
 import { getBundledModel } from "@cyberxninja-omp/pi-catalog/models";
 import { ModelRegistry } from "@cyberxninja-omp/pi-coding-agent/config/model-registry";
 import { Settings } from "@cyberxninja-omp/pi-coding-agent/config/settings";

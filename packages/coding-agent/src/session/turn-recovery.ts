@@ -20,7 +20,6 @@ import type {
 } from "@cyberxninja-omp/pi-ai";
 import { calculateRateLimitBackoffMs, parseRateLimitReason } from "@cyberxninja-omp/pi-ai";
 import * as AIError from "@cyberxninja-omp/pi-ai/error";
-import { kCursorExecResolved } from "@cyberxninja-omp/pi-ai/utils/block-symbols";
 import { isFireworksFastModelId, toFireworksBaseModelId } from "@cyberxninja-omp/pi-catalog/fireworks-model-id";
 import { modelsAreEqual } from "@cyberxninja-omp/pi-catalog/models";
 import { extractRetryHint, logger, prompt } from "@cyberxninja-omp/pi-utils";
