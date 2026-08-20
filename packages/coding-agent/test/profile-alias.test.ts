@@ -322,7 +322,7 @@ describe("profile alias installer", () => {
 	});
 
 	it("refuses to shadow the base omp command case-insensitively", async () => {
-		for (const aliasName of ["omp", "CXN"]) {
+		for (const aliasName of ["omp", "OMP"]) {
 			await expect(
 				installProfileAlias({
 					profile: "work",

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Rebrand: recomputed QR golden-vector hashes in `qrcode.test.ts` for the rebranded `my.omp.sh` URLs (the encoder is deterministic; expected hashes are content-derived and changed with the URL strings). Corrected the `profile-alias` base-command shadow test to use the rebranded case-insensitive variant (`OMP`, not the stale `CXN`).
+
 ## [17.5.1] - 2026-08-20
 
 ### Fixed

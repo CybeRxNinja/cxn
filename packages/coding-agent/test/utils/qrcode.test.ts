@@ -26,7 +26,7 @@ describe("QR encoder", () => {
 			mask: 4,
 			version: 4,
 			size: 33,
-			hash: "67b1ebb3bd18e6db",
+			hash: "4af2f66e1b06a5b1",
 		},
 		{
 			text: "https://web.example/collab/#relay.example.com:8443/r/AbCdEfGhIjKlMnOp.0123456789abcdef",
@@ -66,7 +66,7 @@ describe("QR encoder", () => {
 		// Auto mask is the lowest-penalty choice; locking it guards the penalty rules.
 		const qr = QrCode.encodeText("https://my.omp.sh/#demo", "M");
 		expect(qr.mask).toBe(1);
-		expect(matrixFingerprint(qr)).toBe("f3395ed8844c2bdb");
+		expect(matrixFingerprint(qr)).toBe("ee820c588fe36d99");
 	});
 
 	it("throws when the payload exceeds version 40 at the chosen EC level", () => {
