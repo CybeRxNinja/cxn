@@ -55,6 +55,7 @@ export default class Completions extends Command {
 		}
 
 		await Bun.write(Bun.stdout, await generateLiveCompletion(shell));
+		await postmortem.quit(0);
 	}
 }
 

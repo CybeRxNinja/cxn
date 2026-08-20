@@ -92,6 +92,8 @@ async function nextToolSnapshot(iterator: AsyncIterator<AssistantMessageEvent>):
 	}
 }
 
+withOfficialAnthropicEndpoint();
+
 describe("wrapLeakedThinkingStream", () => {
 	async function runLeakedText(chunks: readonly string[]): Promise<{
 		events: AssistantMessageEvent[];

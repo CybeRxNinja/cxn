@@ -10,7 +10,6 @@
  * the server reads as "the tool ran and produced nothing".
  */
 
-import { create } from "@bufbuild/protobuf";
 import {
 	AfterAgentResponseRequestResponseSchema,
 	AfterAgentThoughtRequestResponseSchema,

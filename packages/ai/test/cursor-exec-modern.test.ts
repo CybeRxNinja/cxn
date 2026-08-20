@@ -1,5 +1,4 @@
 import { describe, expect, it } from "bun:test";
-import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
 import {
 	type BlockState,
 	CURSOR_CLIENT_VERSION,

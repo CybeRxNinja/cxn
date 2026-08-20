@@ -5,7 +5,7 @@ import * as path from "node:path";
 import { getGlobalDaemonRuntimeDir, isEexist, isEisdir, isEnoent, logger, postmortem } from "@cyberxninja-omp/pi-utils";
 import { hostHasInheritableConsole } from "../eval/py/spawn-options";
 import { resolveWorkerSpawnCmd, workerEnvFromParent } from "../subprocess/worker-client";
-import { daemonBrokerEndpoint, daemonRuntimeDir } from "./paths";
+import { canonicalProjectDir, daemonBrokerEndpoint, daemonRuntimeDir } from "./paths";
 import {
 	DAEMON_BROKER_WORKER_ARG,
 	DAEMON_IDLE_GRACE_ENV,
@@ -63,16 +63,6 @@ export interface DaemonBrokerClient {
 
 /** A request reached the broker and the broker rejected the operation. */
 export class DaemonBrokerRejectedError extends Error {}
-
-async function canonicalProjectDir(projectDir: string): Promise<string> {
-	const resolved = path.resolve(projectDir);
-	try {
-		return await fs.realpath(resolved);
-	} catch (error) {
-		if (isEnoent(error) || isEisdir(error)) return resolved;
-		throw error;
-	}
-}
 
 async function readOrCreateToken(runtimeDir: string): Promise<string> {
 	await fs.mkdir(runtimeDir, { recursive: true, mode: 0o700 });
@@ -525,7 +515,6 @@ export async function smokeTestDaemonBroker(): Promise<void> {
 		await client.request({ op: "shutdown" });
 	} finally {
 		client.close();
-		await fs.rm(projectDir, { recursive: true, force: true });
-		await fs.rm(runtimeDir, { recursive: true, force: true });
+		await fs.rm(smokeRoot, { recursive: true, force: true });
 	}
 }

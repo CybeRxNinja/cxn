@@ -7,6 +7,8 @@ import type { ProtectedToolContext } from "@cyberxninja-omp/pi-agent-core/compac
 import type { AssistantMessage, TextContent, ToolResultMessage, Usage } from "@cyberxninja-omp/pi-ai";
 import { createPlanReadMatcher } from "@cyberxninja-omp/pi-coding-agent/plan-mode/plan-protection";
 
+const tokenizer = new Tokenizer();
+
 function context(opts: { toolName?: string; callName?: string | undefined; path?: string }): ProtectedToolContext {
 	const toolResult = {
 		role: "toolResult",
@@ -131,7 +133,7 @@ describe("plan-read protection in compaction", () => {
 			fileResult,
 		];
 
-		const result = pruneToolOutputs(entries, {
+		const result = pruneToolOutputs(entries, tokenizer, {
 			...DEFAULT_PRUNE_CONFIG,
 			protectTokens: 0,
 			minimumSavings: 0,
@@ -153,7 +155,7 @@ describe("plan-read protection in compaction", () => {
 			fileResult,
 		];
 
-		const regions = collectShakeRegions(entries, {
+		const regions = collectShakeRegions(entries, tokenizer, {
 			...AGGRESSIVE_SHAKE_CONFIG,
 			protectTokens: 0,
 			protectedTools: [...AGGRESSIVE_SHAKE_CONFIG.protectedTools, matcher],

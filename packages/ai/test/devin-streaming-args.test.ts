@@ -7,6 +7,8 @@ import { GetChatMessageResponseSchema } from "@cyberxninja-omp/pi-catalog/discov
 import { GetUserJwtResponseSchema } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/auth_pb/auth_pb";
 import {
 	ChatToolCallSchema,
+	GetChatMessageResponseSchema,
+	GetUserJwtResponseSchema,
 	StopReason,
 } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/codeium_common_pb/codeium_common_pb";
 

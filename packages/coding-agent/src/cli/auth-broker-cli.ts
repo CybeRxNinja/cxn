@@ -45,6 +45,8 @@ import {
 import chalk from "@cyberxninja-omp/pi-utils/chalk";
 import { setTransports as setLoggerTransports } from "@cyberxninja-omp/pi-utils/logger";
 import { $ } from "bun";
+import { refreshManagedMcpOAuthCredential } from "../mcp/oauth-credentials";
+import { isManagedMCPOAuthCredentialId, mcpOAuthServerUrlFromCredentialId } from "../mcp/oauth-flow";
 import { resolveAuthBrokerConfig } from "../session/auth-broker-config";
 
 export type AuthBrokerAction = "serve" | "token" | "login" | "logout" | "status" | "import" | "migrate" | "list";
@@ -127,6 +129,34 @@ async function ensureToken(): Promise<string> {
 	return token;
 }
 
+/**
+ * OAuth refresh handler for `omp auth-broker serve`'s {@link AuthStorage}.
+ *
+ * The vault holds provider OAuth rows AND OMP-managed `mcp_oauth:*` rows.
+ * Provider rows refresh through the per-provider registry. MCP rows are
+ * self-describing — the embedded token endpoint and client credentials are the
+ * only refresh material — so they refresh with a generic `refresh_token` grant.
+ * The serve process never loads the MCP manager, so this is the only place that
+ * teaches the broker to refresh MCP tokens; without it
+ * `POST /v1/credential/:id/refresh` fails with "Unknown OAuth provider" and the
+ * background refresher lets MCP access tokens expire (issue #8933).
+ */
+export function refreshBrokerOAuthCredential(
+	provider: string,
+	credential: OAuthCredential,
+	signal?: AbortSignal,
+): Promise<OAuthCredentials> {
+	if (isManagedMCPOAuthCredentialId(provider)) {
+		return refreshManagedMcpOAuthCredential(credential, {
+			serverUrl: mcpOAuthServerUrlFromCredentialId(provider),
+			signal,
+		});
+	}
+	// Non-MCP rows: same per-provider path AuthStorage would take by default
+	// (the serve process registers no custom OAuth providers).
+	return refreshOAuthToken(provider as OAuthProvider, credential);
+}
+
 async function runServe(flags: AuthBrokerCommandArgs["flags"]): Promise<void> {
 	// The broker is a long-running headless service: route structured logs to
 	// stdout so a process supervisor (pm2, journald, k8s) captures them, and
@@ -137,7 +167,10 @@ async function runServe(flags: AuthBrokerCommandArgs["flags"]): Promise<void> {
 	const token = await ensureToken();
 	const dbPath = getAgentDbPath();
 	const store = await SqliteAuthCredentialStore.open(dbPath);
-	const storage = new AuthStorage(store);
+	const storage = new AuthStorage(store, {
+		refreshOAuthCredential: (provider, _credentialId, credential, signal) =>
+			refreshBrokerOAuthCredential(provider, credential, signal),
+	});
 	await storage.reload();
 	const handle = startAuthBroker({
 		storage,

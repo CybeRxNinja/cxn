@@ -357,6 +357,8 @@ afterEach(() => {
 	vi.restoreAllMocks();
 });
 
+withOfficialAnthropicEndpoint();
+
 describe("anthropic stream envelope handling", () => {
 	it("ignores duplicate message_start envelopes without resetting streamed text", async () => {
 		vi.spyOn(AnthropicMessages.prototype, "create").mockImplementation(

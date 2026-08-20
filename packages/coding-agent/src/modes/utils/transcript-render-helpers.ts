@@ -32,10 +32,10 @@ export function buildAsyncResultBlock(message: CustomOrHookMessage): ToolActivit
 	const details = (
 		message as CustomMessage<{
 			jobId?: string;
-			type?: "bash" | "task";
+			type?: AsyncJobType;
 			label?: string;
 			durationMs?: number;
-			jobs?: Array<{ jobId?: string; type?: "bash" | "task"; label?: string; durationMs?: number }>;
+			jobs?: Array<{ jobId?: string; type?: AsyncJobType; label?: string; durationMs?: number }>;
 		}>
 	).details;
 	const jobs =

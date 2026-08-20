@@ -21,10 +21,17 @@ import {
 	ChatMessageSource,
 	type ChatToolCall,
 	ChatToolCallSchema,
+	ChatToolChoiceSchema,
+	ChatToolDefinitionSchema,
 	CompletionConfigurationSchema,
 	ConversationalPlannerMode,
+	GetChatMessageRequestSchema,
+	GetChatMessageResponseSchema,
+	GetUserJwtRequestSchema,
+	GetUserJwtResponseSchema,
 	ImageDataSchema,
 	MetadataSchema,
+	PromptCacheOptionsSchema,
 	StopReason,
 } from "@cyberxninja-omp/pi-catalog/discovery/devin-gen/exa/codeium_common_pb/codeium_common_pb";
 import { calculateCost } from "@cyberxninja-omp/pi-catalog/models";

@@ -282,6 +282,7 @@ export function estimateInlineSavings(input: {
 	}
 
 	const shape = snapcompact.resolveShape(model, options.shape);
+	const tokenizer = new Tokenizer(model);
 	let existingImages = 0;
 	for (const message of input.messages) {
 		if (!Array.isArray(message.content)) continue;
@@ -304,7 +305,7 @@ export function estimateInlineSavings(input: {
 						.filter(block => block.type === "text" && typeof block.text === "string")
 						.map(block => block.text as string)
 						.join("\n");
-			const textTokens = text.length > 0 ? countTokens(text) : 0;
+			const textTokens = text.length > 0 ? tokenizer.countTokens(text) : 0;
 			candidates.push({
 				id: message.toolCallId,
 				textTokens,
@@ -320,7 +321,7 @@ export function estimateInlineSavings(input: {
 		systemPromptTarget = selectSystemPromptImageTarget(input.systemPrompt, options.renderSystemPrompt);
 		if (systemPromptTarget) {
 			systemPromptCandidate = {
-				textTokens: countTokens(systemPromptTarget.text),
+				textTokens: tokenizer.countTokens(systemPromptTarget.text),
 				frames: snapcompact.frames(systemPromptTarget.text, { shape }),
 			};
 		}
@@ -420,6 +421,7 @@ export class SnapcompactInlineTransformer {
 		if (!model.input.includes("image")) return context;
 
 		const shape = snapcompact.resolveShape(model, this.options.shape);
+		const tokenizer = new Tokenizer(model);
 		const budget = snapcompact.providerImageBudget(model.provider) - countContextImages(context);
 		if (budget <= 0) return context;
 
@@ -444,7 +446,7 @@ export class SnapcompactInlineTransformer {
 							.filter(isTextContent)
 							.map(block => block.text)
 							.join("\n");
-				const textTokens = text.length > 0 ? countTokens(text) : 0;
+				const textTokens = text.length > 0 ? tokenizer.countTokens(text) : 0;
 				candidates.push({
 					id: message.toolCallId,
 					textTokens,
@@ -461,7 +463,7 @@ export class SnapcompactInlineTransformer {
 			systemPromptTarget = selectSystemPromptImageTarget(context.systemPrompt, this.options.renderSystemPrompt);
 			if (systemPromptTarget) {
 				systemPromptCandidate = {
-					textTokens: countTokens(systemPromptTarget.text),
+					textTokens: tokenizer.countTokens(systemPromptTarget.text),
 					frames: snapcompact.frames(systemPromptTarget.text, { shape }),
 				};
 			}

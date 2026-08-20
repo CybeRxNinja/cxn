@@ -8,6 +8,7 @@
 let
   cfg = config.programs.omp;
   yaml = pkgs.formats.yaml { };
+  configFile = yaml.generate "omp-config.yml" cfg.settings;
 in
 {
   options.programs.omp = {
