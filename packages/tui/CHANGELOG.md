@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Rebrand: updated stale `cxn` product-name references in OSC 99 notifications (app-name base64 `Y3hu` → `b21w` and capability-probe id) and the capability-probe fallback id left over from the omp rename.
+
 ## [17.3.5] - 2026-08-16
 
 ### Fixed

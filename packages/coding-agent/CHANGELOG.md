@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Rebrand: updated stale `cxn` product-name references left over from the omp rename that broke the release test jobs — `hindsight-bank.test.ts` base bank id prefix (`cxn-` → `omp-`), `internal-url-autocomplete.test.ts` completion-scheme list ordering, and renamed `cxn-protocol.ts` → `omp-protocol.ts`. Also fixed `scripts/install-tests/run-ci.sh` tarball name patterns (`cxn-*` → `cyberxninja-omp-*`).
+
 ## [17.4.2] - 2026-08-19
 
 ### Changed
